@@ -1,0 +1,86 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title Checkout
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+		link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css")
+		script(type="text/javascript" src="https://js.stripe.com/v2/")
+		
+		script.
+			Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
+			//- Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
+			
+	body: #register
+		.head: .logo
+			a(href='/')
+				img(src="images/iq_logo.jpg")
+				| Opportunity
+				span.gtext IQ
+		.top
+			h1 Thanks for choosing OpportunityIQ
+			div We hope you are absolutely delighted with the analysis and its impact on your opportunity. If you feel this product has not been helpful, please contact us and we will refund your purchase.
+		form(method="post", action="register")
+			.regsection.col-xs-12
+				.col-sm-6.left
+					.text
+						.head Please Enter Your Billing Information
+						.body Your information is always secure and never sold. All transactions are processed in accordance with the API’s highest standards of data integrity and security.
+				.col-sm-6.right
+					i.fa.fa-lock
+					| &nbsp;&nbsp;Secure
+					.payment-form
+						span.payment-errors
+
+						.form-row
+							label: span Card Number
+							img(src='images/cards.png', id='cards')
+							br
+							input(type="text" size="20" data-stripe="number").form-control
+
+						.form-row.expiration
+							.labels
+								label: span Expiration
+								label.cvc: span CVC
+							.form-inline
+								select(data-stripe="exp-month").form-control.date
+								select(data-stripe="exp-year").form-control.year
+								input(type="text" size="5" data-stripe="cvc").form-control.cvcinput
+						.form-row
+							label: span Billing ZIP
+							br
+							input(data-stripe='zip', placeholder='or postal code if not in the USA').form-control
+							input(type='hidden', name='analysis', value=analysis)
+						.form-row
+							label: span Coupon
+							br
+							input(name='coupon', placeholder='Enter Coupon Code').form-control
+							.loader.none: img(src="/images/ajax-loader.gif")
+					.terms
+						input(type='checkbox')
+						| &nbsp;&nbsp;&nbsp;I have read&nbsp;
+						span: a(href='tos') Terms of Service
+						//- |&nbsp; and &nbsp;
+						//- span: a(href='/privacy') Privacy Policy
+					button.createaccount.start-venture(type="submit") Start your OpportunityIQ
+						
+				
+					
+style #none{display:none;color:red;margin-bottom:5px;}#payment-form{display: inline;}
+script(src="js/lib/jquery/jquery-2.1.0.min.js")
+script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js")
+script(src='js/register.js')
+style.
+	.start-venture{color:white;}
+	#cards{float:right;}
+	.form-row {margin-top: 10px;margin-bottom:10px;}
+	#register div.loader {position: absolute;right: 11px;top: 32px;}
+block js
+	//- Only focus the field after the shake animation is complete
+	if messages && messages.error.length
+		script setTimeout(function() { try { document.getElementById('email').focus(); } catch(e) {}; }, 800);
+	else
+		script try { document.getElementById('email').focus(); } catch(e) {};

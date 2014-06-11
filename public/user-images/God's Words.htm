@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)http://localhost:8080/? -->
+<html data-ember-extension="1"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>God's Words</title>
+    <link rel="shortcut icon" href="http://localhost:8080/favicon.ico" type="image/x-icon">
+    <link href="http://localhost:8080/styles/site.min.css" rel="stylesheet">
+    <link href="http://localhost:8080/styles/font-awesome.min.css" rel="stylesheet">
+  </head>
+  <body data-ember-extension="1">
+    <div id="header">
+      <div class="container">
+        <div role="navigation" class="navbar navbar-default">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="http://localhost:8080/" class="navbar-brand">God's Words</a>
+            </div>
+            <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-left">
+                <li class="active"><a href="http://localhost:8080/">Home</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://localhost:8080/keystone/signin">Sign In</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="body">
+      <div class="container">
+        <div class="jumbotron">
+          <div class="insert-forms">
+            <form class="form-inline">
+              <input placeholder="Add to Globals..." class="form-control">
+              <input type="submit">
+            </form>
+            <form class="form-inline">
+              <input placeholder="Add to Main Categories..." class="form-control newcategory">
+              <input type="submit" class="createCat">
+            </form>
+            <form class="form-inline">
+              <input placeholder="Add to Categories..." class="form-control">
+              <input type="submit">
+            </form>
+          </div><br>
+          <nav class="navbar navbar-default">
+            <ul class="nav navbar-nav">
+              <li><a>Globals</a></li>
+              <li><a>Categories</a></li>
+              <li><a>Tags</a></li>
+            </ul>
+          </nav>
+          <div class="categories">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <ul class="list-group stats">
+                  <li class="list-group-item">Total :<span class="badge"></span></li>
+                  <li class="list-group-item">Main :<span class="badge"></span></li>
+                </ul>
+                <ul class="list-group stats">
+                  <li class="list-group-item">Total :<span class="badge"></span></li>
+                  <li class="list-group-item">Main :  <span class="badge"></span></li>
+                </ul>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr><th>Title</th>
+                    <th>Level</th>
+                    <th><span class="right">Modify</span></th>
+                  </tr></thead>
+                  <tbody><tr class="each-categories">
+                    <td class="title">INTEGRITY</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">SELF CONTROL</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">SELF CONFICENCE</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">BEHAVIOR</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">RELATIONSHIPS</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">SPIRITUALITY &amp; BELIEF</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">HEALTH &amp; WELLNESS</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">SECURITY &amp; SAFETY</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">FINANCE &amp; MONEY</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Dishonesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Selfishness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Honor</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Behavior</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Charactor</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Courage</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Dishonesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trustworthiness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Honesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Revenge</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bitterness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Listening</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Boundaries</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speech</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Work Ethic</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Selfishness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Truth</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lies &amp; Lying</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Seed</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Teachablility</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Obedience</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bad Seed</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Listening</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Work Ethic</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Courage</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Kindness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Respect</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Dishonesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Values</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Valuing Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Thoughts &amp; Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Belief Systems</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Helping</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Giving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Encouraging</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Discouraging</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bad Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Seed</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lies &amp; Lying</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Truth</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiveness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgive</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Grudge Holding</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Caring</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing the right thing</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Values</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Dishonesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Caring for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Meeting Needs</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Concern for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well of Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Gossip</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Hurting Back</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Hurting Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Keeping Records of Wrong</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Being Loving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lust &amp; Leering</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Giving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Helping</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Eye Control</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Encouraging</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Heart Control</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positivity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negativity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Meditations</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Encouraging</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Incorporating Wisdom</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning &amp; Knowledge</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Choices</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Choice</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positive Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negative Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positive Speech</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negative Speeck</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bad Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Seed</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Honesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Dishonesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Selfishness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Honor</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Charactor</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Behavior</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Courage</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trustworthiness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Truth</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lies &amp; Lying</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Seed</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bad Seed</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Obedience</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Teachablility</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Listening</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Work Ethic</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Respect</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Kindness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Values</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Belief Systems</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Thoughts &amp; Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Valuing Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Helping</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Giving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Encouraging</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bad Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Consequences</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Discouraging</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiveness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgive</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Grudge Holding</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Revenge</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bitterness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speech</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Boundaries</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing the right thing</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well of Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Meeting Needs</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Concern for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Caring for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Caring</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Gossip</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Keeping Records of Wrong</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Hurting Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Hurting Back</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Being Loving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negativity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positivity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Heart Control</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Eye Control</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lust &amp; Leering</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Meditations</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Incorporating Wisdom</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning &amp; Knowledge</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Choices</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Choice</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positive Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positive Behavior</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negative Speeck</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positive Speech</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negative Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negative Behavior</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Desire</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Limitation</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Desire</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Bad Desire</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Focus</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Belief</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Wisdom</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Consequence</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Peer Pressure</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Decision Making</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Decisions</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Decisiveness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiveness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgive</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Work Ethic</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Doing</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Trust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Caring for Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Dishonesty</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Values</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well of Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Gossip</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lust &amp; Leering</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Being Loving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Lust</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Heart Control</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positivity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negativity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgive</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiveness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Grudge Holding</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Keeping Records of Wrong</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Gossip</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Speaking Well</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Being Loving</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Hurting Back</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Not Hurting Others</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Choice</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Incorporating Wisdom</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Meditations</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Positive Thinking</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Learning &amp; Knowledge</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Choices</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Limitation</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Desire</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Desire</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Negativity</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgive</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Forgiveness</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Relationship With God</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Scripture Based Instruction</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Scripture Based Wisdom</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Point People to Christ</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Winning Souls to Christ</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Making Positive Choiced</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Good Consequences</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Guarding Your Thoughts</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Overcome Mental Issues</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Overcome Life Disease</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Overcome Life Problems</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Overcome Dysfunction</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">INITIATIVE &amp; MOTIVATION</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">VISION</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">GOALS</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">ACTION</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">EDUCATION</td>
+                    <td class="level">1</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">Morals</td>
+                    <td class="level">0</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                  <tr class="each-categories">
+                    <td class="title">awef</td>
+                    <td class="level">2</td>
+                    <td>
+                      <div class="edit right"><a title="Delete" class="delete"><i class="fa fa-trash-o"></i></a><a title="Edit" class="edit"><i class="fa fa-pencil"></i></a></div>
+                    </td>
+                  </tr>
+                </tbody></table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div id="footer"></div>
+    </div>
+    <script src="./God's Words_files/jquery-1.11.0.min.js"></script>
+    <script src="./God's Words_files/bootstrap-3.1.0.min.js"></script>
+    <script src="./God's Words_files/jquery.tokeninput.js"></script>
+    <script src="./God's Words_files/model.js"></script>
+    <script src="./God's Words_files/main.js"></script>
+    <script src="./God's Words_files/page.js"></script>
+  
+<script type="text/javascript" src="chrome-extension://bmdblncegkenkacieihfhpjfppoconhi/in-page-script.js"></script></body></html>

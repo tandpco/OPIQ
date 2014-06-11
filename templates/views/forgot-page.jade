@@ -1,0 +1,25 @@
+include ../mixins/flash-messages
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title Forgot Password
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+	body: #login
+		.head: .logo
+			a(href='/')
+				img(src="images/iq_logo.jpg")
+				| Opportunity
+				span.gtext IQ
+		.login-form
+			h1 Forgot Password
+			+flash-messages(messages)
+			form(action='forgot', method="post", novalidate)
+				.form-group
+					label(for='email') Email Address*
+					input(type='email', name='email', id='email').form-control
+				
+				button(type='submit') Submit

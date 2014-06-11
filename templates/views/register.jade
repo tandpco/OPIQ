@@ -1,0 +1,154 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title Register
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+		link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css")
+		script(type="text/javascript" src="https://js.stripe.com/v2/")
+		
+		script.
+			Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
+			//- Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
+			
+	body: #register
+		.head#nav
+			div(role="navigation")
+				.logo
+					a(href='/')
+						img(src="images/iq_logo.jpg")
+						| Opportunity
+						span.gtext IQ
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navcollapse")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+				.col-sm-9.col-lg-10#nav2
+					.collapse.navbar-collapse#navcollapse
+						.navbar.navbar-inverse
+							if user		
+								ul.nav.navbar-nav.navbar-right
+									li.dropdown
+										a.dropdown-toggle(href="#", data-toggle="dropdown")
+											//- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
+											=user.name.first
+											.arrow-down
+											ul.dropdown-menu
+												li
+													if user && user.canAccessKeystone
+														a(href='/keystone') 
+															i.fa.fa-user
+															| &nbsp; Admin
+												li: a(href='/'): i.fa.fa-road &nbsp;Create New	
+												li.divider
+												li
+													a(href="signout").signoutSign
+														i.fa.fa-sign-out
+														| Sign Out
+							else
+								ul.nav.navbar-nav.navbar-right.notsigned
+									li 
+										a(href="register") &nbsp; Sign Up
+									li 
+										a(href='login') Sign In
+		.top
+			h1 Thanks for choosing OpportunityIQ
+			h3(style="color:#999;") 
+				| Single Opportunity: $
+				span.price 179
+			div 
+		form(method="post")
+			.regsection.col-xs-12
+				.col-sm-6.left
+					.number 1
+					.text
+						.head Create Your OpportunityIQ Account
+						.body 
+				.col-sm-6.right
+					.form-group.email
+						label(for='email') Email Address*
+						input(name='email', id='email', value='', autocomplete="off").form-control
+						.check &#x2713;
+					.form-group.password
+						label(for='password') Password*
+						.form-inline.custom
+							input(type='password', name='password', id='password',autocomplete="off", placeholder='Password').form-control
+							input(type='password', id='confirm' , autocomplete="off", placeholder='Confirm Password').form-control
+							.check &#x2713;
+					.form-group.name
+						label(for='name') Your name*
+						.form-inline.custom
+							input(type='text', name='firstname', id='firstname', value='', placeholder='First Name').form-control
+							input(type='text', name='lastname', id='lastname', value='', placeholder='Last Name').form-control
+							.check &#x2713;
+					.form-group.company
+						label(for='company') Company*
+						input(type='text', name='company', id='company').form-control
+						.check &#x2713;
+			.regsection.col-xs-12
+				.col-sm-6.left
+					.number 2
+					.text
+						.head Enter Billing Info
+						.body 
+				.col-sm-6.right
+					i.fa.fa-lock
+					| &nbsp;&nbsp;Secure
+					.payment-form
+						span.payment-errors
+						.form-group.credit_price
+							| $
+							span.price 179 
+							| - Single License
+						.form-row
+							label: span Card Number
+							img(src='images/cards.png')
+							br
+							input(type="text" size="20" data-stripe="number").form-control
+
+						.form-row.expiration
+							.labels
+								label: span Expiration
+								label.cvc: span CVC
+							.form-inline
+								select(data-stripe="exp-month").form-control.date
+								select(data-stripe="exp-year").form-control.year
+								input(type="text" size="5" data-stripe="cvc").form-control.cvcinput
+						.form-row
+							label: span Billing ZIP
+							br
+							input(data-stripe='zip', placeholder='or postal code if not in the USA').form-control
+						.form-row
+							label: span Coupon
+							br
+							input(name='coupon', placeholder='Enter Coupon Code').form-control
+							.loader.none: img(src="/images/ajax-loader.gif")
+					.terms
+						input(type='checkbox')
+						| &nbsp;&nbsp;&nbsp;I have read&nbsp;
+						span: a(href='tos') Terms of Service
+						//- |&nbsp; and &nbsp;
+						//- span: a(href='/privacy') Privacy Policy
+					button.createaccount(type="submit") 
+						| $
+						span.price 179
+						|  - Create My Account
+						
+				
+					
+style #none{display:none;color:red;margin-bottom:5px;}#payment-form{display: inline;}
+script(src='/js/lib/jquery/jquery-1.10.2.js')
+script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js")
+script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
+script(src='js/register.js')
+
+block js
+	//- Only focus the field after the shake animation is complete
+	if messages && messages.error.length
+		script setTimeout(function() { try { document.getElementById('email').focus(); } catch(e) {}; }, 800);
+	else
+		script try { document.getElementById('email').focus(); } catch(e) {};

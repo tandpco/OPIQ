@@ -1,0 +1,69 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title Report
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+	body: #report
+		.head: .logo
+			a(href='/')
+				img(src="images/iq_logo.jpg")
+				| Opportunity
+				span.gtext IQ
+			
+		.body#report
+			.header
+				h1 Congratulations! Your Analysis Is Complete.
+				small Below is the summary of your results.
+			.innerbody
+				.stripe
+					.text Summary - Overall Opportunity Score
+					.box-score 91%
+				.charts#overall-table
+					-var total = [];
+					each cat in categories
+						each c in cat
+							if typeof c.answer !== 'undefined' 
+								- total.push(c.answer)
+							
+					table.table
+						thead
+							tr
+								th: div Analysis Score
+								th: div
+									span Needs Improvement
+									span.right Excellent
+								th: div: span Percent
+					table.table
+						tr.overall-wrap
+							td: div
+								span.circle
+								span.t OVERALL OPPORTUNITY
+							td: div: .bar(percent=total): .bar-complete 50
+							td: div: .percent: .num: span 100%
+				each category in categories.cats
+					.charts(id=category.split(' ').join('').replace(/\//, '-'))
+						table.table
+							tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
+								td.category: div
+									span.circle
+									span.t=category.toUpperCase()
+								td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
+								td: div: .percent: .num: span 50%
+							each page in categories[category]
+								tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
+									td.page: div
+										.connected
+										span.circle
+										span.t=page.name.toUpperCase()
+									td: div: .bar(percent=page.answer): .bar-complete 50
+									td: div: .percent: .num: span 50%
+			a.pdf(href='pdf') pdf				
+
+
+script(src='/js/lib/jquery/jquery-1.10.2.js')
+script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
+script(src='/js/report.js')

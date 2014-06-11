@@ -1,0 +1,260 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title Print Report
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+		style.
+			.head .text{
+				font-size:30px;
+				color:white;
+				padding:10px 34px;
+			}
+			.head > div {
+				width: 49%;
+				display: inline-block;
+			}
+			.head .logo{
+				text-align:right;
+			}
+			.content-holder{
+				padding: 20px;
+				page-break-after:always;
+			}
+			div.analysis {
+				font-size: 20px;
+				color: #818080;
+				padding:10px 34px;
+			}
+			.print .inner-content .body .t {
+				height: 100% !important;
+			}
+			.content-content{page-break-after:always;}
+			@media print{
+				* { color: black; }
+				.print{width: 100%;margin: 0;float: none;}
+				*, a { color: black; }
+				.print>.head{background-color:#383d40 !important;}
+				.t{height:100% !important;}
+				a[href]:after { content: " "; }
+				.gradient-overlay{display: none;}
+				.print > .head > .text {color:white !important;}
+				.print > .head > .logo > a {color:white !important;}
+				.print > .head > .logo > a > span { color :#a8ba57 !important;}
+				.section .header > div {background-color:#e8e8e8 !important; }
+				#sidebar .question{background-color:#e8e8e8 !important;}
+				#sidebar .green span{background-color:#a8ba57 !important;color:white !important;}
+				#sidebar .green span i{color:white !important;}
+				#sidebar .bar-complete { background-color:#a8ba57 !important;}
+				.content-content{page-break-after:always;}
+				#sidebar .answer span{background-color:white !important;border-radius:5px !important;}
+				#sidebar .answer i{color :#a8ba57 !important; }
+				.num{background-color:#545454 !important;}
+			}
+			
+
+
+	body: #login.print
+		.head
+			.text FINAL REPORT
+			.logo
+				a(href="/")
+					img(src="images/iq_logo.jpg")
+					| Opportunity
+					span.gtext IQ
+		.main-content
+			.analysis= analysis	
+			each answer in answers
+				-var page = _.findWhere(pages, {name : answer.page})
+				.content-holder.row-fluid
+					.col-sm-12.col-med-8.col-lg-9.content-conent
+						//- .content-header: .t: span.name=page.category.toUpperCase()+ ': ' + page.name
+						.content-header: .t: span.name=answer.category.toUpperCase()+ ': ' + answer.page
+						- var main_word_length = 30
+						.inner-content
+							.section#keyprinciple
+								.header
+									.icon
+										i.fa.fa-lightbulb-o
+									.text Key Principle
+								.body
+									.t!=page['Key Principle']
+							.section#definition
+								.header
+									.icon
+										span.glyphicon.glyphicon-book
+									.text Definition
+								.body
+									.t!=page.Definition
+							.section.image.hide
+								img
+							.section#whythismatters
+								.header
+									.icon
+										span.glyphicon.glyphicon-flag
+									.text Why This Matters
+								.body
+									.t
+										div!=page['Why This Matters']
+							.section#explanation
+								.header
+									.icon
+										i.fa.fa-info
+									.text Explanation
+								.body
+									.t
+										div!=page.Explanation
+							.section#examples
+								.header
+									.icon
+										i.fa.fa-gear
+									.text Examples
+								.body
+									.t
+										div!=page.Examples
+									//- .rightwrong
+									//- 	.wrong.readallrightwrong(type='wrong')
+									//- 		.title
+									//- 			span.icon
+									//- 				i.fa.fa-thumbs-o-down
+									//- 			span.text WRONG!
+									//- 		.body
+									//- 			.t!=page.wrong
+									//- 			span SEE ALL
+									//- 	.right.readallrightwrong(type='right')
+									//- 		.title
+									//- 			span.text RIGHT!
+									//- 			span.icon
+									//- 				i.fa.fa-thumbs-o-up
+									//- 		.body
+									//- 			.t!=page.right
+									//- 			span SEE ALL
+							//- .section#caution
+							//- 	.header
+							//- 		.icon
+							//- 			i.fa.fa-warning
+							//- 		.text Caution
+							//- 			span.readall READ ALL
+							//- 	.body
+							//- 		.t
+							//- 			div!=page.Caution
+							//- 		.gradient-overlay
+							//- .section#needhelp
+							//- 	.header
+							//- 		.icon
+							//- 			i.fa.fa-question-circle
+							//- 		.text Need Help With This?
+							//- 	.body
+							//- 		.qaform
+							//- 			.textbox
+							//- 				textarea
+							//- 			.submit
+							//- 				input(type="button", value="SUBMIT")
+					.col-sm-12.col-med-4.col-lg-3#sidebar
+						.question
+							| ANSWER
+							-var ans = _.findWhere(answers, {'page' : page.name})
+							-var ans = ans ? Number(ans.answer) : null
+							.answer.answer1(set= ans === 1 ? 'true' : 'false')
+								span
+									i.fa.fa-check.none(answer='1')
+								.body: .t=page.answer1
+							.answer.answer2(set= ans === 2 ? 'true' : 'false')
+								span
+									i.fa.fa-check.none(answer='2')
+								.body: .t=page.answer2
+							.answer.answer3(set= ans === 3 ? 'true' : 'false')
+								span
+									i.fa.fa-check.none(answer='3')
+								.body: .t=page.answer3
+							.answer.answer4(set= ans === 4 ? 'true' : 'false')
+								span
+									i.fa.fa-check.none(answer='4')
+								.body: .t=page.answer4
+							.answer.answer5(set= ans === 5 ? 'true' : 'false')
+								span
+									i.fa.fa-check.none(answer='5')
+								.body: .t=page.answer5
+
+						//- .save
+						//- 	| SAVE ANSWER
+						//-.internal-notes.sb-head.grey.notes
+							.header
+								span
+									| &nbsp;
+								span
+									|Internal Notes (not shared)
+							.body: textarea
+						//-.show-your-work.sb-head.grey.notes
+							.header
+								span
+									| &nbsp;
+								span
+									|Show Your Work (shared)
+							.body: textarea
+						.how-you-answered.sb-head.sidebar-how-you-answered
+							.header.green
+								span
+									i.fa.fa-tasks
+								span
+									|How You Answered
+							.body
+								
+								.top
+									span Needs Improvement
+									span Excellent
+									span.float-right Percentile
+									
+								.body
+									-var total = [];
+									-var obj = {};
+									each cat in categories
+										each c in cat
+											if typeof c.answer !== 'undefined' 
+												- total.push(c.answer)
+												- obj[ c.name ] = c.answer
+									.overall
+										.bars OPPORTUNITY SCORE
+											//- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
+											.bar(percent=main_total): .bar-complete(style="width:" + main_total + "%;")
+										.percentages: .num: span= (Math.round(main_total * 100) / 100) + '%'
+
+									.category-score
+										-var percent = _.pluck(categories[page.category], 'answer')
+										.bars
+											.t=page.category.toUpperCase() +  ' ANALYSIS SCORE'
+											//- .bar(percent=percent, base=JSON.stringify(_.object(_.pluck(categories[page.category], 'name'), percent))): .bar-complete
+											.bar(percent=cat_totals[page.category]): .bar-complete(style="width:" + cat_totals[page.category] + "%;")
+										.percentages: .num: span= (Math.round(cat_totals[page.category] * 100) / 100) + '%'
+
+									.page-score
+										.bars
+											.t=page.name.toUpperCase() +  ' SCORE'
+											.bar(percent=page.answer): .bar-complete(style="width:" + (answer.answer * 20) + "%;")
+										.percentages: .num: span= (answer.answer * 20) +'%'
+									
+									
+								//- OPEN THIS LATER 
+
+								//-.bottom
+									.top
+										span Benchmark - How Other Opportunities Scored
+									.body
+										.page-other
+											.bars
+												.t ADDRESSABLE MARKET SCORE
+												.bar: .bar-complete
+											.percentages: .num: span 50%
+								
+						//- .what-this-means.sb-head.none
+						//- 	.header.green
+						//- 		span
+						//- 			i.fa.fa-tasks
+						//- 		span
+						//- 			|What This Means
+						//- 	.body
+						//- 		|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+								

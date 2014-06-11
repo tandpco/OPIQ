@@ -1,0 +1,82 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title OpportunityIQ
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+	body: #report.analysis
+		.head#nav
+			div(role="navigation")
+				.logo
+					a(href='/')
+						img(src="images/iq_logo.jpg")
+						| Opportunity
+						span.gtext IQ
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navcollapse")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+				.col-sm-9.col-lg-10#nav2
+					.collapse.navbar-collapse#navcollapse
+						.navbar.navbar-inverse
+							if user		
+								ul.nav.navbar-nav.navbar-right
+									li.dropdown
+										a.dropdown-toggle(href="#", data-toggle="dropdown")
+											//- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
+											=user.name.first
+											.arrow-down
+											ul.dropdown-menu
+												li
+													if user && user.canAccessKeystone
+														a(href='/keystone') 
+															i.fa.fa-user
+															| &nbsp; Admin
+												li: a(href='/'): i.fa.fa-road &nbsp;Create New	
+												li.divider
+												li
+													a(href="signout").signoutSign
+														i.fa.fa-sign-out
+														| Sign Out
+							else
+								ul.nav.navbar-nav.navbar-right.notsigned
+									li 
+										a(href="register") &nbsp; Sign Up
+									li 
+										a(href='login') Sign In
+		.col-md-12
+			#analysis
+				.header
+					h1 What is Your Opportunity's IQ?
+					.t To start your analysis, please enter a title for your opportunity in the field below.
+				.body
+					form.create(action='questions', method='post')
+						input(name='newa', type='hidden', value='true')
+						input.form-control(name='analysis',type='text', placeholder='Opportunity Name...')
+						input.large-main-button(type='submit', value='START ANALYSIS')
+				.footer
+					div CURRENT OPPORTUNITIES
+					each a in analysis
+						form.analysis(action='questions', method='post')
+							.icon: i.fa.fa-file-text-o
+							.t= a.title
+							input(type='hidden', value=a.title, name='title')
+							input(type='hidden', value=a._id, name='_id')
+							input(type='submit')
+script(src='/js/lib/jquery/jquery-1.10.2.js')
+script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
+script.
+	$('.footer .icon, .footer .t').on('click', function(){
+		$(this).parents('form').submit();
+	})
+	$('.create').on('submit', function(){
+		if($.trim($(this).find('.form-control').val()) === ''){
+			alert("Please type in an Analysis")
+			return false;
+		}
+
+	})
