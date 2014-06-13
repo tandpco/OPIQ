@@ -28,8 +28,8 @@ exports = module.exports = function(req, res) {
 		var coupon;
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here https://manage.stripe.com/account
-		stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
-		// stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
+		// stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
+		stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
 
 		var amount = 17900;
 
@@ -58,28 +58,30 @@ exports = module.exports = function(req, res) {
 
 
 		function start(){
-			console.log('starting')
-			// (Assuming you're using express - expressjs.com)
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
 
-
-			var charge = stripe.charges.create({
-			  amount: amount, // amount in cents, again
-			  currency: "usd",
-			  card: stripeToken,
-			  description: "payinguser@example.com"
-			}, function(err, charge) {
+			if(!req.body.freepass)
+				var charge = stripe.charges.create({
+				  amount: amount, // amount in cents, again
+				  currency: "usd",
+				  card: stripeToken,
+				  description: "payinguser@example.com"
+				}, function(err, charge) {
 				
-				// console.log(err, charge);
-			  if (err && err.type === 'StripeCardError') {
-			    
-			  }else
-			  	if(!req.user){
+					// console.log(err, charge);
+				  if (err && err.type === 'StripeCardError') {
+				    
+				  }else
+				  	if(!req.user){
+				  		build_user(fields, view, req, locals, res);
+				  	}else getPages(view, locals, req, res);
+				  
+				});
+			else
+				if(!req.user)
 			  		build_user(fields, view, req, locals, res);
-			  	}else getPages(view, locals, req, res);
-			  
-			});
+			  	else getPages(view, locals, req, res);
 
 		}
 		
@@ -131,6 +133,7 @@ function build_user (fields, view, req, locals, res) {
 						ans.save();
 
 					}
+					keystone.set(ip + 'routeToQuestions', true);
 					keystone.set(ip + 'backlog', null);
 				Page.model.find()
 				.sort('order')

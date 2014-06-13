@@ -24,5 +24,11 @@ html
 			p Thanks for choosing OpportunityIQ. We’re thrilled to partner with you in <br> discovering the success your venture can achieve.
 
 			p A receipt of your purchase has been sent to your email.
-			a.main-button( href="/") Begin My Opportunity Analysis
+			if analysis
+				form.analysis(action='questions', method='post')
+					input(type='hidden', value=analysis.title, name='title')
+					input(type='hidden', value=analysis._id, name='_id')
+					input.main-button(type='submit', value="Begin My Opportunity Analysis")
+			else
+				a.main-button( href="/") Begin My Opportunity Analysis
 

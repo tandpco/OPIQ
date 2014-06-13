@@ -1,6 +1,7 @@
 var year = new Date().getFullYear();
 var years = [];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var fp;
 for(var i = 0; i < 20; i++)
 	years.push(year++);
 $.each(years, function(i, v){
@@ -31,7 +32,18 @@ $('[name=coupon]').on('keyup', function () {
 			url : '/coupon',
 			data : {coupon : self.val()}, 
 			success : function (d) {
+				console.log(d);
 
+				if(d == 0){
+					$('.payment-form').append($('<input>', {type : 'hidden', name : 'freepass'}))
+						.find('input').each(function () {
+							$(this).prop('disabled', true);
+						})
+						.end().find('select').each(function () {
+							$(this).prop('disabled', true);
+						})
+					fp = true;
+				}
 				if(d !== 'error')
 					$('.price').text(d);
 				
@@ -91,23 +103,24 @@ $('form').on('submit', function (e) {
 	}
 	$('.createaccount').prop('disabled', true);
 
-	Stripe.card.createToken($(this), function(status, response) {
-		  var $form = self;
-		if (response.error) {
-		    // Show the errors on the form
-		    $form.find('.payment-errors').text(response.error.message);
-		    $form.find('button').prop('disabled', false);
-		} else {
-		    // token contains id, last4, and card type
-		    var token = response.id;
-		    // Insert the token into the form so it gets submitted to the server
-		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-		    // and submit
-		    $form.get(0).submit();
-		}
-		
-	});
-
+	if(!fp)
+		Stripe.card.createToken($(this), function(status, response) {
+			  var $form = self;
+			if (response.error) {
+			    // Show the errors on the form
+			    $form.find('.payment-errors').text(response.error.message);
+			    $form.find('button').prop('disabled', false);
+			} else {
+			    // token contains id, last4, and card type
+			    var token = response.id;
+			    // Insert the token into the form so it gets submitted to the server
+			    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+			    // and submit
+			    $form.get(0).submit();
+			}
+			
+		});
+	else self.get(0).submit();
 	return false;
 })
 
