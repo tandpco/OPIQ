@@ -68,11 +68,9 @@ exports = module.exports = function(req, res) {
 			
 				if(req.path.match('register'))
 					view.render('register');				
-				else view.render('checkout');
-			}
-
-			if(!stripeToken){
-				console.log()
+				else if(!req.body.freepass) {
+					view.render('checkout');
+				}
 			}
 
 			if(!req.body.freepass)
