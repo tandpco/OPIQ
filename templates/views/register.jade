@@ -11,8 +11,8 @@ html
 		script(type="text/javascript" src="https://js.stripe.com/v2/")
 		
 		script.
-			Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
-			//- Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
+			//- Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
+			Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
 			
 	body: #register
 		.head#nav
@@ -69,6 +69,9 @@ html
 						.head Create Your OpportunityIQ Account
 						.body 
 				.col-sm-6.right
+					.errors
+						if error
+							=error
 					.form-group.email
 						label(for='email') Email Address*
 						input(name='email', id='email', value='', autocomplete="off").form-control

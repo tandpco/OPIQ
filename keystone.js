@@ -45,6 +45,7 @@ keystone.set('locals', {
 	utils: keystone.utils,
 	editable: keystone.content.editable
 });
+require('dotenv')().load();
 
 // Load your project's Routes
 

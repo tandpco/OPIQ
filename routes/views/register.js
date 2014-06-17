@@ -5,7 +5,8 @@ var keystone = require('keystone'),
 	Analysis = keystone.list('Analysis'),
 	Page = keystone.list('Page'),
 	session = require('keystone/lib/session'),
-	_ = require('underscore');
+	_ = require('underscore'),
+	request = require('request');
 
 
 exports = module.exports = function(req, res) {
@@ -28,8 +29,8 @@ exports = module.exports = function(req, res) {
 		var coupon;
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here https://manage.stripe.com/account
-		stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
-		// stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
+		// stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
+		stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
 
 		var amount = 17900;
 
@@ -60,6 +61,19 @@ exports = module.exports = function(req, res) {
 		function start(){
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
+
+
+			if(!stripeToken){
+				res.locals.error = 'No card info was put in';
+			
+				if(req.path.match('register'))
+					view.render('register');				
+				else view.render('checkout');
+			}
+
+			if(!stripeToken){
+				console.log()
+			}
 
 			if(!req.body.freepass)
 				var charge = stripe.charges.create({

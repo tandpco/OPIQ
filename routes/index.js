@@ -33,6 +33,11 @@ var _ = require('underscore'),
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
+// keystone.set('cloudinary config', { 
+// 	cloud_name: 'duemkn2nj', 
+// 	api_key: '568768714353137', 
+// 	api_secret: 'uLeUIKycXGk4_kMaw9WalaDpM1Y' 
+// });
 
 
 // Import Route Controllers

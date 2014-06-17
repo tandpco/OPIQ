@@ -32,6 +32,9 @@ html
 				.col-sm-6.right
 					i.fa.fa-lock
 					| &nbsp;&nbsp;Secure
+					.errors
+						if error
+							=error
 					.payment-form
 						span.payment-errors
 

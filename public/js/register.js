@@ -2,6 +2,13 @@ var year = new Date().getFullYear();
 var years = [];
 var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 var fp;
+var email = $('#email'),
+	password = $('#password'),
+	confirm = $('#confirm'),
+	lastname = $('#lastname'),
+	firstname = $('#firstname'),
+	company = $('#company');
+
 for(var i = 0; i < 20; i++)
 	years.push(year++);
 $.each(years, function(i, v){
@@ -19,8 +26,11 @@ $('[name=coupon]').on('keyup', function () {
 	var self = $(this),
 		l = $('.loader');
 
-	if($(this).val() === '')
+	if($.trim($(this).val()) === ''){
 		l.hide();
+		clearTimeout(timer);
+		return;
+	}
 
 	clearTimeout(timer);
 	
@@ -54,31 +64,31 @@ $('[name=coupon]').on('keyup', function () {
 	}, 500)
 })
 
-$('#email').on('keyup change paste blur', function () {
+email.on('keyup change paste blur', function () {
 	if($(this).val().match(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/)){
 		$(this).next('.check').show();
 	}else $(this).next('.check').hide();
 })
 
-$('#confirm').on('keyup', function () {
+confirm.on('keyup change paste blur', function () {
 	if($(this).val() === $('#password').val() && $.trim($(this).val()) !== '')
 		$(this).next('.check').show();
 	else $(this).next('.check').hide();
 })
-$('#password').on('keyup', function () {
+password.on('keyup change paste blur', function () {
 	if($(this).val() === $('#confirm').val() && $.trim($(this).val()) !== '')
 		$(this).parents('.password').find('.check').show();
 	else $(this).parents('.password').find('.check').hide();
 })
 
-$('#lastname, #firstname').on('keyup', function () {
+lastname.add(firstname).on('keyup change paste blur', function () {
 	
 	if($('#firstname').val() !== '' && $('#lastname').val() !== '')
 		$(this).parent().find('.check').show();
 	else $(this).parent().find('.check').hide();
 
 });
-$('#company').on('keyup', function () {
+company.on('keyup change paste blur', function () {
 	if($(this).val() !== '')
 		$(this).next('.check').show();
 	else $(this).next('.check').hide();
@@ -87,7 +97,7 @@ $('#company').on('keyup', function () {
 $('form').on('submit', function (e) {
 	var self = $(this), ammount = 12600;
 
-	if($('.check:hidden').length > 0){
+	if(confirmInfo()){
 		$('.check').parents('.form-group').find('input').addClass('failed');
 		setTimeout(function  () {
 			$('.failed').removeClass('failed');
@@ -123,6 +133,43 @@ $('form').on('submit', function (e) {
 	else self.get(0).submit();
 	return false;
 })
+
+function confirmInfo () {
+	var password = $.trim($('#password').val()),
+		confirm = $.trim($('#confirm').val()),
+		email = $.trim($('#email').val()),
+		lastname = $.trim($('#lastname').val()),
+		firstname = $.trim($('#firstname').val()),
+		company = $.trim($('#company').val()),
+		error = [];
+
+	if(password !== confirm)
+		error.push("Passwords don't match");
+	if(!email.match(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/))
+		error.push("Not a valid email");
+	if(company === '')
+		error.push("Company wasn't entered");
+	if(lastname === '')
+		error.push("Please enter a last name");
+	if(firstname === '')
+		error.push("Please enter a first name");
+
+	if(error.length > 0){
+		printErrors(error);
+		return true;
+	}
+	return false;
+}
+function printErrors (arr) {
+	var err = $('.errors');
+	err.html('');
+	for(var i = 0; i < arr.length ; i++)
+		err.append(arr[i] + '<br>');
+
+	setTimeout(function () {
+		err.html('');
+	}, 3000);
+}
 
 $('a[href=tos]').on('click', function () {
 	$.ajax({
