@@ -10,7 +10,6 @@
     "password-reset-nodemailer": "0.0.1",
     "phantom": "*",
     "phantomjs": "~1.9.7-4",
-    "request": "^2.36.0",
     "stripe": "*",
     "underscore": "~1.5.2"
   },
