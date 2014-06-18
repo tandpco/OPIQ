@@ -19,5 +19,8 @@
   },
   "scripts": {
     "start": "keystone.js"
+  },
+  "devDependencies": {
+    "request": "^2.36.0"
   }
 }
