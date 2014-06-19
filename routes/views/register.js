@@ -35,14 +35,14 @@ exports = module.exports = function(req, res) {
 		var amount = 17900;
 
 		var COUPON_ID = req.body.coupon;
-		console.log('THIS IS COUPON ' + COUPON_ID);
+		// console.log('THIS IS COUPON ' + COUPON_ID);
 		
 		if(COUPON_ID){
-			console.log('retreiveing coupon')
+			// console.log('retreiveing coupon')
 			stripe.coupons.retrieve(COUPON_ID, function (e, c) {
-				console.log(e, c);
+				// console.log(e, c);
 				if(!e){
-					console.log(c)
+					// console.log(c)
 					if(c.percent_off){
 						var percent = amount * (c.percent_off / 100);
 						amount = amount - percent;
@@ -67,7 +67,7 @@ exports = module.exports = function(req, res) {
 		function start(){
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
-			console.log(amount);
+			// console.log(amount);
 
 			if(!stripeToken){
 				if(amount !== 0){
@@ -140,7 +140,7 @@ function build_user (fields, view, req, locals, res) {
 		User.model.findOne({email : fields.email}).exec(function(er, user){
 			var backlog = keystone.get(ip + 'backlog'), ans;
 
-			console.log('this is backlog', backlog);
+			console.log('this is the ip' , ip);
 			
 			if(backlog){
 

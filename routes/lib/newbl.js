@@ -7,13 +7,11 @@ exports = module.exports = function(req, res) {
 
 
 	bl = keystone.get(ip + 'backlog');
+	console.log('this is ip in backlog', ip);
 
 
-	console.log('backlog', bl);
-	console.log('req.body', req.body);
 
 	for(var i = 0; i < bl.length; i++){
-		console.log(bl[i]);
 		if(bl[i].page === req.body.page){
 			has = true;
 			bl[i] = req.body;
@@ -23,7 +21,6 @@ exports = module.exports = function(req, res) {
 		bl.push(req.body);
 
 
-	console.log('backlog after push', bl);
 	res.send('complete');
 
 }
