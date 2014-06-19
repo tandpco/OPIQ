@@ -13,6 +13,7 @@ exports = module.exports = function(req, res) {
 	console.log('req.body', req.body);
 
 	for(var i = 0; i < bl.length; i++){
+		console.log(bl[i]);
 		if(bl[i].page === req.body.page){
 			has = true;
 			bl[i] = req.body;
@@ -21,5 +22,7 @@ exports = module.exports = function(req, res) {
 	if(!has)
 		bl.push(req.body);
 
+
+	console.log('backlog after push', bl);
 
 }
