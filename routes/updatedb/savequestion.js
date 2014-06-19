@@ -3,7 +3,6 @@ var keystone = require('keystone');
 exports = module.exports = function(req, res) {
 	var Answer = keystone.list('Answer'),
 		post = req.body;
- 	console.log(post);
 	
 	Answer.model.findOne({page : post.page, user : req.user._id, analysis : post.analysis}).exec(function (err, answer) {
 		if(err)console.log(err);

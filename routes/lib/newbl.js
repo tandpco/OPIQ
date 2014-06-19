@@ -1,13 +1,12 @@
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
-	var has, ip = req.connection.remoteAddress, bl;
+	var has, ip = req.headers['x-forwarded-for'], bl;
 	if(!keystone.get(ip + 'backlog'))
 		keystone.set(ip + 'backlog', []);
 
 
 	bl = keystone.get(ip + 'backlog');
-	console.log('this is ip in backlog', req.headers['x-forwarded-for']);
 
 
 

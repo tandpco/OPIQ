@@ -8,7 +8,7 @@ exports = module.exports = function(req, res) {
 	    Page = keystone.list('Page'),
 	    Answer = keystone.list('Answer'),
 	    Analysis = keystone.list('Analysis'),
-	    ip = req.connection.remoteAddress;
+	    ip = req.headers['x-forwarded-for'];
 
 	    locals.categories = {};
 		locals.categories.cats = [];

@@ -14,7 +14,7 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
 		locals = res.locals,
 		fields = req.body || {},
-		ip = req.connection.remoteAddress;
+		ip = req.headers['x-forwarded-for'];
 
 
 	locals.categories = {};
@@ -133,7 +133,7 @@ function build_user (fields, view, req, locals, res) {
 	locals.cat_totals = {};
 	locals.main_total = 0;
 
-	var ip = req.connection.remoteAddress;
+	var ip = req.headers['x-forwarded-for'];
 	newUser.save(function(err){
 		if(err)console.log(err)
 
