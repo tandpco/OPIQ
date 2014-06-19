@@ -10,6 +10,7 @@ exports = module.exports = function(req, res) {
 
 
 	console.log('backlog', bl);
+	console.log('req.body', req.body);
 
 	for(var i = 0; i < bl.length; i++){
 		if(bl[i].page === req.body.page){
