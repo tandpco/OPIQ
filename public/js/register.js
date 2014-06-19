@@ -98,7 +98,7 @@ $('form').on('submit', function (e) {
 	var self = $(this), ammount = 12600;
 
 	if(confirmInfo()){
-		$('.check').parents('.form-group').find('input').addClass('failed');
+		$('.check').parents('.form-group').find('.check:hidden').parent().find('input').addClass('failed');
 		setTimeout(function  () {
 			$('.failed').removeClass('failed');
 		}, 3000);
