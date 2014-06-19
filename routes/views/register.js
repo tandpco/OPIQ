@@ -35,7 +35,7 @@ exports = module.exports = function(req, res) {
 		var amount = 17900;
 
 		var COUPON_ID = req.body.coupon;
-
+		console.log('THIS IS COUPON ' + COUPON_ID);
 		
 		if(COUPON_ID){
 			console.log('retreiveing coupon')
@@ -49,7 +49,13 @@ exports = module.exports = function(req, res) {
 					}else if(c.amount_off){
 						amount = amount - c.amount_off;
 					}
-					start();
+
+					if(amount === 0)
+						if(!req.user)
+					  		build_user(fields, view, req, locals, res);
+					  	else getPages(view, locals, req, res);
+					else
+						start();
 				}else start();
 				
 				
@@ -61,24 +67,25 @@ exports = module.exports = function(req, res) {
 		function start(){
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
-
+			console.log(amount);
 
 			if(!stripeToken){
-				res.locals.error = 'No card info was put in';
-			
-				if(req.path.match('register'))
-					view.render('register');				
-				else if(!req.body.freepass) {
-					view.render('checkout');
+				if(amount !== 0){
+					res.locals.error = 'No card info was put in';
+				
+					if(req.path.match('register'))
+						view.render('register');				
+					else if(!req.body.freepass) {
+						view.render('checkout');
+					}
 				}
 			}
-
 			if(!req.body.freepass){
 				if(req.path.match('register'))
 					stripe.customers.create({
 					  description: 'OPIQ Customer',
 					  card: stripeToken, // obtained with Stripe.js
-					  email : req.body.email
+					  email: req.body.email
 					}, function(err, customer) {
 					  	console.log(err);
 					});

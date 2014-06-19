@@ -40,18 +40,22 @@ $('[name=coupon]').on('keyup', function () {
 		$.ajax({
 			type : 'post',
 			url : '/coupon',
-			data : {coupon : self.val()}, 
+			data : {coupon : $.trim(self.val())}, 
 			success : function (d) {
-				console.log(d);
 
 				if(d == 0){
 					$('.payment-form').append($('<input>', {type : 'hidden', name : 'freepass'}))
 						.find('input').each(function () {
+							if($(this).hasClass('coupon')){
+								$(this).val( $.trim($(this).val()));
+								$('.payment-form').append($(this).clone().prop('type', 'hidden'))
+								.append($('<input>',{type : 'hidden', name : 'freepass'}));
+							}
 							$(this).prop('disabled', true);
 						})
 						.end().find('select').each(function () {
 							$(this).prop('disabled', true);
-						})
+						});
 					fp = true;
 				}
 				if(d !== 'error')
@@ -95,7 +99,7 @@ company.on('keyup change paste blur', function () {
 })
 
 $('form').on('submit', function (e) {
-	var self = $(this), ammount = 12600;
+	var self = $(this), ammount = 17900;
 
 	if(confirmInfo()){
 		$('.check').parents('.form-group').find('.check:hidden').parent().find('input').addClass('failed');
