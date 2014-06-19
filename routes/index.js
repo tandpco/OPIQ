@@ -100,10 +100,10 @@ exports = module.exports = function(app) {
 				keystone.set(ip + 'reset', {email : email , token : uri});
 
 				mail({
-				    from: "notifications@opportunityIQ.com", // sender address
+					from: "notifications@opportunityIQ.com", // sender address
 				    to: email, // list of receivers
-				    subject: "Change Password", // Subject line
-				    html: "Click <a href='http://localhost:3000/reset?" + uri + "'>here to change your password</a>"
+					subject: "Change Password", // Subject line
+					html: "Click <a href='http://localhost:3000/reset?" + uri + "'>here to change your password</a>"
 				});
 				req.flash('success', 'Check your inbox or spam box for a password reset message.');
 			    view.render('forgot-page');
@@ -112,10 +112,6 @@ exports = module.exports = function(app) {
 				view.render('forgot-page');
 			}
 		})
-
-
-		
-
 
 	 	// nodepassword reset module
 	 	// 
@@ -168,14 +164,10 @@ exports = module.exports = function(app) {
 	    	u.save();
 	    })
 
-	   
-
 	    req.flash('success', 'password reset');
 	    keystone.set(ip + 'reset', null);
 	    res.locals.relocate = 'true';
 	    view.render('reset');
-
-	    
 	});
 	app.all('/questions', routes.views.index);
 	app.all('/login', routes.views.login);

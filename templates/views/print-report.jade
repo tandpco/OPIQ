@@ -220,7 +220,7 @@ html
 										.bars OPPORTUNITY SCORE
 											//- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
 											.bar(percent=main_total): .bar-complete(style="width:" + main_total + "%;")
-										.percentages: .num: span= (Math.round(main_total * 100) / 100) + '%'
+										.percentages: .num: span= (Math.round(main_total * 10) / 10) + '%'
 
 									.category-score
 										-var percent = _.pluck(categories[page.category], 'answer')
@@ -228,7 +228,7 @@ html
 											.t=page.category.toUpperCase() +  ' ANALYSIS SCORE'
 											//- .bar(percent=percent, base=JSON.stringify(_.object(_.pluck(categories[page.category], 'name'), percent))): .bar-complete
 											.bar(percent=cat_totals[page.category]): .bar-complete(style="width:" + cat_totals[page.category] + "%;")
-										.percentages: .num: span= (Math.round(cat_totals[page.category] * 100) / 100) + '%'
+										.percentages: .num: span= (Math.round(cat_totals[page.category] * 10) / 10) + '%'
 
 									.page-score
 										.bars
