@@ -7,7 +7,7 @@ exports = module.exports = function(req, res) {
 
 
 	bl = keystone.get(ip + 'backlog');
-	console.log('this is ip in backlog', req.headers['x-real-ip']);
+	console.log('this is ip in backlog', req.headers['X-Forwarded-For']);
 
 
 
