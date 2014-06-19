@@ -24,5 +24,6 @@ exports = module.exports = function(req, res) {
 
 
 	console.log('backlog after push', bl);
+	res.send('complete');
 
 }
