@@ -73,12 +73,21 @@ exports = module.exports = function(req, res) {
 				}
 			}
 
-			if(!req.body.freepass)
+			if(!req.body.freepass){
+				if(req.path.match('register'))
+					stripe.customers.create({
+					  description: 'OPIQ Customer',
+					  card: stripeToken, // obtained with Stripe.js
+					  email : req.body.email
+					}, function(err, customer) {
+					  	console.log(err);
+					});
+
 				var charge = stripe.charges.create({
 				  amount: amount, // amount in cents, again
 				  currency: "usd",
 				  card: stripeToken,
-				  description: "payinguser@example.com"
+				  description: "OPIQ Charge"
 				}, function(err, charge) {
 				
 					// console.log(err, charge);
@@ -90,7 +99,7 @@ exports = module.exports = function(req, res) {
 				  	}else getPages(view, locals, req, res);
 				  
 				});
-			else
+			}else
 				if(!req.user)
 			  		build_user(fields, view, req, locals, res);
 			  	else getPages(view, locals, req, res);
