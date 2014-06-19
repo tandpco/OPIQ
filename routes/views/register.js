@@ -161,6 +161,7 @@ function build_user (fields, view, req, locals, res) {
 						ans.save();
 
 					}
+					console.log('setting route to questions');
 					keystone.set(ip + 'routeToQuestions', true);
 					keystone.set(ip + 'backlog', null);
 				Page.model.find()

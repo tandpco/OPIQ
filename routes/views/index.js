@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
  		locals.main_total = 0;
 
  	if(req.user){
- 		console.log(req.body);
+ 		// console.log(req.body);
  	
  		if(req.body.newa){
  			Analysis.model.find({user : req.user._id}).exec(function (e, an) {
