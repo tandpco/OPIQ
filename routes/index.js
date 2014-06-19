@@ -91,7 +91,7 @@ exports = module.exports = function(app) {
 		var mail = require("nodemailer").mail;
 
 
-
+  
 		User.model.find({email : email}).exec(function (i, e) {
 			if(e.length > 0){
 				shasum.update("foo");
