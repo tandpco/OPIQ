@@ -226,6 +226,7 @@ function setanswer (answer) {
 		if(notLogged >= 4){
 			show_login_splash();
 		}else{
+			console.log(obj);
 			$.post('backlog', obj);
 			show_check(answer, obj.whatthismeans);
 		}
