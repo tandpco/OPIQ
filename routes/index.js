@@ -76,7 +76,7 @@ exports = module.exports = function(app) {
 	app.get('/register-success', routes.views.register_success);
 	app.post('/coupon', routes.lib.coupon);
 	app.post('/logged', routes.updatedb.checklogged);
-	app.post('/backlog', routes.lib.newbl);
+	app.post('/bklog', routes.lib.newbl);
 	app.post('/savequestion', routes.updatedb.savequestion);
 	app.post('/charge', routes.lib.charge);
 	app.post('/message', get_message);

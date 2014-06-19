@@ -227,7 +227,7 @@ function setanswer (answer) {
 			show_login_splash();
 		}else{
 			console.log(obj);
-			$.post('backlog', obj);
+			$.post('bklog', obj);
 			show_check(answer, obj.whatthismeans);
 		}
 	}
