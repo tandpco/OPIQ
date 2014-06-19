@@ -140,7 +140,7 @@ function build_user (fields, view, req, locals, res) {
 		User.model.findOne({email : fields.email}).exec(function(er, user){
 			var backlog = keystone.get(ip + 'backlog'), ans;
 
-			console.log('this is the ip in register' , req.connection.socket.remoteAddress);
+			console.log('this is the ip in register' , req.socket.remoteAddress);
 			
 			if(backlog){
 
