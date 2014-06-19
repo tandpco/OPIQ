@@ -224,7 +224,8 @@ function build_user (fields, view, req, locals, res) {
 				res.redirect('register-success');
 			}
 			function onFail () {
-				console.log("Failed to sign in");
+				locals.error = "Failed to sign in. Please try again.";
+				view.render(req.path.substring(1));
 			}
 			
 

@@ -15,7 +15,6 @@ Analysis.add({
 	user : { type: String },
 	title : {type : String},
 	paid : {type : Boolean}
-
 });
 
 Analysis.register();

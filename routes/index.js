@@ -33,6 +33,11 @@ var _ = require('underscore'),
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
+// keystone.set('cloudinary config', { 
+// 	cloud_name: 'duemkn2nj', 
+// 	api_key: '568768714353137', 
+// 	api_secret: 'uLeUIKycXGk4_kMaw9WalaDpM1Y' 
+// });
 
 
 // Import Route Controllers
@@ -52,6 +57,7 @@ exports = module.exports = function(app) {
 	// Session
 	app.all('/:route', middleware.forceSSL);
 	app.all('/', middleware.forceSSL);
+
 
 
 
@@ -107,6 +113,31 @@ exports = module.exports = function(app) {
 			}
 		})
 
+
+		
+
+
+	 	// nodepassword reset module
+	 	// 
+	 	//
+	    // var reset = forgot(email, function (err, success) {
+	    // 	console.log(err, success);
+	    //     if (err) req.flash('error', 'Error sending message: ' + err)
+	    //     else {
+	    //     	req.flash('success', 'Check your inbox for a password reset message.');
+	    //     	view.render('forgot-page');
+	    //     }
+	    	
+	    // });
+	    // req.flash('success', 'Check your inbox for a password reset message.');
+	    // view.render('forgot-page');
+	    // reset.on('request', function (req_, res_) {
+	    // 	var view = new keystone.View(req_, res_);
+	    // 	var ip = req_.connection.remoteAddress;
+	    //     keystone.set(ip + 'reset', { email : email, id : reset.id });
+	        
+	    //     view.render('reset');
+	    // });
 	});
 	app.get('/reset', function  (req, res) {
 		var view = new keystone.View(req, res);

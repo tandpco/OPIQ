@@ -1,7 +1,7 @@
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
-	var has, ip = req.connection.remoteAddress;;
+	var has, ip = req.connection.remoteAddress;
 	if(!keystone.get(ip + 'backlog'))
 		keystone.set(ip + 'backlog', []);
 
