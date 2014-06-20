@@ -22,7 +22,7 @@ Answer.add({
 	analysistitle : {type : String},
 	whatthismeans :{type : String},
 	notes : {type : String},
-	work : {type : String}
+	test : {type : String}
 });
 
 Answer.register();
