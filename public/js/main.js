@@ -323,7 +323,7 @@ function updateAllScores(){
 		// var total = $(this).find('.bar').attr('percent').split(',');
 		// var num = Number(add(total));
 		// var number = Math.round(num / (total.length * 5) * 10000) /100;
-		var number = Math.round(Number($(this).find('.bar').attr('percent') * 100)) / 100;
+		var number = Math.round(Number($(this).find('.bar').attr('percent') * 10)) / 10;
 		
 		if($(this).hasClass('overall'))
 			TOTAL_SCORE = number;
@@ -335,7 +335,7 @@ function updateAllScores(){
 	$('.overall-wrap').set(TOTAL_SCORE)
 
 
-	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 10000) / 100);
+	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 }
 
 function getAnswers () {
