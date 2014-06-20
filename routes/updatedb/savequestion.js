@@ -9,6 +9,7 @@ exports = module.exports = function(req, res) {
 		if(answer){
 			answer.answer = post.answer;
 			answer.notes = post.notes;
+			answer.work = post.work;
 			answer.save();
 			return;
 		}
@@ -20,7 +21,8 @@ exports = module.exports = function(req, res) {
 			analysis : post.analysis,
 			analysistitle : post.analysistitle,
 			whatthismeans : post.whatthismeans,
-			notes : post.notes
+			notes : post.notes,
+			work : post.work
 		});
 		 
 		 
