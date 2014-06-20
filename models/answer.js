@@ -9,6 +9,8 @@ var _ = require('underscore'),
 
 var Answer = new keystone.List('Answer', {
 	// hidden : true
+	nocreate: true,
+	noedit: true
 });
 
 Answer.add({
@@ -19,8 +21,8 @@ Answer.add({
 	analysis : { type : String },
 	analysistitle : {type : String},
 	whatthismeans :{type : String},
-	notes : {type : String}
-
+	notes : {type : String},
+	work : {type : String}
 });
 
 Answer.register();
