@@ -9,8 +9,8 @@ var _ = require('underscore'),
 
 var Answer = new keystone.List('Answer', {
 	// hidden : true
-	nocreate: true,
-	noedit: true
+	// nocreate: true,
+	// noedit: true
 });
 
 Answer.add({
