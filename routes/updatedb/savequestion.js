@@ -22,7 +22,7 @@ exports = module.exports = function(req, res) {
 			analysistitle : post.analysistitle,
 			whatthismeans : post.whatthismeans,
 			notes : post.notes,
-			work : post.work
+			work : answer.work
 		});
 		 
 		 
