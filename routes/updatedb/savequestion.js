@@ -10,7 +10,7 @@ exports = module.exports = function(req, res) {
 		if(answer){
 			answer.answer = post.answer;
 			answer.notes = post.notes;
-			answer.test = post.test;
+			answer.work = post.work;
 			answer.save();
 			return;
 		}
@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
 			analysistitle : post.analysistitle,
 			whatthismeans : post.whatthismeans,
 			notes : post.notes,
-			test : post.test,
+			work : post.work,
 			// work : answer.work
 		});
 		 
