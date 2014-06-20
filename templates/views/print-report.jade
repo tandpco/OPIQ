@@ -181,14 +181,14 @@ html
 
 						//- .save
 						//- 	| SAVE ANSWER
-						.internal-notes.sb-head.grey.notes
+						.internal-notes.sb-head.grey.notes(style="margin-top: 10px;")
 							.header
 								span
-									| &nbsp;
+									i.fa.fa-tasks
 								span
 									|Scratchpad
 							//- .body: textarea=(answer && answer.notes || '')
-							.body: textarea=(answer.notes)
+							.body: textarea(disabled)=(answer.notes)
 						//-.show-your-work.sb-head.grey.notes
 							.header
 								span
