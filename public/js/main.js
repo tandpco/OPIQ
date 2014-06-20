@@ -1,3 +1,10 @@
+var mark = $('#nav-items i.fa-stack');
+$(mark).hover(function(e) {
+	var tooltip = $(this).find('#toolTip');
+	$(tooltip).fadeToggle();
+	e.stopPropagation();
+	return false;
+});
 // HELPER FUNCS
 if(Answers)
 $.each(Answers, function  (i, v) {
@@ -457,4 +464,3 @@ function makeSureSectionsAreGreenChecked () {
 
 	if(!p.length)m.addClass('complete');
 }
-

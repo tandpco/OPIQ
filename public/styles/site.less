@@ -1432,7 +1432,34 @@ div#tos {
 	}
 }
 
-
-
 .answer[set='true'] i{display: block;}
 
+i.fa.fa-question {
+	cursor: help;
+}
+#toolTip {
+	background: rgba(0,0,0,0.8);
+	border-radius: 5px;
+	top: -15px;
+	display: none;
+	color: #FFF;
+	font-size: 14px;
+	left: 50px;
+	line-height: 20px;
+	padding: 10px;
+	position: absolute;
+	width: 300px;
+	z-index: 999;
+}
+
+#toolTip:after {
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent rgba(0,0,0,0.8) transparent transparent;
+	content: "";
+	height: 0;
+	left: -20px;
+	position: absolute;
+	top: 15px;
+	width: 0;
+}

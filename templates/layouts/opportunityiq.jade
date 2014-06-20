@@ -103,6 +103,12 @@ html
 								a
 									span
 									=cat.toUpperCase()
+									i.fa-stack.fa-sm(style="position: absolute; right: 0; top: 0;", title="I heard this was cool.")
+										i.fa.fa-circle-o.fa-stack-2x
+										i.fa.fa-question.fa-stack-1x
+										each page in pages
+											if page.category === cat
+												section#toolTip(data-target=cat)!=page['Why This Matters']
 								div: ul
 									each page in pages
 										if page.category === cat
