@@ -1,9 +1,16 @@
 var mark = $('#nav-items i.fa-stack');
-$(mark).hover(function(e) {
-	var tooltip = $(this).find('#toolTip');
-	$(tooltip).fadeToggle();
-	e.stopPropagation();
+$(mark).click(function() {
+	var tooltip = $(this).find('#lightbox');
+	var lightbox = document.getElementById('lightbox');
+	var $this = $(this).parent().parent();
+	$('.overlay').fadeIn();
+	$(this).find('#lightbox').fadeIn();
+	$this.siblings().find('#lightbox').fadeOut();
 	return false;
+});
+$('.overlay').click(function() {
+	$(this).fadeOut();
+	$('section').fadeOut();
 });
 // HELPER FUNCS
 if(Answers)
