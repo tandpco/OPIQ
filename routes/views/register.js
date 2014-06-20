@@ -140,7 +140,7 @@ function build_user (fields, view, req, locals, res) {
 		User.model.findOne({email : fields.email}).exec(function(er, user){
 			var backlog = keystone.get(ip + 'backlog'), ans;
 
-			console.log('this is the ip in register' , req.headers['x-forwarded-for']);
+			// console.log('this is the ip in register' , req.headers['x-forwarded-for']);
 			
 			if(backlog){
 
@@ -156,7 +156,8 @@ function build_user (fields, view, req, locals, res) {
 							analysis : a._id,
 							analysistitle : backlog[i].analysistitle,
 							whatthismeans : backlog[i].whatthismeans,
-							notes : backlog[i].notes
+							notes : backlog[i].notes,
+							work : backlog[i].work
 						})
 						ans.save();
 
