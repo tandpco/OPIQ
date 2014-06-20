@@ -6,6 +6,7 @@ exports = module.exports = function(req, res) {
 	
 	Answer.model.findOne({page : post.page, user : req.user._id, analysis : post.analysis}).exec(function (err, answer) {
 		if(err)console.log(err);
+		console.log(post);
 		if(answer){
 			answer.answer = post.answer;
 			answer.notes = post.notes;
