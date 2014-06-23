@@ -104,10 +104,10 @@ html
 								a
 									span
 									=cat.toUpperCase()
-									i.fa-stack.fa-sm(style="position: absolute; right: 0; top: 0;", title="I heard this was cool.")
+									i.fa-stack.fa-sm(style="position: absolute; right: 0; top: 0;")
 										i.fa.fa-circle-o.fa-stack-2x
 										i.fa.fa-question.fa-stack-1x
-										section#lightbox(data-target=cat) Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis dui et tellus eleifend laoreet. Nam tristique hendrerit massa vitae faucibus. Mauris sollicitudin sapien quis quam accumsan lacinia. Curabitur ultrices velit eget enim tincidunt, vitae pharetra augue eleifend. Praesent facilisis metus vitae neque mattis, non ultrices urna blandit. Phasellus nec adipiscing urna. Nam elementum arcu lacinia nulla faucibus sodales.
+										section#lightbox(data-target=cat.split(' ').join('').replace('/','-')) Lorem ipsum dolor sit amet, consectetur adipiscing elit. In lobortis dui et tellus eleifend laoreet. Nam tristique hendrerit massa vitae faucibus. Mauris sollicitudin sapien quis quam accumsan lacinia. Curabitur ultrices velit eget enim tincidunt, vitae pharetra augue eleifend. Praesent facilisis metus vitae neque mattis, non ultrices urna blandit. Phasellus nec adipiscing urna. Nam elementum arcu lacinia nulla faucibus sodales.
 								div: ul
 									each page in pages
 										if page.category === cat
