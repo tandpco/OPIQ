@@ -111,8 +111,14 @@ html
 										section#lightbox(data-target=join)
 											if (join === 'industry-market')
 												p Test for industry market.
-											else
-												p WILD.
+											else if (join === 'financial')
+												p Test for financial.
+											else if (join === 'operational')
+												p Test for operational.
+											else if (join === 'offering')
+												p Test for offering.
+											else if (join === 'customer')
+												p Test for customer.
 								div: ul
 									each page in pages
 										if page.category === cat
