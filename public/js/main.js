@@ -17,6 +17,12 @@ $('.overlay').click(function() {
 	$(this).fadeOut();
 	$('section').fadeOut();
 });
+$('.close').click(function() {
+	$('body').removeClass('open');
+	$('.overlay').fadeOut();
+	$('section#lightbox').fadeOut();
+	return false;
+})
 // HELPER FUNCS
 if(Answers)
 $.each(Answers, function  (i, v) {
