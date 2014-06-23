@@ -7267,13 +7267,13 @@ i.fa.fa-question {
   width: 70%;
   z-index: 999;
 }
-#lightbox div.content {
+#lightbox aside.content {
   max-height: 360px;
   overflow-y: scroll;
 }
 #lightbox:after {
   content: "";
-  height: 30px;
+  height: 20px;
   position: absolute;
   bottom: 20px;
   left: 0;
