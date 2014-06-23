@@ -7273,7 +7273,7 @@ i.fa.fa-question {
 }
 #lightbox:after {
   content: "";
-  height: 20px;
+  height: 25px;
   position: absolute;
   bottom: 20px;
   left: 0;
