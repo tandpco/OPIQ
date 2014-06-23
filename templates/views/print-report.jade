@@ -69,7 +69,7 @@ html
 			.analysis= analysis	
 			each answer in answers
 				-var page = _.findWhere(pages, {name : answer.page})
-				.content-holder.row-fluid
+				.content-holder.row-fluid.clearfix
 					.col-sm-12.col-med-8.col-lg-9.content-conent
 						//- .content-header: .t: span.name=page.category.toUpperCase()+ ': ' + page.name
 						.content-header: .t: span.name=answer.category.toUpperCase()+ ': ' + answer.page
@@ -189,7 +189,7 @@ html
 									|Scratchpad
 							//- .body: textarea=(answer && answer.notes || '')
 							.body: textarea(disabled)=(answer.notes)
-						.show-your-work.sb-head.grey.notes
+						.show-your-work.sb-head.grey.notes(style="margin-top: 10px;")
 							.header
 								span(style="text-align: center;")
 									i.fa.fa-superscript
