@@ -109,6 +109,10 @@ html
 										i.fa.fa-question.fa-stack-1x
 										-var join = cat.split(' ').join('').replace('/','-')
 										section#lightbox(data-target=join)
+											if (join === 'industry-market')
+												p Test for industry market.
+											else
+												p WILD.
 								div: ul
 									each page in pages
 										if page.category === cat
