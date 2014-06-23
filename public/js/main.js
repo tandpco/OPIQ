@@ -4,11 +4,16 @@ $(mark).click(function() {
 	var lightbox = document.getElementById('lightbox');
 	var $this = $(this).parent().parent();
 	$('.overlay').fadeIn();
-	$(this).find('#lightbox').fadeIn();
-	$this.siblings().find('#lightbox').fadeOut();
+	$(this).find('#lightbox').fadeIn(function() {
+		$('body').addClass('open');
+	});
+	$this.siblings().find('#lightbox').fadeOut(function() {
+		$('body').removeClass('open');
+	});
 	return false;
 });
 $('.overlay').click(function() {
+	$('body').removeClass('open');
 	$(this).fadeOut();
 	$('section').fadeOut();
 });

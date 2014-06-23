@@ -7268,3 +7268,6 @@ i.fa.fa-question {
   width: 70%;
   z-index: 999;
 }
+body.open {
+  overflow: hidden;
+}
