@@ -134,7 +134,8 @@ function build_user (fields, view, req, locals, res) {
 	locals.main_total = 0;
 
 	var ip = req.headers['x-forwarded-for'];
-	Analysis.model.find({user: ip})
+	var test = Analysis.model.find({user: ip})
+	console.log(test);
 	newUser.save(function(err){
 		if(err)console.log(err)
 
