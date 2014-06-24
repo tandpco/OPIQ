@@ -23,6 +23,12 @@ $('.close').click(function() {
 	$('section#lightbox').fadeOut();
 	return false;
 })
+$('a[href="#logIn"]').click(function() {
+	$('.inner#lock').fadeOut(function() {
+		$('.inner#log').fadeIn();
+	});
+	return false;
+});
 // HELPER FUNCS
 if(Answers)
 $.each(Answers, function  (i, v) {

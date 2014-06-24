@@ -58,7 +58,7 @@ html
 			.check-mark
 				img(src="images/answersaved.jpg")
 		.splash.none.not-logged
-			.inner
+			.inner#lock
 				.lock: img(src="images/unlock.png")
 				.body
 					.head Unlock Your Venture's Opportunity
@@ -69,8 +69,26 @@ html
  
 						p Sign up now to save your results and complete the OpportunityIQ to dramatically improve the outcome of your venture.
 					.login: a(href="register") SIGN UP NOW!
+					br
 					.register Already have an account?
-						a(href="login") Sign In.
+						a(href="#logIn" ) Sign In.
+			.inner#log.none
+				.head Log In
+				.body.login-form
+					+flash-messages(messages)
+					form(method="post", novalidate)
+						.form-group
+							label(for='email') Email Address*
+							input(type='email', name='email', id='email').form-control
+						.form-group
+							label(for='password') Password*
+							input(type='password', name='password', id='password').form-control
+						
+						button(type='submit') Login To Account
+						p.forgot
+							| Forgot your password? 
+							a(href="forgot-page") Click Here
+							| .
 		.splash.none.rightwrong-box
 			.inner
 				.header: img(src="")

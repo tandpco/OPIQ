@@ -65,9 +65,40 @@ body *{
 }
 
 .float-right{float: right;}
-.splash.not-logged .inner {
+.inner#log {
+	width: 400px;
+	height: auto;
+	padding: 15px;
+	background: white;
+	color: #a8a8a8;
+	> .body {
+    	.head {
+	    	font-size: 22px;
+			color: #686868;
+			margin-top: -14px;
+		}
+	    .body {
+		    line-height: 24px;
+			width: 98%;
+			margin: auto;
+			font-size: 12px;
+		}
+		.login{
+				
+		    margin-top: 29px;
+			a {
+			    background: @page-green;
+			    padding: 13px 61px;
+			    border-bottom: 2px solid @page-green-dark;
+			    color: white;
+			}
+		}
+    }	
+}
+
+.splash.not-logged .inner#lock {
     width: 400px;
-    height: 382px;
+    height: 400px;
     background: white;
     position: absolute;
     text-align: center;
