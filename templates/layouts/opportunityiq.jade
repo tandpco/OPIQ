@@ -72,23 +72,6 @@ html
 					br
 					.register Already have an account?
 						a(href="#logIn" ) Sign In.
-			.inner#log.none
-				.head Log In
-				.body.login-form
-					+flash-messages(messages)
-					form(method="post", novalidate)
-						.form-group
-							label(for='email') Email Address*
-							input(type='email', name='email', id='email').form-control
-						.form-group
-							label(for='password') Password*
-							input(type='password', name='password', id='password').form-control
-						
-						button(type='submit') Login To Account
-						p.forgot
-							| Forgot your password? 
-							a(href="forgot-page") Click Here
-							| .
 		.splash.none.rightwrong-box
 			.inner
 				.header: img(src="")
