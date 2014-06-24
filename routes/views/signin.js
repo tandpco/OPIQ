@@ -12,7 +12,7 @@ exports = module.exports = function(req, res) {
 		if (!req.body.email || !req.body.password) {
 			req.flash('error', 'Please enter your email address and password.');
 			
-			return view.render('login');
+			return view.render('signin');
 		}
 		
 		var onSuccess = function(user) {
@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
 		
 		var onFail = function() {
 			req.flash('error', 'Sorry, that email and password combo are not valid.');
-			view.render('login');
+			view.render('signin');
 		}
 		
 		session.signin(req.body, req, res, onSuccess, onFail);
