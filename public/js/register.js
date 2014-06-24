@@ -100,16 +100,17 @@ company.on('keyup change paste blur', function () {
 
 $('form').on('submit', function (e) {
 	var self = $(this), ammount = 17900;
-
-	if(confirmInfo()){
-		$('.check').parents('.form-group').find('.check:hidden').parent().find('input').addClass('failed');
-		setTimeout(function  () {
-			$('.failed').removeClass('failed');
-		}, 3000);
-		$('html, body').animate({
-	        scrollTop: 200
-	    }, 300);
-		return false;
+	if($('#password').length){
+		if(confirmInfo()){
+			$('.check').parents('.form-group').find('.check:hidden').parent().find('input').addClass('failed');
+			setTimeout(function  () {
+				$('.failed').removeClass('failed');
+			}, 3000);
+			$('html, body').animate({
+		        scrollTop: 200
+		    }, 300);
+			return false;
+		}
 	}
 	if(!$('.terms input[type=checkbox]').prop('checked')){
 		alert('Please accept terms of service');
