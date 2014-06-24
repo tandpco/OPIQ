@@ -20,7 +20,7 @@ exports = module.exports = function(req, res) {
  		// console.log(req.body);
  	
  		if(req.body.newa){
- 			Analysis.model.find({user : req.user._id}).exec(function (e, an) {
+ 			Analysis.model.find({user : req.user._id}).sort({ _id : -1 }).exec(function (e, an) {
  				// locals.analysis = req.body.analysis;
  				if(an.length === 0 || req.user.freeAccess){
  					var a = new Analysis.model({
