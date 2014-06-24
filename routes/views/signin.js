@@ -17,7 +17,7 @@ exports = module.exports = function(req, res) {
 		
 		var onSuccess = function(user) {
 			
-			res.redirect('/');
+			res.redirect('/questions');
 			
 		}
 		
