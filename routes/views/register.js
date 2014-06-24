@@ -144,7 +144,7 @@ function build_user (fields, view, req, locals, res) {
 			
 			if(backlog){
 
-				Analysis.model.findOne({title : backlog[0].analysistitle, user : ip}).exec(function(e, a){
+				Analysis.model.find({title : backlog[0].analysistitle, user : ip}).sort({_id:-1}).limit(1).exec(function(e, a){
 					a.user = user._id;
 					a.save();
 					for(var i = 0 ; i < backlog.length; i++){
