@@ -88,8 +88,6 @@ exports = module.exports = function(req, res) {
 					  email: req.body.email
 					}, function(err, customer) {
 					  	console.log(err);
-					}).then(function(charge) {
-						saveStripeCustomerId(user, customer.id);
 					});
 
 				var charge = stripe.charges.create({
