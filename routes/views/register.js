@@ -80,7 +80,7 @@ exports = module.exports = function(req, res) {
 					}
 				}
 			}
-			if(req.body.freepass){
+			if(!req.body.freepass || freepass.length){
 				if(req.path.match('register'))
 					stripe.customers.create({
 					  description: 'OPIQ Customer',
