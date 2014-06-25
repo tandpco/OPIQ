@@ -3,8 +3,8 @@ var	stripe = require('stripe')();
 
 exports = module.exports = function(req, res) {
 	var amount = 17900;
-	stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
-	// stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
+	// stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
+	stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
 
 
 	stripe.coupons.retrieve(req.body.coupon || '', function (e, c) {

@@ -29,8 +29,8 @@ exports = module.exports = function(req, res) {
 		var coupon;
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here https://manage.stripe.com/account
-		// stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
-		stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
+		stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
+		// stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
 
 		var amount = 17900;
 
