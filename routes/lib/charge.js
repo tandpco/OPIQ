@@ -1,5 +1,5 @@
 var keystone = require('keystone'),
-	stripe = require('stripe')();
+	stripe = require('stripe')('sk_live_cSlbqodvJ9gkpQ9030kwv46v');
 
 exports = module.exports = function(req, res) {
 
