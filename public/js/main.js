@@ -274,7 +274,7 @@ function show_check(answer, wtm){
 	})
 
 	spl.show().height($(document).height()).on('click', function () {
-		$(this).hide();
+		$(spl).hide();
 	});
 	setTimeout(function () {
 		spl.fadeOut();
