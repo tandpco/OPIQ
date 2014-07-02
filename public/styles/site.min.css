@@ -6212,8 +6212,9 @@ div#tos {
   display: inline-block;
   vertical-align: top;
 }
-.content-header .venture {
-  color: #d4d4d4;
+.content-header .venture,
+.content-header .venture > .bob {
+  color: #949494;
   font-size: 20px;
   font-family: museo;
 }
