@@ -76,6 +76,7 @@ var current, BASE, notLogged = 0, current_page, TOTAL_SCORE,
 $('span#viewReport').on('click', function() {
 	$('#main-inner').hide();
 	$('#report').show();
+	updateAllScores();
 });
 $('.answer').on('click', pickAnswer);
 $('.save').on('click', save);
