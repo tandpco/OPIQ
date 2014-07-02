@@ -6213,7 +6213,8 @@ div#tos {
   vertical-align: top;
 }
 .content-header .venture,
-.content-header .venture > .bob {
+.content-header .venture > .bob,
+.content-header .analysis {
   color: #6e6e6e;
   font-size: 20px;
   font-family: museo;
