@@ -374,6 +374,9 @@ function updateAllScores(){
 		$('#report > .header > h1').html('Congratulations! Your analysis is complete.');
 	}
 }
+$percentComplete.change(function() {
+	updateAllScores();
+});
 
 function getAnswers () {
 	var main_total = 0, total = 0, cat_answers = {}, cat_totals = {};
