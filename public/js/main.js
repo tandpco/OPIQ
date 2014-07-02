@@ -361,7 +361,7 @@ function updateAllScores(){
 	$('.overall-wrap').set(TOTAL_SCORE)
 
 
-	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
+	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 1000);
 }
 
 function getAnswers () {
