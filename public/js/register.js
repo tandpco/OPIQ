@@ -98,7 +98,7 @@ company.on('keyup change paste blur', function () {
 	else $(this).next('.check').hide();
 })
 
-$('form[action="register"]').on('submit', function (e) {
+$('form#checkout').on('submit', function (e) {
 	var self = $(this), ammount = 17900;
 	if($('#password').length){
 		if(confirmInfo()){
@@ -137,8 +137,42 @@ $('form[action="register"]').on('submit', function (e) {
 		});
 	else self.get(0).submit();
 	return false;
-})
+});
+$('form#register').on('submit', function (e) {
+	var self = $(this), ammount = 5000;
+	if($('#password').length){
+		if(confirmInfo()){
+			$('.check').parents('.form-group').find('.check:hidden').parent().find('input').addClass('failed');
+			setTimeout(function  () {
+				$('.failed').removeClass('failed');
+			}, 3000);
+			$('html, body').animate({
+		        scrollTop: 200
+		    }, 300);
+			return false;
+		}
+	}
 
+	if(!fp)
+		Stripe.card.createToken($(this), function(status, response) {
+			  var $form = self;
+			if (response.error) {
+			    // Show the errors on the form
+			    $form.find('.payment-errors').text(response.error.message);
+			    $form.find('button').prop('disabled', false);
+			} else {
+			    // token contains id, last4, and card type
+			    var token = response.id;
+			    // Insert the token into the form so it gets submitted to the server
+			    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+			    // and submit
+			    $form.get(0).submit();
+			}
+			
+		});
+	else self.get(0).submit();
+	return false;
+});
 function confirmInfo () {
 	var password = $.trim($('#password').val()),
 		confirm = $.trim($('#confirm').val()),
