@@ -72,7 +72,7 @@ exports = module.exports = function(req, res) {
 				if(amount !== 0){
 					res.locals.error = 'No card info was put in';
 				
-					if(req.path.match('register'))
+					if(req.headers.referer.match('register'))
 						view.render('register');				
 					else if(!req.body.freepass) {
 						view.render('checkout');
@@ -80,7 +80,7 @@ exports = module.exports = function(req, res) {
 				}
 			}
 			if(!req.body.freepass || freepass.length){
-				console.log(req.headers.referer);
+
 				if(req.headers.referer.match('register')){
 					stripe.customers.create({
 					  description: 'OPIQ Customer',
@@ -107,7 +107,6 @@ exports = module.exports = function(req, res) {
 						  description: "OPIQ Charge"
 						}, function(err, charge) {
 						
-							console.log(err, charge);
 						  if (err && err.type === 'StripeCardError') {
 						    
 						  }else
@@ -175,7 +174,6 @@ function build_user (fields, view, req, locals, res) {
 						ans.save();
 
 					}
-					console.log('setting route to questions');
 					keystone.set(ip + 'routeToQuestions', true);
 					keystone.set(ip + 'backlog', null);
 				Page.model.find()

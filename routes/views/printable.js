@@ -8,14 +8,15 @@ var	keystone = require('keystone'),
 
 exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
-		locals = res.locals;
+		locals = res.locals,
+		ip = req.headers['x-forwarded-for'];
 
-	locals.analysis = keystone.get('analysis-title');
+	locals.analysis = req.session.analysis;
 	locals.categories = {};
 	locals.categories.cats = [];
 	locals.cat_totals = {};
 
-	Answer.model.find({analysis : keystone.get('analysis'), user : req.user._id}).exec(function (e, answers) { 
+	Answer.model.find({analysis : req.session.analysisid, user : req.user._id}).exec(function (e, answers) {
 		Page.model.find().exec(function  (e, pages) {
 			var cat_totals = {}, total_pages_answered = 0, main_total = 0;
 			for(var i = 0; i < pages.length; i++){
