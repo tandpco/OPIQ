@@ -377,7 +377,7 @@ function updateAllScores(){
 function percentComplete() {
 	var value = $(this).val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
-});
+}
 
 function getAnswers () {
 	var main_total = 0, total = 0, cat_answers = {}, cat_totals = {};
