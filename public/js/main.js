@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	updateAllScores();
+	var $percentComplete = $('input#percentComplete');
+});
 var mark = $('#nav-items i.fa-stack');
 $(mark).click(function() {
 	var tooltip = $(this).find('#lightbox');
@@ -334,10 +338,6 @@ function updatePercent (num) {
 
 	updateAllScores(num);
 }
-$(document).ready(function() {
-	updateAllScores();
-	var $percentComplete = $('input#percentComplete');
-});
 
 function updateAllScores(){
 	
