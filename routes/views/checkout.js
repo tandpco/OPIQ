@@ -32,7 +32,8 @@ exports = module.exports = function(req, res) {
 		stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
 		// stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
 
-		var amount = 17900;
+		// var amount = 17900;
+		var amount = 5000;
 
 		var COUPON_ID = req.body.coupon;
 		// console.log('THIS IS COUPON ' + COUPON_ID);
