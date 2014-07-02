@@ -25,13 +25,31 @@ html
 				.intro
 					.analysis Opportunity IQ
 					small Single License
-				h3 Jonathan Bell
-				.row
-					.col-sm-8
-						small Card Number
-					.col-sm-4
-						small
-							strong CVV
+				.info-block
+					if user
+						h3 #{user.name.first} #{user.name.last}
+						.row.one
+							.col-sm-8
+								small
+									strong Card Number
+								.card XXXX XXXX XXXX 4342
+							.col-sm-4
+								small
+									strong CVV
+								input(type="text" name="CVV" placeholder="XXX" class="form-control")
+						.row
+							.col-sm-8
+								small
+									strong Expiration Date
+								.expiration Month - Year
+							.col-sm-4
+								small
+									strong Billing Zip
+								.zip 55555
+				a(href="#").new-card
+					+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
+				p This and all future analysis will be discounted by xx% of $179.00.
+				button.start-venture(type="submit") <i class="fa fa-lock"></i> Pay $50
 
 			//- .regsection.col-xs-12
 				.col-sm-6.left

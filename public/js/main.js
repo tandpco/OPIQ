@@ -272,13 +272,12 @@ function show_check(answer, wtm){
 	spl.show().height($(document).height()).on('click', function () {
 		$(this).hide();
 	});
-
 	setTimeout(function () {
 		spl.fadeOut();
 		updatePercent(answer);
 		whatthismeans(wtm);
 		complete_section();
-	}, 1000);
+	}, 500);
 }
 
 function getPage (page) {

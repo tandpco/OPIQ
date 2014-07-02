@@ -6201,14 +6201,71 @@ div#tos {
   color: white;
 }
 .card-info {
-  margin: 0 auto;
+  margin: 60px auto 0;
   max-width: 400px;
 }
 .card-info .intro {
   text-align: center;
 }
 .card-info .intro .analysis {
+  color: #433a3a;
   font-family: museo;
+  font-size: 26px;
+}
+.card-info .intro small {
+  color: #b7acac;
+  font-size: 16px;
+  font-weight: 100;
+}
+.card-info .info-block {
+  background: #f2f0f0;
+  border: 1px solid #b9b9b9;
+  margin-top: 30px;
+  padding: 30px;
+}
+.card-info .info-block h3 {
+  font-weight: 100;
+  color: #b9b9b9;
+  padding-top: 0;
+  margin-top: 0;
+}
+.card-info .info-block small > strong {
+  font-size: 15px;
+  color: #b9b9b9;
+}
+.card-info .info-block .card {
+  margin-top: 6px;
+}
+.card-info .info-block .row.one {
+  margin-bottom: 30px;
+}
+.card-info a.new-card {
+  border: 1px solid #b9b9b9;
+  color: #b9b9b9;
+  display: block;
+  font-size: 16px;
+  padding: 10px 30px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+.card-info a.new-card:hover,
+.card-info a.new-card:active,
+.card-info a.new-card:focus {
+  color: #a0a0a0;
+  border: 1px solid #a0a0a0;
+  text-decoration: none;
+}
+.card-info p {
+  margin-top: 15px;
+  color: #b7acac;
+}
+.card-info button.start-venture {
+  width: 100%;
+  height: 45px;
+  background: #a8ba57;
+  border: none;
+  margin-top: 14px;
+  font-size: 24px;
 }
 .content-header {
   color: #a8ba57;
@@ -6453,6 +6510,10 @@ div#tos {
 }
 .section .header div:last-child {
   width: 94%;
+}
+.section p,
+.section .t {
+  color: #4f4f4f;
 }
 .section #examples > div.body > div.t {
   position: relative;

@@ -422,15 +422,71 @@ div#tos {
 	
 }
 
-
+@info-block: #f2f0f0;
+@info-color: #b9b9b9;
 .card-info {
-	margin: 0 auto;
+	margin: 60px auto 0;
 	max-width: 400px;
 	.intro {
 		text-align: center;
 		.analysis {
+			color: darken(@info-block, 70%);
 			font-family: museo;
+			font-size: 26px;
 		}
+		small {
+			color: darken(@info-block, 25%);
+			font-size: 16px;
+			font-weight: 100;
+		}
+	}
+	.info-block {
+		background: @info-block;
+		border: 1px solid @info-color;
+		margin-top: 30px;
+		padding: 30px;
+		h3 {
+			font-weight: 100;
+			color: @info-color;
+			padding-top: 0;
+			margin-top: 0;
+		}
+		small > strong {
+			font-size: 15px;
+			color: @info-color;
+		}
+		.card {
+			margin-top: 6px;
+		}
+		.row.one {
+			margin-bottom: 30px;
+		}
+	}
+	a.new-card {
+		border: 1px solid @info-color;
+		color: @info-color;
+		display: block;
+		font-size: 16px;
+		padding: 10px 30px;
+		font-weight: 600;
+		margin-top: 15px;
+		&:hover, &:active, &:focus {
+			color: darken(@info-color, 10%);
+			border: 1px solid darken(@info-color, 10%);
+			text-decoration: none;
+		}
+	}
+	p {
+		margin-top: 15px;
+		color: darken(@info-block, 25%);
+	}
+	button.start-venture {
+		width: 100%;
+		height: 45px;
+		background: @page-green;
+		border: none;
+		margin-top: 14px;
+		font-size: 24px;
 	}
 }
 
@@ -699,6 +755,9 @@ div#tos {
 	    &:last-child {
 		    width: 94%;
 		}
+   	}
+   	p, .t {
+   		color: darken(@page-light-grey, 60%);
    	}
   
 	#examples > div.body > div.t {

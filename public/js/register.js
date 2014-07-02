@@ -98,7 +98,7 @@ company.on('keyup change paste blur', function () {
 	else $(this).next('.check').hide();
 })
 
-$('form').on('submit', function (e) {
+$('form[action="register"]').on('submit', function (e) {
 	var self = $(this), ammount = 17900;
 	if($('#password').length){
 		if(confirmInfo()){

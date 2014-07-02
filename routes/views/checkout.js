@@ -24,7 +24,7 @@ exports = module.exports = function(req, res) {
 	locals.main_total = 0;
 	
 	if(req.method === 'GET')
-		view.render('register');
+		view.render('checkout');
 	else{
 		var coupon;
 		// Set your secret key: remember to change this to your live secret key in production
