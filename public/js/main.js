@@ -75,8 +75,8 @@ var current, BASE, notLogged = 0, current_page, TOTAL_SCORE,
 
 $('span#viewReport').on('click', function() {
 	$('#main-inner').hide();
-	updateAllScores();
 	$('#report').show();
+	percentComplete();
 });
 $('.answer').on('click', pickAnswer);
 $('.save').on('click', save);
@@ -129,6 +129,7 @@ if(location.hash){
 
 
 // INIT 
+percentComplete();
 updateAllScores();
 getPage(ID);
 current_page = ID;
@@ -362,6 +363,8 @@ function updateAllScores(){
 
 
 	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
+}
+function percentComplete() {
 	var $percentComplete = $('input#percentComplete'),
 		$percentCompleteVal = $percentComplete.val();
 	$percentComplete.val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
@@ -371,7 +374,6 @@ function updateAllScores(){
 		$('#report > .header > h1').html('Congratulations! Your analysis is complete.');
 	}
 }
-
 function getAnswers () {
 	var main_total = 0, total = 0, cat_answers = {}, cat_totals = {};
 	$.each(Pages, function (i, v) {
