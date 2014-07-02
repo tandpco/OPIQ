@@ -6407,13 +6407,25 @@ div#tos {
   text-align: center;
   margin-left: 15%;
 }
-#sidebar .question {
+#notes .col-sm-6 {
+  padding-right: 0;
+}
+#notes textarea {
+  width: 100%;
+  height: 160px;
+  resize: none;
+  border: 1px solid #e8e8e8;
+  margin: 15px 0;
+}
+#sidebar .question,
+#notes .question {
   background: #e8e8e8;
   padding: 10px;
   font-size: 11px;
   font-weight: 900;
 }
-#sidebar .question .answer span {
+#sidebar .question .answer span,
+#notes .question .answer span {
   display: inline-block;
   width: 20px;
   background: #fff;
@@ -6425,10 +6437,12 @@ div#tos {
   color: #b3d338;
   box-shadow: inset 1px 1px #AFAFAF;
 }
-#sidebar .question .answer span i {
+#sidebar .question .answer span i,
+#notes .question .answer span i {
   font-size: 19px;
 }
-#sidebar .question .answer {
+#sidebar .question .answer,
+#notes .question .answer {
   cursor: pointer;
   font-weight: 500;
   font-size: 11px;
@@ -6438,43 +6452,53 @@ div#tos {
   position: relative;
   padding-left: 28px;
 }
-#sidebar .sb-head .header > span {
+#sidebar .sb-head .header > span,
+#notes .sb-head .header > span {
   display: inline-block;
   padding: 3px 8px;
 }
-#sidebar .sb-head .header > span:first-child {
+#sidebar .sb-head .header > span:first-child,
+#notes .sb-head .header > span:first-child {
   width: 12%;
 }
-#sidebar .sb-head .header > span:last-child {
+#sidebar .sb-head .header > span:last-child,
+#notes .sb-head .header > span:last-child {
   margin-left: 2%;
   width: 86%;
 }
-#sidebar .sb-head .header .text {
+#sidebar .sb-head .header .text,
+#notes .sb-head .header .text {
   width: 83%;
 }
-#sidebar .green span {
+#sidebar .green span,
+#notes .green span {
   color: white;
   background: #a8ba57;
 }
-#sidebar .notes .body {
+#sidebar .notes .body,
+#notes .notes .body {
   height: 150px;
   border: 1px solid #e8e8e8;
   margin: 10px 0;
 }
-#sidebar .notes .body textarea {
+#sidebar .notes .body textarea,
+#notes .notes .body textarea {
   width: 100%;
   height: 100%;
   resize: none;
   border: none;
 }
-#sidebar .grey span {
+#sidebar .grey span,
+#notes .grey span {
   color: #555;
   background: #e8e8e8;
 }
-#sidebar .what-this-means {
+#sidebar .what-this-means,
+#notes .what-this-means {
   margin-bottom: 10px;
 }
-#sidebar .what-this-means .body {
+#sidebar .what-this-means .body,
+#notes .what-this-means .body {
   background: #a8ba57;
   margin-top: 10px;
   padding: 10px;
