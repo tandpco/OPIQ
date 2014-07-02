@@ -15,7 +15,7 @@ exports = module.exports = function(req, res) {
 	locals.categories.cats = [];
 	locals.cat_totals = {};
 
-	Answer.model.find({analysis : keystone.get('analysis'), user : req.user._id}).exec(function (e, answers) {
+	Answer.model.find({analysis : keystone.get('analysis'), user : req.user._id}).exec(function (e, answers) { 
 		Page.model.find().exec(function  (e, pages) {
 			var cat_totals = {}, total_pages_answered = 0, main_total = 0;
 			for(var i = 0; i < pages.length; i++){
