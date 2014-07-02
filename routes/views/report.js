@@ -26,7 +26,8 @@ exports = module.exports = function(req, res) {
 				
 			}
 
-
+			locals.analysis = keystone.get('analysis-title');
+			console.log(locals.analysis);
 			locals.pages = pages;
 			locals.categories.cats;
 			locals.answers = answers;

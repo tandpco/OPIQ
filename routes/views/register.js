@@ -81,31 +81,45 @@ exports = module.exports = function(req, res) {
 				}
 			}
 			if(!req.body.freepass || freepass.length){
-				if(req.path.match('register'))
+				console.log(req.headers.referer);
+				if(req.headers.referer.match('register')){
 					stripe.customers.create({
 					  description: 'OPIQ Customer',
 					  card: stripeToken, // obtained with Stripe.js
 					  email: req.body.email
-					}, function(err, customer) {
-					  	console.log(err);
-					});
+					}).then(function (customer) {
+						return stripe.charges.create({
+						    amount: amount, // amount in cents, again
+						    currency: "usd",
+						    customer: customer.id,
+						    description : "OPIQ Charge"
+						 });
+					}).then(function (charge) {
 
-				var charge = stripe.charges.create({
-				  amount: amount, // amount in cents, again
-				  currency: "usd",
-				  card: stripeToken,
-				  description: "OPIQ Charge"
-				}, function(err, charge) {
+						if(!req.user){
+				  			build_user(fields, view, req, locals, res);
+				  		}else getPages(view, locals, req, res);
+					});
+				}else
+					 var charge = stripe.charges.create({
+						  amount: amount, // amount in cents, again
+						  currency: "usd",
+						  card: stripeToken,
+						  description: "OPIQ Charge"
+						}, function(err, charge) {
+						
+							console.log(err, charge);
+						  if (err && err.type === 'StripeCardError') {
+						    
+						  }else
+						  	if(!req.user){
+						  		build_user(fields, view, req, locals, res);
+						  	}else getPages(view, locals, req, res);
+						  
+						});
 				
-					// console.log(err, charge);
-				  if (err && err.type === 'StripeCardError') {
-				    
-				  }else
-				  	if(!req.user){
-				  		build_user(fields, view, req, locals, res);
-				  	}else getPages(view, locals, req, res);
-				  
-				});
+
+					
 			}else
 				if(!req.user)
 			  		build_user(fields, view, req, locals, res);
