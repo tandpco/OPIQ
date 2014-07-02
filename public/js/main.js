@@ -375,6 +375,7 @@ function updateAllScores(){
 	}
 }
 $percentComplete.change(function() {
+	$(this).val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	var value = $(this).val();
 	$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
 });
