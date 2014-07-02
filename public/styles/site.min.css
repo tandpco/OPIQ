@@ -6204,6 +6204,9 @@ div#tos {
   margin: 0 auto;
   max-width: 400px;
 }
+.card-info .intro {
+  text-align: center;
+}
 .content-header {
   color: #a8ba57;
   margin-top: 20px;
