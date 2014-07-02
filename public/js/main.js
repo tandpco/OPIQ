@@ -367,7 +367,7 @@ function updateAllScores(){
 	if ($percentComplete.val() != '100') {
 		$('#report > .header > h1').html('Summary of your analysis.');
 	} else if ($percentComplete.val() == '100') {
-		$('#report > .header > h1').html('Summary of your analysis.');
+		$('#report > .header > h1').html('Congratulations! Your analysis is complete.');
 	}
 }
 
