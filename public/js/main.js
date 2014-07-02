@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	updateAllScores();
-	var $percentComplete = $('input#percentComplete');
 });
+var $percentComplete = $('input#percentComplete');
 var mark = $('#nav-items i.fa-stack');
 $(mark).click(function() {
 	var tooltip = $(this).find('#lightbox');
@@ -340,7 +340,7 @@ function updatePercent (num) {
 }
 
 function updateAllScores(){
-	
+	var $percentComplete = $('input#percentComplete');
 	$('#report .page-wrap, .page-score').each(function(){
 		var num = Number($(this).find('.bar').attr('percent'));
 
@@ -374,6 +374,8 @@ function updateAllScores(){
 	}
 }
 $percentComplete.change(function() {
+	var $percentComplete = $('input#percentComplete');
+	var $percentCompleteVal = $percentComplete.val();
 	$(this).val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	var value = $(this).val();
 	$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
