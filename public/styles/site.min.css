@@ -6207,6 +6207,9 @@ div#tos {
 .card-info .intro {
   text-align: center;
 }
+.card-info .intro .analysis {
+  font-family: museo;
+}
 .content-header {
   color: #a8ba57;
   margin-top: 20px;
