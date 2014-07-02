@@ -362,7 +362,6 @@ function updateAllScores(){
 
 
 	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
-	console.log($('.percent-complete').val());
 	var $percentComplete = $('input#percentComplete'),
 		$percentCompleteVal = $percentComplete.val();
 	$percentComplete.val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
