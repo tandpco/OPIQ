@@ -365,6 +365,7 @@ function updateAllScores(){
 
 
 	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
+	percentComplete();
 	var $percentCompleteVal = $percentComplete.val();
 	if ($percentComplete.val() != '100') {
 		$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
@@ -375,7 +376,6 @@ function updateAllScores(){
 }
 function percentComplete() {
 	var $val = $percentComplete.val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
-	console.log($val);
 	$('#report > .header > h1').html('Your analysis is ' + $val + '% complete.');
 }
 
