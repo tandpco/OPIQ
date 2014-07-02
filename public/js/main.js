@@ -274,15 +274,20 @@ function show_check(answer, wtm){
 		top : $(document).scrollTop() + ($(window).height() / 2 - check.height() / 2)
 	})
 
-	spl.show().height($(document).height()).on('click', function () {
-		$(spl).hide();
+	spl.fadeIn().height($(document).height()).on('click', function () {
+		$(spl).fadeOut();
+	});
+	spl.is(':visible', function() {
+		$(document).click(function() {
+			$(spl).fadeOut();
+		});
 	});
 	setTimeout(function () {
 		spl.fadeOut();
 		updatePercent(answer);
 		whatthismeans(wtm);
 		complete_section();
-	}, 500);
+	}, 1000);
 }
 
 function getPage (page) {
@@ -497,3 +502,16 @@ function makeSureSectionsAreGreenChecked () {
 
 	if(!p.length)m.addClass('complete');
 }
+$("#needHelp").submit(function() {
+    var url = "/help"; // the script where you handle the form input.
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: $("#needHelp").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+               alert(data); // show response from the php script.
+           }
+         });
+    return false; // avoid to execute the actual submit of the form.
+});
