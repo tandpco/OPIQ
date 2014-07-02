@@ -20,11 +20,15 @@ html
 				img(src="images/iq_logo.jpg")
 				| Opportunity
 				span.gtext IQ
-		.top
-			h1 Thanks for choosing Opportunity IQ
-			div We hope you are absolutely delighted with the analysis and its impact on your opportunity. If you feel this product has not been helpful, please contact us and we will refund your purchase.
 		form(method="post", action="checkout")
-			.regsection.col-xs-12
+			div.card-info.row
+				h3 Jonathan Bell
+				.col-sm-8
+					small Card Number
+				.col-sm-4
+					small=strong CVC
+
+			//- .regsection.col-xs-12
 				.col-sm-6.left
 					.text
 						.head Please Enter Your Billing Information
