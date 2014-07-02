@@ -80,6 +80,7 @@ var current, BASE, notLogged = 0, current_page, TOTAL_SCORE,
 $('span#viewReport').on('click', function() {
 	$('#main-inner').hide();
 	$('#report').show();
+	percentComplete();
 });
 $('.answer').on('click', pickAnswer);
 $('.save').on('click', save);
@@ -373,7 +374,7 @@ function updateAllScores(){
 		$('#report > .header > h1').html('Congratulations! Your analysis is complete.');
 	}
 }
-$percentComplete.change(function() {
+function percentComplete() {
 	var value = $(this).val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
 });
