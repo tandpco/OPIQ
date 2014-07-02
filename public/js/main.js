@@ -76,7 +76,7 @@ var current, BASE, notLogged = 0, current_page, TOTAL_SCORE,
 $('span#viewReport').on('click', function() {
 	$('#main-inner').hide();
 	$('#report').show();
-	updateAllScores();
+	updateAllScores(num);
 });
 $('.answer').on('click', pickAnswer);
 $('.save').on('click', save);
@@ -336,9 +336,6 @@ function updatePercent (num) {
 
 	updateAllScores(num);
 }
-$(document).ready(function() {
-	updateAllScores();
-});
 
 function updateAllScores(){
 	
