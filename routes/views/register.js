@@ -23,6 +23,7 @@ exports = module.exports = function(req, res) {
 	locals.analysis = {};
 	locals.cat_totals = {};
 	locals.main_total = 0;
+	locals.stripeApiKey = keystone.get('stripeApiKeyClient');
 	
 	if(req.method === 'GET'){
 		view.render('register');
