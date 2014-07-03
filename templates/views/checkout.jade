@@ -20,8 +20,7 @@ html
 				img(src="images/iq_logo.jpg")
 				| Opportunity
 				span.gtext IQ
-		form(method="post", action="register" id="checkout")
-			input(type="hidden" name="analysis" value=analysis)
+
 			div.card-info
 				.intro
 					.analysis Opportunity IQ
@@ -32,32 +31,34 @@ html
 						p No Cards Stored
 					else
 						for card in cards
-							input(type="hidden" name="last4" value=card.last4)
-							.info-block.saved-card
-								span.payment-errors
-								.chosen-card: input(type="checkbox")
-								if user
-									h3 #{user.name.first} #{user.name.last}
-									.row.one
-										.col-sm-8
-											small
-												strong Card Number
-											.card XXXX XXXX XXXX &nbsp;
-												span=card.last4 || 4342
-										.col-sm-4
-											small
-												strong CVC
-											br
-											.margin-top.cvc XXX
-									.row
-										.col-sm-8
-											small
-												strong Expiration Date
-											.expiration=card.exp_month + ' - ' + card.exp_year
-										.col-sm-4
-											small
-												strong Billing Zip
-											.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
+							form(method="post", action="register" id="checkout")
+								input(type="hidden" name="analysis" value=analysis)
+								input(type="hidden" name="last4" value=card.last4)
+								.info-block.saved-card
+									span.payment-errors
+									.chosen-card: input(type="checkbox")
+									if user
+										h3 #{user.name.first} #{user.name.last}
+										.row.one
+											.col-sm-8
+												small
+													strong Card Number
+												.card XXXX XXXX XXXX &nbsp;
+													span=card.last4 || 4342
+											.col-sm-4
+												small
+													strong CVC
+												br
+												.margin-top.cvc XXX
+										.row
+											.col-sm-8
+												small
+													strong Expiration Date
+												.expiration=card.exp_month + ' - ' + card.exp_year
+											.col-sm-4
+												small
+													strong Billing Zip
+												.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
 				a(href="#").new-card
 					+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
 				p This and all future analysis will be discounted by xx% of $179.00.

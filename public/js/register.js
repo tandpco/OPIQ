@@ -104,6 +104,7 @@ company.on('keyup change paste blur', function () {
 	else $(this).next('.check').hide();
 });
 newCard.on('click', function () {
+	$(this).hide();
 	var copy = $('.info-block').first().clone();
 		copy.find('.card').html('<input type="text" size="20" data-stripe="number" class="form-control">').css('margin-top', '0')
 			.end().find('.expiration').html('<select data-stripe="exp-month" class="form-control date"></select> <select data-stripe="exp-year" class="form-control year"></select>')
@@ -117,6 +118,7 @@ newCard.on('click', function () {
 			.end().find('.cvc').html("<input data-stripe='cvc' name='cvc' placeholder='XXX' class='form-control'>")
 	$('.cards').append(copy);
 	setExpirationDates();
+	return false;
 });
 $('body').on('click', '.chosen-card input', function () {
 	$('.chosen-card input').prop('checked', false);

@@ -19,6 +19,7 @@ exports = module.exports = function(req, res) {
 		locals.stripeApiKey = keystone.get('stripeApiKeyClient');
 
  	if(req.user){
+ 		// console.log(req.body);
  	
  		if(req.body.newa){
  			Analysis.model.find({user : req.user._id}).exec(function (e, an) {
@@ -31,8 +32,6 @@ exports = module.exports = function(req, res) {
  					a.save(function(){
 	 					Analysis.model.findOne({user: req.user._id, _id : a._id}).exec(function(e, an){
 	 						locals.analysis = an;
-	 						req.session.analysis = an.title;
-	 						req.session.analysisid = an._id;
 	 						getPages();					
 	 					})
  					});
@@ -43,12 +42,9 @@ exports = module.exports = function(req, res) {
 					stripecust.get(req.user.stripeid, function(customer){
 						var data = customer.cards.data;
 						locals.cards = [];
-						for(var i = 0 ; i < data.length ; i++){
+						for(var i = 0 ; i < data.length ; i++)
 							locals.cards.push(data[i]);
-						}
-						// locals.card = data.last4;
-						// locals.exp = data.exp_month < 10 ? '0' + data.exp_month + ' - ' + data.exp_year : data.exp_month + ' - ' + data.exp_year
-						// locals.zip = req.user.zip;
+						
 	 					view.render('checkout');					
 					});
  				}
@@ -59,12 +55,9 @@ exports = module.exports = function(req, res) {
  	
  			Analysis.model.findOne({_id : req.body._id}).exec(function(e, an){
  				if(e)console.log(e);
+ 				locals.analysis = an;
  				req.session.analysis = an.title;
  				req.session.analysisid = an._id;
- 				locals.analysis = an;
- 				start(an);
-
- 				locals.analysis = an;
  				start(an);
  			});
  		}
@@ -73,10 +66,6 @@ exports = module.exports = function(req, res) {
  		if(an)
 			Answer.model.find({user : req.user._id, analysis : an._id}).exec(function (err, answers) {
 				if(err)console.log(err);
-		 		req.session.analysis = an.title;
-				req.session.analyisid = an._id;
-				keystone.set('analysis', an._id);
-				keystone.set('analysis-title', an.title);
 				getPages(answers);
 			});
 
@@ -135,6 +124,7 @@ exports = module.exports = function(req, res) {
 						if(answers)
 							locals.answers = answers;
 						
+						console.log(answers);
 						// Set locals
 						locals.pages = pages;
 						
@@ -152,12 +142,7 @@ exports = module.exports = function(req, res) {
 		})
 
 		locals.analysis.title = req.body.analysis;
-		req.session.analysis = req.body.analysis;
-		a.save(function (b) {
-			Analysis.model.findOne({title : req.body.analysis , user : ip}).exec(function (e, a) {
-				req.session.analysisid = a._id;				
-			})
-		});
+		a.save();
 		lgetPages();
  		
 
