@@ -23,7 +23,6 @@ exports = module.exports = function(req, res) {
  	
  		if(req.body.newa){
  			Analysis.model.find({user : req.user._id}).exec(function (e, an) {
- 				// locals.analysis = req.body.analysis;
  				if(an.length === 0 || req.user.freeAccess){
  					var a = new Analysis.model({
  						title : req.body.analysis,
@@ -40,6 +39,12 @@ exports = module.exports = function(req, res) {
  				}else {
  					locals.analysis = req.body.analysis;
 					stripecust.get(req.user.stripeid, function(customer){
+						if(customer.deleted){
+							locals.error = "No stripe customer in this name";
+							res.redirect('/');
+							return;
+						}
+						console.log(customer);
 						var data = customer.cards.data;
 						locals.cards = [];
 						for(var i = 0 ; i < data.length ; i++)

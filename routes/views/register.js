@@ -108,66 +108,64 @@ exports = module.exports = function(req, res) {
 
 					// Checkout is only $50
 					amount = 5000;
-					console.log(req.body);
 
-				// 	if(req.body.savedCard){
-				// 		if(req.body.zip !== req.user.zip){
-				// 			locals.error = "Incorrect zip";
-				// 			view.render("checkout");
-				// 		}
-				// 		stripe.customers.listCards(req.user.stripeid, function(err, cards) {
-				// 			if(err || !cards){
-				// 				locals.error = 'No cards found';
-				// 				view.render('checkout');
-				// 			}
-				// 			for(var i = 0; i < cards.data.length; i++){
-				// 				if(cards.data[i].last4 == req.body.last4){
-				// 					var chargeObject = {
-				// 					  amount: amount, // amount in cents, again
-				// 					  currency: "usd",
-				// 					  customer: req.user.stripeid,
-				// 					  id : cards.data[i].id
-				// 					};
-				// 					console.log(chargeObjec);
+					if(req.body.savedCard){
+						if(req.body.zip !== req.user.zip){
+							locals.error = "Incorrect zip";
+							view.render("checkout");
+						}
+						stripe.customers.listCards(req.user.stripeid, function(err, cards) {
+							if(err || !cards){
+								locals.error = 'No cards found';
+								view.render('checkout');
+							}
+							for(var i = 0; i < cards.data.length; i++){
+								if(cards.data[i].last4 == req.body.last4){
+									var chargeObject = {
+									  amount: amount, // amount in cents, again
+									  currency: "usd",
+									  customer: req.user.stripeid,
+									  id : cards.data[i].id
+									};
+									console.log(chargeObjec);
 
-				// 					var charge = stripe.charges.create(chargeObject, function(err, charge) {
+									var charge = stripe.charges.create(chargeObject, function(err, charge) {
 									
-				// 					  if (err && err.type === 'StripeCardError'){
-				// 					  	locals.error = err.type;
-				// 					  	view.render('checkout');
-				// 					  }else getPages(view, locals, req, res);
+									  if (err && err.type === 'StripeCardError'){
+									  	locals.error = err.type;
+									  	view.render('checkout');
+									  }else getPages(view, locals, req, res);
 									  
-				// 					});
-				// 				}
-				// 			}
+									});
+								}
+							}
 	  						
-				// 		});
+						});
 						
-				// 	}else{
-				// 		var chargeObject = {
-				// 			amount: amount, // amount in cents, again
-				// 			currency: "usd",
-				// 			card: stripeToken,
-				// 			description: "OPIQ Charge",
-				// 			customer: req.user.stripeid
-				// 		}
-				// 		console.log('STRIPE TOKEN BABY', stripeToken);
-				// 		// Create new card then charge
-				// 		stripe.customers.createCard(
-				// 		  req.user.stripeid,
-				// 		  {card: stripeToken},
-				// 		  function(err, card) {
-				// 		    var charge = stripe.charges.create(chargeObject, function(err, charge) {
+					}else{
+						var chargeObject = {
+							amount: amount, // amount in cents, again
+							currency: "usd",
+							card: stripeToken,
+							description: "OPIQ Charge",
+							customer: req.user.stripeid
+						}
+						// Create new card then charge
+						stripe.customers.createCard(
+						  req.user.stripeid,
+						  {card: stripeToken},
+						  function(err, card) {
+						    var charge = stripe.charges.create(chargeObject, function(err, charge) {
 							
-				// 			  if (err && err.type === 'StripeCardError'){
-				// 			  	locals.error = err.type;
-				// 			  	view.render('checkout');
-				// 			  }else getPages(view, locals, req, res);
+							  if (err && err.type === 'StripeCardError'){
+							  	locals.error = err.type;
+							  	view.render('checkout');
+							  }else getPages(view, locals, req, res);
 							  
-				// 			});
-				// 		  }
-				// 		);
-				// 	}
+							});
+						  }
+						);
+					}
 					
 				}	 
 				

@@ -54,6 +54,7 @@ html
 					h1 What is Your Opportunity's IQ?
 					.t To start your analysis, please enter a title for your opportunity in the field below.
 				.body
+					.error=error
 					form.create(action='questions', method='post', autocomplete="off")
 						input(name='newa', type='hidden', value='true')
 						input.form-control(name='analysis',type='text', placeholder='Opportunity Name...')
