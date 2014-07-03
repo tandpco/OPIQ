@@ -79,8 +79,9 @@ exports = module.exports = function(req, res) {
 				}
 			}
 			if(!req.body.freepass || freepass.length){
-
+			
 				if(req.headers.referer.match('register')){
+					console.log('yepper diddly doodly doo')
 					stripe.customers.create({
 					  description: 'OPIQ Customer',
 					  card: stripeToken, // obtained with Stripe.js
@@ -99,7 +100,7 @@ exports = module.exports = function(req, res) {
 				  			build_user(fields, view, req, locals, res);
 				  		}else getPages(view, locals, req, res);
 					});
-				}else
+				}else{
 
 				/////////////////////
 				// CHECKOUT        //
@@ -107,26 +108,41 @@ exports = module.exports = function(req, res) {
 
 					// Checkout is only $50
 					amount = 5000;
-
+					console.log(req.body);
 
 					if(req.body.savedCard){
 						if(req.body.zip !== req.user.zip){
 							locals.error = "Incorrect zip";
 							view.render("checkout");
 						}
-						chargeObject = {
-						  amount: amount, // amount in cents, again
-						  currency: "usd",
-						  customer: req.user.stripeid
-						};
-						var charge = stripe.charges.create(chargeObject, function(err, charge) {
-						
-						  if (err && err.type === 'StripeCardError'){
-						  	locals.error = err.type;
-						  	view.render('checkout');
-						  }else getPages(view, locals, req, res);
-						  
+						stripe.customers.listCards('cu_14CHoR2eZvKYlo2CPLtwzcjV', function(err, cards) {
+							if(err || !cards){
+								locals.error = 'No cards found';
+								view.render('checkout');
+							}
+							for(var i = 0; i < cards.data.length; i++){
+								if(cards.data[i].last4 == req.body.last4){
+									var chargeObject = {
+									  amount: amount, // amount in cents, again
+									  currency: "usd",
+									  customer: req.user.stripeid,
+									  id : cards.data[i].id
+									};
+									console.log(chargeObjec);
+
+									var charge = stripe.charges.create(chargeObject, function(err, charge) {
+									
+									  if (err && err.type === 'StripeCardError'){
+									  	locals.error = err.type;
+									  	view.render('checkout');
+									  }else getPages(view, locals, req, res);
+									  
+									});
+								}
+							}
+	  						
 						});
+						
 					}else{
 						var chargeObject = {
 							amount: amount, // amount in cents, again
@@ -153,7 +169,7 @@ exports = module.exports = function(req, res) {
 						);
 					}
 					
-					 
+				}	 
 				
 
 					
