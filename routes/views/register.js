@@ -6,7 +6,8 @@ var keystone = require('keystone'),
 	Page = keystone.list('Page'),
 	session = require('keystone/lib/session'),
 	_ = require('underscore'),
-	request = require('request');
+	request = require('request'),
+	stripecust = require('../lib/stripecust.js');
 
 
 exports = module.exports = function(req, res) {
@@ -23,14 +24,16 @@ exports = module.exports = function(req, res) {
 	locals.cat_totals = {};
 	locals.main_total = 0;
 	
-	if(req.method === 'GET')
+	if(req.method === 'GET'){
 		view.render('register');
-	else{
+	}else{
 		var coupon;
-		// Set your secret key: remember to change this to your live secret key in production
-		// See your keys here https://manage.stripe.com/account
-		stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
-		// stripe.setApiKey("sk_test_His9L7RGJvdVRuuPOkCeuand"); // TESTING PURPOSES
+
+
+		// Set Stripe api key to ENV variable
+		stripe.setApiKey(keystone.get('stripeApiKey'));
+
+
 
 		var amount = 17900;
 
@@ -87,6 +90,7 @@ exports = module.exports = function(req, res) {
 					  card: stripeToken, // obtained with Stripe.js
 					  email: req.body.email
 					}).then(function (customer) {
+						req.session.stripeid = customer.id;
 						return stripe.charges.create({
 						    amount: amount, // amount in cents, again
 						    currency: "usd",
@@ -100,6 +104,7 @@ exports = module.exports = function(req, res) {
 				  		}else getPages(view, locals, req, res);
 					});
 				}else
+
 					 var charge = stripe.charges.create({
 						  amount: amount, // amount in cents, again
 						  currency: "usd",
@@ -136,7 +141,9 @@ function build_user (fields, view, req, locals, res) {
 	var newUser = User.model({
 		name : { first : fields.firstname, last : fields.lastname},
 		email : fields.email,
-		password : fields.password
+		password : fields.password,
+		stripeid : req.session.stripeid,
+		zip : fields.zip
 	})
 
 	locals.categories = {};

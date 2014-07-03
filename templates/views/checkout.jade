@@ -11,8 +11,8 @@ html
 		script(type="text/javascript" src="https://js.stripe.com/v2/")
 		
 		script.
-			Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
-			//- Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
+			//- Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
+			Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
 			
 	body: #register
 		.head: .logo
@@ -32,7 +32,8 @@ html
 							.col-sm-8
 								small
 									strong Card Number
-								.card XXXX XXXX XXXX 4342
+								.card XXXX XXXX XXXX &nbsp;
+									span=card || 4342
 							.col-sm-4
 								small
 									strong CVV
@@ -41,11 +42,11 @@ html
 							.col-sm-8
 								small
 									strong Expiration Date
-								.expiration Month - Year
+								.expiration=exp || 'Month - Year'
 							.col-sm-4
 								small
 									strong Billing Zip
-								.zip 55555
+								.zip=zip || 55555
 				a(href="#").new-card
 					+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
 				p This and all future analysis will be discounted by xx% of $179.00.

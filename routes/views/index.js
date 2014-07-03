@@ -1,5 +1,6 @@
 var keystone = require('keystone'),
-	_ = require('underscore');
+	_ = require('underscore'),
+	stripecust = require('../lib/stripecust.js');
 
 exports = module.exports = function(req, res) {
 	
@@ -38,8 +39,13 @@ exports = module.exports = function(req, res) {
  				
  				}else {
  					locals.analysis = req.body.analysis;
- 					
- 					view.render('checkout');
+					stripecust.get(req.user.stripeid, function(customer){
+						var data = customer.cards.data[0];
+						locals.card = data.last4;
+						locals.exp = data.exp_month < 10 ? '0' + data.exp_month + ' - ' + data.exp_year : data.exp_month + ' - ' + data.exp_year
+						locals.zip = req.user.zip;
+	 					view.render('checkout');					
+					});
  				}
  			})
  			

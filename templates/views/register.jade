@@ -11,8 +11,8 @@ html
 		script(type="text/javascript" src="https://js.stripe.com/v2/")
 		
 		script.
-			Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
-			//- Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
+			//- Stripe.setPublishableKey('pk_live_xzV0TfLXuFF0sHWeon1lkayd');
+			Stripe.setPublishableKey('pk_test_SxLXrzbxiAiTwnt8qiOW1agS');
 			
 	body: #register
 		.head#nav
@@ -124,7 +124,7 @@ html
 						.form-row
 							label: span Billing ZIP
 							br
-							input(data-stripe='zip', placeholder='or postal code if not in the USA').form-control
+							input(data-stripe='zip', name='zip', id='zip', placeholder='or postal code if not in the USA').form-control
 						.form-row
 							label: span Coupon
 							br

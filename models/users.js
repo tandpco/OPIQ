@@ -16,6 +16,8 @@ User.add({
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: false },
 	image : { type : Types.LocalFile, dest : 'images'},
+	stripeid : { type : String, hidden : true},
+	zip : {type : String}
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone' },
 	freeAccess : {type : Boolean, label : 'Free Analysis'}

@@ -38,6 +38,12 @@ keystone.pre('render', middleware.flashMessages);
 // 	api_key: '568768714353137', 
 // 	api_secret: 'uLeUIKycXGk4_kMaw9WalaDpM1Y' 
 // });
+//
+
+ 
+// Set api keys globally
+// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
+keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
 
 
 // Import Route Controllers
