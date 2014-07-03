@@ -15,5 +15,11 @@ exports = module.exports = {
 			u.stripeid = stripeid;
 			u.save();
 		})
+	},
+	checkZip : function  (userid, zip, cb) {
+		User.model.findOn({_id : userid}).exec(function  (e, u) {
+			if(zip === u.zip)cb(true);
+			else cb(false);
+		})
 	}
 }

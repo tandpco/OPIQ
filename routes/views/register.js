@@ -72,15 +72,10 @@ exports = module.exports = function(req, res) {
 			var stripeToken = req.body.stripeToken;
 			// console.log(amount);
 
-			if(!stripeToken){
+			if(!stripeToken && req.headers.referer.match('register')){
 				if(amount !== 0){
 					res.locals.error = 'No card info was put in';
 				
-					if(req.headers.referer.match('register'))
-						view.render('register');				
-					else if(!req.body.freepass) {
-						view.render('checkout');
-					}
 				}
 			}
 			if(!req.body.freepass || freepass.length){
@@ -106,21 +101,59 @@ exports = module.exports = function(req, res) {
 					});
 				}else
 
-					 var charge = stripe.charges.create({
+				/////////////////////
+				// CHECKOUT        //
+				/////////////////////
+
+					// Checkout is only $50
+					amount = 5000;
+
+
+					if(req.body.savedCard){
+						if(req.body.zip !== req.user.zip){
+							locals.error = "Incorrect zip";
+							view.render("checkout");
+						}
+						chargeObject = {
 						  amount: amount, // amount in cents, again
 						  currency: "usd",
-						  card: stripeToken,
-						  description: "OPIQ Charge"
-						}, function(err, charge) {
+						  customer: req.user.stripeid
+						};
+						var charge = stripe.charges.create(chargeObject, function(err, charge) {
 						
-						  if (err && err.type === 'StripeCardError') {
-						    
-						  }else
-						  	if(!req.user){
-						  		build_user(fields, view, req, locals, res);
-						  	}else getPages(view, locals, req, res);
+						  if (err && err.type === 'StripeCardError'){
+						  	locals.error = err.type;
+						  	view.render('checkout');
+						  }else getPages(view, locals, req, res);
 						  
 						});
+					}else{
+						var chargeObject = {
+							amount: amount, // amount in cents, again
+							currency: "usd",
+							card: stripeToken,
+							description: "OPIQ Charge",
+							customer: req.user.stripeid
+						}
+						console.log('STRIPE TOKEN BABY', stripeToken);
+						// Create new card then charge
+						stripe.customers.createCard(
+						  req.user.stripeid,
+						  {card: stripeToken},
+						  function(err, card) {
+						    var charge = stripe.charges.create(chargeObject, function(err, charge) {
+							
+							  if (err && err.type === 'StripeCardError'){
+							  	locals.error = err.type;
+							  	view.render('checkout');
+							  }else getPages(view, locals, req, res);
+							  
+							});
+						  }
+						);
+					}
+					
+					 
 				
 
 					

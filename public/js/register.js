@@ -7,20 +7,26 @@ var email = $('#email'),
 	confirm = $('#confirm'),
 	lastname = $('#lastname'),
 	firstname = $('#firstname'),
-	company = $('#company');
+	company = $('#company'),
+	newCard = $('.new-card');
 
-for(var i = 0; i < 20; i++)
-	years.push(year++);
-$.each(years, function(i, v){
-	$('.year').append($('<option>', {text: v, value : v.toString().substring(2)}));
-});
 
-$.each(months, function (i, v) {
-	i++;
-	i = i < 10 ? '0' + i : i;
-	$('.date').append($('<option>', {text : v, value : i}));
-})
+function setExpirationDates(){
+	years = [];
+	year = new Date().getFullYear();
+	for(var i = 0; i < 20; i++)
+		years.push(year++);
+	$.each(years, function(i, v){
+		$('.year').append($('<option>', {text: v, value : v.toString().substring(2)}));
+	});
 
+	$.each(months, function (i, v) {
+		i++;
+		i = i < 10 ? '0' + i : i;
+		$('.date').append($('<option>', {text : v, value : i}));
+	})
+}
+setExpirationDates();
 var timer;
 $('[name=coupon]').on('keyup', function () {
 	var self = $(this),
@@ -96,6 +102,26 @@ company.on('keyup change paste blur', function () {
 	if($(this).val() !== '')
 		$(this).next('.check').show();
 	else $(this).next('.check').hide();
+});
+newCard.on('click', function () {
+	$(this).hide();
+	var copy = $('.info-block').clone();
+		copy.find('.card').html('<input type="text" size="20" data-stripe="number" class="form-control">').css('margin-top', '0')
+			.end().find('.expiration').html('<select data-stripe="exp-month" class="form-control date"></select> <select data-stripe="exp-year" class="form-control year"></select>')
+			.end().removeClass('saved-card')
+		copy.find('select').each(function(){
+				$(this).css('display', 'inline-block')
+				if($(this).hasClass('year'))
+					$(this).css('width', '36%');
+			});
+		copy.find('.zip').html("<input data-stripe='zip'  name='zip'  id='zip' placeholder='or postal ' class='form-control'>")
+			.end().find('.cvc').html("<input data-stripe='cvc' name='cvc' placeholder='XXX' class='form-control'>")
+	$('.cards').append(copy);
+	setExpirationDates();
+});
+$('body').on('click', '.chosen-card input', function () {
+	$('.chosen-card input').prop('checked', false);
+	$(this).prop('checked', true);
 })
 
 $('form#checkout, form#register').on('submit', function (e) {
@@ -103,7 +129,7 @@ $('form#checkout, form#register').on('submit', function (e) {
 		checkout = this.id === 'checkout' ? true : false;
 
 	if(!checkout)registerForm();
-	else checkoutForm();
+	else checkoutForm.call(this);
 
 	if(!fp)
 		Stripe.card.createToken($(this), function(status, response) {
@@ -151,7 +177,15 @@ function registerForm () {
 	$('.createaccount').prop('disabled', true);
 }
 function checkoutForm () {
-	// This is where checkout form runs specific tasks
+	if(!$('.chosen-card input:checked').length){
+		alert('Please select a card');
+		return false;
+	}
+
+	if($('.chosen-card input:checked').parent().parent().hasClass('saved-card')){
+		$(this).append($('<input>', {type : 'hidden', name : 'savedCard'}))
+		$(this).submit();
+	}
 }
 function confirmInfo () {
 	var password = $.trim($('#password').val()),
