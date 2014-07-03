@@ -143,9 +143,10 @@ exports = module.exports = function(req, res) {
 		locals.analysis.title = req.body.analysis;
 		req.session.analysis = req.body.analysis;
 		a.save(function (b) {
-			req.session.analysisid = b._id;
+			Analysis.model.findOne({title : req.body.analysis , user : ip}).exec(function (e, a) {
+				req.session.analysisid = a._id;				
+			})
 		});
-		a.save();
 		lgetPages();
  		
 
