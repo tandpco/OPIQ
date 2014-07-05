@@ -199,21 +199,20 @@ block content
 					//- 		.t
 					//- 			div!=page.Caution
 					//- 		.gradient-overlay
-					#notes
-						.internal-notes.sb-head.grey.notes
-							.header
-								span(style="text-align: center; width: 6%;")
-									i.fa.fa-file-text-o
-								span(style="width: 92%;")
-									|Scratchpad
-						.body: textarea=(answer && answer.notes || '')
-						.show-your-work.sb-head.grey.notes
-							.header
-								span(style="text-align: center; width: 6%;")
-									i.fa.fa-superscript
-								span(style="width: 92%;")
-									|Show Your Work (shared)
-						.body: textarea=(answer && answer.work || '')
+					.section
+						.header
+							.icon
+								i.fa.fa-file-text-o
+							.text
+								|Scratchpad
+						.body#notes: textarea=(answer && answer.notes || '')
+					.section
+						.header
+							.icon
+								i.fa.fa-superscript
+							.text
+								|Show Your Work (shared)
+						.body#notes: textarea=(answer && answer.work || '')
 
 					.section#needhelp
 						.header
