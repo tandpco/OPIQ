@@ -24,6 +24,8 @@ exports = module.exports = function(req, res) {
 	locals.cat_totals = {};
 	locals.main_total = 0;
 	locals.stripeApiKey = keystone.get('stripeApiKeyClient');
+	if(req.body.analysis)
+		req.session.newanalysis = req.body.analysis;
 	
 	if(req.method === 'GET'){
 		view.render('register');
@@ -325,7 +327,6 @@ function getPages (view, locals, req, res) {
 
 	locals.analysis = a;
 	a.save();
-	req.session.newanalysis = req.body.analysis;
 
 	
 
