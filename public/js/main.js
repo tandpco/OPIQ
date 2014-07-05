@@ -34,6 +34,7 @@ $('.qaform').submit(function(req) {
 	};
 	var printError = function(error) {
 		$this.html('We were unable to send your message.', status, err );
+		$('button[value="SUBMIT"]').prop('disabled', false);
 	};
 	var ajaxOptions = {
 		url: '/help',
@@ -43,6 +44,7 @@ $('.qaform').submit(function(req) {
 		error: printError
 	};
 	$.ajax(ajaxOptions);
+	$('button[value="SUBMIT"]').prop('disabled', true);
 	return false;
 });
 // HELPER FUNCS
