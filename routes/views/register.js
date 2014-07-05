@@ -150,7 +150,7 @@ exports = module.exports = function(req, res) {
 							if(req.user.stripeid)
 								stripecust.createCardIfNone(req.user.stripeid, stripeToken, req.body.card.substr(-4), function(err, card){
 									if(!err){
-										chargeObject.card = card.id;
+										chargeObject.card = card;
 										charge();
 									}else{
 										locals.error = err.type;
@@ -172,7 +172,7 @@ exports = module.exports = function(req, res) {
 						
 						function charge(){
 							stripecust.charge(chargeObject, function (e, ch) {
-								console.log(e, ch);
+								// console.log(e, ch);
 						   		if(e){
 							   		locals.error = e.type;
 				  					keystone.redirect('checkout');	
@@ -318,14 +318,14 @@ function build_user (fields, view, req, locals, res) {
 
 function getPages (view, locals, req, res) {
 
-
 	var a = new Analysis.model({
 		title : req.body.analysis,
 		user : req.user._id
 	})
 
 	locals.analysis = a;
-	a.save();	
+	a.save();
+	req.session.newanalysis = req.body.analysis;
 
 	
 

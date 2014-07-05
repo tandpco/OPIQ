@@ -68,7 +68,7 @@ exports = module.exports = {
 	createCard : function  (stripeid, stripeToken, cb) {
 		stripe.customers.createCard(stripeid,{card: stripeToken}, function(err, card) {
 			if(!err)
-			   cb(null, card);
+			   cb(null, card.id);
 			else cb(err, null);
 		});
 	},
@@ -80,9 +80,10 @@ exports = module.exports = {
 		  	if(!d.length)self.createCard(stripeid, stripeToken, cb);
 		  	else{
 		  		for(var i = 0 ; i < d.length ; i++){
-		  			console.log(d[i].last4, last4);
-		  			if(d[i].last4 === last4)
+		  			if(d[i].last4 === last4){
 		  				gotit = d[i].id;
+		  				break;
+		  			}
 		  		}
 		  		if(!gotit)self.createCard(stripeid, stripeToken, cb);
 		  		else cb(null, gotit);

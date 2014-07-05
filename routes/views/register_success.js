@@ -5,13 +5,16 @@ var keystone = require('keystone'),
 exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res);
 	var ip = req.headers['x-forwarded-for'];
-	console.log('route to questions ', keystone.get(ip + 'routeToQuestions'));
-	if(keystone.get(ip + 'routeToQuestions'))
-		Analysis.model.findOne({user : req.user._id}).exec(function (e, r) {
+
+	if(keystone.get(ip + 'routeToQuestions') || req.session.newanalysis){
+		var obj = {user : req.user._id};
+
+		if(req.session.newanalysis)obj.title = req.session.newanalysis;
+		Analysis.model.findOne(obj).exec(function (e, r) {
 			res.locals.analysis = r;
 			view.render('register_success');
 			keystone.set(ip + 'routeToQuestions', null);
 		})
-	else
+	}else
 		view.render('register_success');
 }
