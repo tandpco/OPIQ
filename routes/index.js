@@ -96,7 +96,7 @@ exports = module.exports = function(app) {
 		    service: "Mandrill",
 		    auth: {
 		        user: "opiq@launchthought.com",
-		        pass: "4^9fvp,UWYT4gJ"
+		        pass: "0hhMPW05BM24YY73g7KzOg"
 		    }
 		});
 		// setup e-mail data with unicode symbols
