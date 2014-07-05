@@ -32,7 +32,6 @@ $('body').on('keyup', '[name=coupon]', function () {
 	var self = $(this),
 		l = $('.loader');
 
-	console.log('yepepeyop')
 
 	if($.trim($(this).val()) === ''){
 		l.hide();
@@ -194,13 +193,13 @@ function checkout () {
 		return false;
 	}
 	var form = $('.checkoutform:visible');
-	console.log(form);
 	// if($('.chosen-card input:checked').parent().parent().hasClass('saved-card')){
 	// 	var form = $('.chosen-card input:checked').parents('form');
 	// 	form.append($('<input>', {type : 'hidden', name : 'savedCard'}))
 	// 	form.submit();
 	// }else{
 	if(!fp)getStripeToken.call(form);
+	else form.submit();
 	// }
 }
 function confirmInfo () {
