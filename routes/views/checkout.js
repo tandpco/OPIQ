@@ -32,7 +32,7 @@ exports = module.exports = function(req, res) {
 		stripe.setApiKey(keystone.get('stripeApiKey'));
 
 		// var amount = 17900;
-		var amount = 5000;
+		var amount = 4900;
 
 		var COUPON_ID = req.body.coupon;
 		// console.log('THIS IS COUPON ' + COUPON_ID);
