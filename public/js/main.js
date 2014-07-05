@@ -30,7 +30,9 @@ $('.close').click(function() {
 $('.qaform').submit(function(req) {
 	var $this = $(this);
 	var updatePage = function(data) {
-		$this.html('We have recieved your enquiry and will get back to you as soon as possible.');
+		$this.fadeOut(function() {
+			$this.html('We have recieved your enquiry and will get back to you as soon as possible.').fadeIn();
+		});
 	};
 	var printError = function(error) {
 		$this.html('We were unable to send your message.', status, err );
