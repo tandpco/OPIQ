@@ -223,7 +223,14 @@ block content
 						.body
 							form.qaform(id='#' + page._id, action='help')
 								.textbox
-									input(type="text", name="question", id="question")
+									textarea(name="question", id="question")
+								input(type="hidden", name="page", value='Question about page: ' + page.name)
+								if user
+									input(type="hidden", name="email", value=user.email)
+									input(type="hidden", name="user", value=user.name.first + ' ' + user.name.last)
+								else
+									input(type="text", name="email", value='', class='form-control', placeholder='Email Address*', style='border-radius: 0; margin: 10px 0;', required)
+									input(type="text", name="user", value='', placeholder='Name*' class='form-control', style='border-radius: 0; margin: 10px 0;', required)
 								.submit
 									input(type="submit", value="SUBMIT")
 

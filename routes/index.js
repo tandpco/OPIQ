@@ -104,8 +104,7 @@ exports = module.exports = function(app) {
 		    from: "notifications@opportunityIQ.com", // sender address
 		    to: "daniel@theoryandpractice.co", // list of receivers
 		    subject: "OPIQ Question", // Subject line
-		    text: req.body.question, // plaintext body
-			html: req.body.question // html body
+			html: '<strong>' + req.body.page + '</strong><br /><br />' + req.body.question + '<br /><br /><b>From:</b> ' + req.body.user + '<br><b>Email Address:</b> ' + req.body.email // html body
 		}
 		// send mail with defined transport object
 		smtpTransport.sendMail(mailOptions, function(error, response){

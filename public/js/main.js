@@ -30,7 +30,7 @@ $('.close').click(function() {
 $('.qaform').submit(function(req) {
 	var $this = $(this);
 	var updatePage = function(data) {
-		$this.html('Worked.');
+		$this.html('We have recieved your enquiry and will get back to you as soon as possible.');
 	};
 	var printError = function(error) {
 		$this.html('We were unable to send your message.', status, err );
@@ -38,7 +38,7 @@ $('.qaform').submit(function(req) {
 	var ajaxOptions = {
 		url: '/help',
 		type: 'POST',
-		data: req.body,
+		data: $this.serialize(),
 		success: updatePage,
 		error: printError
 	};
