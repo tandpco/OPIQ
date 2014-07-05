@@ -200,7 +200,7 @@ function checkout () {
 	// 	form.append($('<input>', {type : 'hidden', name : 'savedCard'}))
 	// 	form.submit();
 	// }else{
-		getStripeToken.call(form);
+	if(!fp)getStripeToken.call(form);
 	// }
 }
 function confirmInfo () {
