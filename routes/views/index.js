@@ -17,9 +17,8 @@ exports = module.exports = function(req, res) {
  		locals.cat_totals = {};
  		locals.main_total = 0;
 		locals.stripeApiKey = keystone.get('stripeApiKeyClient');
-
+		
  	if(req.user){
- 		// console.log(req.body);
  	
  		if(req.body.newa){
  			Analysis.model.find({user : req.user._id}).exec(function (e, an) {
@@ -37,25 +36,12 @@ exports = module.exports = function(req, res) {
 
  				
  				}else {
- 					locals.analysis = req.body.analysis;
-					stripecust.get(req.user.stripeid, function(customer){
-						if(customer.deleted){
-							locals.error = "No stripe customer in this name";
-							res.redirect('/');
-							return;
-						}
-						console.log(customer);
-						var data = customer.cards.data;
-						locals.cards = [];
-						for(var i = 0 ; i < data.length ; i++)
-							locals.cards.push(data[i]);
-						
-	 					view.render('checkout');					
-					});
+ 					if(req.user.zip)
+	 					stripecust.renderCheckout(req, res);
+	 				else view.render('register');
  				}
  			})
  			
- 			// getPages();
  		}else{
  	
  			Analysis.model.findOne({_id : req.body._id}).exec(function(e, an){

@@ -105,54 +105,18 @@ company.on('keyup change paste blur', function () {
 });
 newCard.on('click', function () {
 	$(this).hide();
-	var copy = $('.info-block').first().clone();
-		copy.find('.card').html('<input type="text" size="20" data-stripe="number" class="form-control">').css('margin-top', '0')
-			.end().find('.expiration').html('<select data-stripe="exp-month" class="form-control date"></select> <select data-stripe="exp-year" class="form-control year"></select>')
-			.end().removeClass('saved-card')
-		copy.find('select').each(function(){
-				$(this).css('display', 'inline-block')
-				if($(this).hasClass('year'))
-					$(this).css('width', '36%');
-			});
-		copy.find('.zip').html("<input data-stripe='zip'  name='zip'  id='zip' placeholder='or postal ' class='form-control'>")
-			.end().find('.cvc').html("<input data-stripe='cvc' name='cvc' placeholder='XXX' class='form-control'>")
-	$('.cards').append(copy);
-	setExpirationDates();
-	return false;
+	
 });
+$('.checkout .start-venture').on('click', checkout);
 $('body').on('click', '.chosen-card input', function () {
 	$('.chosen-card input').prop('checked', false);
 	$(this).prop('checked', true);
 })
 
-$('form#checkout, form#register').on('submit', function (e) {
+$('form#register').on('submit', function (e) {
 	var self = $(this), ammount = 17900,
 		checkout = this.id === 'checkout' ? true : false;
 
-	if(!checkout)registerForm();
-	else checkoutForm.call(this);
-
-	if(!fp)
-		Stripe.card.createToken($(this), function(status, response) {
-			  var $form = self;
-			if (response.error) {
-			    // Show the errors on the form
-			    $form.find('.payment-errors').text(response.error.message);
-			    $form.find('button').prop('disabled', false);
-			} else {
-			    // token contains id, last4, and card type
-			    var token = response.id;
-			    // Insert the token into the form so it gets submitted to the server
-			    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
-			    // and submit
-			    $form.get(0).submit();
-			}
-			
-		});
-	else self.get(0).submit();
-	return false;
-});
-function registerForm () {
 	if($('#password').length){
 		if(confirmInfo()){
 			$('.check').parents('.form-group').find('.check:hidden').parent().find('input').addClass('failed');
@@ -176,17 +140,64 @@ function registerForm () {
 	}
 	
 	$('.createaccount').prop('disabled', true);
+
+	if(!fp)getStripeToken.call(this);
+		
+	else self.get(0).submit();
+	return false;
+});
+function createCopyCheckoutForm(){
+	var copy = $('.checkoutform').first().clone();
+		copy.find('.card').html('<input type="text" name="card" size="20" data-stripe="number" class="form-control">').css('margin-top', '0')
+			.end().find('.expiration').html('<select data-stripe="exp-month" class="form-control date"></select> <select data-stripe="exp-year" class="form-control year"></select>')
+			.end().removeClass('saved-card')
+		copy.find('select').each(function(){
+				$(this).css('display', 'inline-block')
+				if($(this).hasClass('year'))
+					$(this).css('width', '36%');
+			});
+		copy.find('.zip').html("<input data-stripe='zip'  name='zip'  id='zip' placeholder='or postal ' class='form-control'>")
+			.end().find('.cvc').html("<input data-stripe='cvc' name='cvc' placeholder='XXX' class='form-control'>")
+			.end().find('.info-block').removeClass('saved-card');
+	if(copy.hasClass('none'))copy.removeClass('none');
+	$('.cards').append(copy);
+	setExpirationDates();
+	return false;
 }
-function checkoutForm () {
+createCopyCheckoutForm();
+function getStripeToken () {
+	var self = $(this);
+	Stripe.card.createToken(self, function(status, response) {
+		  var $form = self;
+		if (response.error) {
+		    // Show the errors on the form
+		    $form.find('.payment-errors').text(response.error.message);
+		    $form.find('button').prop('disabled', false);
+		} else {
+		    // token contains id, last4, and card type
+		    var token = response.id;
+		    // Insert the token into the form so it gets submitted to the server
+		    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+		    // and submit
+		    $form.get(0).submit();
+		}
+		
+	});
+}
+function checkout () {
 	if(!$('.chosen-card input:checked').length){
 		alert('Please select a card');
 		return false;
 	}
-
-	if($('.chosen-card input:checked').parent().parent().hasClass('saved-card')){
-		$(this).append($('<input>', {type : 'hidden', name : 'savedCard'}))
-		$(this).submit();
-	}
+	var form = $('.checkoutform:visible');
+	console.log(form);
+	// if($('.chosen-card input:checked').parent().parent().hasClass('saved-card')){
+	// 	var form = $('.chosen-card input:checked').parents('form');
+	// 	form.append($('<input>', {type : 'hidden', name : 'savedCard'}))
+	// 	form.submit();
+	// }else{
+		getStripeToken.call(form);
+	// }
 }
 function confirmInfo () {
 	var password = $.trim($('#password').val()),

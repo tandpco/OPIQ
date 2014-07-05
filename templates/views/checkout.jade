@@ -14,7 +14,7 @@ html
 			var key = !{JSON.stringify(stripeApiKey)};
 			Stripe.setPublishableKey(key);
 			
-	body: #register
+	body: #register.checkout
 		.head: .logo
 			a(href='/')
 				img(src="images/iq_logo.jpg")
@@ -27,43 +27,44 @@ html
 				small Single License
 			.error=error
 			.cards
-				if !cards
-					p No Cards Stored
-				else
-					for card in cards
-						form(method="post", action="register" id="checkout")
-							input(type="hidden" name="analysis" value=analysis)
-							input(type="hidden" name="last4" value=card.last4)
-							.info-block.saved-card
-								span.payment-errors
-								.chosen-card: input(type="checkbox")
-								if user
-									h3 #{user.name.first} #{user.name.last}
-									.row.one
-										.col-sm-8
-											small
-												strong Card Number
-											.card XXXX XXXX XXXX &nbsp;
-												span=card.last4 || 4342
-										.col-sm-4
-											small
-												strong CVC
-											br
-											.margin-top.cvc XXX
-									.row
-										.col-sm-8
-											small
-												strong Expiration Date
-											.expiration=card.exp_month + ' - ' + card.exp_year
-										.col-sm-4
-											small
-												strong Billing Zip
-											.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
-			a(href="#").new-card
-				+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
+				//- if !cards
+				//- 	p No Cards Stored
+				//- else
+					//- for card in cards
+				form(method="post", action="register" class="checkoutform").none
+					input(type="hidden" name="analysis" value=analysis)
+					//- input(type="hidden" name="last4" value=card.last4)
+					.info-block.saved-card
+						span.payment-errors
+						.chosen-card: input(type="checkbox" checked="true").none
+						if user
+							h3 #{user.name.first} #{user.name.last}
+							.row.one
+								.col-sm-8
+									small
+										strong Card Number
+									.card XXXX XXXX XXXX &nbsp;
+										//- span=card.last4 || 4342
+								.col-sm-4
+									small
+										strong CVC
+									br
+									.margin-top.cvc XXX
+							.row
+								.col-sm-8
+									small
+										strong Expiration Date
+									//- .expiration=card.exp_month + ' - ' + card.exp_year
+									.expiration
+								.col-sm-4
+									small
+										strong Billing Zip
+									.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
+			//- a(href="#").new-card
+			//- 	+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
 			p This and all future analysis will be discounted by xx% of $179.00.
 			.error=error
-			button.start-venture(type="submit") <i class="fa fa-lock"></i> Pay $50
+			button.start-venture <i class="fa fa-lock"></i> Pay $50
 
 			//- .regsection.col-xs-12
 				.col-sm-6.left

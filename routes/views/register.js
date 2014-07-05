@@ -81,24 +81,15 @@ exports = module.exports = function(req, res) {
 			if(!req.body.freepass || freepass.length){
 			
 				if(req.headers.referer.match('register')){
-					console.log('yepper diddly doodly doo')
-					stripe.customers.create({
-					  description: 'OPIQ Customer',
-					  card: stripeToken, // obtained with Stripe.js
-					  email: req.body.email
-					}).then(function (customer) {
-						req.session.stripeid = customer.id;
-						return stripe.charges.create({
-						    amount: amount, // amount in cents, again
-						    currency: "usd",
-						    customer: customer.id,
-						    description : "OPIQ Charge"
-						 });
-					}).then(function (charge) {
-
-						if(!req.user){
-				  			build_user(fields, view, req, locals, res);
-				  		}else getPages(view, locals, req, res);
+					stripecust.createCustomer(req, res, stripeToken, amount, function (err, charge) {
+						if(!err)
+							if(!req.user){
+					  			build_user(fields, view, req, locals, res);
+					  		}else getPages(view, locals, req, res);
+					  	else{
+					  		locals.error = "Failed to charge card";
+					  		keystone.redirect("/register");
+					  	}
 					});
 				}else{
 
@@ -109,63 +100,86 @@ exports = module.exports = function(req, res) {
 					// Checkout is only $50
 					amount = 5000;
 
-					if(req.body.savedCard){
-						if(req.body.zip !== req.user.zip){
-							locals.error = "Incorrect zip";
-							view.render("checkout");
-						}
-						stripe.customers.listCards(req.user.stripeid, function(err, cards) {
-							if(err || !cards){
-								locals.error = 'No cards found';
-								view.render('checkout');
-							}
-							for(var i = 0; i < cards.data.length; i++){
-								if(cards.data[i].last4 == req.body.last4){
-									var chargeObject = {
-									  amount: amount, // amount in cents, again
-									  currency: "usd",
-									  customer: req.user.stripeid,
-									  id : cards.data[i].id
-									};
-									console.log(chargeObjec);
+					// Initial check to see if user is defined
+					if(!req.user)keystone.redirect("/");
 
-									var charge = stripe.charges.create(chargeObject, function(err, charge) {
+					// if(req.body.savedCard){
+						// if(req.body.zip !== req.user.zip){
+						// 	locals.error = "Incorrect zip";
+						// 	view.render("checkout");
+						// }
+						// stripe.customers.listCards(req.user.stripeid, function(err, cards) {
+						// 	if(err || !cards){
+						// 		locals.error = 'No cards found';
+						// 		stripecust.renderCheckout(req, res);
+						// 	}
+						// 	for(var i = 0; i < cards.data.length; i++){
+						// 		if(cards.data[i].last4 == req.body.last4){
+						// 			var chargeObject = {
+						// 			  amount: amount, // amount in cents, again
+						// 			  currency: "usd",
+						// 			  customer: req.user.stripeid,
+						// 			  id : cards.data[i].id
+						// 			};
+
+						// 			var charge = stripe.charges.create(chargeObject, function(err, charge) {
 									
-									  if (err && err.type === 'StripeCardError'){
-									  	locals.error = err.type;
-									  	view.render('checkout');
-									  }else getPages(view, locals, req, res);
+						// 			  if (err && err.type === 'StripeCardError'){
+						// 			  	locals.error = err.type;
+						// 			  	view.render('questions');
+						// 			  }else getPages(view, locals, req, res);
 									  
-									});
-								}
-							}
+						// 			});
+						// 		}
+						// 	}
 	  						
-						});
+						// });
 						
-					}else{
+					// }else{
 						var chargeObject = {
 							amount: amount, // amount in cents, again
 							currency: "usd",
 							card: stripeToken,
-							description: "OPIQ Charge",
-							customer: req.user.stripeid
+							description: "OPIQ Charge"
 						}
-						// Create new card then charge
-						stripe.customers.createCard(
-						  req.user.stripeid,
-						  {card: stripeToken},
-						  function(err, card) {
-						    var charge = stripe.charges.create(chargeObject, function(err, charge) {
-							
-							  if (err && err.type === 'StripeCardError'){
-							  	locals.error = err.type;
-							  	view.render('checkout');
-							  }else getPages(view, locals, req, res);
-							  
+
+						// Check to see if user has stripe id
+						if(req.user.stripeid){
+							chargeObject.customer = req.user.stripeid;
+							// Create new card then charge
+							if(req.user.stripeid)
+								stripecust.createCardIfNone(req.user.stripeid, stripeToken, req.body.card.substr(-4), function(err, card){
+									if(!err){
+										chargeObject.card = card;
+										charge();
+									}else{
+										locals.error = err.type;
+										keystone.redirect('checkout');
+									}
+								})
+							else charge();
+						// If no id create customer
+						}else{
+							stripecust.createCustomer(req, res, stripeToken, amount, function (e, c) {
+
+								if(e){
+							   		locals.error = e.type;
+				  					keystone.redirect('checkout');	
+						   		}else getPages(view, locals, req, res);
 							});
-						  }
-						);
-					}
+						}
+						
+						function charge(){
+							stripecust.charge(chargeObject, function (e, ch) {
+								console.log(e, ch);
+						   		if(e){
+							   		locals.error = e.type;
+				  					keystone.redirect('checkout');	
+						   		}else getPages(view, locals, req, res);
+						   		
+						   })
+						}
+					// }
 					
 				}	 
 				
