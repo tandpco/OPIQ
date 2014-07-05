@@ -66,9 +66,11 @@ $('body').on('keyup', '[name=coupon]', function () {
 						});
 					fp = true;
 				}
-				if(d !== 'error')
+				if(d !== 'error') {
 					$('.price').text(d);
-				
+					var p = 179 - d;
+					$('.newPrice').text(p);
+				}
 				l.hide();
 				
 			}
