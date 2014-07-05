@@ -150,7 +150,7 @@ exports = module.exports = function(req, res) {
 							if(req.user.stripeid)
 								stripecust.createCardIfNone(req.user.stripeid, stripeToken, req.body.card.substr(-4), function(err, card){
 									if(!err){
-										chargeObject.card = card;
+										chargeObject.card = card.id;
 										charge();
 									}else{
 										locals.error = err.type;
@@ -160,7 +160,7 @@ exports = module.exports = function(req, res) {
 							else charge();
 						// If no id create customer
 						}else{
-							
+
 							stripecust.createCustomer(req, res, stripeToken, amount, function (e, c) {
 								stripecust.setUserStripeId(req, c.id);
 								if(e){

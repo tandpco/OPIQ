@@ -86,7 +86,6 @@ exports = module.exports = {
 		  		else cb(null, gotit);
 		  	}
 
-		  }
-		);
+		});
 	}
 }
