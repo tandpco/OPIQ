@@ -78,7 +78,7 @@ exports = module.exports = function(req, res) {
 				
 				}
 			}
-			if(!req.body.freepass || freepass.length){
+			if(!req.body.freepass || req.user.freeAccess){
 			
 				if(req.headers.referer.match('register')){
 					stripecust.createCustomer(req, res, stripeToken, amount, function (err, charge) {
