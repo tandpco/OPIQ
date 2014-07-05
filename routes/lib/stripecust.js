@@ -18,20 +18,23 @@ exports = module.exports = {
 			}
 		})
 	},
+	// Create customer also charges
 	createCustomer : function (req, res, stripeToken, amount, cb) {
-		var self = this;
+		var self = this,
+			customer;;
 		stripe.customers.create({
 		  description: 'OPIQ Customer',
 		  card: stripeToken, // obtained with Stripe.js
 		  email: req.body.email
 		}).then(function (customer) {
 			req.session.stripeid = customer.id;
+			customer = customer;
 			self.charge({
 			    amount: amount, // amount in cents, again
 			    currency: "usd",
 			    customer: customer.id,
 			    description : "OPIQ Charge"
-			}, cb)
+			}, function(e, c){cb(e, customer)})
 		})
 	},
 	renderCheckout : function (req, res) {

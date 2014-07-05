@@ -160,8 +160,9 @@ exports = module.exports = function(req, res) {
 							else charge();
 						// If no id create customer
 						}else{
+							
 							stripecust.createCustomer(req, res, stripeToken, amount, function (e, c) {
-
+								stripecust.setUserStripeId(req, c.id);
 								if(e){
 							   		locals.error = e.type;
 				  					keystone.redirect('checkout');	
