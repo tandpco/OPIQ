@@ -221,9 +221,9 @@ block content
 								i.fa.fa-question-circle
 							.text Need Help With This?
 						.body
-							form.qaform(id='#' + page._id)
+							form.qaform(id='#' + page._id, action='help')
 								.textbox
-									textarea(name="question")
+									input(type="text", name="question", id="question")
 								.submit
 									input(type="submit", value="SUBMIT")
 

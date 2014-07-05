@@ -90,31 +90,33 @@ exports = module.exports = function(app) {
 	app.post('/message', get_message);
 	app.get('/forgot-page', routes.views.forgotPage);
 	app.post('/help', function(req, res) {
-		var view = new keystone.View(req, res);
-	    var email = req.body.email;
-	    var ip = req.connection.remoteAddress;
-		
-		var crypto = require('crypto')
-		  , shasum = crypto.createHash('sha1')
-		var mail = require("nodemailer").mail;
+		var nodemailer = require("nodemailer");
+		// create reusable transport method (opens pool of SMTP connections)
+		var smtpTransport = nodemailer.createTransport("SMTP",{
+		    service: "Gmail",
+		    auth: {
+		        user: "daniel@theoryandpractice.co",
+		        pass: "saffronrice94"
+		    }
+		});
+		// setup e-mail data with unicode symbols
+		var mailOptions = {
+		    from: "notifications@opportunityIQ.com", // sender address
+		    to: "daniel@theoryandpractice.co", // list of receivers
+		    subject: "OPIQ Question", // Subject line
+		    text: req.body.question, // plaintext body
+			html: req.body.question // html body
+		}
+		// send mail with defined transport object
+		smtpTransport.sendMail(mailOptions, function(error, response){
+		    if(error){
+		        console.log(error);
+		    }else{
+		        res.send(true);
+		    }
 
-		User.model.find({email : email}).exec(function (i, e) {
-			if(e.length > 0){
-				shasum.update("foo");
-				var uri = shasum.digest('hex');
-
-				keystone.set(ip + 'reset', {email : email , token : uri});
-
-				mail({
-				    from: "notifications@opportunityIQ.com", // sender address
-				    to: email, // list of receivers
-				    subject: "Change Password", // Subject line
-				    html: "Click <a href='http://localhost:3000/reset?" + uri + "'>here to change your password</a>"
-				});
-				req.flash('success', 'Check your inbox or spam box for a password reset message.');
-			}else{
-				req.flash('error', 'No user found for email address');
-			}
+		    // if you don't want to use this transport object anymore, uncomment following line
+		    //smtpTransport.close(); // shut down the connection pool, no more messages
 		});
 	});
 	app.post('/forgot', function (req, res) {

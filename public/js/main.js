@@ -27,18 +27,18 @@ $('.close').click(function() {
 	$('section#lightbox').fadeOut();
 	return false;
 });
-$('.qaform').submit(function() {
+$('.qaform').submit(function(req) {
 	var $this = $(this);
-	var updatePage = function(resp) {
+	var updatePage = function(data) {
 		$this.html('Worked.');
 	};
-	var printError = function(req, status, err) {
+	var printError = function(error) {
 		$this.html('We were unable to send your message.', status, err );
 	};
 	var ajaxOptions = {
 		url: '/help',
 		type: 'POST',
-		data: $this.serialize(),
+		data: req.body,
 		success: updatePage,
 		error: printError
 	};
