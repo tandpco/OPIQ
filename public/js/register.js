@@ -28,9 +28,11 @@ function setExpirationDates(){
 }
 setExpirationDates();
 var timer;
-$('[name=coupon]').on('keyup', function () {
+$('body').on('keyup', '[name=coupon]', function () {
 	var self = $(this),
 		l = $('.loader');
+
+	console.log('yepepeyop')
 
 	if($.trim($(this).val()) === ''){
 		l.hide();

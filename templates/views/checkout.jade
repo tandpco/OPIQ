@@ -9,7 +9,19 @@ html
 		link(rel="stylesheet", href="/styles/site.min.css")
 		link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css")
 		script(type="text/javascript" src="https://js.stripe.com/v2/")
-		
+		style.
+			#register div.loader {
+				position: absolute;
+				right: 10px;
+				top: 20px;
+			}
+			.row img, .navbar-right img {
+				width: 19px;
+				border-radius: 63px;
+				padding: 0;
+				height: 19px;
+				margin-right: 12px;
+			}
 		script.
 			var key = !{JSON.stringify(stripeApiKey)};
 			Stripe.setPublishableKey(key);
@@ -34,7 +46,7 @@ html
 				form(method="post", action="register" class="checkoutform").none
 					input(type="hidden" name="analysis" value=analysis)
 					//- input(type="hidden" name="last4" value=card.last4)
-					.info-block.saved-card
+					.info-block.saved-card.payment-form
 						span.payment-errors
 						.chosen-card: input(type="checkbox" checked="true").none
 						if user
