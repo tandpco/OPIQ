@@ -101,7 +101,7 @@ exports = module.exports = function(app) {
 		});
 		// setup e-mail data with unicode symbols
 		var mailOptions = {
-		    from: "notifications@opportunityIQ.com", // sender address
+		    from: "opiq@launchthought.com", // sender address
 		    to: "daniel@theoryandpractice.co", // list of receivers
 		    subject: "OPIQ Question", // Subject line
 			html: '<strong>' + req.body.page + '</strong><br /><br />' + req.body.question + '<br /><br /><b>From:</b> ' + req.body.user + '<br><b>Email Address:</b> ' + req.body.email // html body
