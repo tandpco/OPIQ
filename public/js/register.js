@@ -133,20 +133,26 @@ $('form#register').on('submit', function (e) {
 		}
 	}
 	
-	if($.trim($('#zip').val()) === ''){
-		alert('Please type in a zip code');
-		return false;
-	}
-	if(!$('.terms input[type=checkbox]').prop('checked')){
-		alert('Please accept terms of service');
-		return false;
-	}
 	
-	$('.createaccount').prop('disabled', true);
+	
 
-	if(!fp)getStripeToken.call(this);
+	if(!fp){
+		if($.trim($('#zip').val()) === ''){
+			alert('Please type in a zip code');
+			return false;
+		}
+		if(!$('.terms input[type=checkbox]').prop('checked')){
+			alert('Please accept terms of service');
+			return false;
+		}
+		$('.createaccount').prop('disabled', true);
 		
-	else self.get(0).submit();
+		getStripeToken.call(this);
+			
+	}else {
+		$('.createaccount').prop('disabled', true);
+		self.get(0).submit();
+	}
 	return false;
 });
 function createCopyCheckoutForm(){
