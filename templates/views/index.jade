@@ -199,23 +199,21 @@ block content
 					//- 		.t
 					//- 			div!=page.Caution
 					//- 		.gradient-overlay
-					.row#notes
-						.col-sm-6
-							.internal-notes.sb-head.grey.notes
-								.header
-									span(style="text-align: center;")
-										i.fa.fa-file-text-o
-									span
-										|Scratchpad
-							.body: textarea=(answer && answer.notes || '')
-						.col-sm-6
-							.show-your-work.sb-head.grey.notes
-								.header
-									span(style="text-align: center;")
-										i.fa.fa-superscript
-									span
-										|Show Your Work (shared)
-							.body: textarea=(answer && answer.work || '')
+					#notes
+						.internal-notes.sb-head.grey.notes
+							.header
+								span(style="text-align: center; width: 6%;")
+									i.fa.fa-file-text-o
+								span(style="width: 92%;")
+									|Scratchpad
+						.body: textarea=(answer && answer.notes || '')
+						.show-your-work.sb-head.grey.notes
+							.header
+								span(style="text-align: center; width: 6%;")
+									i.fa.fa-superscript
+								span(style="width: 92%;")
+									|Show Your Work (shared)
+						.body: textarea=(answer && answer.work || '')
 
 					.section#needhelp
 						.header
@@ -223,9 +221,9 @@ block content
 								i.fa.fa-question-circle
 							.text Need Help With This?
 						.body
-							.qaform
+							form.qaform(id='#' + page._id)
 								.textbox
-									textarea
+									textarea(name="question")
 								.submit
-									input(type="button", value="SUBMIT")
+									input(type="submit", value="SUBMIT")
 

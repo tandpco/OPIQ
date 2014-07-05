@@ -89,6 +89,34 @@ exports = module.exports = function(app) {
 	app.post('/charge', routes.lib.charge);
 	app.post('/message', get_message);
 	app.get('/forgot-page', routes.views.forgotPage);
+	app.post('/help', function(req, res) {
+		var view = new keystone.View(req, res);
+	    var email = req.body.email;
+	    var ip = req.connection.remoteAddress;
+		
+		var crypto = require('crypto')
+		  , shasum = crypto.createHash('sha1')
+		var mail = require("nodemailer").mail;
+
+		User.model.find({email : email}).exec(function (i, e) {
+			if(e.length > 0){
+				shasum.update("foo");
+				var uri = shasum.digest('hex');
+
+				keystone.set(ip + 'reset', {email : email , token : uri});
+
+				mail({
+				    from: "notifications@opportunityIQ.com", // sender address
+				    to: email, // list of receivers
+				    subject: "Change Password", // Subject line
+				    html: "Click <a href='http://localhost:3000/reset?" + uri + "'>here to change your password</a>"
+				});
+				req.flash('success', 'Check your inbox or spam box for a password reset message.');
+			}else{
+				req.flash('error', 'No user found for email address');
+			}
+		});
+	});
 	app.post('/forgot', function (req, res) {
 		var view = new keystone.View(req, res);
 	    var email = req.body.email;

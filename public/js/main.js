@@ -26,7 +26,25 @@ $('.close').click(function() {
 	$('.overlay').fadeOut();
 	$('section#lightbox').fadeOut();
 	return false;
-})
+});
+$('.qaform').submit(function() {
+	var $this = $(this);
+	var updatePage = function(resp) {
+		$this.html('Worked.');
+	};
+	var printError = function(req, status, err) {
+		$this.html('We were unable to send your message.', status, err );
+	};
+	var ajaxOptions = {
+		url: '/help',
+		type: 'POST',
+		data: $this.serialize(),
+		success: updatePage,
+		error: printError
+	};
+	$.ajax(ajaxOptions);
+	return false;
+});
 // HELPER FUNCS
 if(Answers)
 $.each(Answers, function  (i, v) {
@@ -34,7 +52,7 @@ $.each(Answers, function  (i, v) {
 		if(p.name === v.page)
 			Pages[l].answer = v.answer;
 	})
-})
+});
 $.fn.set = function(num, overall){
 
 	$(this).find('.bar-complete').animate({width : (num || 0) + '%' }, 2000).end().find('.num span')
@@ -502,16 +520,3 @@ function makeSureSectionsAreGreenChecked () {
 
 	if(!p.length)m.addClass('complete');
 }
-$("#needHelp").submit(function() {
-    var url = "/help"; // the script where you handle the form input.
-    $.ajax({
-           type: "POST",
-           url: url,
-           data: $("#needHelp").serialize(), // serializes the form's elements.
-           success: function(data)
-           {
-               alert(data); // show response from the php script.
-           }
-         });
-    return false; // avoid to execute the actual submit of the form.
-});
