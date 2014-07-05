@@ -41,19 +41,21 @@ exports = module.exports = {
 		var view = new keystone.View(req, res);
 
 		res.locals.analysis = req.body.analysis;
-		this.get(req.user.stripeid, function(customer){
-			if(customer.deleted){
-				res.locals.error = "No stripe customer in this name";
-				res.redirect('/');
-				return;
-			}
-			var data = customer.cards.data;
-			res.locals.cards = [];
-			for(var i = 0 ; i < data.length ; i++)
-				res.locals.cards.push(data[i]);
-			
-				view.render('checkout');					
-		});
+		if(req.user.stripeid)
+			this.get(req.user.stripeid, function(customer){
+				if(customer.deleted){
+					res.locals.error = "No stripe customer in this name";
+					res.redirect('/');
+					return;
+				}
+				var data = customer.cards.data;
+				res.locals.cards = [];
+				for(var i = 0 ; i < data.length ; i++)
+					res.locals.cards.push(data[i]);
+				
+					view.render('checkout');					
+			});
+		else view.render('checkout');
 	},
 	charge : function  (chargeObject, cb) {
 		 stripe.charges.create(chargeObject, function(err, charge) {
