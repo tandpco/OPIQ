@@ -97,8 +97,8 @@ exports = module.exports = function(req, res) {
 				// CHECKOUT        //
 				/////////////////////
 
-					// Checkout is only $50
-					amount = 5000;
+					// Checkout is only $49
+					amount = 4900;
 
 					// Initial check to see if user is defined
 					if(!req.user)keystone.redirect("/");
