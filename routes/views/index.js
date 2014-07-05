@@ -36,9 +36,9 @@ exports = module.exports = function(req, res) {
 
  				
  				}else {
- 					if(req.user.zip)
+ 					// if(req.user.zip)
 	 					stripecust.renderCheckout(req, res);
-	 				else view.render('register');
+	 				// else view.render('register');
  				}
  			})
  			
