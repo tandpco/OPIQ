@@ -42,10 +42,10 @@ keystone.pre('render', middleware.flashMessages);
 
  
 // Set api keys globally
-// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
-keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
-// keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
-keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
+keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
+// keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
+keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
+// keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
 
 
 // Import Route Controllers
@@ -93,10 +93,9 @@ exports = module.exports = function(app) {
 		var nodemailer = require("nodemailer");
 		// create reusable transport method (opens pool of SMTP connections)
 		var smtpTransport = nodemailer.createTransport("SMTP",{
-		    service: "Gmail",
 		    auth: {
-		        user: "daniel@theoryandpractice.co",
-		        pass: "saffronrice94"
+		        user: "opiq@launchthought.com",
+		        pass: "4^9fvp,UWYT4gJ"
 		    }
 		});
 		// setup e-mail data with unicode symbols
