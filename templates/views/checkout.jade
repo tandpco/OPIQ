@@ -60,6 +60,13 @@ html
 									small
 										strong Billing Zip
 									.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
+							.row
+								.col-xs-12
+									small
+										strong Coupon
+									br
+									input(name='coupon', placeholder='Enter Coupon Code').form-control.coupon
+									.loader.none: img(src="/images/ajax-loader.gif")
 			//- a(href="#").new-card
 			//- 	+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
 			p This and all future analysis will be discounted by 28% of $179.00.
