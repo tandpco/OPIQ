@@ -25,7 +25,7 @@ exports = module.exports = {
 		stripe.customers.create({
 		  description: 'OPIQ Customer',
 		  card: stripeToken, // obtained with Stripe.js
-		  email: req.body.email
+		  email: req.body.email || req.user.email
 		}).then(function (customer) {
 			req.session.stripeid = customer.id;
 			customer = customer;
