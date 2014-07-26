@@ -243,17 +243,19 @@ exports = module.exports = {
 		this.createCustomerIfNone(req, stripeid, function(err, customer) {
 		  	var d, gotit = false;
 		  	if(err)cb(err);
-		  	if(!d.length)self.createCard(req, zip, stripeid, stripeToken, cb);
 		  	else{
 		  		d = customer.cards.data;
-		  		for(var i = 0 ; i < d.length ; i++){
-		  			if(d[i].last4 === last4){
-		  				gotit = d[i].id;
-		  				break;
-		  			}
-		  		}
-		  		if(!gotit)self.createCard(req, zip, stripeid, stripeToken, cb);
-		  		else cb(null, gotit);
+		  		if(!d.length)self.createCard(req, zip, stripeid, stripeToken, cb);
+		  		else{
+			  		for(var i = 0 ; i < d.length ; i++){
+			  			if(d[i].last4 === last4){
+			  				gotit = d[i].id;
+			  				break;
+			  			}
+			  		}
+			  		if(!gotit)self.createCard(req, zip, stripeid, stripeToken, cb);
+			  		else cb(null, gotit);
+			  	}
 		  	}
 
 		});
