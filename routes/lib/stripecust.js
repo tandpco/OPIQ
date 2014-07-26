@@ -80,7 +80,6 @@ exports = module.exports = {
 
 		User.model.findOne({_id : req.user._id}).exec(function (e, u) {
 			if(!e){
-
 				for(var i = 0 ; i < u.cards.length; i++){
 					var card = u.cards[i];
 					console.log(zip, card.zip, last4, card.last4);
@@ -168,7 +167,8 @@ exports = module.exports = {
 			});
 	},
 	renderCheckout : function (req, res) {
-		var view = new keystone.View(req, res);
+		var view = new keystone.View(req, res),
+			self = this;
 
 		res.locals.analysis = req.body.analysis;
 		if(req.user.stripeid)
@@ -186,7 +186,9 @@ exports = module.exports = {
 
 					view.render('checkout');
 
-				}else console.log(e);
+				}else self.createCustomer(req, function () {
+					view.render('checkout');
+				});
 			});
 		else {
 			view.render('checkout');
