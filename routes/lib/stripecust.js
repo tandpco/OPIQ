@@ -241,10 +241,11 @@ exports = module.exports = {
 			zip = req.body.zip;
 
 		this.createCustomerIfNone(req, stripeid, function(err, customer) {
-		  	var d = customer.cards.data, gotit = false;
+		  	var d, gotit = false;
 		  	if(err)cb(err);
 		  	if(!d.length)self.createCard(req, zip, stripeid, stripeToken, cb);
 		  	else{
+		  		d = customer.cards.data;
 		  		for(var i = 0 ; i < d.length ; i++){
 		  			if(d[i].last4 === last4){
 		  				gotit = d[i].id;
