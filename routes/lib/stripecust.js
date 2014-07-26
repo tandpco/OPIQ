@@ -141,12 +141,12 @@ exports = module.exports = {
 			customerObject.card = stripeToken; 
 		}
 
-		stripe.customers.create(customerObject).then(function (customer) {
+		stripe.customers.create(customerObject, function (e, customer) {
 			req.session.zip = req.body.zip || null;
 			req.session.last4 = req.body.last4 || null;
 			req.session.stripeid = customer.id;
 
-			cb();			
+			cb(e, customer);			
 		})
 	},
 	getCoupon : function  (COUPON_ID, amount, cb) {
@@ -227,8 +227,8 @@ exports = module.exports = {
 	createCustomerIfNone : function  (req, stripeid, cb) {
 		stripe.customers.retrieve(stripeid, function (e, c) {
 			if(e)
-				createCustomer(req, function  (e, c) {
-					cb(e,c);
+				createCustomer(req, function  (customer) {
+					cb(null, customer);
 				});
 			else cb(null, c);
 		});
