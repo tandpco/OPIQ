@@ -239,12 +239,15 @@ exports = module.exports = {
 			stripeid = req.user.stripeid,
 			last4 = req.body.last4,
 			zip = req.body.zip;
-		console.log('*')
-		console.log('*')
-		console.log('*')
-		console.log('*')
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log('*');
 		console.log(req.user);
-		console.log('*')console.log('*')console.log('*')console.log('*')
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log('*');
 
 		this.createCustomerIfNone(req, stripeid, function(err, customer) {
 		  	var d, gotit = false;
