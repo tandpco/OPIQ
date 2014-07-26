@@ -225,9 +225,10 @@ exports = module.exports = {
 		});
 	},
 	createCustomerIfNone : function  (req, stripeid, cb) {
+		var self = this;
 		stripe.customers.retrieve(stripeid, function (e, c) {
 			if(e)
-				createCustomer(req, function  (customer) {
+				self.createCustomer(req, function  (customer) {
 					cb(null, customer);
 				});
 			else cb(null, c);
