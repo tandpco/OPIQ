@@ -51,17 +51,20 @@ $('body').on('keyup', '[name=coupon]', function () {
 			success : function (d) {
 
 				if(d == 0){
-					$('.payment-form').append($('<input>', {type : 'hidden', name : 'freepass', value : 'true'}))
-						.find('input').each(function () {
-							if($(this).hasClass('coupon')){
-								$(this).val( $.trim($(this).val()));
-							}
-							$('.payment-form').append($(this).clone().prop('type', 'hidden'));
-							$(this).prop('disabled', true);
-						})
-						.end().find('select').each(function () {
-							$(this).prop('disabled', true);
-						});
+					$('.payment-form').each(function(){
+						var self = $(this);
+						$(this).append($('<input>', {type : 'hidden', name : 'freepass', value : 'true'}))
+							.find('input').each(function () {
+								if($(this).hasClass('coupon')){
+									$(this).val( $.trim($(this).val()));
+								}
+								self.append($(this).clone().prop('type', 'hidden'));
+								$(this).prop('disabled', true);
+							})
+							.end().find('select').each(function () {
+								$(this).prop('disabled', true);
+							});
+					})
 					fp = true;
 				}
 				if(d !== 'error') {
@@ -218,8 +221,8 @@ function checkout () {
 	
 	$(this).prop('disabled', true);
 
-	if(card.hasClass('saved-card'))form.submit();
-	else {
+	if(card.hasClass('saved-card') || fp)form.submit();
+	else{
 		card.append($('<input>', {name : 'last4', type : 'hidden', value : card.find('[name=number]').val().substr(-4)}));
 		getStripeToken.call(form[0]);
 	}

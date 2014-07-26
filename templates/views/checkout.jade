@@ -43,7 +43,7 @@ html
 					p No Cards Stored
 				else
 					for card in cards
-						form(method="post", action="register" class="checkoutform #{card.id}")
+						form(method="post", action="register" class="payment-form checkoutform #{card.id}")
 							input(type="hidden" name="analysis" value=analysis)
 							input(type="hidden" name="checkout" value='true')
 							input(type="hidden" name="last4" value=card.last4)
@@ -120,7 +120,7 @@ html
 							.col-xs-12
 								br
 								small
-								strong Coupon
+									strong Coupon
 								input.form-control.coupon(name='coupon', placeholder='Enter Coupon Code')
 								.loader.none
 									img(src='/images/ajax-loader.gif')
@@ -189,7 +189,7 @@ style.
 	.start-venture{color:white;}
 	#cards{float:right;}
 	.form-row {margin-top: 10px;margin-bottom:10px;}
-	#register div.loader {position: absolute;right: 11px;top: 32px;}
+	#register div.loader {position: absolute;right: 11px;top: 48px;}
 
 block js
 	//- Only focus the field after the shake animation is complete
