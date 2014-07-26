@@ -111,16 +111,16 @@ html
 							label: span Card Number
 							img(src='images/cards.png')
 							br
-							input(type="text" size="20" data-stripe="number").form-control
+							input(type="text" size="20" name='number' data-stripe="number").form-control
 
 						.form-row.expiration
 							.labels
 								label: span Expiration
 								label.cvc: span CVC
 							.form-inline
-								select(data-stripe="exp-month").form-control.date
-								select(data-stripe="exp-year").form-control.year
-								input(type="text" size="5" data-stripe="cvc").form-control.cvcinput
+								select(data-stripe="exp-month" name='exp-month').form-control.date
+								select(data-stripe="exp-year" name='exp-year').form-control.year
+								input(type="text" size="5" name='cvc' data-stripe="cvc").form-control.cvcinput
 						.form-row
 							label: span Billing ZIP
 							br
@@ -136,6 +136,8 @@ html
 						span: a(href='tos') Terms of Service
 						//- |&nbsp; and &nbsp;
 						//- span: a(href='/privacy') Privacy Policy
+					if error
+						.error=error
 					button.createaccount(type="submit") 
 						| $
 						span.price 179

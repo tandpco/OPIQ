@@ -429,6 +429,13 @@ div#tos {
 .card-info {
 	margin: 60px auto 0;
 	max-width: 400px;
+	.margin-top {
+		margin-top: 6px;
+	}
+	.chosen-card {
+	    background: #4B4B4B !important;
+	    color: white;
+	}
 	.intro {
 		text-align: center;
 		.analysis {
@@ -441,16 +448,21 @@ div#tos {
 			font-size: 16px;
 			font-weight: 100;
 		}
-		div.margin-top {
-			margin-top: 6px;
-		}
+		
 		.error{color:red;}
 	}
 	.info-block {
 		background: @info-block;
 		border: 1px solid @info-color;
 		margin-top: 30px;
+		position: relative;
 		padding: 30px;
+		.selected-card {
+		    position: absolute;
+		    right: 10px;
+		    top: 10px;
+		    color: #b3d338;
+		}
 		h3 {
 			font-weight: 100;
 			color: @info-color;
@@ -493,6 +505,8 @@ div#tos {
 		border: none;
 		margin-top: 14px;
 		font-size: 24px;
+		width: 100%;
+		margin-bottom: 50px;
 	}
 }
 
@@ -988,13 +1002,27 @@ div#tos {
 	    color: red;
 	}
 	.form-control.date {
-	    width: 45%;
-	    
+	    width: 38%;
+	    display:inline-block;
 
 	}
 	.form-control.year {
-	    width: 20%;
+	    width: 26%;
+	    display: inline-block;
 	    margin-right: 11%;
+	}
+	
+	.cards{
+		.form-control.date {
+		    width: 48%;
+		    display:inline-block;
+
+		}
+		.form-control.year {
+		    width: 39%;
+		    display: inline-block;
+		    margin-right: 11%;
+		}
 	}
 	.form-control.cvcinput{
 		width: 21%;

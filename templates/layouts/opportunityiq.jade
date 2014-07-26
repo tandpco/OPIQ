@@ -305,11 +305,21 @@ html
 													span.t=page.name.toUpperCase()
 												td: div: .bar(percent=page.answer): .bar-complete 50
 												td: div: .percent: .num: span 50%
-							.download-pdf
-								a(href='print').large-main-button#get-pdf
+							//- .download-pdf
+							//- 	a(href='print').large-main-button#get-pdf
+							//- 		img(src="images/pdf.png")
+							//- 		| Print Report
+							.download-pdf: form(action="print", method="post")
+								if typeof analysis === 'object'
+									input(type='hidden' name='analysis' value=analysis._id)
+								else
+									input(type='hidden' name='analysis' value=analysis)
+								input(type="hidden" value=JSON.stringify(categories) name='categories')
+								input(type="hidden" value=main_total name='total')
+								a.large-main-button#get-pdf
 									img(src="images/pdf.png")
 									| Print Report
-
+		
 		//- JAVASCRIPT
 
 		//- jQuery 1.11.0 is included by default, and required by both Bootstrap
@@ -328,6 +338,7 @@ html
 
 		//- Add scripts that are globally required by your site here.
 		script(src="/js/main.js")
-	
+		script.
+			$('#get-pdf').on('click', function(){$(this).parents('form').submit()});
 		//- Include template-specific javascript files by extending the js block
 		block js

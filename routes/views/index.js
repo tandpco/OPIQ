@@ -115,7 +115,7 @@ exports = module.exports = function(req, res) {
 						if(answers)
 							locals.answers = answers;
 						
-						console.log(answers);
+						// console.log(answers);
 						// Set locals
 						locals.pages = pages;
 						

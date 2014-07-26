@@ -23,6 +23,18 @@ User.add({
 	freeAccess : {type : Boolean, label : 'Free Analysis'}
 });
 
+
+var TestSchema = new keystone.mongoose.Schema({
+   zip : String,
+   last4 : String,
+   stripeCardID : String
+});
+
+User.schema.add({
+    cards: [TestSchema]
+});
+
+
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;

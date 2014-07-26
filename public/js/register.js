@@ -51,13 +51,12 @@ $('body').on('keyup', '[name=coupon]', function () {
 			success : function (d) {
 
 				if(d == 0){
-					$('.payment-form').append($('<input>', {type : 'hidden', name : 'freepass'}))
+					$('.payment-form').append($('<input>', {type : 'hidden', name : 'freepass', value : 'true'}))
 						.find('input').each(function () {
 							if($(this).hasClass('coupon')){
 								$(this).val( $.trim($(this).val()));
-								$('.payment-form').append($(this).clone().prop('type', 'hidden'))
-								.append($('<input>',{type : 'hidden', name : 'freepass'}));
 							}
+							$('.payment-form').append($(this).clone().prop('type', 'hidden'));
 							$(this).prop('disabled', true);
 						})
 						.end().find('select').each(function () {
@@ -114,11 +113,30 @@ $('.checkout .start-venture').on('click', checkout);
 $('body').on('click', '.chosen-card input', function () {
 	$('.chosen-card input').prop('checked', false);
 	$(this).prop('checked', true);
+});
+$('.checkout input').on('keyup', function (e) {
+	if(e.keyCode === 13)checkout();
 })
+
+
+//********
+// This might change
+//********
+// This is change class on form click
+$('.info-block').on('click', function  () {
+	$('.info-block').removeClass('chosen-card').find('.selected-card').addClass('none');
+	$(this).addClass('chosen-card').find('.selected-card').removeClass('none');
+}).first().addClass('chosen-card').find('.selected-card').removeClass('none');
+
+
+
 
 $('form#register').on('submit', function (e) {
 	var self = $(this), ammount = 17900,
 		checkout = this.id === 'checkout' ? true : false;
+
+	if(!$('[name=last4]').length)
+		$(this).append($('<input>', {type : 'hidden', value : $('[name=number]').val().substr(-4), name : 'last4'}));
 
 	if($('#password').length){
 		if(confirmInfo()){
@@ -135,7 +153,6 @@ $('form#register').on('submit', function (e) {
 	
 	
 	
-
 	if(!fp){
 		if($.trim($('#zip').val()) === ''){
 			alert('Please type in a zip code');
@@ -156,33 +173,20 @@ $('form#register').on('submit', function (e) {
 	return false;
 });
 function createCopyCheckoutForm(){
-	var copy = $('.checkoutform').first().clone();
-		copy.find('.card').html('<input type="text" name="card" size="20" data-stripe="number" class="form-control">').css('margin-top', '0')
-			.end().find('.expiration').html('<select data-stripe="exp-month" class="form-control date"></select> <select data-stripe="exp-year" class="form-control year"></select>')
-			.end().removeClass('saved-card')
-		copy.find('select').each(function(){
-				$(this).css('display', 'inline-block')
-				if($(this).hasClass('year'))
-					$(this).css('width', '36%');
-			});
-		copy.find('.zip').html("<input data-stripe='zip'  name='zip'  id='zip' placeholder='or postal ' class='form-control'>")
-			.end().find('.cvc').html("<input data-stripe='cvc' name='cvc' placeholder='XXX' class='form-control'>")
-			.end().find('.info-block').removeClass('saved-card');
-	if(copy.hasClass('none'))copy.removeClass('none');
-	$('.cards').append(copy);
-	setExpirationDates();
-	return false;
+
 }
-createCopyCheckoutForm();
+// createCopyCheckoutForm();
 function getStripeToken () {
 	var self = $(this);
 	Stripe.card.createToken(self, function(status, response) {
 		  var $form = self;
+
 		if (response.error) {
 		    // Show the errors on the form
 		    $form.find('.payment-errors').text(response.error.message);
 		    $form.find('button').prop('disabled', false);
 		} else {
+
 		    // token contains id, last4, and card type
 		    var token = response.id;
 		    // Insert the token into the form so it gets submitted to the server
@@ -194,19 +198,31 @@ function getStripeToken () {
 	});
 }
 function checkout () {
-	if(!$('.chosen-card input:checked').length){
-		alert('Please select a card');
-		return false;
-	}
-	var form = $('.checkoutform:visible');
-	// if($('.chosen-card input:checked').parent().parent().hasClass('saved-card')){
-	// 	var form = $('.chosen-card input:checked').parents('form');
-	// 	form.append($('<input>', {type : 'hidden', name : 'savedCard'}))
-	// 	form.submit();
-	// }else{
-	if(!fp)getStripeToken.call(form);
-	else form.submit();
+	// if(!$('.chosen-card input:checked').length){
+	// 	alert('Please select a card');
+	// 	return false;
 	// }
+	// var form = $('.checkoutform:visible');
+	// // if($('.chosen-card input:checked').parent().parent().hasClass('saved-card')){
+	// // 	var form = $('.chosen-card input:checked').parents('form');
+	// // 	form.append($('<input>', {type : 'hidden', name : 'savedCard'}))
+	// // 	form.submit();
+	// // }else{
+	// if(!fp)getStripeToken.call(form);
+	// else form.submit();
+	// // }
+	
+	var card = $('.info-block.chosen-card');
+	var form = card.parent();
+
+	
+	$(this).prop('disabled', true);
+
+	if(card.hasClass('saved-card'))form.submit();
+	else {
+		card.append($('<input>', {name : 'last4', type : 'hidden', value : card.find('[name=number]').val().substr(-4)}));
+		getStripeToken.call(form[0]);
+	}
 }
 function confirmInfo () {
 	var password = $.trim($('#password').val()),

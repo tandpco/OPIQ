@@ -39,46 +39,93 @@ html
 				small Single License
 			.error=error
 			.cards
-				//- if !cards
-				//- 	p No Cards Stored
-				//- else
-					//- for card in cards
-				form(method="post", action="register" class="checkoutform").none
+				if !cards
+					p No Cards Stored
+				else
+					for card in cards
+						form(method="post", action="register" class="checkoutform #{card.id}")
+							input(type="hidden" name="analysis" value=analysis)
+							input(type="hidden" name="checkout" value='true')
+							input(type="hidden" name="last4" value=card.last4)
+							input(type="hidden" name="savedCard" value="true")
+							.info-block.saved-card.payment-form
+								.selected-card.none: i.fa.fa-check-circle
+								.chosen-card: input(type="checkbox" checked="true").none
+								if user
+									h3 #{user.name.first} #{user.name.last}
+									.row.one
+										.col-sm-8
+											small
+												strong Card Number
+											.card XXXX XXXX XXXX &nbsp;
+												span=card.last4 || 4342
+										.col-sm-4
+											small
+												strong CVC
+											br
+											.margin-top.cvc XXX
+									.row
+										.col-sm-8
+											small
+												strong Expiration Date
+											.expiration=card.exp_month + ' - ' + card.exp_year
+											.expiration
+										.col-sm-4
+											small
+												strong Billing Zip
+											.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
+									.row
+										.col-xs-12
+											br
+											small
+												strong Coupon
+											input(name='coupon', placeholder='Enter Coupon Code').form-control.coupon
+											.loader.none: img(src="/images/ajax-loader.gif")
+				form(method="post", action="register" class="checkoutform newcardform")
 					input(type="hidden" name="analysis" value=analysis)
-					//- input(type="hidden" name="last4" value=card.last4)
-					.info-block.saved-card.payment-form
+					input(type="hidden" name="checkout" value='true')
+					.info-block.payment-form
+						.selected-card.none: i.fa.fa-check-circle
 						span.payment-errors
-						.chosen-card: input(type="checkbox" checked="true").none
+						.chosen-card
+							input.none(type='checkbox', checked='true')
 						if user
 							h3 #{user.name.first} #{user.name.last}
-							.row.one
-								.col-sm-8
-									small
-										strong Card Number
-									.card XXXX XXXX XXXX &nbsp;
-										//- span=card.last4 || 4342
-								.col-sm-4
-									small
-										strong CVC
-									br
-									.margin-top.cvc XXX
-							.row
-								.col-sm-8
-									small
-										strong Expiration Date
-									//- .expiration=card.exp_month + ' - ' + card.exp_year
-									.expiration
-								.col-sm-4
-									small
-										strong Billing Zip
-									.zip: input(type="text" name="zip" placeholder="XXXXX" class="form-control")
-							.row
-								.col-xs-12
-									br
-									small
-										strong Coupon
-									input(name='coupon', placeholder='Enter Coupon Code').form-control.coupon
-									.loader.none: img(src="/images/ajax-loader.gif")
+						.row.one
+							.col-sm-8
+								small
+									strong Card Number
+								.card
+									input.form-control(type='text', name='number', size='20', data-stripe='number', placeholder='XXXX XXXX XXXX XXXX')
+							.col-sm-4
+								small
+									strong CVC
+								br
+								.margin-top.cvc
+									input.form-control(data-stripe='cvc', name='cvc', placeholder='XXX')
+						.row
+							.col-sm-8
+								small
+									strong Expiration Date
+								.expiration
+									select.form-control.date(data-stripe='exp-month')
+									select.form-control.year(data-stripe='exp-year')
+
+							.col-sm-4
+								small
+									strong Billing Zip
+								.zip
+									input#zip.form-control(data-stripe='zip', name='zip', placeholder='or postal ')
+						.row
+							.col-xs-12
+								br
+								small
+								strong Coupon
+								input.form-control.coupon(name='coupon', placeholder='Enter Coupon Code')
+								.loader.none
+									img(src='/images/ajax-loader.gif')
+						
+
 			//- a(href="#").new-card
 			//- 	+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
 			p You save $<span class="newPrice">130</span>.
@@ -143,6 +190,7 @@ style.
 	#cards{float:right;}
 	.form-row {margin-top: 10px;margin-bottom:10px;}
 	#register div.loader {position: absolute;right: 11px;top: 32px;}
+
 block js
 	//- Only focus the field after the shake animation is complete
 	if messages && messages.error.length

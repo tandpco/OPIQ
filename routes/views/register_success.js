@@ -1,10 +1,14 @@
 var keystone = require('keystone'),
-	Analysis = keystone.list('Analysis');
+	Analysis = keystone.list('Analysis'),
+	stripecust = require('../lib/stripecust.js');
 
 
 exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res);
 	var ip = req.headers['x-forwarded-for'];
+
+	
+	stripecust.addCard(req);
 
 	if(keystone.get(ip + 'routeToQuestions') || req.session.newanalysis){
 		var obj = {user : req.user._id};

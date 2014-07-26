@@ -17,54 +17,44 @@ exports = module.exports = function(req, res) {
 		fields = req.body || {},
 		ip = req.headers['x-forwarded-for'];
 
-
 	locals.categories = {};
 	locals.categories.cats = [];
 	locals.analysis = {};
 	locals.cat_totals = {};
 	locals.main_total = 0;
 	locals.stripeApiKey = keystone.get('stripeApiKeyClient');
+
+	if(req.body.last4 instanceof Array)req.body.last4 = req.body.last4[0];
+	
+
+	console.log(req.body);
+
+
+
 	if(req.body.analysis)
 		req.session.newanalysis = req.body.analysis;
 	
 	if(req.method === 'GET'){
 		view.render('register');
 	}else{
-		var coupon;
+		var coupon, amount;
 
 
 		// Set Stripe api key to ENV variable
 		stripe.setApiKey(keystone.get('stripeApiKey'));
 
 
-
-		var amount = 17900;
+		if(req.headers.referer.match('register'))
+			amount = 17900;
+		// Checkout is only $49
+		else amount = 4900;
 
 		var COUPON_ID = req.body.coupon;
-		// console.log('THIS IS COUPON ' + COUPON_ID);
 		if(COUPON_ID){
-			// console.log('retreiveing coupon')
-			stripe.coupons.retrieve(COUPON_ID, function (e, c) {
-				// console.log(e, c);
-				if(!e){
-					// console.log(c)
-					if(c.percent_off){
-						var percent = amount * (c.percent_off / 100);
-						amount = amount - percent;
-					}else if(c.amount_off){
-						amount = amount - c.amount_off;
-					}
-
-					if(amount === 0)
-						if(!req.user)
-					  		build_user(fields, view, req, locals, res);
-					  	else getPages(view, locals, req, res);
-					else
-						start();
-				}else start();
-				
-				
-			});
+			stripecust.getCoupon(COUPON_ID, amount, function (amount) {
+				amount = amount;
+				start();
+			})
 		}else start();
 		
 
@@ -74,23 +64,22 @@ exports = module.exports = function(req, res) {
 			var stripeToken = req.body.stripeToken;
 			// console.log(amount);
 
-			if(!stripeToken && req.headers.referer.match('register')){
-				if(amount !== 0){
+			if(!stripeToken && req.headers.referer.match('register') && amount !== 0)
 					res.locals.error = 'No card info was put in';
 				
-				}
-			}
-			if(!req.body.freepass || req.user.freeAccess){
-			
-				if(req.headers.referer.match('register')){
-					stripecust.createCustomer(req, res, stripeToken, amount, function (err, charge) {
+
+			if(!req.body.freepass || !(req.user && req.user.freeAccess)){
+
+				if(req.headers.referer.match('register') && !req.body.checkout){
+					
+					stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (err, charge) {
 						if(!err)
 							if(!req.user){
 					  			build_user(fields, view, req, locals, res);
 					  		}else getPages(view, locals, req, res);
 					  	else{
 					  		locals.error = "Failed to charge card";
-					  		keystone.redirect("/register");
+					  		view.render("register");
 					  	}
 					});
 				}else{
@@ -99,45 +88,30 @@ exports = module.exports = function(req, res) {
 				// CHECKOUT        //
 				/////////////////////
 
-					// Checkout is only $49
-					amount = 4900;
 
 					// Initial check to see if user is defined
 					if(!req.user)keystone.redirect("/");
 
-					// if(req.body.savedCard){
-						// if(req.body.zip !== req.user.zip){
-						// 	locals.error = "Incorrect zip";
-						// 	view.render("checkout");
-						// }
-						// stripe.customers.listCards(req.user.stripeid, function(err, cards) {
-						// 	if(err || !cards){
-						// 		locals.error = 'No cards found';
-						// 		stripecust.renderCheckout(req, res);
-						// 	}
-						// 	for(var i = 0; i < cards.data.length; i++){
-						// 		if(cards.data[i].last4 == req.body.last4){
-						// 			var chargeObject = {
-						// 			  amount: amount, // amount in cents, again
-						// 			  currency: "usd",
-						// 			  customer: req.user.stripeid,
-						// 			  id : cards.data[i].id
-						// 			};
 
-						// 			var charge = stripe.charges.create(chargeObject, function(err, charge) {
-									
-						// 			  if (err && err.type === 'StripeCardError'){
-						// 			  	locals.error = err.type;
-						// 			  	view.render('questions');
-						// 			  }else getPages(view, locals, req, res);
-									  
-						// 			});
-						// 		}
-						// 	}
-	  						
-						// });
+
+					if(req.body.savedCard){
+						stripecust.retrieveCard(req, {zip : req.body.zip, last4 : req.body.last4}, function (e, card) {
+							if(e){
+								locals.error = e;
+								stripecust.renderCheckout(req, res);
+							}else{
+								console.log('charging');
+								charge({
+									amount: amount, // amount in cents, again
+									currency: "usd",
+									card: card.id,
+									customer : req.user.stripeid,
+									description: "OPIQ Checkout Charge"
+								}, req);
+							}
+						})
 						
-					// }else{
+					}else{
 						var chargeObject = {
 							amount: amount, // amount in cents, again
 							currency: "usd",
@@ -150,20 +124,20 @@ exports = module.exports = function(req, res) {
 							chargeObject.customer = req.user.stripeid;
 							// Create new card then charge
 							if(req.user.stripeid)
-								stripecust.createCardIfNone(req.user.stripeid, stripeToken, req.body.card.substr(-4), function(err, card){
+								stripecust.createCardIfNone(req, stripeToken, function(err, card){
 									if(!err){
 										chargeObject.card = card;
-										charge();
+										charge(chargeObject, req);
 									}else{
 										locals.error = err.type;
 										keystone.redirect('checkout');
 									}
 								})
-							else charge();
+							else charge(chargeObject, req);
 						// If no id create customer
 						}else{
 
-							stripecust.createCustomer(req, res, stripeToken, amount, function (e, c) {
+							stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (e, c) {
 								stripecust.setUserStripeId(req, c.id);
 								if(e){
 							   		locals.error = e.type;
@@ -172,26 +146,31 @@ exports = module.exports = function(req, res) {
 							});
 						}
 						
-						function charge(){
-							stripecust.charge(chargeObject, function (e, ch) {
-								// console.log(e, ch);
-						   		if(e){
-							   		locals.error = e.type;
-				  					keystone.redirect('checkout');	
-						   		}else getPages(view, locals, req, res);
-						   		
-						   })
-						}
-					// }
+						
+					}
+					function charge(chargeObject, req){
+						stripecust.charge(chargeObject, req, function (e, ch) {
+							
+					   		if(e){
+						   		locals.error = e.type;
+			  					keystone.redirect('checkout');	
+					   		}else if(ch) getPages(view, locals, req, res);
+					   		
+					   })
+					}
 					
 				}	 
 				
 
 					
-			}else
-				if(!req.user)
-			  		build_user(fields, view, req, locals, res);
-			  	else getPages(view, locals, req, res);
+			}else{
+				stripecust.createCustomer(req, function () {
+					if(!req.user)
+			  			build_user(fields, view, req, locals, res);
+			  		else getPages(view, locals, req, res);
+				})
+			}
+				
 
 		}
 		
@@ -210,6 +189,7 @@ function build_user (fields, view, req, locals, res) {
 		stripeid : req.session.stripeid,
 		zip : fields.zip
 	})
+	var oldsession = req.session;
 
 	locals.categories = {};
 	locals.categories.cats = [];
@@ -217,9 +197,11 @@ function build_user (fields, view, req, locals, res) {
 	locals.cat_totals = {};
 	locals.main_total = 0;
 
+
 	var ip = req.headers['x-forwarded-for'];
 	newUser.save(function(err){
-		if(err)console.log(err)
+		if(err)console.log(err);
+
 
 		User.model.findOne({email : fields.email}).exec(function(er, user){
 			var backlog = keystone.get(ip + 'backlog'), ans;
@@ -294,18 +276,21 @@ function build_user (fields, view, req, locals, res) {
 
 
 						session.signin(req.body, req, res, onSuccess, onFail);
-						// Render the view
-						// res.redirect('/');
+					
 					});
 				})
 				
 				
 			}else {
-				// res.redirect('/');
 				session.signin(req.body, req, res, onSuccess, onFail);
 			}
 
 			function onSuccess () {
+				req.session.zip = oldsession.zip || null;
+				req.session.last4 = oldsession.last4 || null;
+				req.session.stripeid = oldsession.stripeid || null;
+				req.session.card = oldsession.card || null;
+				console.log(req.session);			
 				res.redirect('register-success');
 			}
 			function onFail () {
@@ -327,7 +312,7 @@ function getPages (view, locals, req, res) {
 
 	locals.analysis = a;
 	a.save();
-
+	console.log('getting pages');
 	
 
 
