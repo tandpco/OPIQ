@@ -224,13 +224,22 @@ exports = module.exports = {
 			else cb(err, null);
 		});
 	},
+	createCustomerIfNone : function  (req, stripeid, cb) {
+		stripe.customers.retrieve(stripeid, function (e, c) {
+			if(e)
+				createCustomer(req, function  (e, c) {
+					cb(e,c);
+				});
+			else cb(null, c);
+		});
+	},
 	createCardIfNone : function  (req, stripeToken, cb) {
 		var self = this,
 			stripeid = req.user.stripeid,
 			last4 = req.body.last4,
 			zip = req.body.zip;
 
-		stripe.customers.retrieve(stripeid, function(err, customer) {
+		this.createCustomerIfNone(req, stripeid, function(err, customer) {
 		  	var d = customer.cards.data, gotit = false;
 		  	if(err)cb(err);
 		  	if(!d.length)self.createCard(req, zip, stripeid, stripeToken, cb);
