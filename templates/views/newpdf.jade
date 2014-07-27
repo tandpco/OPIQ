@@ -1,0 +1,62 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title Checkout
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+		link(rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css")
+			
+	body: #report.none
+		.header
+			.content-header: .t: span.venture
+				.bob=analysis.title
+			h1 Congratulations! Your Analysis Is Complete.
+			small Below is the summary of your results.
+			input(type="hidden" name="percentComplete" id="percentComplete" value="0")
+		.innerbody
+			.stripe
+				.text Summary - Overall Opportunity Score
+				.box-score=main_total + '%'
+			.charts#overall-table
+				-var total = [];
+				each cat in categories
+					each c in cat
+						if typeof c.answer !== 'undefined' 
+							- total.push(c.answer)
+						
+				table.table
+					thead
+						tr
+							th: div Analysis Score
+							th: div
+								span Needs Improvement
+								span.right Excellent
+							th: div: span Percent
+				table.table
+					tr.overall-wrap
+						td: div
+							span.circle
+							span.t OVERALL OPPORTUNITY
+						td: div: .bar(percent=main_total): .bar-complete 50
+						td: div: .percent: .num: span 100%
+			each category in categories.cats
+				.charts(id=category.split(' ').join('').replace(/\//, '-'))
+					table.table
+						tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
+							td.category: div
+								span.circle
+								span.t=category.toUpperCase()
+							//- td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
+							td: div: .bar(percent=cat_totals[category]): .bar-complete 50
+							td: div: .percent: .num: span 50%
+						each page in categories[category]
+							tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'), id=page._id)
+								td.page: div
+									.connected
+									span.circle
+									span.t=page.name.toUpperCase()
+								td: div: .bar(percent=page.answer): .bar-complete 50
+								td: div: .percent: .num: span 50%

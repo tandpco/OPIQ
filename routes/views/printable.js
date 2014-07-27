@@ -55,7 +55,7 @@ exports = module.exports = function(req, res) {
 			
 
 
-			locals.main_total = (main_total / total_pages_answered) * 20;
+			locals.main_total = Math.round((main_total / total_pages_answered) * 20);
 
 			for(var i in cat_totals){
 				// console.log(cat_totals[i])

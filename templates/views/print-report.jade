@@ -24,15 +24,26 @@ html
 				padding: 20px;
 				page-break-after:always;
 			}
+			div#login {
+				width: 1200px;
+				margin: auto;
+			}
 			div.analysis {
 				font-size: 20px;
 				color: #818080;
 				padding:10px 34px;
 			}
+			.first-page img, .last-page img {
+				width: 100%;
+			}
 			.print .inner-content .body .t {
 				height: 100% !important;
 			}
 			.content-content{page-break-after:always;}
+			#sidebar{float:none;clear:both;}
+			#report, .first-page, .last-page{
+				page-break-after:always;
+			}
 			@media print{
 				* { color: black; }
 				.print{width: 100%;margin: 0;float: none;}
@@ -58,19 +69,73 @@ html
 
 
 	body: #login.print
-		.head
-			.text FINAL REPORT
-			.logo
-				a(href="/")
-					img(src="images/iq_logo.jpg")
-					| Opportunity
-					span.gtext IQ
+		//- .head
+		//- 	.text FINAL REPORT
+		//- 	.logo
+		//- 		a(href="/")
+		//- 			img(src="images/iq_logo.jpg")
+		//- 			| Opportunity
+		//- 			span.gtext IQ
 		.main-content
+			.first-page: img(src="pdfimg/page1.jpg")
+			#report
+				.header
+					.content-header: .t: span.venture
+						.bob=analysis.title
+					h1 Congratulations! Your Analysis Is Complete.
+					small Below is the summary of your results.
+					input(type="hidden" name="percentComplete" id="percentComplete" value="0")
+				.innerbody
+					.stripe
+						.text Summary - Overall Opportunity Score
+						.box-score=main_total + '%'
+					.charts#overall-table
+						-var total = [];
+						each cat in categories
+							each c in cat
+								if typeof c.answer !== 'undefined' 
+									- total.push(c.answer)
+								
+						table.table
+							thead
+								tr
+									th: div Analysis Score
+									th: div
+										span Needs Improvement
+										span.right Excellent
+									th: div: span Percent
+						table.table
+							tr.overall-wrap
+								td: div
+									span.circle
+									span.t OVERALL OPPORTUNITY
+								td: div: .bar(percent=main_total, style="width:#{main_total}%"): .bar-complete 50
+								td: div: .percent: .num: span #{main_total}%
+					each category in categories.cats
+						if cat_totals[category] > 0
+							.charts(id=category.split(' ').join('').replace(/\//, '-'))
+								table.table
+									tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
+										td.category: div
+											span.circle
+											span.t=category.toUpperCase()
+										//- td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
+										td: div: .bar(percent=cat_totals[category]): .bar-complete #{cat_totals[category]}
+										td: div: .percent: .num: span #{Math.round(cat_totals[category])}%
+									each page in categories[category]
+										if page.answer > 0
+											tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'), id=page._id)
+												td.page: div
+													.connected
+													span.circle
+													span.t=page.name.toUpperCase()
+												td: div: .bar(percent=page.answer style="width:#{page.answer * 20}%"): .bar-complete #{page.answer}
+												td: div: .percent: .num: span #{page.answer * 20}%
 			.analysis= analysis	
 			each answer in answers
 				-var page = _.findWhere(pages, {name : answer.page})
 				.content-holder.row-fluid.clearfix
-					.col-sm-12.col-med-8.col-lg-9.content-conent
+					.content-conent
 						//- .content-header: .t: span.name=page.category.toUpperCase()+ ': ' + page.name
 						.content-header: .t: span.name=answer.category.toUpperCase()+ ': ' + answer.page
 						- var main_word_length = 30
@@ -153,7 +218,7 @@ html
 							//- 				textarea
 							//- 			.submit
 							//- 				input(type="button", value="SUBMIT")
-					.col-sm-12.col-med-4.col-lg-3#sidebar
+					#sidebar
 						.question
 							| ANSWER
 							-var ans = _.findWhere(answers, {'page' : page.name})
@@ -258,4 +323,5 @@ html
 						//- 			|What This Means
 						//- 	.body
 						//- 		|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+			.last-page: img(src="pdfimg/end.jpg")
 								

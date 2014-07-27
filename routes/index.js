@@ -42,10 +42,10 @@ keystone.pre('render', middleware.flashMessages);
 
  
 // Set api keys globally
-keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
-// keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
-keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
-// keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
+// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
+keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
+// keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
+keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
 
 
 // Import Route Controllers
@@ -88,7 +88,7 @@ exports = module.exports = function(app) {
 	app.post('/charge', routes.lib.charge);
 	app.post('/message', get_message);
 	app.get('/forgot-page', routes.views.forgotPage);
-	app.all('/print', routes.lib.pdf);
+	app.all('/print', routes.views.printable);
 	app.post('/help', function(req, res) {
 		var nodemailer = require("nodemailer");
 		// create reusable transport method (opens pool of SMTP connections)
