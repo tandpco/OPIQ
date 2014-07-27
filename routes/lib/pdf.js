@@ -293,32 +293,32 @@ exports = module.exports = function(req, res) {
 	function startPhantom (text) {
 				
 		phantom.create(function(ph){
-		  	// ph.createPage(function(page) {
-		  	// 
-		  		res.send('yeppers');
-				// page.set('content', text);
+		  	ph.createPage(function(page) {
+		  	
+		  		
+				page.set('content', text);
 				
-				// // page.set('viewportSize', {width:1100, height:800}, start);
+				// page.set('viewportSize', {width:1100, height:800}, start);
 				
-				// page.set('paperSize', {format: 'A4'}, start)
+				page.set('paperSize', {format: 'A4'}, start)
 			
-				// function start(){
-				//     page.render('report.pdf', function(){
-				//       	console.log('page rendered');
+				function start(){
+				    page.render('report.pdf', function(){
+				      	console.log('page rendered');
 				      	
 				     
 						
-				// 		res.download("report.pdf");
+						res.download("report.pdf");
 					
-				//         ph.exit(function(code){console.log(code)});
+				        ph.exit(function(code){console.log(code)});
 
-				//     });
+				    });
 	  	
-		  // 		}
+		  		}
 		  	
 
 
-		//   	});
+		  	});
 		    
 		}, { port: 12301 });
 	}
