@@ -12,12 +12,13 @@ exports = module.exports = {
 	},
 
 	setUserStripeId : function  (req, stripeid) {
-		User.model.findOne({_id : req.user._id}).exec(function  (e, u) {
-			if(!e){
-				u.stripeid = stripeid;
-				u.save();
-			}
-		})
+		if(req.user)
+			User.model.findOne({_id : req.user._id}).exec(function  (e, u) {
+				if(!e){
+					u.stripeid = stripeid;
+					u.save();
+				}
+			})
 	},
 	addCard : function  (req, stripeCardID, cb) {
 		var zip = req.body.zip || req.session.zip || null,
@@ -146,6 +147,7 @@ exports = module.exports = {
 			req.session.last4 = req.body.last4 || null;
 			req.session.stripeid = customer.id;
 
+			self.setUserStripeId(req, customer.id);
 			cb(e, customer);			
 		})
 	},
