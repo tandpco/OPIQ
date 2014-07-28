@@ -25,6 +25,19 @@ div.analysis {
 }
 .first-page img, .last-page img {
 	width: 100%;
+	/*display: none;*/
+}
+
+.first-page {
+    position: relative;
+}
+.date {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    top: 341px;
+    font-size: 17px;
 }
 .print .inner-content .body .t {
 	height: 100% !important;

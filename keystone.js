@@ -42,6 +42,7 @@ keystone.import('models');
 keystone.set('locals', {
 	_: require('underscore'),
 	env: keystone.get('env'),
+	moment : require('moment'),
 	utils: keystone.utils,
 	editable: keystone.content.editable
 });

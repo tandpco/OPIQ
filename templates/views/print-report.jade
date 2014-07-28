@@ -13,15 +13,18 @@ html
 
 
 	body: #login.print
-		//- .head
-		//- 	.text FINAL REPORT
-		//- 	.logo
-		//- 		a(href="/")
-		//- 			img(src="images/iq_logo.jpg")
-		//- 			| Opportunity
-		//- 			span.gtext IQ
+		.head
+			.text FINAL REPORT
+			.logo
+				a(href="/")
+					img(src="images/iq_logo.jpg")
+					| Opportunity
+					span.gtext IQ
 		.main-content
-			.first-page: img(src="http://opiq-stage.herokuapp.com/pdfimg/page1.jpg")
+			.first-page 
+				img(src="pdfimg/page1.jpg")
+				.date #{moment().format('MMMM d, YYYY')}
+			//-"http://opiq-stage.herokuapp.com/pdfimg/page1.jpg")
 			#report
 				.header
 					.content-header: .t: span.venture

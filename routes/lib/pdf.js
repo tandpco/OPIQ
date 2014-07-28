@@ -311,6 +311,8 @@ var text = req.body.html;
 	text += "#sidebar{page-break-after:always;}";
 	text += "table{width:100%;}";
 	text += ".section>.body .t p{padding:10px 2px 70px 70px !important;margin-bottom:20px !important;}";
+	text += ".first-page {position: relative; } ";
+	text += ".date {position: absolute; width: 100%; text-align: center; color: white; top: 341px; font-size: 17px; }";
 	text +=	"</style>";
 
 startPhantom(text);
