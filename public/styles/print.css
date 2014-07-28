@@ -1,0 +1,71 @@
+.head .text{
+	font-size:30px;
+	color:white;
+	padding:10px 34px;
+}
+.head > div {
+	width: 49%;
+	display: inline-block;
+}
+.head .logo{
+	text-align:right;
+}
+.content-holder{
+	padding: 20px;
+	page-break-after:always;
+}
+div#login {
+	width: 1200px;
+	margin: auto;
+}
+div.analysis {
+	font-size: 20px;
+	color: #818080;
+	padding:10px 34px;
+}
+.first-page img, .last-page img {
+	width: 100%;
+}
+.print .inner-content .body .t {
+	height: 100% !important;
+}
+#sidebar{float:none;clear:both;}
+#report, .first-page, .last-page{
+	page-break-after:always;
+}
+@media print{
+	* { color: black; }
+	.print{width: 100%;margin: 0;float: none;}
+	*, a { color: black; }
+	.print>.head{background-color:#383d40 !important;}
+	.t{height:100% !important;}
+	a[href]:after { content: " "; }
+	.gradient-overlay{display: none;}
+	.print > .head > .text {color:white !important;}
+	.print > .head > .logo > a {color:white !important;}
+	.print > .head > .logo > a > span { color :#a8ba57 !important;}
+	.section .header > div {background-color:#e8e8e8 !important; }
+	#sidebar .question{background-color:#e8e8e8 !important;}
+	#sidebar .green span{background-color:#a8ba57 !important;color:white !important;}
+	#sidebar .green span i{color:white !important;}
+	#sidebar .bar-complete { background-color:#a8ba57 !important;}
+	.content-content{page-break-after:always;}
+	#sidebar .answer span{background-color:white !important;border-radius:5px !important;}
+	#sidebar .answer i{color :#a8ba57 !important; }
+	.num{background-color:#545454 !important;}
+	#report .charts table tr.overall-wrap .num, #report .charts table tr.overall-wrap .bar-complete {
+		text-align: center;
+		background: #545454;
+		color: white;
+	}
+	#report .charts table tr.category-wrap .num, #report .charts table tr.category-wrap .bar-complete {
+		text-align: center;
+		background: #778632;
+		color: white;
+	}
+	#report .charts table tr.page-wrap .num, #report .charts table tr.page-wrap .bar-complete {
+		text-align: center;
+		background: #a8ba57;
+		color: white;
+	}
+}

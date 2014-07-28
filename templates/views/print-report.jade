@@ -7,64 +7,8 @@ html
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(rel="stylesheet", href="/styles/font-awesome.min.css")
 		link(rel="stylesheet", href="/styles/site.min.css")
-		style.
-			.head .text{
-				font-size:30px;
-				color:white;
-				padding:10px 34px;
-			}
-			.head > div {
-				width: 49%;
-				display: inline-block;
-			}
-			.head .logo{
-				text-align:right;
-			}
-			.content-holder{
-				padding: 20px;
-				page-break-after:always;
-			}
-			div#login {
-				width: 1200px;
-				margin: auto;
-			}
-			div.analysis {
-				font-size: 20px;
-				color: #818080;
-				padding:10px 34px;
-			}
-			.first-page img, .last-page img {
-				width: 100%;
-			}
-			.print .inner-content .body .t {
-				height: 100% !important;
-			}
-			.content-content{page-break-after:always;}
-			#sidebar{float:none;clear:both;}
-			#report, .first-page, .last-page{
-				page-break-after:always;
-			}
-			@media print{
-				* { color: black; }
-				.print{width: 100%;margin: 0;float: none;}
-				*, a { color: black; }
-				.print>.head{background-color:#383d40 !important;}
-				.t{height:100% !important;}
-				a[href]:after { content: " "; }
-				.gradient-overlay{display: none;}
-				.print > .head > .text {color:white !important;}
-				.print > .head > .logo > a {color:white !important;}
-				.print > .head > .logo > a > span { color :#a8ba57 !important;}
-				.section .header > div {background-color:#e8e8e8 !important; }
-				#sidebar .question{background-color:#e8e8e8 !important;}
-				#sidebar .green span{background-color:#a8ba57 !important;color:white !important;}
-				#sidebar .green span i{color:white !important;}
-				#sidebar .bar-complete { background-color:#a8ba57 !important;}
-				.content-content{page-break-after:always;}
-				#sidebar .answer span{background-color:white !important;border-radius:5px !important;}
-				#sidebar .answer i{color :#a8ba57 !important; }
-				.num{background-color:#545454 !important;}
-			}
+		script(src='/js/lib/jquery/jquery-1.10.2.js')
+		link(rel="stylesheet", href="/styles/print.css")
 			
 
 
@@ -77,7 +21,7 @@ html
 		//- 			| Opportunity
 		//- 			span.gtext IQ
 		.main-content
-			.first-page: img(src="pdfimg/page1.jpg")
+			.first-page: img(src="http://opiq-stage.herokuapp.com/pdfimg/page1.jpg")
 			#report
 				.header
 					.content-header: .t: span.venture
@@ -134,7 +78,7 @@ html
 			.analysis= analysis	
 			each answer in answers
 				-var page = _.findWhere(pages, {name : answer.page})
-				.content-holder.row-fluid.clearfix
+				.content-holder
 					.content-conent
 						//- .content-header: .t: span.name=page.category.toUpperCase()+ ': ' + page.name
 						.content-header: .t: span.name=answer.category.toUpperCase()+ ': ' + answer.page
@@ -154,8 +98,6 @@ html
 									.text Definition
 								.body
 									.t!=page.Definition
-							.section.image.hide
-								img
 							.section#whythismatters
 								.header
 									.icon
@@ -323,5 +265,8 @@ html
 						//- 			|What This Means
 						//- 	.body
 						//- 		|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-			.last-page: img(src="pdfimg/end.jpg")
-								
+			.last-page: img(src="http://opiq-stage.herokuapp.com/pdfimg//end.jpg")
+form(action="pdf" method="post")
+script(src="js/print-pdf.js")
+	
+
