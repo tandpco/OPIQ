@@ -245,8 +245,11 @@ exports = module.exports = {
 		  	var d, gotit = false;
 		  	if(err)cb(err);
 		  	else{
-		  		if(!customer)cb('no customer found');
-		  		
+		  		if(!customer){
+		  			cb('no customer found');
+		  			return;
+		  		}
+
 		  		d = customer.cards.data;
 		  		if(!d.length)self.createCard(req, zip, stripeid, stripeToken, cb);
 		  		else{
