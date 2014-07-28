@@ -23,7 +23,7 @@ div.analysis {
 	color: #818080;
 	padding:10px 34px;
 }
-.first-page img, .last-page img {
+.first-page, .last-page img{
 	width: 100%;
 	display: none;
 }
