@@ -129,7 +129,7 @@ exports = module.exports = function(req, res) {
 										chargeObject.card = card;
 										charge(chargeObject, req);
 									}else{
-										locals.error = err.type;
+										locals.error = err;
 										// keystone.redirect('checkout');
 										stripecust.renderCheckout(req, res);
 									}
