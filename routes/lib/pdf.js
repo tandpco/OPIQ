@@ -313,6 +313,8 @@ var text = req.body.html;
 	text += ".section>.body .t p{padding-left:70px !important;margin-bottom:20px !important;}";
 	text += ".first-page {position: relative; } ";
 	text += ".date {position: absolute; width: 100%; text-align: center; color: white; top: 341px; font-size: 17px; }";
+	text += '.glyphicon-book:before {content: "\e043";}'
+	text += ".glyphicon {position: relative; top: 1px; display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }";
 	text +=	"</style>";
 
 startPhantom(text);
