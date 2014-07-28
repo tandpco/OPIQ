@@ -16,7 +16,7 @@ exports = module.exports = function(req, res) {
 	locals.cat_totals = {};
 
 	Answer.model.find({analysis : req.session.analysisid, user : req.user._id}).exec(function (e, answers) {
-		Page.model.find().exec(function  (e, pages) {
+		Page.model.find().sort('order').exec(function  (e, pages) {
 			var cat_totals = {}, total_pages_answered = 0, main_total = 0;
 			for(var i = 0; i < pages.length; i++){
 				var answer;
