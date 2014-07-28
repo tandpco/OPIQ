@@ -130,7 +130,8 @@ exports = module.exports = function(req, res) {
 										charge(chargeObject, req);
 									}else{
 										locals.error = err.type;
-										keystone.redirect('checkout');
+										// keystone.redirect('checkout');
+										stripecust.renderCheckout(req, res);
 									}
 								})
 							else charge(chargeObject, req);
@@ -141,7 +142,9 @@ exports = module.exports = function(req, res) {
 								stripecust.setUserStripeId(req, c.id);
 								if(e){
 							   		locals.error = e.type;
-				  					keystone.redirect('checkout');	
+				  					// keystone.redirect('checkout');	
+									stripecust.renderCheckout(req, res);
+
 						   		}else getPages(view, locals, req, res);
 							});
 						}
