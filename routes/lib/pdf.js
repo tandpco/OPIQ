@@ -293,7 +293,7 @@ var text = req.body.html;
 	text += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">';
 	text += "<style>";
 	text += style;
-	text += "#report, .first-page, .last-page{" +
+	text += "#report, .first-page{" +
 				"page-break-after:always;" +
 			"}";
 	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 10px !important; }";
