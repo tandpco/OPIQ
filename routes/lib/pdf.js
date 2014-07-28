@@ -299,12 +299,12 @@ var text = req.body.html;
 			"}";
 	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 10px !important; }";
 	text += ".main-content{margin-left:-7px;}";
-	text += "#sidebar .sb-head .header>span:last-child, #notes .sb-head .header>span:last-child {margin-left: 1%; width: 89%; }";
+	text += "#sidebar .sb-head .header>span:last-child, #notes .sb-head .header>span:last-child {margin-left: 1%; width: 94%; }";
 	text += "#sidebar .sb-head .header>span:first-child, #notes .sb-head .header>span:first-child {width: 5%;padding:4px 8px 5px 8px !important; }";
 	text += ".float-right {float: right; margin-right: 7px;}";
 	text += ".how-you-answered .body .percentages .num{padding-top:2px;padding-bottom:2px;}"
 	text += ".section .header .icon{width:5% !important;padding-top:5px !important; padding-bottom:5px !important;}";
-	text += ".section .header div:last-child{width:90% !important;}";
+	text += ".section .header div:last-child{width:94% !important;}";
 	text += "div#login{width:100%;}";
 	text += ".first-page img, .last-page img{width:100%;}";
 	text += "#sidebar{float:none;clear:both;}";
