@@ -297,8 +297,9 @@ var text = req.body.html;
 	text += "#report, .first-page{" +
 				"page-break-after:always;" +
 			"}";
-	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 2px !important; }";
+	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 1px !important; }";
 	text += ".main-content{margin-left:-7px;}";
+	text += ".last-page img{height:800px;}";
 	text += "#sidebar .sb-head .header>span:last-child, #notes .sb-head .header>span:last-child {width: 93%;float:right; }";
 	text += "#sidebar .sb-head .header>span:first-child, #notes .sb-head .header>span:first-child {width: 5%;padding:6px 0px 5px 0px !important; }";
 	text += ".float-right {float: right; margin-right: 7px;}";
