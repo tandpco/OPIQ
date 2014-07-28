@@ -317,6 +317,7 @@ var text = req.body.html;
 	text += "#sidebar{page-break-after:always;}";
 	text += "table{width:100%;}";
 	text += ".section>.body{padding-left:50px !important;margin-bottom:0px !important;padding-bottom:2px !important;}";
+	text += ".section .body .t{padding-bottom:2px !important; margin-bottom:0px !important;}";
 	text += ".first-page {position: relative; } ";
 	text += ".date {position: absolute; width: 100%; text-align: center; color: white; top: 341px; font-size: 17px; }";
 	text +=	"</style>";
