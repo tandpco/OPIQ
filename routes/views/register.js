@@ -51,15 +51,18 @@ exports = module.exports = function(req, res) {
 
 		var COUPON_ID = req.body.coupon;
 		if(COUPON_ID){
-			stripecust.getCoupon(COUPON_ID, amount, function (amount) {
-				amount = amount;
-				start();
+			stripecust.getCoupon(COUPON_ID, amount, function (e, amount) {
+				if(!e){
+					amount = amount;
+					start(amount);	
+				}else start(amount);
+				
 			})
-		}else start();
+		}else start(amount);
 		
 
 
-		function start(){
+		function start(amount){
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
 			// console.log(amount);
@@ -69,9 +72,9 @@ exports = module.exports = function(req, res) {
 				
 			console.log(req.body.freepass)
 			if(!req.body.freepass){// || !(req.user && req.user.freeAccess)){
-				console.log('no freepass')
 				if(req.headers.referer.match('register') && !req.body.checkout){
 					
+				console.log("this is amount before charge" , amount);
 					stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (err, charge) {
 						if(!err)
 							if(!req.user){

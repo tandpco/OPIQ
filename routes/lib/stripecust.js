@@ -161,8 +161,8 @@ exports = module.exports = {
 						amount = amount - c.amount_off;
 					}
 
-					cb(amount);
-				}else cb(null);
+					cb(null, amount);
+				}else cb(e);
 				
 				
 			});
