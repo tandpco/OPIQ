@@ -80,24 +80,47 @@ div.analysis {
 	#sidebar .green span{background-color:#a8ba57 !important;color:white !important;}
 	#sidebar .green span i{color:white !important;}
 	#sidebar .bar-complete { background-color:#a8ba57 !important;}
-	.content-content{page-break-after:always;}
+	.content-content{page-break-after:always !important;}
 	#sidebar .answer span{background-color:white !important;border-radius:5px !important;}
 	#sidebar .answer i{color :#a8ba57 !important; }
-	.num{background-color:#545454 !important;}
+	.num {background-color:#545454 !important;color:white !important;}
+	.num span{color:white !important;padding-right: 5px;}
 	#report .charts table tr.overall-wrap .num, #report .charts table tr.overall-wrap .bar-complete {
-		text-align: center;
-		background: #545454;
-		color: white;
+		text-align: center !important;
+		background: #545454 !important;
+		color: transparent !important;
 	}
 	#report .charts table tr.category-wrap .num, #report .charts table tr.category-wrap .bar-complete {
-		text-align: center;
-		background: #778632;
-		color: white;
+		text-align: center !important;
+		background: #778632 !important;
+		color: transparent !important;
 	}
-	.overall-wrap .bar-complete{background:#545454;}
+	.first-page .date{color:white !important;}
+	.first-page .analysis-header{color:#6e6e6e !important;}
 	#report .charts table tr.page-wrap .num, #report .charts table tr.page-wrap .bar-complete {
-		text-align: center;
-		background: #a8ba57;
-		color: white;
+		text-align: center !important;
+		background: #a8ba57 !important;
+		color: transparent !important;
+	}
+	#report .charts table tr.overall-wrap .circle {
+		width: 15px !important;
+		height: 15px !important;
+		background: #4D4B4B !important;
+		border-radius: 10px !important;
+	}
+	#report .charts table tr.page-wrap .circle, #report .charts table tr.category-wrap .circle {
+		width: 10px !important;
+		height: 10px !important;
+		background: #999 !important;
+		border-radius: 10px !important;
+		margin-top: 2px !important;
+	}
+	#report .charts table tr.page-wrap:not(:last-child) .connected {
+		width: 1px !important;
+		height: 59px !important;
+		position: absolute !important;
+		margin-top: 3px !important;
+		background: #999 !important;
+		margin-left: 4px !important;
 	}
 }
