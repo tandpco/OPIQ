@@ -12,7 +12,7 @@ $(document).bind('mousewheel DOMMouseScroll',function(e){
     e.preventDefault();
     return false;
 });
-
+$('body').css('overflow', 'hidden');
 
 today = months[mm]+' '+dd+', '+yyyy;
 $('.date').html(today);
@@ -34,16 +34,17 @@ $(window).load(function () {
 
 
 function showLoading(){
-	var splash = $('<div>').css({
+	var splash = $('<div>', {id : 'splash'}).css({
 			top : 0,
 			left : 0,
 			position : 'absolute', 
 			width : $(window).width(),
-			height : $(document).height(),
+			height : $(window).height(),
 			background : 'rgba(0,0,0,0.3)'
 		}).on('click', function(){
 			$(this).hide();
 			$(document).unbind('mousewheel DOMMouseScroll');
+			$('body').css('overflow', 'auto');
 		}),
 		loader = $('<div>', {id : 'loader', html : '<p>One moment while we generate your report</p>'}).css({
 			top : $(document).scrollTop() + ($(window).height() / 2 - 25),
