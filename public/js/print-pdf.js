@@ -8,6 +8,11 @@ if(dd<10) {
     dd='0'+dd
 } 
 
+$(document).bind('mousewheel DOMMouseScroll',function(e){ 
+    e.preventDefault();
+    return false;
+});
+
 
 today = months[mm]+' '+dd+', '+yyyy;
 $('.date').html(today);
@@ -16,6 +21,7 @@ showLoading();
 $.each($('.show-your-work'), function () {
 	if($.trim($(this).val()) === '')$(this).addClass('none');
 })
+
 $(window).load(function () {
 	setTimeout(function(){
 		var a = $("<a>", {id :'get-pdf', 'class' : 'large-main-button', html : '<i class="fa fa-download"></i> PDF'})
@@ -35,7 +41,10 @@ function showLoading(){
 			width : $(window).width(),
 			height : $(document).height(),
 			background : 'rgba(0,0,0,0.3)'
-		}).on('click', function(){$(this).hide()}),
+		}).on('click', function(){
+			$(this).hide();
+			$(document).unbind('mousewheel DOMMouseScroll');
+		}),
 		loader = $('<div>', {id : 'loader', html : '<p>One moment while we generate your report</p>'}).css({
 			top : $(document).scrollTop() + ($(window).height() / 2 - 25),
 			left : ($(window).width() / 2) - 150
