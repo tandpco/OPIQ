@@ -298,6 +298,7 @@ var text = req.body.html;
 				"page-break-after:always;" +
 			"}";
 	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 1px !important; }";
+	text += ".none{display:none;}";
 	text += ".main-content{margin-left:-7px;}";
 	text += ".last-page img{height:800px;}";
 	text += "#sidebar .sb-head .header>span:last-child, #notes .sb-head .header>span:last-child {width: 93%;float:right; }";
@@ -312,6 +313,7 @@ var text = req.body.html;
 	text += "div#login{width:100%;}";
 	text += ".body .t{height:auto !important;}";
 	text += ".first-page img, .last-page img{width:100%;}";
+	text += ".question {margin-bottom: 10px; }";
 	// text += "#sidebar{float:none;clear:both;}";
 	text += ".content-content{margin:10px; }";
 	text += "#sidebar{page-break-after:always;}";

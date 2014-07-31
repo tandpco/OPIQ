@@ -10,6 +10,9 @@
 .head .logo{
 	text-align:right;
 }
+.question {
+    margin-bottom: 10px;
+}
 .content-holder{
 	padding: 20px;
 	page-break-after:always;

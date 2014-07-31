@@ -198,13 +198,6 @@ html
 									|Scratchpad
 							//- .body: textarea=(answer && answer.notes || '')
 							.body: textarea(disabled)=(answer.notes)
-						.show-your-work.sb-head.grey.notes(style="margin-top: 10px;")
-							.header
-								span(style="text-align: center;")
-									i.fa.fa-superscript
-								span
-									|Show Your Work (shared)
-							.body: textarea(disabled)=(answer.work)
 						.how-you-answered.sb-head.sidebar-how-you-answered
 							.header.green
 								span(style="text-align: center;")
@@ -245,7 +238,13 @@ html
 											.t=page.name.toUpperCase() +  ' SCORE'
 											.bar(percent=page.answer): .bar-complete(style="width:" + (answer.answer * 20) + "%;")
 										.percentages: .num: span= (answer.answer * 20) +'%'
-									
+							.show-your-work.sb-head.grey.notes(style="margin-top: 10px;")
+								.header
+									span(style="text-align: center;")
+										i.fa.fa-superscript
+									span
+										|Show Your Work (shared)
+								.body: textarea(disabled)=(answer.work)		
 									
 								//- OPEN THIS LATER 
 

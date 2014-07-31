@@ -51,14 +51,17 @@ exports = module.exports = function(req, res) {
 
 		var COUPON_ID = req.body.coupon;
 		if(COUPON_ID){
-			stripecust.getCoupon(COUPON_ID, amount, function (e, amount) {
+			stripecust.getCoupon(COUPON_ID, amount, startWithCoupon);
+		}else start(amount);
+
+
+		function startWithCoupon (e, amount) {
 				if(!e){
 					amount = amount;
 					start(amount);	
 				}else start(amount);
 				
-			})
-		}else start(amount);
+			}
 		
 
 
