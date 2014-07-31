@@ -43,6 +43,29 @@ div.analysis {
 .first-page {
     position: relative;
 }
+#loader div img{
+    width: 14px;
+}
+#loader div{
+	margin-top: 5px;
+}
+.logo #get-pdf {
+    font-size: 10px !important;
+    padding: 6px;
+    height: auto;
+    margin-right: 11px;
+}
+.large-main-button {
+	background: #a8ba57;
+	font-size: 18px;
+	height: 50px;
+	padding-top: 12px;
+	display: inline-block;
+	color: white;
+	cursor: pointer;
+	padding: 15px 33PX;
+	border-radius: 5px;
+}
 .date {
     position: absolute;
     width: 100%;
