@@ -101,8 +101,13 @@ div.analysis {
 		background: #778632 !important;
 		color: transparent !important;
 	}
+	.content-header{display: none !important;}
 	.first-page .date{color:white !important;}
-	.first-page .analysis-header{color:#6e6e6e !important;}
+	.first-page .analysis-header{
+		color:#6e6e6e !important;
+		font-family: museo !important;
+	}
+	.analysis{display:none !important;}
 	#report .charts table tr.page-wrap .num, #report .charts table tr.page-wrap .bar-complete {
 		text-align: center !important;
 		background: #a8ba57 !important;

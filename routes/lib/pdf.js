@@ -294,9 +294,8 @@ var text = req.body.html;
 	text += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">';
 	text += "<style>";
 	text += style;
-	text += "#report, .first-page{" +
-				"page-break-after:always;" +
-			"}";
+	text += "#report, .first-page{" + "page-break-after:always;" + "}";
+	text += "@font-face {font-family: museo; src: url(http://opiq-stage.herokuapp.com/fonts/Museo_Slab_500.otf); }";
 	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 1px !important; }";
 	text += ".none{display:none;}";
 	text += ".main-content{margin-left:-7px;}";
@@ -323,6 +322,9 @@ var text = req.body.html;
 	text += ".section .body .t{padding-bottom:2px !important; margin-bottom:0px !important;}";
 	text += ".first-page {position: relative; } ";
 	text += ".date {position: absolute; width: 100%; text-align: center; color: white; top: 341px; font-size: 17px; }";
+	text += ".first-page .analysis-header{color:#6e6e6e !important; font-family: museo !important; }";
+	text += ".content-header{display: none !important;}";
+	text += ".analysis{display:none !important;}";
 	text +=	"</style>";
 
 startPhantom(text);
@@ -340,12 +342,12 @@ startPhantom(text);
 				}, 1000)
 			
 				function start(){
-				    page.render('report.pdf', function(){
+				    page.render(req.body.analysis  + '.pdf', function(){
 				      	console.log('page rendered');
 				      	
 				     
 						
-						res.download("report.pdf");
+						res.download(req.body.analysis + ".pdf");
 					
 				        ph.exit(function(code){console.log(code)});
 
