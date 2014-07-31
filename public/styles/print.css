@@ -29,6 +29,15 @@ div.analysis {
 .first-page, .last-page img{
 	width: 100%;
 	display: none;
+	color:white;
+}
+.first-page img {
+    width: 100%;
+}
+.analysis-header {
+    color: #999;
+    text-align: center;
+    font-size: 50px;
 }
 
 .first-page {
@@ -53,10 +62,16 @@ div.analysis {
 	* { color: black; }
 	.print{width: 100%;margin: 0;float: none;}
 	*, a { color: black; }
+	.first-page, .last-page img{
+		display:block;
+		color:white;
+	}
+	.first-page img{width:100%;}
 	.print>.head{background-color:#383d40 !important;}
 	.t{height:100% !important;}
 	a[href]:after { content: " "; }
 	.gradient-overlay{display: none;}
+	#login > .head{display:none;}
 	.print > .head > .text {color:white !important;}
 	.print > .head > .logo > a {color:white !important;}
 	.print > .head > .logo > a > span { color :#a8ba57 !important;}
@@ -79,6 +94,7 @@ div.analysis {
 		background: #778632;
 		color: white;
 	}
+	.overall-wrap .bar-complete{background:#545454;}
 	#report .charts table tr.page-wrap .num, #report .charts table tr.page-wrap .bar-complete {
 		text-align: center;
 		background: #a8ba57;

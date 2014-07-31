@@ -314,6 +314,7 @@ var text = req.body.html;
 	text += ".body .t{height:auto !important;}";
 	text += ".first-page img, .last-page img{width:100%;}";
 	text += ".question {margin-bottom: 10px; }";
+	text += ".analysis-header {color: #999; text-align: center; font-size: 50px; }";
 	// text += "#sidebar{float:none;clear:both;}";
 	text += ".content-content{margin:10px; }";
 	text += "#sidebar{page-break-after:always;}";

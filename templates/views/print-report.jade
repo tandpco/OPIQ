@@ -21,13 +21,14 @@ html
 					| Opportunity
 					span.gtext IQ
 		.main-content
-			.first-page 
+			.first-page
+				.analysis-header=analysis
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/page1.jpg")
 				.date #{moment().format('MMMM d, YYYY')}
 			#report
 				.header
 					.content-header: .t: span.venture
-						.bob=analysis.title
+						.bob=analysis
 					h1 Congratulations! Your Analysis Is Complete.
 					small Below is the summary of your results.
 					input(type="hidden" name="percentComplete" id="percentComplete" value="0")
