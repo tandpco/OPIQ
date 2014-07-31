@@ -28,8 +28,8 @@ div.analysis {
 }
 .first-page, .last-page img{
 	width: 100%;
-	display: none;
 	color:white;
+	display: none;
 }
 .first-page img {
     width: 100%;
@@ -48,7 +48,7 @@ div.analysis {
     width: 100%;
     text-align: center;
     color: white;
-    top: 341px;
+    top: 233px;
     font-size: 17px;
 }
 .print .inner-content .body .t {
@@ -141,6 +141,9 @@ div.analysis {
 		border-bottom: 1px solid #d4d4d4 !important;
 		font-weight: bolder !important;
 		margin-bottom: 10px !important;
+	}
+	.date {
+		top:160px !important;
 	}
 	.section .header div {
 		display: inline-block !important;

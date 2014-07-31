@@ -299,6 +299,7 @@ var text = req.body.html;
 	text += ".show-your-work.sb-head.grey.notes .body {margin-right: 1px !important; }";
 	text += ".none{display:none;}";
 	text += ".main-content{margin-left:-7px;}";
+	text += ".date {top:190px !important; }";
 	text += ".last-page img{height:800px;}";
 	text += "#sidebar .sb-head .header>span:last-child, #notes .sb-head .header>span:last-child {width: 93%;float:right; }";
 	text += "#sidebar .sb-head .header>span:first-child, #notes .sb-head .header>span:first-child {width: 5%;padding:6px 0px 5px 0px !important; }";

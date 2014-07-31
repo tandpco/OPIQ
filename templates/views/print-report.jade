@@ -56,7 +56,7 @@ html
 								td: div
 									span.circle
 									span.t OVERALL OPPORTUNITY
-								td: div: .bar(percent=main_total, style="width:#{main_total}%"): .bar-complete 50
+								td: div: .bar: .bar-complete(percent=main_total, style="width:#{main_total}%") 50
 								td: div: .percent: .num: span #{main_total}%
 					each category in categories.cats
 						if cat_totals[category] > 0
