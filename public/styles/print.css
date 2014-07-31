@@ -201,6 +201,9 @@ div.analysis {
 		padding: 25px !important;
 		right: 5% !important;
 	}
+	#report .charts{
+		padding: 10px 2px 10px 2px !important;
+	}
 	#report .charts:nth-child(odd), #report .charts:nth-child(odd) table,
 	#report .charts:nth-child(odd) table tbody {
 		background: #f9f9f9 !important;
@@ -227,5 +230,12 @@ div.analysis {
 	#login h1 {
 		font-size: 18px !important;
 	}
-
+	div.analysis {
+		font-size: 14px !important;
+		color: #818080 !important;
+		padding: 0px 0px !important;
+	}
+	.content-holder {
+		padding: 0px !important;
+	}
 }
