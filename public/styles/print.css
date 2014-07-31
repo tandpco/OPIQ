@@ -145,6 +145,9 @@ div.analysis {
 		font-weight: 600 !important;
 		font-family: museo !important;
 	}
+	.icon *{
+		color:#555 !important;
+	}
 	.section p, .section .t {
 		color: #4f4f4f !important;
 	}
