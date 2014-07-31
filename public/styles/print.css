@@ -201,7 +201,8 @@ div.analysis {
 		padding: 25px !important;
 		right: 5% !important;
 	}
-	#report .charts:nth-child(odd) {
+	#report .charts:nth-child(odd), #report .charts:nth-child(odd) table,
+	#report .charts:nth-child(odd) table tbody {
 		background: #f9f9f9 !important;
 	}
 	#login {width:100% !important;}

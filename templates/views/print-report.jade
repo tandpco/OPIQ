@@ -76,7 +76,7 @@ html
 													.connected
 													span.circle
 													span.t=page.name.toUpperCase()
-												td: div: .bar(percent=page.answer style="width:#{page.answer * 20}%"): .bar-complete #{page.answer}
+												td: div: .bar: .bar-complete(percent=page.answer style="width:#{page.answer * 20}%") #{page.answer}
 												td: div: .percent: .num: span #{page.answer * 20}%
 			.analysis= analysis	
 			each answer in answers
