@@ -54,6 +54,8 @@ div.analysis {
     padding: 6px;
     height: auto;
     margin-right: 11px;
+    border-radius: 0;
+    vertical-align: 5px;
 }
 .large-main-button {
 	background: #a8ba57;

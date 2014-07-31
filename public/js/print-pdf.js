@@ -18,7 +18,7 @@ $.each($('.show-your-work'), function () {
 })
 $(window).load(function () {
 	setTimeout(function(){
-		var a = $("<a>", {id :'get-pdf', 'class' : 'large-main-button', text : 'Download PDF'})
+		var a = $("<a>", {id :'get-pdf', 'class' : 'large-main-button', html : '<i class="fa fa-download"></i> PDF'})
 			.on('click', downloadpdf);
 		$('#loader').html(a.clone(true));
 		$('.logo').prepend(a.clone(true));
