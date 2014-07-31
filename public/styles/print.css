@@ -75,12 +75,12 @@ div.analysis {
 .large-main-button {
 	background: #a8ba57;
 	font-size: 18px;
-	height: 50px;
+	height: 35px;
 	padding-top: 12px;
 	display: inline-block;
 	color: white;
 	cursor: pointer;
-	padding: 15px 33PX;
+	padding: 6px 33PX;
 	border-radius: 5px;
 }
 .date {
@@ -97,6 +97,16 @@ div.analysis {
 #sidebar{float:none;clear:both;}
 #report, .first-page, .last-page{
 	page-break-after:always;
+}
+#loader{
+	width : 300px;
+	height : 85px;
+	background :#222;
+	position : absolute;
+	border-radius : 5px;
+	color : white;
+	padding : 10px;
+	text-align : center;
 }
 #sidebar .question .answer, #notes .question .answer {
 	cursor: default;

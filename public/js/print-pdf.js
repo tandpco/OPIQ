@@ -21,7 +21,7 @@ $(window).load(function () {
 		var a = $("<a>", {id :'get-pdf', 'class' : 'large-main-button', html : '<i class="fa fa-download"></i> PDF'})
 			.on('click', downloadpdf);
 		$('#loader p').text("Download a PDF of your report");
-		$('#loader .loader-image').html(a.clone(true));
+		$('#loader .loader-img').html(a.clone(true));
 		$('.logo').prepend(a.clone(true));
 	}, 1000)
 })
@@ -38,15 +38,8 @@ function showLoading(){
 		}).on('click', function(){$(this).hide()}),
 		loader = $('<div>', {id : 'loader', html : '<p>One moment while we generate your report</p>'}).css({
 			top : $(document).scrollTop() + ($(window).height() / 2 - 25),
-			left : ($(window).width() / 2) - 150,
-			width : 300,
-			height : 70,
-			background : '#222',
-			position : 'absolute',
-			borderRadius : 5,
-			color : 'white',
-			padding : 10,
-			textAlign : 'center',
+			left : ($(window).width() / 2) - 150
+			
 		}).append($('<div>', {'class' : 'loader-img', html : "<img src='pdfimg/ajax-loader.gif'>"}))
 		.append($('<div>', {'class' : 'cancel', text : 'X'}));
 	$('body').append(splash.append(loader));
