@@ -123,4 +123,23 @@ div.analysis {
 		background: #999 !important;
 		margin-left: 4px !important;
 	}
+	.content-header {
+		color: #a8ba57 !important;
+		margin-top: 20px !important;
+		padding-bottom: 20px !important;
+		border-bottom: 1px solid #d4d4d4 !important;
+		font-weight: bolder !important;
+		margin-bottom: 10px !important;
+	}
+	.section .header div {
+		display: inline-block !important;
+		background: #e8e8e8 !important;
+		padding: 3px 8px !important;
+		width: 5% !important;
+		font-weight: 600 !important;
+		font-family: museo !important;
+	}
+	.section p, .section .t {
+		color: #4f4f4f !important;
+	}
 }
