@@ -20,7 +20,8 @@ $(window).load(function () {
 	setTimeout(function(){
 		var a = $("<a>", {id :'get-pdf', 'class' : 'large-main-button', html : '<i class="fa fa-download"></i> PDF'})
 			.on('click', downloadpdf);
-		$('#loader').html(a.clone(true));
+		$('#loader p').text("Download a PDF of your report");
+		$('#loader .loader-image').html(a.clone(true));
 		$('.logo').prepend(a.clone(true));
 	}, 1000)
 })
@@ -33,20 +34,21 @@ function showLoading(){
 			position : 'absolute', 
 			width : $(window).width(),
 			height : $(document).height(),
-			background : 'transparent'//rgba(0,0,0,0.2)'
+			background : 'rgba(0,0,0,0.3)'
 		}).on('click', function(){$(this).hide()}),
-		loader = $('<div>', {id : 'loader', text : 'One moment while we generate your report'}).css({
+		loader = $('<div>', {id : 'loader', html : '<p>One moment while we generate your report</p>'}).css({
 			top : $(document).scrollTop() + ($(window).height() / 2 - 25),
 			left : ($(window).width() / 2) - 150,
 			width : 300,
 			height : 70,
-			background : 'rgba(0,0,0,0.4)',
+			background : '#222',
 			position : 'absolute',
 			borderRadius : 5,
 			color : 'white',
 			padding : 10,
 			textAlign : 'center',
-		}).append($('<div>', {html : "<img src='pdfimg/ajax-loader.gif'>"}))
+		}).append($('<div>', {'class' : 'loader-img', html : "<img src='pdfimg/ajax-loader.gif'>"}))
+		.append($('<div>', {'class' : 'cancel', text : 'X'}));
 	$('body').append(splash.append(loader));
 }
 function downloadpdf () {
