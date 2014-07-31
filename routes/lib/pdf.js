@@ -323,7 +323,6 @@ var text = req.body.html;
 	text += ".section>.body{padding-left:50px !important;margin-bottom:0px !important;padding-bottom:2px !important;}";
 	text += ".section .body .t{padding-bottom:2px !important; margin-bottom:0px !important;}";
 	text += ".first-page {position: relative; } ";
-	text += ".last-page img{height:1000px;}";
 	text += ".date {position: absolute; width: 100%; text-align: center; color: white; top: 525px !important; font-size: 17px; }";
 	text += ".first-page .analysis-header{color:#6e6e6e !important;position:absolute;width:100%; font-family: museo !important;top:400px !important; }";
 	text += ".content-header{display: none !important;}";
