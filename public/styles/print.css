@@ -177,6 +177,9 @@ div.analysis {
 		border-radius: 10px !important;
 		margin-top: 2px !important;
 	}
+	.inner-content .body .t {
+		font-size: 16px !important;
+	}
 	#report .charts table tr.page-wrap:not(:last-child) .connected {
 		width: 1px !important;
 		height: 59px !important;
