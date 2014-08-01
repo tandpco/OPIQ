@@ -127,7 +127,7 @@ div.analysis {
 	* { color: black; }
 	.print{width: 100%;margin: 0;float: none;}
 	*, a { color: black; }
-	.first-page, .last-page img{
+	.first-page, .last-page{
 		display:block;
 		color:white;
 	}
