@@ -28,6 +28,12 @@ div.analysis {
 }
 .first-page {
 	text-align: center;
+	height: 790px;
+}
+.analysis-subtitle {
+	color: #999;
+	font-size: 12px;
+	font-weight: 100;
 }
 .first-page img {
 	margin: 100px auto 40px;
