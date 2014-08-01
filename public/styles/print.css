@@ -42,6 +42,9 @@ div.analysis {
 	margin: 200px auto 40px;
 	width: 200px !important;
 }
+.first-page, .last-page {
+	display: none;
+}
 .first-page, .last-page img{
 	color:white;
 }
