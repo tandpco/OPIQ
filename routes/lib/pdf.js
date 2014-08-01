@@ -301,6 +301,7 @@ var text = req.body.html;
 	text += ".main-content{margin-left:-7px;}";
 	text += ".date {top:800px !important; }";
 	text += ".last-page{height:800px; text-align: center;}";
+	text += ".last-page .link {font-weight: bold; font-size: 11px; color: #BCDA44;}";
 	text += "#sidebar .sb-head .header>span:last-child, #notes .sb-head .header>span:last-child {width: 93%;float:right; }";
 	text += "#sidebar .sb-head .header>span:first-child, #notes .sb-head .header>span:first-child {width: 5%;padding:6px 0px 5px 0px !important; }";
 	text += ".float-right {float: right; margin-right: 7px;}";
