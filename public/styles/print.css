@@ -26,21 +26,24 @@ div.analysis {
 	color: #818080;
 	padding:10px 34px;
 }
+.first-page {
+	text-align: center;
+}
+.first-page img {
+	margin: 100px auto 40px;
+	width: 300px;
+}
 .first-page, .last-page img{
 	width: 100%;
 	color:white;
 	display: none;
 }
-.first-page img {
-    width: 100%;
-}
 .analysis-header {
     color: #999;
     text-align: center;
-    position: absolute;
     font-size: 50px;
     width: 100%;
-    top: 711px;
+    font-family: museo !important;
 }
 
 .first-page {
@@ -84,11 +87,9 @@ div.analysis {
 	border-radius: 5px;
 }
 .date {
-    position: absolute;
     width: 100%;
     text-align: center;
     color: #a8ba57;
-    top: 925px;
     font-size: 17px;
 }
 .print .inner-content .body .t {
