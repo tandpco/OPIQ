@@ -32,13 +32,15 @@ div.analysis {
 }
 .analysis-subtitle {
 	color: #999;
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 100;
 	width: 100%;
+	margin-top: 40px;
+	text-align: center
 }
 .first-page img {
 	margin: 100px auto 40px;
-	width: 300px;
+	width: 200px !important;
 }
 .first-page, .last-page img{
 	width: 100%;
