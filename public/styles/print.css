@@ -32,8 +32,9 @@ div.analysis {
 }
 .analysis-subtitle {
 	color: #999;
-	font-size: 12px;
+	font-size: 16px;
 	font-weight: 100;
+	width: 100%;
 }
 .first-page img {
 	margin: 100px auto 40px;
