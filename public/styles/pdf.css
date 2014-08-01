@@ -1,8 +1,5 @@
-body {
-	font-size: 16px;
-}
 .section > .body > .t > * {
-	font-size: 16px;
+	font-size: 16px !important;
 }
 .stripe {
 	background: #a8ba57;
