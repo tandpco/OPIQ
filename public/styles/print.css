@@ -39,11 +39,10 @@ div.analysis {
 	text-align: center
 }
 .first-page img {
-	margin: 100px auto 40px;
+	margin: 200px auto 40px;
 	width: 200px !important;
 }
 .first-page, .last-page img{
-	width: 100%;
 	color:white;
 	display: none;
 }
