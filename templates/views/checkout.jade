@@ -129,6 +129,7 @@ html
 							i.fa.fa-plus
 							|Add A New Card
 					span.not
+						a(id="UseStoredCard") Use A Saved Card
 						form(method="post", action="register" class="checkoutform newcardform")
 							input(type="hidden" name="analysis" value=analysis)
 							input(type="hidden" name="checkout" value='true')
@@ -238,7 +239,8 @@ style.
 	.form-row {margin-top: 10px;margin-bottom:10px;}
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
-$('span.visible').click(function() { $('span.visible').fadeOut(function() { $('span.not').fadeIn(); }); });
+$('span.visible').click(function() { $('span.visible, .saved-card').fadeOut(function() { $('span.not').fadeIn(); }); });
+$('a#UseStoredCard').click(function() { $('span.not').fadeOut(function() { $('span.visible').fadeIn(); }); });
 </script>
 block js
 	//- Only focus the field after the shake animation is complete
