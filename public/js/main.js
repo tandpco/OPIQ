@@ -1,9 +1,9 @@
 $(document).ready(function() {
 	updateAllScores();
 });
-$('span.visible').click(function() {
-	$(this).css('display', 'none');
-	$('span.not').css('display', 'inline');
+$('span.visible a#addACard').click(function() {
+	$('span.visible').fadeOut();
+	$('span.not').fadeIn();
 })
 var $percentComplete = $('input#percentComplete');
 var mark = $('#nav-items i.fa-stack');
