@@ -40,7 +40,49 @@ html
 			.error=error
 			.cards
 				if !cards
-					p No Cards Stored
+					form(method="post", action="register" class="checkoutform newcardform")
+						input(type="hidden" name="analysis" value=analysis)
+						input(type="hidden" name="checkout" value='true')
+						.info-block.payment-form
+							.selected-card.none: i.fa.fa-check-circle
+							span.payment-errors
+							.chosen-card
+								input.none(type='checkbox', checked='true')
+							if user
+								h3 #{user.name.first} #{user.name.last}
+							.row.one
+								.col-sm-8
+									small
+										strong Card Number
+									.card
+										input.form-control(type='text', name='number', size='20', data-stripe='number', placeholder='XXXX XXXX XXXX XXXX')
+								.col-sm-4
+									small
+										strong CVC
+									br
+									.margin-top.cvc
+										input.form-control(data-stripe='cvc', name='cvc', placeholder='XXX')
+							.row
+								.col-sm-8
+									small
+										strong Expiration Date
+									.expiration
+										select.form-control.date(data-stripe='exp-month')
+										select.form-control.year(data-stripe='exp-year')
+
+								.col-sm-4
+									small
+										strong Billing Zip
+									.zip
+										input#zip.form-control(data-stripe='zip', name='zip', placeholder='or postal ')
+							.row
+								.col-xs-12
+									br
+									small
+										strong Coupon
+									input.form-control.coupon(name='coupon', placeholder='Enter Coupon Code')
+									.loader.none
+										img(src='/images/ajax-loader.gif')
 				else
 					for card in cards
 						form(method="post", action="register" class="payment-form checkoutform #{card.id}")
@@ -81,50 +123,49 @@ html
 												strong Coupon
 											input(name='coupon', placeholder='Enter Coupon Code').form-control.coupon
 											.loader.none: img(src="/images/ajax-loader.gif")
-				form(method="post", action="register" class="checkoutform newcardform")
-					input(type="hidden" name="analysis" value=analysis)
-					input(type="hidden" name="checkout" value='true')
-					.info-block.payment-form
-						.selected-card.none: i.fa.fa-check-circle
-						span.payment-errors
-						.chosen-card
-							input.none(type='checkbox', checked='true')
-						if user
-							h3 #{user.name.first} #{user.name.last}
-						.row.one
-							.col-sm-8
-								small
-									strong Card Number
-								.card
-									input.form-control(type='text', name='number', size='20', data-stripe='number', placeholder='XXXX XXXX XXXX XXXX')
-							.col-sm-4
-								small
-									strong CVC
-								br
-								.margin-top.cvc
-									input.form-control(data-stripe='cvc', name='cvc', placeholder='XXX')
-						.row
-							.col-sm-8
-								small
-									strong Expiration Date
-								.expiration
-									select.form-control.date(data-stripe='exp-month')
-									select.form-control.year(data-stripe='exp-year')
+					form(method="post", action="register" class="checkoutform newcardform")
+						input(type="hidden" name="analysis" value=analysis)
+						input(type="hidden" name="checkout" value='true')
+						.info-block.payment-form
+							.selected-card.none: i.fa.fa-check-circle
+							span.payment-errors
+							.chosen-card
+								input.none(type='checkbox', checked='true')
+							if user
+								h3 #{user.name.first} #{user.name.last}
+							.row.one
+								.col-sm-8
+									small
+										strong Card Number
+									.card
+										input.form-control(type='text', name='number', size='20', data-stripe='number', placeholder='XXXX XXXX XXXX XXXX')
+								.col-sm-4
+									small
+										strong CVC
+									br
+									.margin-top.cvc
+										input.form-control(data-stripe='cvc', name='cvc', placeholder='XXX')
+							.row
+								.col-sm-8
+									small
+										strong Expiration Date
+									.expiration
+										select.form-control.date(data-stripe='exp-month')
+										select.form-control.year(data-stripe='exp-year')
 
-							.col-sm-4
-								small
-									strong Billing Zip
-								.zip
-									input#zip.form-control(data-stripe='zip', name='zip', placeholder='or postal ')
-						.row
-							.col-xs-12
-								br
-								small
-									strong Coupon
-								input.form-control.coupon(name='coupon', placeholder='Enter Coupon Code')
-								.loader.none
-									img(src='/images/ajax-loader.gif')
-						
+								.col-sm-4
+									small
+										strong Billing Zip
+									.zip
+										input#zip.form-control(data-stripe='zip', name='zip', placeholder='or postal ')
+							.row
+								.col-xs-12
+									br
+									small
+										strong Coupon
+									input.form-control.coupon(name='coupon', placeholder='Enter Coupon Code')
+									.loader.none
+										img(src='/images/ajax-loader.gif')
 
 			//- a(href="#").new-card
 			//- 	+&nbsp;&nbsp;&nbsp;&nbsp; Use A New Card
