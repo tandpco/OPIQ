@@ -240,7 +240,7 @@ style.
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
 $('span.visible').click(function() { $('span.visible, .saved-card').fadeOut(function() { $('span.not').fadeIn(); }); });
-$('a#UseStoredCard').click(function() { $('span.not').fadeOut(function() { $('span.visible').fadeIn(); }); });
+$('a#UseStoredCard').click(function() { $('span.not,').fadeOut(function() { $('span.visible, .saved-card').fadeIn(); }); });
 </script>
 block js
 	//- Only focus the field after the shake animation is complete
