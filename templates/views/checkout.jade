@@ -233,8 +233,8 @@ style.
 	.form-row {margin-top: 10px;margin-bottom:10px;}
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
-$('span.visible').click(function() { $('.saved-card').addClass("clip").animate({ height: "+=150px" }, 1000); $('span.not').fadeIn(); });
-$('.saved-card').click(function() { $(this).removeClass("clip", function() { $('span.not').fadeOut(); }); });
+$('span.visible').click(function() { $('.saved-card').addClass("clip").animate({ height: "150px" }); $('span.not').fadeIn(); });
+$('.saved-card').click(function() { $(this).removeClass("clip", function() { $('span.not').fadeOut(); }).animate({height: "auto"}); });
 </script>
 block js
 	//- Only focus the field after the shake animation is complete
