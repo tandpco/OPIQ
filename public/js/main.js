@@ -1,6 +1,10 @@
 $(document).ready(function() {
 	updateAllScores();
 });
+$('span.visible').click(function() {
+	$(this).css('display', 'none');
+	$('span.not').css('display', 'inline');
+})
 var $percentComplete = $('input#percentComplete');
 var mark = $('#nav-items i.fa-stack');
 $(mark).click(function() {
