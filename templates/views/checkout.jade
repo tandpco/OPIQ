@@ -124,7 +124,6 @@ html
 							i.fa.fa-plus
 							|Add A New Card
 					span.not
-						a(id="UseStoredCard") Use A Saved Card
 						form(method="post", action="register" class="checkoutform newcardform")
 							input(type="hidden" name="analysis" value=analysis)
 							input(type="hidden" name="checkout" value='true')
@@ -234,7 +233,7 @@ style.
 	.form-row {margin-top: 10px;margin-bottom:10px;}
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
-$('span.visible').click(function() { $('.saved-card').addClass("clip"); $('span.not').fadeIn(); });
+$('span.visible').click(function() { $('.saved-card').addClass("clip").animate({ height: "+=150px" }, 1000); $('span.not').fadeIn(); });
 $('.saved-card').click(function() { $(this).removeClass("clip", function() { $('span.not').fadeOut(); }); });
 </script>
 block js
