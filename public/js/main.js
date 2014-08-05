@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	updateAllScores();
+	$('span.visible a#addACard').click(function() {
+		$('span.visible').fadeOut();
+		$('span.not').fadeIn();
+	});
 });
-$('span.visible a#addACard').click(function() {
-	$('span.visible').fadeOut();
-	$('span.not').fadeIn();
-})
 var $percentComplete = $('input#percentComplete');
 var mark = $('#nav-items i.fa-stack');
 $(mark).click(function() {
