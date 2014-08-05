@@ -99,13 +99,8 @@ html
 										.col-sm-8
 											small
 												strong Card Number
-											.card XXXX XXXX XXXX &nbsp;
+											.card Card ending in &nbsp;
 												span=card.last4 || 4342
-										.col-sm-4
-											small
-												strong CVC
-											br
-											.margin-top.cvc XXX
 									.row
 										.col-sm-8
 											small
@@ -239,8 +234,7 @@ style.
 	.form-row {margin-top: 10px;margin-bottom:10px;}
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
-$('span.visible').click(function() { $('span.visible, .saved-card').fadeOut(function() { $('span.not').fadeIn(); }); });
-$('a#UseStoredCard').click(function() { $('span.not,').fadeOut(function() { $('span.visible, .saved-card').fadeIn(); }); });
+$('span.visible').click(function() { $('.saved-card').addClass("clip"); $('span.not').fadeIn(); });
 </script>
 block js
 	//- Only focus the field after the shake animation is complete
