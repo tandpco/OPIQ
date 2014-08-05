@@ -123,9 +123,11 @@ html
 												strong Coupon
 											input(name='coupon', placeholder='Enter Coupon Code').form-control.coupon
 											.loader.none: img(src="/images/ajax-loader.gif")
-					
+
 					span.visible
-						a(id="addACard"): i.fa.fa-plus Add A New Card
+						a(id="addACard")
+							i.fa.fa-plus
+							|Add A New Card
 					span.not
 						form(method="post", action="register" class="checkoutform newcardform")
 							input(type="hidden" name="analysis" value=analysis)

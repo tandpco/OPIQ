@@ -7448,7 +7448,13 @@ body.open {
   overflow: hidden;
 }
 span.visible a#addACard {
-  color: #e8e8e8;
+  color: #a8a8a8;
   border: 2px solid;
+  display: inline-block;
+  font-size: 20px;
   padding: 5px 10px;
+  margin: 40px 0 20px;
+}
+span.visible a#addACard > i {
+  margin-right: 20px;
 }
