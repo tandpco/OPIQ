@@ -234,7 +234,7 @@ style.
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
 $('span.visible').click(function() { $('.saved-card').addClass("clip").animate({ height: "150px" }, function() { $('span.not').fadeIn("slow"); }); });
-$('.saved-card').click(function() { $(this).removeClass("clip").animate({height: "auto"}, function() { $('span.not').fadeOut("slow"); }); });
+$('.saved-card').click(function() { $('span.not').fadeOut("slow"); $(this).animate({ height: "340px" });
 </script>
 block js
 	//- Only focus the field after the shake animation is complete
