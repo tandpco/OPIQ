@@ -99,7 +99,7 @@ html
 										.col-sm-8
 											small
 												strong Card Number
-											.card Card ending in &nbsp;
+											.card Card ending in 
 												span=card.last4 || 4342
 									.row
 										.col-sm-8
@@ -235,6 +235,7 @@ style.
 	#register div.loader {position: absolute;right: 11px;top: 48px;}
 <script type="text/javascript">
 $('span.visible').click(function() { $('.saved-card').addClass("clip"); $('span.not').fadeIn(); });
+$('.saved-card').click(function() { $(this).removeClass("clip", function() { $('span.not').fadeOut(); }); });
 </script>
 block js
 	//- Only focus the field after the shake animation is complete
