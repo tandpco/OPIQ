@@ -57,7 +57,6 @@ exports = module.exports = function(req, res) {
 
 
 		function startWithCoupon (e, amount) {
-			e = 'haha';
 				if(!e){
 					amount = amount;
 					start(amount);	
