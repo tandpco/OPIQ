@@ -125,21 +125,7 @@ exports = module.exports = {
 
 		req.session.zip = zip;
 		req.session.last4 = last4;
-		console.log('*');
-		console.log('*');
-		console.log('*');
-		console.log('*');
-		console.log('*');
-		console.log(req.body);
-		console.log(stripeToken);
-		console.log(amount);
-		console.log(zip, last4);
-		console.log('*');
-		console.log('*');
-		console.log('*');
-		console.log('*');
-		console.log('*');
-
+	
 		stripe.customers.create({
 		  description: 'OPIQ Customer',
 		  card: stripeToken, // obtained with Stripe.js

@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 	if(req.body.last4 instanceof Array)req.body.last4 = req.body.last4[0];
 	if(req.body.freepass instanceof Array)req.body.freepass = 'true';	
 
-	console.log(req.body);
+	// console.log(req.body);
 
 
 
@@ -78,20 +78,32 @@ exports = module.exports = function(req, res) {
 					res.locals.error = 'No card info was put in';
 			
 			if(!req.body.freepass || (req.user && !req.user.freeAccess)){
-				console.log('registering');
+				
 				if(req.headers.referer.match('register') && !req.body.checkout){
 					
-					stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (err, charge) {
-						if(!err)
-							if(!req.user){
-					  			build_user(fields, view, req, locals, res);
-					  		}else getPages(view, locals, req, res);
-					  	else{
-					  		resendPost(req, res);
-					  		locals.error = err.message;// "Failed to charge card";
-					  		view.render("register");
-					  	}
-					});
+					/****************/
+					/** REGISTER ****/
+					/****************/
+
+					User.model.findOne({email : req.body.email}).exec(function (e, u) {
+					
+						if(u){
+							resendPost(req, res);
+							locals.error = 'User with email already exists';
+							view.render('register');
+						}else
+							stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (err, charge) {
+								if(!err)
+									if(!req.user){
+							  			build_user(fields, view, req, locals, res);
+							  		}else getPages(view, locals, req, res);
+							  	else{
+							  		resendPost(req, res);
+							  		locals.error = err.message;// "Failed to charge card";
+							  		view.render("register");
+							  	}
+							});
+					})
 				}else{
 
 				/////////////////////
@@ -111,7 +123,7 @@ exports = module.exports = function(req, res) {
 								locals.error = e;
 								stripecust.renderCheckout(req, res);
 							}else{
-								console.log('charging');
+								
 								charge({
 									amount: amount, // amount in cents, again
 									currency: "usd",
@@ -181,13 +193,21 @@ exports = module.exports = function(req, res) {
 
 					
 			}else{
-				console.log('freepass')
-				if(req.headers.referer.match('register'))
-					stripecust.createCustomer(req, function () {
-						if(!req.user)
-				  			build_user(fields, view, req, locals, res);
-				  		else getPages(view, locals, req, res);
-					})
+				
+				if(!req.body.checkout)
+					User.model.findOne({email : req.body.email}).exec(function (e, u) {
+
+						if(u){
+							resendPost(req, res);
+							locals.error = 'User with email already exists';
+							view.render('register');
+						}else
+							stripecust.createCustomer(req, function () {
+								if(!req.user)
+						  			build_user(fields, view, req, locals, res);
+						  		else getPages(view, locals, req, res);
+							})
+					});
 				else getPages(view, locals, req, res);
 			}
 				
