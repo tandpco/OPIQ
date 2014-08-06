@@ -23,7 +23,7 @@ exports = module.exports = function(req, res) {
 			amount = amount.toString();
 			if(amount > 0)
 				amount = amount.slice(0, -2) + '.' + amount.substr(-2);
-
+			if(amount < 50)amount = 50;
 			res.send(amount);
 		}else res.send('error');
 		
