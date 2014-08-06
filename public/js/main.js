@@ -515,6 +515,7 @@ function requestPDF () {
 	//                .attr("name", name).val(val)
 	// }
 }
+
 function whatthismeans (text) {
 	$('.what-this-means').find('.body').text(text).end().show();
 }

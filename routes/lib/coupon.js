@@ -4,7 +4,9 @@ var keystone = require('keystone'),
 
 
 exports = module.exports = function(req, res) {
-	var amount = 17900;
+	if(req.body.page.match('register'))
+		var amount = 17900;
+	else var amount = 4900;
 
 	
 	stripe.setApiKey(keystone.get('stripeApiKey'));

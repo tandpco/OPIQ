@@ -47,7 +47,7 @@ $('body').on('keyup', '[name=coupon]', function () {
 		$.ajax({
 			type : 'post',
 			url : '/coupon',
-			data : {coupon : $.trim(self.val())}, 
+			data : {coupon : $.trim(self.val()), page : document.URL}, 
 			success : function (d) {
 
 				if(d == 0){
