@@ -109,8 +109,7 @@ exports = module.exports = {
 							}
 						}
 					})
-				};
-				else{
+				}else{
 					stripe.customers.retrieveCard(u.stripeid, card.stripeCardID , function (e, c) {
 						if(e)cb(e, null);
 						else cb(null, c);
