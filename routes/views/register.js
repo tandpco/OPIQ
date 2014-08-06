@@ -15,7 +15,8 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
 		locals = res.locals,
 		fields = req.body || {},
-		ip = req.headers['x-forwarded-for'];
+		ip = req.headers['x-forwarded-for'],
+		page = req.body.checkout ? 'checkout' : 'register';
 
 	locals.categories = {};
 	locals.categories.cats = [];
@@ -56,10 +57,15 @@ exports = module.exports = function(req, res) {
 
 
 		function startWithCoupon (e, amount) {
+			e = 'haha';
 				if(!e){
 					amount = amount;
 					start(amount);	
-				}else start(amount);
+				}else{
+					resendPost(req, res);
+					locals.error = 'Failed to retrieve coupon';
+					page === 'checkout' ? stripecust.renderCheckout(req, res) : view.render('register');
+				}
 				
 			}
 		
@@ -69,22 +75,20 @@ exports = module.exports = function(req, res) {
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
 			// console.log(amount);
-
 			if(!stripeToken && req.headers.referer.match('register') && amount !== 0)
 					res.locals.error = 'No card info was put in';
 				
-			console.log(req.body.freepass)
-			if(!req.body.freepass){// || !(req.user && req.user.freeAccess)){
+			if(!req.body.freepass || !(req.user && req.user.freeAccess)){
 				if(req.headers.referer.match('register') && !req.body.checkout){
 					
-				console.log("this is amount before charge" , amount);
 					stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (err, charge) {
 						if(!err)
 							if(!req.user){
 					  			build_user(fields, view, req, locals, res);
 					  		}else getPages(view, locals, req, res);
 					  	else{
-					  		locals.error = "Failed to charge card";
+					  		resendPost(req, res);
+					  		locals.error = e.message;// "Failed to charge card";
 					  		view.render("register");
 					  	}
 					});
@@ -103,6 +107,7 @@ exports = module.exports = function(req, res) {
 					if(req.body.savedCard){
 						stripecust.retrieveCard(req, {zip : req.body.zip, last4 : req.body.last4}, function (e, card) {
 							if(e){
+								resendPost(req, res);
 								locals.error = e;
 								stripecust.renderCheckout(req, res);
 							}else{
@@ -135,6 +140,7 @@ exports = module.exports = function(req, res) {
 										chargeObject.card = card;
 										charge(chargeObject, req);
 									}else{
+										resendPost(req, res);
 										locals.error = err;
 										// keystone.redirect('checkout');
 										stripecust.renderCheckout(req, res);
@@ -147,6 +153,7 @@ exports = module.exports = function(req, res) {
 							stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (e, c) {
 								stripecust.setUserStripeId(req, c.id);
 								if(e){
+									resendPost(req, res);
 							   		locals.error = e.type;
 				  					// keystone.redirect('checkout');	
 									stripecust.renderCheckout(req, res);
@@ -161,8 +168,9 @@ exports = module.exports = function(req, res) {
 						stripecust.charge(chargeObject, req, function (e, ch) {
 							
 					   		if(e){
+					   			resendPost(req, res);
 						   		locals.error = e.type;
-			  					keystone.redirect('checkout');	
+			  					sripecust.renderCheckout(req, res);	
 					   		}else if(ch) getPages(view, locals, req, res);
 					   		
 					   })
@@ -191,7 +199,12 @@ exports = module.exports = function(req, res) {
 	} 
 	
 }
-
+function resendPost (req, res) {
+	var locals = res.locals;
+	for(var i in req.body){
+		locals[i] = req.body[i];
+	}
+}
 
 function build_user (fields, view, req, locals, res) {
 	var newUser = User.model({
@@ -302,7 +315,7 @@ function build_user (fields, view, req, locals, res) {
 				req.session.last4 = oldsession.last4 || null;
 				req.session.stripeid = oldsession.stripeid || null;
 				req.session.card = oldsession.card || null;
-				console.log(req.session);			
+				// console.log(req.session);			
 				res.redirect('register-success');
 			}
 			function onFail () {

@@ -74,23 +74,24 @@ html
 							=error
 					.form-group.email
 						label(for='email') Email Address*
-						input(name='email', id='email', value='', autocomplete="off").form-control
+						input(name='email', id='email', value=(email ? email : ''), autocomplete="off").form-control
+
 						.check &#x2713;
 					.form-group.password
 						label(for='password') Password*
 						.form-inline.custom
-							input(type='password', name='password', id='password',autocomplete="off", placeholder='Password').form-control
-							input(type='password', id='confirm' , autocomplete="off", placeholder='Confirm Password').form-control
+							input(type='password', value=(password ? password : ''), name='password', id='password', autocomplete="off", placeholder='Password').form-control
+							input(type='password', id='confirm' , value=(password ? password : ''), autocomplete="off", placeholder='Confirm Password').form-control
 							.check &#x2713;
 					.form-group.name
 						label(for='name') Your name*
 						.form-inline.custom
-							input(type='text', name='firstname', id='firstname', value='', placeholder='First Name').form-control
-							input(type='text', name='lastname', id='lastname', value='', placeholder='Last Name').form-control
+							input(type='text', name='firstname', value=(firstname ? firstname : ''), id='firstname', placeholder='First Name').form-control
+							input(type='text', name='lastname', id='lastname', value=(lastname ? lastname : ''), placeholder='Last Name').form-control
 							.check &#x2713;
 					.form-group.company
 						label(for='company') Company*
-						input(type='text', name='company', id='company').form-control
+						input(type='text', value=(company ? company : ''), name='company', id='company').form-control
 						.check &#x2713;
 			.regsection.col-xs-12
 				.col-sm-6.left
@@ -111,24 +112,24 @@ html
 							label: span Card Number
 							img(src='images/cards.png')
 							br
-							input(type="text" size="20" name='number' data-stripe="number").form-control
+							input(type="text" size="20" name='number' value=(number ? number : '') data-stripe="number").form-control
 
 						.form-row.expiration
 							.labels
 								label: span Expiration
 								label.cvc: span CVC
 							.form-inline
-								select(data-stripe="exp-month" name='exp-month').form-control.date
-								select(data-stripe="exp-year" name='exp-year').form-control.year
-								input(type="text" size="5" name='cvc' data-stripe="cvc").form-control.cvcinput
+								select(data-stripe="exp-month" value=(expmonth ? expmonth : '') name='exp-month').form-control.date
+								select(data-stripe="exp-year" value=(expyear ? expyear : '') name='exp-year').form-control.year
+								input(type="text" size="5" value=(cvc ? cvc : '') name='cvc' data-stripe="cvc").form-control.cvcinput
 						.form-row
 							label: span Billing ZIP
 							br
-							input(data-stripe='zip', name='zip', id='zip', placeholder='or postal code if not in the USA').form-control
+							input(data-stripe='zip', value=(zip ? zip : ''), name='zip', id='zip', placeholder='or postal code if not in the USA').form-control
 						.form-row
 							label: span Coupon
 							br
-							input(name='coupon', placeholder='Enter Coupon Code').form-control.coupon
+							input(name='coupon', value=(coupon ? coupon : ''), placeholder='Enter Coupon Code').form-control.coupon
 							.loader.none: img(src="/images/ajax-loader.gif")
 					.terms
 						input(type='checkbox')
