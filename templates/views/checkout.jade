@@ -39,7 +39,7 @@ html
 				small Single License
 			.error=error
 			.cards
-				if cards.length == 0
+				if !cards || cards.length == 0
 					form(method="post", action="register" class="checkoutform newcardform")
 						input(type="hidden" name="analysis" value=analysis)
 						input(type="hidden" name="checkout" value='true')
