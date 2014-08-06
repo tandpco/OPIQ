@@ -83,6 +83,14 @@ exports = module.exports = {
 			if(!e){
 				for(var i = 0 ; i < u.cards.length; i++){
 					var card = u.cards[i];
+					console.log('#')
+					console.log('#')
+					console.log('#')
+					console.log('#')
+					console.log(zip, card.zip, last4, card.last4);
+					console.log('#');
+					console.log('#');
+					console.log('#');
 					if(zip && zip === card.zip && last4 && last4 === card.last4){
 						
 						found = true;
