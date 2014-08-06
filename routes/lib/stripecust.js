@@ -65,7 +65,7 @@ exports = module.exports = {
 	},
 	retrieveCard : function  (req, zipLast4, cb) {
 		var found = false,
-			zip, last4;
+			zip, last4, self = this;
 		if(zipLast4 instanceof Function){
 			if(req.zip)zip = req.body.zip || req.session.zip || null;
 			if(req.last4)last4 = req.body.last4 || req.session.last4 || null;
