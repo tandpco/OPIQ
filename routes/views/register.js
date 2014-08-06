@@ -168,7 +168,7 @@ exports = module.exports = function(req, res) {
 							
 					   		if(e){
 					   			resendPost(req, res);
-						   		locals.error = e.type;
+						   		locals.error = e.message;
 			  					stripecust.renderCheckout(req, res);	
 					   		}else if(ch) getPages(view, locals, req, res);
 					   		
