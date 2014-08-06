@@ -83,22 +83,35 @@ exports = module.exports = {
 			if(!e){
 				for(var i = 0 ; i < u.cards.length; i++){
 					var card = u.cards[i];
-					console.log('#')
-					console.log('#')
-					console.log('#')
-					console.log('#')
-					console.log(zip, card.zip, last4, card.last4);
-					console.log('#');
-					console.log('#');
-					console.log('#');
 					if(zip && zip === card.zip && last4 && last4 === card.last4){
 						
 						found = true;
+						break;
 					}
 				}
-				if(!found)cb('no card found');
+				// If card isn't stored locally, pull from stripe and store it locally
+				if(!found){
+					self.get(u.stripeid, function (e, c) {
+						if(e)cb(e.message);
+						else{
+							if(c.cards.data.length < 1)cb("Card isn't saved correctly");
+							else{
+								for(var i = 0 ; i < c.cards.data.length ; i++){
+									if(last4 === c.cards.data[i].last4){
+										card = c.cards.data[i];
+										break;
+									}
+								}
+
+								self.addCard(req, card.id, function(e){
+									cb(e, card);
+								});
+							}
+						}
+					})
+				};
 				else{
-					stripe.customers.retrieveCard(u.stripeid, card.stripeCardID, function (e, c) {
+					stripe.customers.retrieveCard(u.stripeid, card.stripeCardID , function (e, c) {
 						if(e)cb(e, null);
 						else cb(null, c);
 					});
