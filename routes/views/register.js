@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 	if(req.body.last4 instanceof Array)req.body.last4 = req.body.last4[0];
 	if(req.body.freepass instanceof Array)req.body.freepass = 'true';	
 
-	// console.log(req.body);
+	console.log(req.body);
 
 
 
@@ -76,8 +76,9 @@ exports = module.exports = function(req, res) {
 			// console.log(amount);
 			if(!stripeToken && req.headers.referer.match('register') && amount !== 0)
 					res.locals.error = 'No card info was put in';
-				
-			if(!req.body.freepass || !(req.user && req.user.freeAccess)){
+			
+			if(!req.body.freepass || (req.user && !req.user.freeAccess)){
+				console.log('registering');
 				if(req.headers.referer.match('register') && !req.body.checkout){
 					
 					stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (err, charge) {

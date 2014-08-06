@@ -155,7 +155,6 @@ $('form#register').on('submit', function (e) {
 	}
 	
 	
-	
 	if(!fp){
 		if($.trim($('#zip').val()) === ''){
 			alert('Please type in a zip code');
@@ -166,7 +165,6 @@ $('form#register').on('submit', function (e) {
 			return false;
 		}
 		$('.createaccount').prop('disabled', true);
-		
 		getStripeToken.call(this);
 			
 	}else {
