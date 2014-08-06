@@ -87,7 +87,7 @@ exports = module.exports = function(req, res) {
 					  		}else getPages(view, locals, req, res);
 					  	else{
 					  		resendPost(req, res);
-					  		locals.error = e.message;// "Failed to charge card";
+					  		locals.error = err.message;// "Failed to charge card";
 					  		view.render("register");
 					  	}
 					});
