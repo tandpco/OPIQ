@@ -153,7 +153,7 @@ exports = module.exports = function(req, res) {
 								stripecust.setUserStripeId(req, c.id);
 								if(e){
 									resendPost(req, res);
-							   		locals.error = e.type;
+							   		locals.error = e.message;
 				  					// keystone.redirect('checkout');	
 									stripecust.renderCheckout(req, res);
 
