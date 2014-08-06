@@ -150,7 +150,7 @@ exports = module.exports = function(req, res) {
 						}else{
 
 							stripecust.createCustomerAndCharge(req, res, stripeToken, amount, function (e, c) {
-								stripecust.setUserStripeId(req, c.id);
+								
 								if(e){
 									resendPost(req, res);
 							   		locals.error = e.message;

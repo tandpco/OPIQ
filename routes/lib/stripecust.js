@@ -101,11 +101,24 @@ exports = module.exports = {
 	createCustomerAndCharge : function (req, res, stripeToken, amount, cb) {
 		var self = this,
 			zip = req.body.zip || null,
-			last4 = req.body.last4 || null,
-			customer;
+			last4 = req.body.last4 || null;
 
 		req.session.zip = zip;
 		req.session.last4 = last4;
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log(req.body);
+		console.log(stripeToken);
+		console.log(amount);
+		console.log(zip, last4);
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log('*');
+		console.log('*');
 
 		stripe.customers.create({
 		  description: 'OPIQ Customer',
@@ -113,14 +126,14 @@ exports = module.exports = {
 		  email: req.body.email || (req.user ? req.user.email : 'no email found')
 		}, function(e, customer){
 			if(!e){
+				self.setUserStripeId(req, customer.id);
 				req.session.stripeid = customer.id;
-				customer = customer;
 				self.charge({
 				    amount: amount, // amount in cents, again
 				    currency: "usd",
 				    customer: customer.id,
 				    description : "OPIQ Charge"
-				}, req, function(e, c){cb(e, customer)})
+				}, req, function(e, c){cb(e, c)})
 			}else cb(e);
 		})
 	},
