@@ -58,7 +58,7 @@ exports = module.exports = function(req, res) {
 
 		function startWithCoupon (e, amount) {
 				if(!e){
-					amount = amount;
+					if(amount < 50)amount = 50;
 					start(amount);	
 				}else{
 					resendPost(req, res);
