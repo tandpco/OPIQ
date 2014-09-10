@@ -330,7 +330,7 @@ var text = req.body.html;
 	text += ".last-page img{vertical-align:middle;}";
 	text += ".date {width: 100%; text-align: center; color: white; font-size: 17px; }";
 	text += ".first-page .analysis-header{color:#6e6e6e !important;width:100%; font-family: museo !important; }";
-	text += ".content-header{display: none !important;}";
+	// text += ".content-header{display: none !important;}";
 	text += ".analysis{display:none !important;}";
 	text +=	"</style>";
 
