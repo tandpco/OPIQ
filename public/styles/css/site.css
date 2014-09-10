@@ -5822,6 +5822,20 @@ td.visible-print {
   color: #b3d338;
 }
 @font-face {
+  font-family: 'phinster_fineregular';
+  src: url('/fonts/phinstf-webfont.eot');
+  src: url('/fonts/phinstf-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/phinstf-webfont.woff') format('woff'), url('/fonts/phinstf-webfont.ttf') format('truetype'), url('/fonts/phinstf-webfont.svg#phinster_fineregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'phinster_bold';
+  src: url('/fonts/phinster_bold-webfont.eot');
+  src: url('/fonts/phinster_bold-webfont.eot?#iefix') format('embedded-opentype'), url('/fonts/phinster_bold-webfont.woff') format('woff'), url('/fonts/phinster_bold-webfont.ttf') format('truetype'), url('/fonts/phinster_bold-webfont.svg#phinster_bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
   font-family: museo;
   src: url(/fonts/Museo_Slab_500.otf);
 }
@@ -7465,4 +7479,49 @@ span.not {
 }
 .clip {
   overflow: hidden;
+}
+div#footer-outer {
+  background-color: #B2D237;
+  color: #FFF !important;
+}
+div#footer-outer a {
+  color: #FFF;
+}
+div#footer-outer h5 {
+  font-size: 22px;
+  text-align: center;
+  line-height: 20px;
+  text-transform: uppercase;
+  font-family: phinster_bold !important;
+}
+div#footer-outer > #footer-widgets > .container {
+  background: transparent;
+  padding: 25px 85px;
+}
+div#footer-outer > #footer-widgets > .container img {
+  margin-bottom: 25px;
+  width: 220px;
+}
+div#footer-outer > #footer-widgets > .container ul {
+  padding: 0;
+}
+div#footer-outer > #footer-widgets > .container ul li {
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+div#footer-outer > #footer-widgets > .container ul li a {
+  font-family: phinster_fineregular !important;
+}
+div#footer-outer > #footer-widgets > .container ul li a:hover {
+  color: black;
+  text-decoration: none;
+}
+div#footer-outer > #footer-widgets > .container .col-md-12#copyright {
+  margin-top: 100px;
+}
+div#footer-outer > #footer-widgets > .container .col-md-12#copyright p {
+  letter-spacing: 1px;
+  font-family: phinster_fineregular !important;
+  font-size: 18px;
+  margin-bottom: 0;
 }
