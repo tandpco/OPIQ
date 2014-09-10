@@ -7,7 +7,7 @@ html
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(rel="stylesheet", href="/styles/font-awesome.min.css")
 		link(rel="stylesheet", href="/styles/site.min.css")
-	body: #report.analysis
+	body: #report.analysis.clearfix
 		.head#nav
 			div(role="navigation")
 				.logo
@@ -68,6 +68,30 @@ html
 							input(type='hidden', value=a.title, name='title')
 							input(type='hidden', value=a._id, name='_id')
 							input(type='submit')
+	div#footer-outer.clearfix
+		div#footer-widgets
+			div.container
+				//- Column One
+				div.col-md-4
+					img(src="http://opportunityiq.com/wp-content/uploads/2014/07/logo-white.png")
+					ul.row
+						div.col-md-6
+							li: a(href="http://opportunityiq.com") Home
+							li: a(href="http://opportunityiq.com/pricing-page") Pricing
+							li: a(href="http://opiq.opportunityiq.com") Get Started
+						div.col-md-6
+							li: a(href="http://opportunityiq.com/about") About
+							li: a(href="http://opportunityiq.com/contact") Contact
+							li: a(href="http://opiq.opportunityiq.com/login") Sign In
+				//- Column Two
+				div.col-md-4
+					h5 Smart Analysis.
+					h5 Smart Business.
+				//- Column Three
+				div.col-md-4
+					//- Empty.
+				div.col-md-12#copyright
+					p (C) 2014 Boldmore Growth Partners, LLC.
 script(src='/js/lib/jquery/jquery-1.10.2.js')
 script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
 script.
