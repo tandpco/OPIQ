@@ -232,7 +232,8 @@ function build_user (fields, view, req, locals, res) {
 		email : fields.email,
 		password : fields.password,
 		stripeid : req.session.stripeid,
-		zip : fields.zip
+		zip : fields.zip,
+		_req_user : req.user
 	})
 	var oldsession = req.session;
 
