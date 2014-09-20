@@ -23,9 +23,9 @@ exports = module.exports = function(req, res) {
 	locals.cat_totals = {};
 	locals.main_total = 0;
 	
-	if(req.method === 'GET')
+	if(req.method === 'GET'){
 		view.render('checkout');
-	else{
+	}else{
 		var coupon;
 
 		

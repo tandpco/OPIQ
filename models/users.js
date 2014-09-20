@@ -8,7 +8,7 @@ var _ = require('underscore'),
  */
 
 var User = new keystone.List('User', {
-	// hidden : true
+	track : true
 });
 
 User.add({
@@ -17,7 +17,8 @@ User.add({
 	password: { type: Types.Password, initial: true, required: false },
 	image : { type : Types.LocalFile, dest : 'images'},
 	stripeid : { type : String, hidden : true},
-	zip : {type : String}
+	zip : {type : String},
+	oneYearPaidAccess : {type : Date}
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone' },
 	freeAccess : {type : Boolean, label : 'Free Analysis'}

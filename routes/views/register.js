@@ -77,7 +77,7 @@ exports = module.exports = function(req, res) {
 			if(!stripeToken && req.headers.referer.match('register') && amount !== 0)
 					res.locals.error = 'No card info was put in';
 			
-			if(!req.body.freepass || (req.user && !req.user.freeAccess)){
+			if(!req.body.freepass || (req.user && !req.user.freeAccess) || !(req.user && Date.now() - req.user.oneYearPaidAccess >=  31536000730)){
 				
 				if(req.headers.referer.match('register') && !req.body.checkout){
 					
