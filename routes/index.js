@@ -39,14 +39,14 @@ keystone.pre('routes',  function (req, res, next) {
 	console.log('*')
 	console.log('*')
 	console.log('*')
-	// console.log(req.host);
+	console.log(req);
 	console.log('*')
 	console.log('*')
 	console.log('*')
 	console.log('*')
 	console.log('*')
 	
-	
+
 	// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
 	keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
 	// keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
