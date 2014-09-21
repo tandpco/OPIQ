@@ -28,8 +28,6 @@ exports = module.exports = function(req, res) {
 	if(req.body.last4 instanceof Array)req.body.last4 = req.body.last4[0];
 	if(req.body.freepass instanceof Array)req.body.freepass = 'true';	
 
-	// console.log(req.body);
-
 
 
 	if(req.body.analysis)
@@ -38,17 +36,13 @@ exports = module.exports = function(req, res) {
 	if(req.method === 'GET'){
 		view.render('register');
 	}else{
-		var coupon, amount;
+		var coupon, amount = 9900;
 
 
 		// Set Stripe api key to ENV variable
 		stripe.setApiKey(keystone.get('stripeApiKey'));
 
 
-		if(req.headers.referer.match('register'))
-			amount = 17900;
-		// Checkout is only $49
-		else amount = 4900;
 
 		var COUPON_ID = req.body.coupon;
 		if(COUPON_ID){
@@ -76,6 +70,7 @@ exports = module.exports = function(req, res) {
 			// console.log(amount);
 			if(!stripeToken && req.headers.referer.match('register') && amount !== 0)
 					res.locals.error = 'No card info was put in';
+
 			
 			if(!req.body.freepass || (req.user && !req.user.freeAccess) || !(req.user && Date.now() - req.user.oneYearPaidAccess >=  31536000730)){
 				
@@ -114,7 +109,11 @@ exports = module.exports = function(req, res) {
 					// Initial check to see if user is defined
 					if(!req.user)keystone.redirect("/");
 
-
+					// Update to have free access for one year
+					var user = User.model.findOne({_id : req.user._id}).exec(function(err, user){
+						user.oneYearPaidAccess = Date.now();
+						user.save();
+					})
 
 					if(req.body.savedCard){
 						stripecust.retrieveCard(req, {zip : req.body.zip, last4 : req.body.last4}, function (e, card) {
@@ -233,7 +232,8 @@ function build_user (fields, view, req, locals, res) {
 		password : fields.password,
 		stripeid : req.session.stripeid,
 		zip : fields.zip,
-		_req_user : req.user
+		_req_user : req.user,
+		oneYearPaidAccess : Date.now()
 	})
 	var oldsession = req.session;
 

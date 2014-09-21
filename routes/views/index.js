@@ -36,9 +36,9 @@ exports = module.exports = function(req, res) {
 
  				
  				}else {
- 					// if(req.user.zip)
-	 					stripecust.renderCheckout(req, res);
-	 				// else view.render('register');
+ 					if(!req.user.oneYearPaidAccess || (Date.now() - req.user.oneYearPaidAccess >=  31536000730))
+ 						stripecust.renderCheckout(req, res);
+	 				else getPages();
  				}
  			})
  			
