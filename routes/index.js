@@ -39,7 +39,7 @@ keystone.pre('routes',  function (req, res, next) {
 	console.log('*')
 	console.log('*')
 	console.log('*')
-	console.log(req);
+	console.log(req.headers);
 	console.log('*')
 	console.log('*')
 	console.log('*')
