@@ -32,6 +32,9 @@ var _ = require('underscore'),
 
 // Common Middleware
 keystone.pre('routes',  function (req, res, next) {
+
+
+	
 	console.log(req.host);
 	// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
 	keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
