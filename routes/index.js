@@ -34,12 +34,13 @@ var _ = require('underscore'),
 keystone.pre('routes',  function (req, res, next) {
 
 
-	
+
 	console.log(req.host);
 	// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
 	keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
 	// keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
 	keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
+	next();
 });
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
