@@ -358,9 +358,9 @@ function updatePercent (num) {
 	// var c = BASE.find('.sidebar-how-you-answered .category-score').getTotalAnswers(num);
 
 	console.log(o);
-	$('.overall').find('.bar').attr('percent', o);
-	$('.category-wrap:contains(' + current.category + '), .category-score:contains(' + current.category + ')').find('.bar').attr('percent', c);
-	$('.page-wrap:contains(' + current.name + '), .page-score:contains(' + current.name + ')').find('.bar').attr('percent', num);
+	$('.overall').find('.bar').attr('percent', o || 0);
+	$('.category-wrap:contains(' + current.category + '), .category-score:contains(' + current.category + ')').find('.bar').attr('percent', c || 0);
+	$('.page-wrap:contains(' + current.name + '), .page-score:contains(' + current.name + ')').find('.bar').attr('percent', num || 0);
 
 
 

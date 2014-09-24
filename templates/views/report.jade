@@ -45,7 +45,7 @@ html
 							td: div
 								span.circle
 								span.t OVERALL OPPORTUNITY
-							td: div: .bar(percent=total): .bar-complete 50
+							td: div: .bar(percent=total || 0): .bar-complete 50
 							td: div: .percent: .num: span 100%
 				each category in categories.cats
 					.charts(id=category.split(' ').join('').replace(/\//, '-'))

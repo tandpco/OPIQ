@@ -35,7 +35,7 @@ html
 				.innerbody
 					.stripe
 						.text Summary - Overall Opportunity Score
-						.box-score=main_total + '%'
+						.box-score=main_total || 0+ '%'
 					.charts#overall-table
 						-var total = [];
 						each cat in categories
@@ -56,8 +56,8 @@ html
 								td: div
 									span.circle
 									span.t OVERALL OPPORTUNITY
-								td: div: .bar: .bar-complete(percent=main_total, style="width:#{main_total}%") 50
-								td: div: .percent: .num: span #{main_total}%
+								td: div: .bar: .bar-complete(percent=main_total || 0, style="width:#{main_total}%") 50
+								td: div: .percent: .num: span #{main_total || 0}%
 					each category in categories.cats
 						if cat_totals[category] > 0
 							.charts(id=category.split(' ').join('').replace(/\//, '-'))
@@ -66,8 +66,8 @@ html
 										td.category: div
 											span.circle
 											span.t=category.toUpperCase()
-										td: div: .bar(percent=cat_totals[category]): .bar-complete(style="width:#{cat_totals[category]}%") #{cat_totals[category]}
-										td: div: .percent: .num: span #{Math.round(cat_totals[category])}%
+										td: div: .bar(percent=cat_totals[category] || 0): .bar-complete(style="width:#{cat_totals[category]}%") #{cat_totals[category]}
+										td: div: .percent: .num: span #{Math.round(cat_totals[category]) || 0}%
 									each page in categories[category]
 										if page && page.answer > 0
 											tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'), id=page._id)
@@ -76,7 +76,7 @@ html
 													span.circle
 													span.t=page.name.toUpperCase()
 												td: div: .bar: .bar-complete(percent=page.answer style="width:#{page.answer * 20}%") #{page.answer}
-												td: div: .percent: .num: span #{page.answer * 20}%
+												td: div: .percent: .num: span #{page.answer * 20 || 0}%
 			.analysis= analysis	
 			each answer in answers
 				-var page = _.findWhere(pages, {name : answer.page})
@@ -113,7 +113,7 @@ html
 										i.fa.fa-superscript
 									.text
 										|Show Your Work (shared)
-								.body: textarea(disabled)=(answer.work)		
+								.body: textarea(class='form-control', style='resize:none;width:100%;' disabled)=(answer.work)		
 
 						
 					#sidebar
