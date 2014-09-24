@@ -109,6 +109,14 @@ html
 								.body
 									.t
 										div!=page['Why This Matters']
+							.section
+								.header
+									.icon
+										i.fa.fa-superscript
+									.text
+										|Show Your Work (shared)
+								.body: textarea(disabled)=(answer.work)		
+										
 							//- .section#explanation
 								.header
 									.icon
@@ -239,13 +247,13 @@ html
 											.t=page.name.toUpperCase() +  ' SCORE'
 											.bar(percent=page.answer): .bar-complete(style="width:" + (answer.answer * 20) + "%;")
 										.percentages: .num: span= (answer.answer * 20) +'%'
-							.show-your-work.sb-head.grey.notes(style="margin-top: 10px;")
-								.header
-									span(style="text-align: center;")
-										i.fa.fa-superscript
-									span
-										|Show Your Work (shared)
-								.body: textarea(disabled)=(answer.work)		
+							//- .show-your-work.sb-head.grey.notes(style="margin-top: 10px;")
+							//- 	.header
+							//- 		span(style="text-align: center;")
+							//- 			i.fa.fa-superscript
+							//- 		span
+							//- 			|Show Your Work (shared)
+							//- 	.body: textarea(disabled)=(answer.work)		
 									
 								//- OPEN THIS LATER 
 
