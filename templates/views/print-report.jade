@@ -22,7 +22,6 @@ html
 					span.gtext IQ
 		.main-content
 			.first-page
-				//- img(src="http://opiq-stage.herokuapp.com/pdfimg/cover.png" style="visibility: hidden;")
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/vert-logo.png")
 				.analysis-header=analysis
 				br
@@ -67,11 +66,10 @@ html
 										td.category: div
 											span.circle
 											span.t=category.toUpperCase()
-										//- td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
 										td: div: .bar(percent=cat_totals[category]): .bar-complete(style="width:#{cat_totals[category]}%") #{cat_totals[category]}
 										td: div: .percent: .num: span #{Math.round(cat_totals[category])}%
 									each page in categories[category]
-										if page.answer > 0
+										if page && page.answer > 0
 											tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'), id=page._id)
 												td.page: div
 													.connected
@@ -116,61 +114,8 @@ html
 									.text
 										|Show Your Work (shared)
 								.body: textarea(disabled)=(answer.work)		
-										
-							//- .section#explanation
-								.header
-									.icon
-										i.fa.fa-info
-									.text Explanation
-								.body
-									.t
-										div!=page.Explanation
-							//- .section#examples
-								.header
-									.icon
-										i.fa.fa-gear
-									.text Examples
-								.body
-									.t
-										div!=page.Examples
-									//- .rightwrong
-									//- 	.wrong.readallrightwrong(type='wrong')
-									//- 		.title
-									//- 			span.icon
-									//- 				i.fa.fa-thumbs-o-down
-									//- 			span.text WRONG!
-									//- 		.body
-									//- 			.t!=page.wrong
-									//- 			span SEE ALL
-									//- 	.right.readallrightwrong(type='right')
-									//- 		.title
-									//- 			span.text RIGHT!
-									//- 			span.icon
-									//- 				i.fa.fa-thumbs-o-up
-									//- 		.body
-									//- 			.t!=page.right
-									//- 			span SEE ALL
-							//- .section#caution
-							//- 	.header
-							//- 		.icon
-							//- 			i.fa.fa-warning
-							//- 		.text Caution
-							//- 			span.readall READ ALL
-							//- 	.body
-							//- 		.t
-							//- 			div!=page.Caution
-							//- 		.gradient-overlay
-							//- .section#needhelp
-							//- 	.header
-							//- 		.icon
-							//- 			i.fa.fa-question-circle
-							//- 		.text Need Help With This?
-							//- 	.body
-							//- 		.qaform
-							//- 			.textbox
-							//- 				textarea
-							//- 			.submit
-							//- 				input(type="button", value="SUBMIT")
+
+						
 					#sidebar
 						.question
 							| ANSWER
@@ -197,16 +142,6 @@ html
 									i.fa.fa-check.none(answer='5')
 								.body: .t=page.answer5
 
-						//- .save
-						//- 	| SAVE ANSWER
-						//- .internal-notes.sb-head.grey.notes(style="margin-top: 10px;")
-							.header
-								span(style="text-align: center;")
-									i.fa.fa-file-text-o
-								span
-									|Scratchpad
-							//- .body: textarea=(answer && answer.notes || '')
-							.body: textarea(disabled)=(answer.notes)
 						.how-you-answered.sb-head.sidebar-how-you-answered
 							.header.green
 								span(style="text-align: center;")
@@ -230,7 +165,6 @@ html
 												- obj[ c.name ] = c.answer
 									.overall
 										.bars OPPORTUNITY SCORE
-											//- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
 											.bar(percent=main_total): .bar-complete(style="width:" + main_total + "%;")
 										.percentages: .num: span= (Math.round(main_total * 10) / 10) + '%'
 
@@ -238,7 +172,6 @@ html
 										-var percent = _.pluck(categories[page.category], 'answer')
 										.bars
 											.t=page.category.toUpperCase() +  ' ANALYSIS SCORE'
-											//- .bar(percent=percent, base=JSON.stringify(_.object(_.pluck(categories[page.category], 'name'), percent))): .bar-complete
 											.bar(percent=cat_totals[page.category]): .bar-complete(style="width:" + cat_totals[page.category] + "%;")
 										.percentages: .num: span= (Math.round(cat_totals[page.category] * 10) / 10) + '%'
 
@@ -247,34 +180,7 @@ html
 											.t=page.name.toUpperCase() +  ' SCORE'
 											.bar(percent=page.answer): .bar-complete(style="width:" + (answer.answer * 20) + "%;")
 										.percentages: .num: span= (answer.answer * 20) +'%'
-							//- .show-your-work.sb-head.grey.notes(style="margin-top: 10px;")
-							//- 	.header
-							//- 		span(style="text-align: center;")
-							//- 			i.fa.fa-superscript
-							//- 		span
-							//- 			|Show Your Work (shared)
-							//- 	.body: textarea(disabled)=(answer.work)		
-									
-								//- OPEN THIS LATER 
-
-								//-.bottom
-									.top
-										span Benchmark - How Other Opportunities Scored
-									.body
-										.page-other
-											.bars
-												.t ADDRESSABLE MARKET SCORE
-												.bar: .bar-complete
-											.percentages: .num: span 50%
-								
-						//- .what-this-means.sb-head.none
-						//- 	.header.green
-						//- 		span
-						//- 			i.fa.fa-tasks
-						//- 		span
-						//- 			|What This Means
-						//- 	.body
-						//- 		|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+						
 			.last-page
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/vert-logo-green.png")
 				.analysis-subtitle Smart Analysis. Smart Business.
