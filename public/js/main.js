@@ -393,7 +393,7 @@ function updateAllScores(){
 
 	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	percentComplete();
-	var $percentCompleteVal = $percentComplete.val();
+	var $percentCompleteVal = $percentComplete.val() > 0 ? $percentComplete.val() : 0;
 	if ($percentComplete.val() != '100') {
 		$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
 		// console.log($percentCompleteVal);
