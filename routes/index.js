@@ -27,8 +27,11 @@ var _ = require('underscore'),
 
 
 
-keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
-keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key	
+// keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
+// keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
+
+keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
+keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
 
 
 // // Common Middleware
@@ -111,7 +114,7 @@ exports = module.exports = function(app) {
 		// setup e-mail data with unicode symbols
 		var mailOptions = {
 		    from: "OpportunityIQ <opiq@launchthought.com>", // sender address
-		    to: "daniel@theoryandpractice.co", // list of receivers
+		    to: "grantmwebster@gmail.com", // list of receivers
 		    subject: "OPIQ " + req.body.page, // Subject line
 			html: '<strong>' + req.body.page + '</strong><br /><br />' + req.body.question + '<br /><br /><b>From:</b> ' + req.body.user + '<br><b>Email Address:</b> ' + req.body.email // html body
 		}
