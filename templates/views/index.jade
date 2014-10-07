@@ -1,237 +1,240 @@
 extends ../layouts/opportunityiq
 
 block content
-	div(id='page-' + page._id, class = 'whole-page ' + (page.name === 'Addressable Market' ? '' : 'none'))
-		.row-fluid
-			.col-sm-12.col-med-12.col-lg-12
-				.content-header
-					.t
-						if typeof analysis === 'object'
-							span.venture(analysis=analysis._id)= analysis.title
+	if analysis
+		div(id='page-' + page._id, class = 'whole-page ' + (page.name === 'Addressable Market' ? '' : 'none'))
+			.row-fluid
+				.col-sm-12.col-med-12.col-lg-12
+					.content-header
+						.t
+							if typeof analysis === 'object'
+								span.venture(analysis=analysis._id)= analysis.title
+							else
+								span.venture=analysis
+							br
+							span.name=page.category.toUpperCase()+ ': ' + page.name
+							span.page-name-header
+						if page.order === 50
+							.nextprev
+								.t
+									span 
+										i.fa.fa-angle-left
+									span#viewReport View Report
+									span 
+										i.fa.fa-angle-right
 						else
-							span.venture=analysis
-						br
-						span.name=page.category.toUpperCase()+ ': ' + page.name
-						span.page-name-header
-					if page.order === 50
-						.nextprev
-							.t
-								span 
-									i.fa.fa-angle-left
-								span#viewReport View Report
-								span 
-									i.fa.fa-angle-right
-					else
-						.nextprev
-							.t
-								span 
-									i.fa.fa-angle-left
-								span Next 
-								span 
-									i.fa.fa-angle-right
-		.row-fluid
-			.col-sm-12.col-med-4.col-lg-3#sidebar
-				.question
-					| ANSWER
-					-var answer = _.findWhere(answers, {'page' : page.name})
-					-var ans = answer ? Number(answer.answer) : null
-					.answer.answer1(set= ans === 1 ? 'true' : 'false')
-						span
-							i.fa.fa-check.none(answer='1')
-						.body: .t=page.answer1
-					.answer.answer2(set= ans === 2 ? 'true' : 'false')
-						span
-							i.fa.fa-check.none(answer='2')
-						.body: .t=page.answer2
-					.answer.answer3(set= ans === 3 ? 'true' : 'false')
-						span
-							i.fa.fa-check.none(answer='3')
-						.body: .t=page.answer3
-					.answer.answer4(set= ans === 4 ? 'true' : 'false')
-						span
-							i.fa.fa-check.none(answer='4')
-						.body: .t=page.answer4
-					.answer.answer5(set= ans === 5 ? 'true' : 'false')
-						span
-							i.fa.fa-check.none(answer='5')
-						.body: .t=page.answer5
+							.nextprev
+								.t
+									span 
+										i.fa.fa-angle-left
+									span Next 
+									span 
+										i.fa.fa-angle-right
+			.row-fluid
+				.col-sm-12.col-med-4.col-lg-3#sidebar
+					.question
+						| ANSWER
+						-var answer = _.findWhere(answers, {'page' : page.name})
+						-var ans = answer ? Number(answer.answer) : null
+						.answer.answer1(set= ans === 1 ? 'true' : 'false')
+							span
+								i.fa.fa-check.none(answer='1')
+							.body: .t=page.answer1
+						.answer.answer2(set= ans === 2 ? 'true' : 'false')
+							span
+								i.fa.fa-check.none(answer='2')
+							.body: .t=page.answer2
+						.answer.answer3(set= ans === 3 ? 'true' : 'false')
+							span
+								i.fa.fa-check.none(answer='3')
+							.body: .t=page.answer3
+						.answer.answer4(set= ans === 4 ? 'true' : 'false')
+							span
+								i.fa.fa-check.none(answer='4')
+							.body: .t=page.answer4
+						.answer.answer5(set= ans === 5 ? 'true' : 'false')
+							span
+								i.fa.fa-check.none(answer='5')
+							.body: .t=page.answer5
 
-				.save
-					| SAVE ANSWER
-				
-				.how-you-answered.sb-head.sidebar-how-you-answered
-					.header.green
-						span(style="text-align: center;")
-							i.fa.fa-tasks(style="margin-left: -2px;")
-						span
-							|How You Answered
-					.body
-						
-						.top
-							span Improvement
-							span Excellent
-							span.float-right Percentile
-							
+					.save
+						| SAVE ANSWER
+					
+					.how-you-answered.sb-head.sidebar-how-you-answered
+						.header.green
+							span(style="text-align: center;")
+								i.fa.fa-tasks(style="margin-left: -2px;")
+							span
+								|How You Answered
 						.body
-							-var total = [];
-							-var obj = {};
-							each cat in categories
-								each c in cat
-									if typeof c.answer !== 'undefined' 
-										- total.push(c.answer)
-										- obj[ c.name ] = c.answer
-							.overall
-								.bars OPPORTUNITY SCORE
-									//- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
-									.bar(percent=main_total): .bar-complete
-								.percentages: .num: span 50%
-
-							.category-score
-								-var percent = _.pluck(categories[page.category], 'answer')
-								.bars
-									.t=page.category.toUpperCase() +  ' ANALYSIS SCORE'
-									//- .bar(percent=percent, base=JSON.stringify(_.object(_.pluck(categories[page.category], 'name'), percent))): .bar-complete
-									.bar(percent=cat_totals[page.category]): .bar-complete
-								.percentages: .num: span 50%
-
-							.page-score
-								.bars
-									.t=page.name.toUpperCase() +  ' SCORE'
-									.bar(percent=page.answer): .bar-complete
-								.percentages: .num: span 50%
 							
-							
-						//- OPEN THIS LATER 
-
-						//-.bottom
 							.top
-								span Benchmark - How Other Opportunities Scored
+								span Improvement
+								span Excellent
+								span.float-right Percentile
+								
 							.body
-								.page-other
-									.bars
-										.t ADDRESSABLE MARKET SCORE
-										.bar: .bar-complete
+								-var total = [];
+								-var obj = {};
+								each cat in categories
+									each c in cat
+										if typeof c.answer !== 'undefined' 
+											- total.push(c.answer)
+											- obj[ c.name ] = c.answer
+								.overall
+									.bars OPPORTUNITY SCORE
+										//- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
+										.bar(percent=main_total): .bar-complete
 									.percentages: .num: span 50%
-						
-				//- .what-this-means.sb-head.none
-				//- 	.header.green
-				//- 		span
-				//- 			i.fa.fa-tasks
-				//- 		span
-				//- 			|What This Means
-				//- 	.body
-				//- 		|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-						
 
-			.col-sm-12.col-med-8.col-lg-9
-				- var main_word_length = 30
-				.inner-content
-					.section#keyprinciple
-						.header
-							.icon
-								i.fa.fa-lightbulb-o
-							.text Key Principle
-						.body
-							.t
-								div!=page['Key Principle']
-					.section#definition
-						.header
-							.icon
-								span.glyphicon.glyphicon-book
-							.text Definition
-						.body
-							.t
-								div!=page.Definition
-					.section.image.hide
-						img
-					.section#whythismatters
-						.header
-							.icon
-								span.glyphicon.glyphicon-flag
-							.text Why This Matters
-								span.readall READ ALL
-						.body
-							.t
-								div!=page['Why This Matters']
-							.gradient-overlay
-					.section#explanation
-						.header
-							.icon
-								i.fa.fa-info
-							.text Explanation
-								span.readall READ ALL
-						.body
-							.t
-								div!=page.Explanation
-							.gradient-overlay
-					.section#examples
-						.header
-							.icon
-								i.fa.fa-gear
-							.text Examples
-								span.readall READ ALL
-						.body
-							.t
-								div!=page.Examples
-								.gradient-overlay
-							//- .rightwrong
-							//- 	.wrong.readallrightwrong(type='wrong')
-							//- 		.title
-							//- 			span.icon
-							//- 				i.fa.fa-thumbs-o-down
-							//- 			span.text WRONG!
-							//- 		.body
-							//- 			.t!=page.wrong
-							//- 			span SEE ALL
-							//- 	.right.readallrightwrong(type='right')
-							//- 		.title
-							//- 			span.text RIGHT!
-							//- 			span.icon
-							//- 				i.fa.fa-thumbs-o-up
-							//- 		.body
-							//- 			.t!=page.right
-							//- 			span SEE ALL
-					//- .section#caution
-					//- 	.header
-					//- 		.icon
-					//- 			i.fa.fa-warning
-					//- 		.text Caution
-					//- 			span.readall READ ALL
+								.category-score
+									-var percent = _.pluck(categories[page.category], 'answer')
+									.bars
+										.t=page.category.toUpperCase() +  ' ANALYSIS SCORE'
+										//- .bar(percent=percent, base=JSON.stringify(_.object(_.pluck(categories[page.category], 'name'), percent))): .bar-complete
+										.bar(percent=cat_totals[page.category]): .bar-complete
+									.percentages: .num: span 50%
+
+								.page-score
+									.bars
+										.t=page.name.toUpperCase() +  ' SCORE'
+										.bar(percent=page.answer): .bar-complete
+									.percentages: .num: span 50%
+								
+								
+							//- OPEN THIS LATER 
+
+							//-.bottom
+								.top
+									span Benchmark - How Other Opportunities Scored
+								.body
+									.page-other
+										.bars
+											.t ADDRESSABLE MARKET SCORE
+											.bar: .bar-complete
+										.percentages: .num: span 50%
+							
+					//- .what-this-means.sb-head.none
+					//- 	.header.green
+					//- 		span
+					//- 			i.fa.fa-tasks
+					//- 		span
+					//- 			|What This Means
 					//- 	.body
-					//- 		.t
-					//- 			div!=page.Caution
-					//- 		.gradient-overlay
-					.section
-						.header
-							.icon
-								i.fa.fa-file-text-o
-							.text
-								|Scratchpad
-						.body#notes: textarea=(answer && answer.notes || '')
-					.section
-						.header
-							.icon
-								i.fa.fa-superscript
-							.text
-								|Show Your Work (shared)
-						.body#notes: textarea=(answer && answer.work || '')
+					//- 		|Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+							
 
-					.section#needhelp
-						.header
-							.icon
-								i.fa.fa-question-circle
-							.text Need Help With This?
-						.body
-							form.qaform(id='#' + page._id, action='help')
-								.textbox
-									textarea(name="question", id="question")
-								input(type="hidden", name="page", value='Question about page: ' + page.name)
-								if user
-									input(type="hidden", name="email", value=user.email)
-									input(type="hidden", name="user", value=user.name.first + ' ' + user.name.last)
-								else
-									input(type="text", name="email", value='', class='form-control', placeholder='Email Address*', style='border-radius: 0; margin: 10px 0;', required)
-									input(type="text", name="user", value='', placeholder='Name*' class='form-control', style='border-radius: 0; margin: 10px 0;', required)
-								.submit
-									input(type="submit", value="SUBMIT")
+				.col-sm-12.col-med-8.col-lg-9
+					- var main_word_length = 30
+					.inner-content
+						.section#keyprinciple
+							.header
+								.icon
+									i.fa.fa-lightbulb-o
+								.text Key Principle
+							.body
+								.t
+									div!=page['Key Principle']
+						.section#definition
+							.header
+								.icon
+									span.glyphicon.glyphicon-book
+								.text Definition
+							.body
+								.t
+									div!=page.Definition
+						.section.image.hide
+							img
+						.section#whythismatters
+							.header
+								.icon
+									span.glyphicon.glyphicon-flag
+								.text Why This Matters
+									span.readall READ ALL
+							.body
+								.t
+									div!=page['Why This Matters']
+								.gradient-overlay
+						.section#explanation
+							.header
+								.icon
+									i.fa.fa-info
+								.text Explanation
+									span.readall READ ALL
+							.body
+								.t
+									div!=page.Explanation
+								.gradient-overlay
+						.section#examples
+							.header
+								.icon
+									i.fa.fa-gear
+								.text Examples
+									span.readall READ ALL
+							.body
+								.t
+									div!=page.Examples
+									.gradient-overlay
+								//- .rightwrong
+								//- 	.wrong.readallrightwrong(type='wrong')
+								//- 		.title
+								//- 			span.icon
+								//- 				i.fa.fa-thumbs-o-down
+								//- 			span.text WRONG!
+								//- 		.body
+								//- 			.t!=page.wrong
+								//- 			span SEE ALL
+								//- 	.right.readallrightwrong(type='right')
+								//- 		.title
+								//- 			span.text RIGHT!
+								//- 			span.icon
+								//- 				i.fa.fa-thumbs-o-up
+								//- 		.body
+								//- 			.t!=page.right
+								//- 			span SEE ALL
+						//- .section#caution
+						//- 	.header
+						//- 		.icon
+						//- 			i.fa.fa-warning
+						//- 		.text Caution
+						//- 			span.readall READ ALL
+						//- 	.body
+						//- 		.t
+						//- 			div!=page.Caution
+						//- 		.gradient-overlay
+						.section
+							.header
+								.icon
+									i.fa.fa-file-text-o
+								.text
+									|Scratchpad
+							.body#notes: textarea=(answer && answer.notes || '')
+						.section
+							.header
+								.icon
+									i.fa.fa-superscript
+								.text
+									|Show Your Work (shared)
+							.body#notes: textarea=(answer && answer.work || '')
 
+						.section#needhelp
+							.header
+								.icon
+									i.fa.fa-question-circle
+								.text Need Help With This?
+							.body
+								form.qaform(id='#' + page._id, action='help')
+									.textbox
+										textarea(name="question", id="question")
+									input(type="hidden", name="page", value='Question about page: ' + page.name)
+									if user
+										input(type="hidden", name="email", value=user.email)
+										input(type="hidden", name="user", value=user.name.first + ' ' + user.name.last)
+									else
+										input(type="text", name="email", value='', class='form-control', placeholder='Email Address*', style='border-radius: 0; margin: 10px 0;', required)
+										input(type="text", name="user", value='', placeholder='Name*' class='form-control', style='border-radius: 0; margin: 10px 0;', required)
+									.submit
+										input(type="submit", value="SUBMIT")
+
+	else
+		h1 Hello

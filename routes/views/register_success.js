@@ -19,6 +19,7 @@ exports = module.exports = function(req, res) {
 			view.render('register_success');
 			keystone.set(ip + 'routeToQuestions', null);
 		})
-	}else
+	}else {
 		view.render('register_success');
+	}
 }
