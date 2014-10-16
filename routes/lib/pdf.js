@@ -8,9 +8,9 @@ var phantom = require('phantom');
 
 
 exports = module.exports = function(req, res) {
-	// var analysis = req.body.analysis,
-	// 	total = req.body.total,
-	// 	categories = JSON.parse(req.body.categories),
+	var analysis = req.session.analysis;
+		// total = req.body.total,
+		// categories = JSON.parse(req.body.categories),
 	// 	text = '<body>',
 	// 	fakeText = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
 	// 	section_headers = {
@@ -349,12 +349,12 @@ startPhantom(text);
 				}, 1000)
 			
 				function start(){
-				    page.render(req.body.analysis  + '.pdf', function(){
-				      	console.log('page rendered');
-				      	
+				    page.render(analysis  + '.pdf', function(){
+				      	console.log(analysis + '.pdf');
+				      	// return false;
 				     
 						
-						res.download(req.body.analysis + ".pdf");
+						res.download(analysis + ".pdf");
 					
 				        ph.exit(function(code){console.log(code)});
 

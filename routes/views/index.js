@@ -47,7 +47,7 @@ exports = module.exports = function(req, res) {
  			Analysis.model.findOne({_id : req.body._id}).exec(function(e, an){
  				if(e)console.log(e);
  				locals.analysis = an;
- 				// req.session.analysis = an.title;
+ 				req.session.analysis = an.title;
  				// req.session.analysisid = an._id;
  				start(an);
  			});

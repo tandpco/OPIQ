@@ -9,13 +9,14 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
 		locals = res.locals,
 		ip = req.headers['x-forwarded-for'];
-
+	console.log(req.session.analysis);
 	locals.analysis = req.session.analysis;
 	locals.categories = {};
 	locals.categories.cats = [];
 	locals.cat_totals = {};
 
 	Answer.model.find({analysis : req.session.analysisid, user : req.user._id}).exec(function (e, answers) {
+		locals.analysis = answers;
 		Page.model.find().sort('order').exec(function  (e, pages) {
 			var cat_totals = {}, total_pages_answered = 0, main_total = 0;
 			for(var i = 0; i < pages.length; i++){

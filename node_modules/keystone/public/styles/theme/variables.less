@@ -18,7 +18,7 @@
 // Brand colors
 // -------------------------
 
-@brand-primary:         #004a80;
+@brand-primary:         #0d4680;
 @brand-success:         #5cb85c;
 @brand-warning:         #f0ad4e;
 @brand-danger:          #d9534f;
@@ -33,27 +33,15 @@
 // Links
 // -------------------------
 
-@link-color:            #08c;
-@link-hover-color:      darken(@link-color, 15%);
+@link-color:            #0080bf;
+@link-hover-color:      lighten(@link-color, 10%);
 
-// Typography
-// -------------------------
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
-@font-family-monospace:   Monaco, Menlo, Consolas, "Courier New", monospace;
-@font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          14px;
-@font-size-large:         16px;
-@font-size-small:         12px;
 
-@line-height-base:        1.428571429; // 20/14
-@line-height-computed:    floor(@font-size-base * @line-height-base); // ~20px
+// Type
+// ------------------------------
 
-@headings-font-family:    @font-family-base;
-@headings-font-weight:    500;
-@headings-line-height:    1.1;
 
 // Iconography
 // -------------------------
@@ -111,7 +99,7 @@
 @btn-default-border:             #ccc;
 
 @btn-primary-color:              #fff;
-@btn-primary-bg:                 @brand-primary;
+@btn-primary-bg:                 @link-color;
 @btn-primary-border:             darken(@btn-primary-bg, 5%);
 
 @btn-success-color:              #fff;
@@ -166,7 +154,7 @@
 @dropdown-divider-bg:            #e5e5e5;
 
 @dropdown-link-active-color:     @gray-dark;
-@dropdown-link-active-bg:        #d7edfb;
+@dropdown-link-active-bg:        mix(@link-color, white, 10%);
 
 @dropdown-link-color:            @gray-dark;
 @dropdown-link-hover-color:      @gray-dark;
@@ -181,6 +169,9 @@
 
 // COMPONENT VARIABLES
 // --------------------------------------------------
+
+// for UI select and table sorting
+@comboarrow-size: 4px;
 
 
 // Z-index master list
@@ -236,7 +227,7 @@
 // -------------------------
 
 // Basics of a navbar
-@navbar-height:                    40px;
+@navbar-height:                    50px;
 @navbar-margin-bottom:             @line-height-computed;
 @navbar-default-color:             #777;
 @navbar-default-bg:                #f8f8f8;
@@ -260,9 +251,9 @@
 @navbar-default-brand-hover-bg:            transparent;
 
 // Navbar toggle
-@navbar-default-toggle-hover-bg:           #ddd;
+@navbar-default-toggle-hover-bg:           #eee;
 @navbar-default-toggle-icon-bar-bg:        #ccc;
-@navbar-default-toggle-border-color:       #ddd;
+@navbar-default-toggle-border-color:       transparent;
 
 
 // Inverted navbar

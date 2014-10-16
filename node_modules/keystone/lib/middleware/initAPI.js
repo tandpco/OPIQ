@@ -13,6 +13,10 @@
  * @api public
  */
 
+// The exported function returns a closure that retains
+// a reference to the keystone instance, so it can be
+// passed as middeware to the express app.
+
 exports = module.exports = function(keystone) {
 	return function initAPI(req, res, next) {
 		
@@ -23,7 +27,7 @@ exports = module.exports = function(keystone) {
 				res.json(status);
 		};
 
-		res.apiError = function(key, err, msg) {
+		res.apiError = function(key, err, msg, code) {
 			msg = msg || 'Error';
 			key = key || 'unknown error';
 			msg += ' (' + key + ')';
@@ -33,10 +37,10 @@ exports = module.exports = function(keystone) {
 					console.log(err);
 				}
 			}
-			res.status(500);
+			res.status(code || 500);
 			res.apiResponse({ error: key || 'error', detail: err });
 		};
 
 		next();
 	};
-}
+};
