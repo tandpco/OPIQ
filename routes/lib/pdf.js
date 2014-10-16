@@ -8,6 +8,8 @@ var phantom = require('phantom');
 
 
 exports = module.exports = function(req, res) {
+	// console.log(req.body);
+	var body = req.body;
 	var analysis = req.session.analysis;
 		// total = req.body.total,
 		// categories = JSON.parse(req.body.categories),
@@ -288,7 +290,7 @@ exports = module.exports = function(req, res) {
 
 	// })
 var style = require('./pdf-styles')();
-var text = req.body.html;
+var text = body.html;
 	text += '<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">';
 	// text += '<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">';
 	text += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">';
@@ -353,7 +355,6 @@ startPhantom(text);
 				      	console.log(analysis + '.pdf');
 				      	// return false;
 				     
-						
 						res.download(analysis + ".pdf");
 					
 				        ph.exit(function(code){console.log(code)});

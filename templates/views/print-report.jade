@@ -24,14 +24,14 @@ html
 		.main-content
 			.first-page
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/vert-logo.png")
-				.analysis-header=analysis
+				.analysis-header=analysis.title
 				br
 				.analysis-subtitle Opportunity Analysis
 				.date #{moment().format('MMMM d, YYYY')}
 			#report
 				.header
 					.content-header: .t: span.venture
-						.bob=analysis
+						.bob=analysis.title
 					input(type="hidden" name="percentComplete" id="percentComplete" value="0")
 				.innerbody
 					.stripe
@@ -78,7 +78,7 @@ html
 													span.t=page.name.toUpperCase()
 												td: div: .bar: .bar-complete(percent=page.answer style="width:#{page.answer * 20}%") #{page.answer}
 												td: div: .percent: .num: span #{page.answer * 20 || 0}%
-			.analysis= analysis	
+			.analysis= analysis.title
 			each answer in answers
 				-var page = _.findWhere(pages, {name : answer.page})
 				.content-holder

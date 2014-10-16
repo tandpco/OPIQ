@@ -48,7 +48,7 @@ exports = module.exports = function(req, res) {
  				if(e)console.log(e);
  				locals.analysis = an;
  				req.session.analysis = an.title;
- 				// req.session.analysisid = an._id;
+ 				req.session.analysisid = an._id;
  				start(an);
  			});
  		}
