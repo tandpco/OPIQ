@@ -57,6 +57,8 @@ html
 						if user
 							if !user.oneYearPaidAccess || !user.freeAnalysis === 'true'
 								| (The first three parts of the analysis are free then you will be prompted to pay for the analysis if you'd like to continue)
+						else
+							| (The first three parts of the analysis are free then you will be prompted to pay for the analysis if you'd like to continue)
 				.body
 					.error=error
 					form.create(action='questions', method='post', autocomplete="off")
