@@ -9,6 +9,7 @@ exports = module.exports = function(req, res) {
 		Analysis.model.find({user : req.user._id}).exec(function(e, analysis){
 			locals.analysis = analysis;
 			view.render('analysis');
+			console.log(req.user)
 		})
 	else {
 		locals.analysis = [];

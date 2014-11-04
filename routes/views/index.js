@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
  						user : req.user._id
  					});
  					a.save(function(){
-	 					Analysis.model.findOne({user: req.user._id, _id : a._id}).exec(function(e, an){
+	 					Analysis.model.findOne({user: req.user._id, _id: a._id}).exec(function(e, an){
 	 						locals.analysis = an;
 	 						getPages();					
 	 					})
@@ -38,7 +38,18 @@ exports = module.exports = function(req, res) {
  				}else {
  					if(!req.user.oneYearPaidAccess || (Date.now() - req.user.oneYearPaidAccess >=  31536000730))
  						stripecust.renderCheckout(req, res);
-	 				else getPages();
+ 					else {
+	 					var a = new Analysis.model({
+	 						title : req.body.analysis,
+	 						user : req.user._id
+	 					});
+	 					a.save(function(){
+		 					Analysis.model.findOne({user: req.user._id, _id: a._id}).exec(function(e, an){
+		 						locals.analysis = an;
+		 						getPages();					
+		 					})
+	 					});
+ 					}
  				}
  			})
  			
