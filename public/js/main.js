@@ -394,20 +394,25 @@ function updateAllScores(){
 	$('.percent-complete').set(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	percentComplete();
 	var $percentCompleteVal = $percentComplete.val() > 0 ? $percentComplete.val() : 0;
-	if (typeof $percentCompleteVal === 'object') {
-		var $percentComplete = 0;
-	}
 	if ($percentComplete.val() != '100') {
 		$('#report > .header > h1').html('Your analysis is ' + $percentCompleteVal + '% complete.');
-		// console.log($percentCompleteVal);
+		if (typeof $percentCompleteVal === 'object') {
+			var $percentComplete = 100;
+		}
 	} else if ($percentComplete.val() == '100') {
 		$('#report > .header > h1').html('Congratulations! Your analysis is complete.');
 	}
 }
+
+
 function percentComplete() {
 	var $val = $percentComplete.val(Math.round($('#outline div li.page-complete').length / Pages.length * 1000) / 10);
 	$('#report > .header > h1').html('Your analysis is ' + $val + '% complete.');
 }
+
+$('span[data-action=next]').click(function() {
+	updateAllScores();
+})
 
 function getAnswers () {
 	var main_total = 0, total = 0, cat_answers = {}, cat_totals = {};
