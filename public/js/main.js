@@ -251,8 +251,8 @@ function setanswer (answer) {
 		analysis : Analysis._id || '',
 		analysistitle : Analysis.title ,
 		whatthismeans : current[ 'answer ' + answer + ' text'] || current['asnwer ' + answer + ' text'],
-		notes : BASE.find('.internal-notes .body textarea').val(),
-		work : BASE.find('.show-your-work .body textarea').val()
+		notes : BASE.find('textarea[name=notes]').val(),
+		work : BASE.find('textarea[name=work]').val()
 	}
 
 	current.answer = answer;
