@@ -13,7 +13,7 @@ html
 
 
 	body: #login.print
-		.analysis(style='display: none;')= analysis
+		//- .analysis(style='display: ;')= analysis
 		.head
 			.text FINAL REPORT
 			.logo
@@ -24,14 +24,15 @@ html
 		.main-content
 			.first-page
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/vert-logo.png")
-				.analysis-header=analysis.title
+				.analysis-header=analysis[0].analysistitle
 				br
 				.analysis-subtitle Opportunity Analysis
 				.date #{moment().format('MMMM d, YYYY')}
 			#report
 				.header
 					.content-header: .t: span.venture
-						.bob=analysis.title
+						-console.log(analysis)
+						.bob=analysis[0].analysistitle
 					input(type="hidden" name="percentComplete" id="percentComplete" value="0")
 				.innerbody
 					.stripe

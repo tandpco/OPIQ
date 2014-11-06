@@ -309,14 +309,14 @@ html
 							//- 	a(href='print').large-main-button#get-pdf
 							//- 		img(src="images/pdf.png")
 							//- 		| Print Report
-							.download-pdf: form(action="print", method="post")
+							.download-pdf: form(action="print", method="post", target='_blank')
 								if typeof analysis === 'object'
 									input(type='hidden' name='analysis' value=analysis._id)
 								else
 									input(type='hidden' name='analysis' value=analysis)
 								input(type="hidden" value=JSON.stringify(categories) name='categories')
 								input(type="hidden" value=main_total name='total')
-								a.large-main-button#get-pdf
+								a(target='_blank').large-main-button#get-pdf
 									img(src="images/pdf.png")
 									| Print Report
 		block footer
