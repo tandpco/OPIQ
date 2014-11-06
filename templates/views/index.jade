@@ -208,14 +208,14 @@ block content
 									i.fa.fa-file-text-o
 								.text
 									|Scratchpad
-							.body#notes: textarea=(answer && answer.notes || '')
+							.body#notes: textarea(name='notes')=(answer && answer.notes || '')
 						.section
 							.header
 								.icon
 									i.fa.fa-superscript
 								.text
 									|Show Your Work (shared)
-							.body#notes: textarea=(answer && answer.work || '')
+							.body#notes: textarea(name='work')=(answer && answer.work || '')
 
 						.section#needhelp
 							.header
