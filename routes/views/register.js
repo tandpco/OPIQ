@@ -38,11 +38,8 @@ exports = module.exports = function(req, res) {
 	}else{
 		var coupon, amount = 9900;
 
-
 		// Set Stripe api key to ENV variable
 		stripe.setApiKey(keystone.get('stripeApiKey'));
-
-
 
 		var COUPON_ID = req.body.coupon;
 		if(COUPON_ID){

@@ -17,8 +17,11 @@ exports = module.exports = function(req, res) {
  		locals.cat_totals = {};
  		locals.main_total = 0;
 		locals.stripeApiKey = keystone.get('stripeApiKeyClient');
+
+
+ 		console.log('Request From:' + req.originalUrl);
 		
- 	if(req.user){
+ 	if(req.user) {
  	
  		if(req.body.newa){
  			Analysis.model.find({user : req.user._id}).exec(function (e, an) {
@@ -33,8 +36,6 @@ exports = module.exports = function(req, res) {
 	 						getPages();					
 	 					})
  					});
-
- 				
  				}else {
  					if(!req.user.oneYearPaidAccess || (Date.now() - req.user.oneYearPaidAccess >=  31536000730))
  						stripecust.renderCheckout(req, res);
@@ -46,7 +47,7 @@ exports = module.exports = function(req, res) {
 	 					a.save(function(){
 		 					Analysis.model.findOne({user: req.user._id, _id: a._id}).exec(function(e, an){
 		 						locals.analysis = an;
-		 						getPages();					
+		 						getPages();
 		 					})
 	 					});
  					}
@@ -129,6 +130,7 @@ exports = module.exports = function(req, res) {
 						// console.log(answers);
 						// Set locals
 						locals.pages = pages;
+
 						
 						// Render the view
 						view.render('index');
@@ -171,7 +173,7 @@ exports = module.exports = function(req, res) {
 
 				// Set locals
 				locals.pages = pages;
-				
+
 				// Render the view
 				view.render('index');
 			});

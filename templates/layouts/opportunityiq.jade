@@ -49,6 +49,7 @@ html
 
 	//- HTML BODY
 	body
+		+flash-messages(messages)
 		.overlay
 		if typeof analysis === 'object'
 			#analysis-field.none(analysis=analysis._id, paid=analysis.paid)= analysis.title

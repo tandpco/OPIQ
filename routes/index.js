@@ -201,7 +201,12 @@ exports = module.exports = function(app) {
 
 	    
 	});
-	app.all('/questions', routes.views.index);
+	app.post('/questions', routes.views.index);
+	app.get('/questions', function(req, res) {
+		app.locals.err = true;
+		res.redirect('/');
+		console.log(res.locals.err);
+	});
 	app.all('/login', routes.views.login);
 	app.all('/register', routes.views.register);
 	app.all('/contact', routes.views.contact);
