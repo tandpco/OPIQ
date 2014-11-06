@@ -81,7 +81,9 @@ exports = module.exports = function(app) {
 
 
 	// Views
-	app.get('/', routes.views.analysis);
+	app.get('/',function(req, res) {
+		app.locals.err = false;
+	},  routes.views.analysis);
 	app.get('/allanswers', routes.updatedb.getallanswers);
 	app.get('/report', routes.views.report);
 	app.get('/signout', routes.views.signout);
@@ -205,7 +207,6 @@ exports = module.exports = function(app) {
 	app.get('/questions', function(req, res) {
 		app.locals.err = true;
 		res.redirect('/');
-		console.log(res.locals.err);
 	});
 	app.all('/login', routes.views.login);
 	app.all('/register', routes.views.register);
