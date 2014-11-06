@@ -1,6 +1,12 @@
 $(document).ready(function() {
 	updateAllScores();
 });
+
+$('#viewReport').on('click', function() {
+	$('#main-inner').hide();
+	$('#report').show();
+})
+
 var $percentComplete = $('input#percentComplete');
 var mark = $('#nav-items i.fa-stack');
 $(mark).click(function() {
@@ -118,7 +124,6 @@ $('.show-report').on('click', function () {
 	$('#main-inner').hide();
 	$('#report').show();
 })
-
 $('#tos').on('click', function () {
 	$('#main-inner').hide();
 	$('#tos').show();
