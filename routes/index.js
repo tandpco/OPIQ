@@ -204,9 +204,7 @@ exports = module.exports = function(app) {
 	app.post('/questions', routes.views.index);
 	app.get('/questions', function(req, res) {
 		if(req.session.analysisid) {
-			if (!req.originalUrl === '/')
-				// Do nothing
-			else
+			if (req.originalUrl === '/')
 				res.redirect('/');
 		} else {
 			res.redirect('/');
