@@ -24,7 +24,7 @@ html
 		.main-content
 			.first-page
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/vert-logo.png")
-				.analysis-header=analysis[0].analysistitle
+				.analysis-header(style='font-size: 30px')=analysis[0].analysistitle
 				br
 				.analysis-subtitle Opportunity Analysis
 				.date #{moment().format('MMMM d, YYYY')}
