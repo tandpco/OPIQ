@@ -14,7 +14,7 @@ exports = module.exports = function(req, res) {
 			answer.save();
 			return;
 		}
-		)
+
 		var newAnswer = new Answer.model({
 			answer : post.answer,
 			page : post.page,
@@ -27,8 +27,9 @@ exports = module.exports = function(req, res) {
 			work : post.work,
 			// work : answer.work
 		});
-		console.log('===================\n', post.notes);
-		 
+
+		
+		console.log('===================\n', post.notes)
 		 
 		newAnswer.save(function(err) {
 		    if(err)console.log(err);
