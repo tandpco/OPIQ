@@ -95,15 +95,6 @@ function add(arg){
 var current, BASE, notLogged = 0, current_page, TOTAL_SCORE,
 	VENTURE = $('span[analysis]').attr('analysis');
 
-
-
-
-
-$('span#viewReport').on('click', function() {
-	$('#main-inner').hide();
-	$('#report').show();
-	percentComplete();
-});
 $('.answer').on('click', pickAnswer);
 $('.save').on('click', save);
 $('#outline > li > a').on('click', mainMenu);
