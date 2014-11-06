@@ -13,7 +13,7 @@ html
 
 
 	body: #login.print
-		//- .analysis(style='display: none;')= analysis
+		.analysis(style='display: none;')= analysis
 		.head
 			.text FINAL REPORT
 			.logo
@@ -114,7 +114,7 @@ html
 										i.fa.fa-superscript
 									.text
 										|Show Your Work (shared)
-								.body= answer.work
+								.body #{answer.work}
 
 						
 					#sidebar
