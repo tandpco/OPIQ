@@ -202,13 +202,18 @@ exports = module.exports = function(app) {
 	    
 	});
 	app.post('/questions', routes.views.index);
-	app.get('/questions', function(req, res) {
-		if(req.session.analysisid) {
-			if (req.originalUrl === '/')
-				res.redirect('/');
-		} else {
-			res.redirect('/');
-		}
+	app.get('/questions', function(req, res, next) {
+		// if(req.session.analysisid) {
+		// 	if (req.originalUrl != '/questions')
+		// 		res.redirect('/');
+		// 	else
+		// 		res.writeHead(200);
+		// 		res.pause();
+		// 		console.log(req.headers)
+		// } else {
+		// 	res.redirect('/');
+		// }
+		res.redirect('/');
 	});
 	app.all('/login', routes.views.login);
 	app.all('/register', routes.views.register);
