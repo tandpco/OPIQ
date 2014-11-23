@@ -2,21 +2,37 @@ thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
 	th(ng-click='changeState("search")', class='back')
 		i.fa.fa-angle-left
 	th(class='back'): a(ui-sref="user({id:assessment.user._id})")
-		|{{assessment.user.name.first + ' ' + assessment.user.name.last}}
-		//- small: a(href='mailto:{{user.email}}') {{user.email}}
+		|{{assessment.user.name.first}}
 	th(colspan="1")
 		|{{assessment.title}}
-		//- .pull-right: span.label.label-default Member Since {{memberSince | date: "HH:mma 'on' dd/MM/yyyy"}}
 tr
 	td(colspan='100', class='search')
-		input(type='text', placeholder='Search Assessments by Title...', ng-model='search')
+		input(type='text', placeholder='Search Sections by Title...', ng-model='search')
 		i.fa.fa-search
-		span(ng-show="search", class="label label-default results") {{filteredPages.length}} Results
+		span(ng-show="search", class="label label-default results") {{filteredPages.length + 1}} Results
 tr
 	td(colspan='100', class='assessment')
-		div.sidebar: table.table.table-bordered.table-hover
-			tr: th Industry / Market
-			tr(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:predicate:reverse") 
-				td {{page.name}}
+		div.sidebar: table.table.table-bordered(role="tablist", aria-multiselectable="true", id='accordion')
+			tr: th.active(data-toggle="collapse", data-target="#industry", data-parent="#accordion") Industry / Market
+			tr: td(class="collapse in", id="industry")
+				ul.pages
+					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active(data-toggle="collapse", data-target="#financial", data-parent="#accordion") Financial
+			tr: td(class="collapse", id="financial")
+				ul.pages
+					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'financial'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active(data-toggle="collapse", data-target="#operational", data-parent="#accordion") Operational
+			tr: td(class="collapse", id="operational")
+				ul.pages
+					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'operational'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active(data-toggle="collapse", data-target="#offering", data-parent="#accordion") Offering
+			tr: td(class="collapse", id="offering")
+				ul.pages
+					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'offering'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active(data-toggle="collapse", data-target="#customer", data-parent="#accordion") Customer
+			tr: td(class="collapse", id="customer")
+				ul.pages
+					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:predicate:reverse") {{page.name}}
+			
 
 

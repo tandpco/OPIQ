@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module("Users", ["restangular", "ui.router"]);
+  app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination"]);
 
   app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     $urlRouterProvider.otherwise("/");

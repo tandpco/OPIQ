@@ -19,8 +19,9 @@ tr
 		i.fa.fa-sort
 	th(ng-click="predicate = 'createdAt'; reverse=!reverse; changeClass()", class='filter')= 'Member Since '
 		i.fa.fa-sort
-tr(:ng-repeat='user in filteredUsers = ( users | filter:{name: search} ) | orderBy:predicate:reverse')
+tr(dir-paginate="user in filteredUsers = ( users | filter:{name: search} ) | orderBy:predicate:reverse | itemsPerPage: 15")
 	td: a(ui-sref="user({id:user._id})") {{user.name.first}}
 	td {{user.name.last}}
 	td: a(href='mailto:{{user.email}}') {{user.email}}
 	td {{user.createdAt | date: "HH:mma 'on' yyyy/dd/mm"}}
+tr: td(colspan="100", class="center"): div(dir-pagination-controls, template-url="/bower_components/angular-utils-pagination/dirPagination.tpl.html")

@@ -2,6 +2,7 @@
 app = angular.module("Users", [
   "restangular"
   "ui.router"
+  "angularUtils.directives.dirPagination"
 ])
 
 

@@ -1779,6 +1779,14 @@ div#footer-outer {
 			a {
 				color: #6C7A89;
 			}
+			&.center {
+				text-align: center;
+			}
+			ul.pagination {
+				& > li.active > a {
+					color: #FFF;
+				}
+			}
 		}
 		// Inner Table Padding & Reset
 		th.inner-table {
@@ -1856,10 +1864,25 @@ div#footer-outer {
 			overflow: visible;
 			width: 100%;
 			td, th {
-				border-width: 0 1px 1px 0;
+				border-width: 0 0px 1px 0;
 			}
 			tr:last-of-type td {
 				border-bottom: 0;
+			}
+			ul.pages {
+				margin: -10px -15px;
+				li {
+					color: #7F8C8D;
+					cursor: pointer;
+					border-bottom: 1px solid #DDD;
+					padding: 10px 15px;
+					&:hover {
+						background: #F5F5F5;
+					}
+					&:last-of-type {
+						border-bottom: 0;
+					}
+				}
 			}
 		}
 	}
