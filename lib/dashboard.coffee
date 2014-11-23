@@ -62,15 +62,19 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
         $scope.pages = pages.data
       Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then (assessment) ->
         $scope.assessment = assessment.data[0]
-        # $scope.assessmentData = assessment.data[0]
-        Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id).then (answers) ->
+        Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
           $scope.assessment.answers = answers.data
           $scope.assessment.pages = $scope.pages
           $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
           $scope.assessment.complete = true unless assessment.percentComplete < 100
+
+          for answer in $scope.assessment.answers
+            answer.complete = true
+            if answer.name == page.name
+              console.log page.name
+          
         Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
           $scope.assessment.user = user.data
-
       $scope.changeState = (state) ->
         $state.go state
 

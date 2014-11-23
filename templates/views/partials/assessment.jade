@@ -6,33 +6,43 @@ thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
 	th(colspan="1")
 		|{{assessment.title}}
 tr
-	td(colspan='100', class='search')
-		input(type='text', placeholder='Search Sections by Title...', ng-model='search')
-		i.fa.fa-search
-		span(ng-show="search", class="label label-default results") {{filteredPages.length + 1}} Results
-tr
-	td(colspan='100', class='assessment')
-		div.sidebar: table.table.table-bordered(role="tablist", aria-multiselectable="true", id='accordion')
+	td(colspan='100', class='assessment'): .row
+		div.sidebar.col-md-4: table.table.table-bordered(role="tablist", aria-multiselectable="true", id='accordion')
+			tr: td(colspan='1', class='search')
+				input(type='text', placeholder='Search Sections by Title...', ng-model='search')
+				i.fa.fa-search
+				span(ng-show="search", class="label label-default results") {{industry.length + financial.length + operational.length + offering.length + customer.length }} Results
 			tr: th.active(data-toggle="collapse", data-target="#industry", data-parent="#accordion") Industry / Market
-			tr: td(class="collapse in", id="industry")
-				ul.pages
-					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:predicate:reverse") {{page.name}}
-			tr: th.active(data-toggle="collapse", data-target="#financial", data-parent="#accordion") Financial
-			tr: td(class="collapse", id="financial")
-				ul.pages
-					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'financial'} ) | orderBy:predicate:reverse") {{page.name}}
-			tr: th.active(data-toggle="collapse", data-target="#operational", data-parent="#accordion") Operational
-			tr: td(class="collapse", id="operational")
-				ul.pages
-					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'operational'} ) | orderBy:predicate:reverse") {{page.name}}
-			tr: th.active(data-toggle="collapse", data-target="#offering", data-parent="#accordion") Offering
-			tr: td(class="collapse", id="offering")
-				ul.pages
-					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'offering'} ) | orderBy:predicate:reverse") {{page.name}}
-			tr: th.active(data-toggle="collapse", data-target="#customer", data-parent="#accordion") Customer
-			tr: td(class="collapse", id="customer")
-				ul.pages
-					li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:predicate:reverse") {{page.name}}
+				.pull-right(ng-show="search"): small: span.badge {{industry.length}}
+			tr: td.accordion-group
+				ul(class="collapse in", id="industry").pages
+					li(ng-repeat="page in industry = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active.collapsed(data-toggle="collapse", data-target="#financial", data-parent="#accordion") Financial
+				.pull-right(ng-show="search"): small: span.badge {{financial.length}}
+			tr: td.accordion-group
+				ul(class="collapse", id="financial").pages
+					li(ng-repeat="page in financial = ( assessment.pages | filter:{name: search, category: 'financial'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active.collapsed(data-toggle="collapse", data-target="#operational", data-parent="#accordion") Operational
+				.pull-right(ng-show="search"): small: span.badge {{operational.length}}
+			tr: td
+				ul(class="collapse", id="operational").pages
+					li(ng-repeat="page in operational = ( assessment.pages | filter:{name: search, category: 'operational'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active.collapsed(data-toggle="collapse", data-target="#offering", data-parent="#accordion") Offering
+				.pull-right(ng-show="search"): small: span.badge {{offering.length}}
+			tr: td
+				ul(class="collapse", id="offering").pages
+					li(ng-repeat="page in offering = ( assessment.pages | filter:{name: search, category: 'offering'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: th.active.collapsed(data-toggle="collapse", data-target="#customer", data-parent="#accordion") Customer
+				.pull-right(ng-show="search"): small: span.badge {{customer.length}}
+			tr: td
+				ul(class="collapse", id="customer").pages
+					li(ng-repeat="page in customer = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:predicate:reverse") {{page.name}}
+			tr: td.print
+				|Print Report&nbsp;
+				i.fa.fa-print
+		div.content.col-md-8
+			|Content
+			
 			
 
 

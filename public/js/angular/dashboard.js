@@ -61,13 +61,26 @@
         });
         Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then(function(assessment) {
           $scope.assessment = assessment.data[0];
-          Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id).then(function(answers) {
+          Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then(function(answers) {
+            var answer, _i, _len, _ref, _results;
             $scope.assessment.answers = answers.data;
             $scope.assessment.pages = $scope.pages;
             $scope.assessment.percentComplete = Math.round(100 * $scope.assessment.answers.length / $scope.assessment.pages.length);
             if (!(assessment.percentComplete < 100)) {
-              return $scope.assessment.complete = true;
+              $scope.assessment.complete = true;
             }
+            _ref = $scope.assessment.answers;
+            _results = [];
+            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+              answer = _ref[_i];
+              answer.complete = true;
+              if (answer.name === page.name) {
+                _results.push(console.log(page.name));
+              } else {
+                _results.push(void 0);
+              }
+            }
+            return _results;
           });
           return Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then(function(user) {
             return $scope.assessment.user = user.data;
