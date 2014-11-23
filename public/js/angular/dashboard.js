@@ -65,7 +65,7 @@
             $scope.assessment.answers = answers.data;
             $scope.assessment.pages = $scope.pages;
             $scope.assessment.percentComplete = Math.round(100 * $scope.assessment.answers.length / $scope.assessment.pages.length);
-            if (!(!assessment.percentComplete >= 100)) {
+            if (!(assessment.percentComplete < 100)) {
               return $scope.assessment.complete = true;
             }
           });
