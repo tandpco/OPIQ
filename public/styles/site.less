@@ -1722,3 +1722,133 @@ div#footer-outer {
 		}
 	}
 }
+#report.dashboard {
+	background: rgb(250,250,250);
+	margin-bottom: 0;
+	height: 100vh;
+	.label {
+		padding: .3em .6em;
+		position: relative;
+		top: -1px;
+	}
+	table.table, table.table-bordered {
+		background: #FFF;
+		border-radius: 5px;
+		color: #7f8c8d;
+		overflow: hidden;
+		// Cool TH
+		th {
+			color: #6C7A89;
+			letter-spacing: 0.075em;
+			text-transform: uppercase;
+			font-size: 12px;
+			font-weight: 100;
+			white-space: nowrap;
+			&.filter, &.back {
+				cursor: pointer;
+				&:hover i.fa.fa-sort {
+					opacity: 1;
+				}
+				i.fa.fa-sort {
+					opacity: 0;
+					transition: opacity 0.15s ease;
+				}
+			}
+			small a {
+				font-size: 10px;
+				color: lighten(@gray-light, 15%);
+				font-weight: 100;
+				letter-spacing: 0.1em;
+			}
+			&.status {
+				width: 25px;
+			}
+			&.percent {
+				width: 173px;
+			}
+			&.score {
+				width: 174px;
+			}
+			&.no-pad {
+				padding: 0;
+			}
+		}
+		td, th {
+			padding: 10px 15px;
+			a {
+				color: #6C7A89;
+			}
+		}
+		// Inner Table Padding & Reset
+		th.inner-table {
+			table {
+				width: 100%;
+				.back {
+					border-right: 1px solid #DDD;
+					color: darken(#DDD, 15%);
+					width: 20px;
+					a {
+						color: darken(#DDD, 15%);
+					}
+					& > i {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+		// Complete / Incomplete Circles
+		.status_ {
+			text-align: center;
+			font-size: 16px;
+		}
+		span.complete {
+			color: @brand-success;
+		}
+		span.incomplete {
+			color: lighten(@gray-light, 10%);
+		}
+		// Fancy search bar
+		td.search {
+			height: 60px;
+			position: relative;
+			i.fa.fa-search {
+				color: #DADFE1;
+				position: absolute;
+				top: 20px;
+				font-size: 18px;
+			}
+			input {
+				border: 0;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 100%;
+				padding: 0 8px 0 35px;
+				outline: 0;
+			}
+			span.label {
+				position: absolute;
+				right: 15px;
+				top: 20px;
+			}
+		}
+	}
+}
+.slide.ng-enter, .slide.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+td.assessment {
+	.sidebar {
+		background: #2C3E50;
+		color: #FFF;
+		margin: -10px -15px -20px;
+		padding: 15px;
+		width: 30%;
+		ul {
+			padding: 0;
+		}
+	}
+}

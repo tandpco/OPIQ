@@ -63,7 +63,8 @@ keystone.pre('render', middleware.flashMessages);
 var routes = {
 	views: importRoutes('./views'),
 	updatedb: importRoutes('./updatedb'),
-	lib : importRoutes('./lib')
+	lib : importRoutes('./lib'),
+	api: importRoutes('./api')
 };
 
 
@@ -77,9 +78,6 @@ exports = module.exports = function(app) {
 	app.all('/:route', middleware.forceSSL);
 	app.all('/', middleware.forceSSL);
 
-
-
-
 	// Views
 	app.get('/', routes.views.analysis);
 	app.get('/allanswers', routes.updatedb.getallanswers);
@@ -87,6 +85,7 @@ exports = module.exports = function(app) {
 	app.get('/signout', routes.views.signout);
 	app.get('/industry', routes.views.content);
 	app.get('/financial', routes.views.content);
+	app.get('/dashboard', routes.views.dashboard);
 	app.get('/operational', routes.views.content);
 	app.get('/product-services', routes.views.content);
 	app.get('/customer', routes.views.content);
@@ -139,8 +138,6 @@ exports = module.exports = function(app) {
 		  , shasum = crypto.createHash('sha1')
 		var mail = require("nodemailer").mail;
 
-
-
 		User.model.find({email : email}).exec(function (i, e) {
 			if(e.length > 0){
 				shasum.update("foo");
@@ -191,16 +188,13 @@ exports = module.exports = function(app) {
 	    	u.password = password;
 	    	u.save();
 	    })
-
-	   
-
+ 
 	    req.flash('success', 'password reset');
 	    keystone.set(ip + 'reset', null);
 	    res.locals.relocate = 'true';
 	    view.render('reset');
-
-	    
 	});
+
 	app.post('/questions', routes.views.index);
 	app.get('/questions', function(req, res, next) {
 		// if(req.session.analysisid) {
@@ -218,6 +212,18 @@ exports = module.exports = function(app) {
 	app.all('/login', routes.views.login);
 	app.all('/register', routes.views.register);
 	app.all('/contact', routes.views.contact);
+
+	app.all('/api/v1/users/list', keystone.initAPI, routes.api.users.list);
+	app.all('/api/v1/user/:id', keystone.initAPI, routes.api.users.get);
+	app.all('/api/v1/user/:id/assessments', keystone.initAPI, routes.api.analysis.list);
+	app.all('/api/v1/assessment/:id/:user', keystone.initAPI, routes.api.analysis.answers);
+	app.all('/api/v1/pages/list', keystone.initAPI, routes.api.analysis.pages);
+	app.all('/api/v1/assessment/:id', keystone.initAPI, routes.api.analysis.assessment);
+
+	// UI Router States
+	app.get('/partials/user', routes.views.states.user)
+	app.get('/partials/search', routes.views.states.search)
+	app.get('/partials/assessment', routes.views.states.assessment)
 	
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);

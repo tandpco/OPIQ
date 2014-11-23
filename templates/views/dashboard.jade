@@ -1,0 +1,61 @@
+doctype html
+html
+	head
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+		title OpportunityIQ
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="/styles/site.min.css")
+	body(ng-app="Users"): #report.dashboard.analysis.clearfix
+		.head#nav
+			div(role="navigation")
+				.logo
+					a(href='/')
+						img(src="images/iq_logo.jpg")
+						| Opportunity
+						span.gtext IQ
+					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navcollapse")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+				.col-sm-9.col-lg-10#nav2
+					.collapse.navbar-collapse#navcollapse
+						.navbar.navbar-inverse
+							if user		
+								ul.nav.navbar-nav.navbar-right
+									li.dropdown
+										a.dropdown-toggle(href="#", data-toggle="dropdown")
+											//- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
+											=user.name.first
+											.arrow-down
+											ul.dropdown-menu
+												li
+													if user && user.canAccessKeystone
+														a(href='/keystone') 
+															i.fa.fa-user
+															| &nbsp; Admin
+												li: a(href='/'): i.fa.fa-road &nbsp;Create New	
+												li.divider
+												li
+													a(href="signout").signoutSign
+														i.fa.fa-sign-out
+														| Sign Out
+							else
+								ul.nav.navbar-nav.navbar-right.notsigned
+									li 
+										a(href="register") &nbsp; Sign Up
+									li 
+										a(href='login') Sign In
+		.col-md-10.col-md-push-1
+			h1 &nbsp;
+			.ui-view-container: table(class='table table-bordered ui-view')
+				//- tr: td(colspan="1000"): table.ui-view
+	
+	script(src='/bower_components/angular/angular.min.js')
+	script(src='/bower_components/lodash/dist/lodash.min.js')
+	script(src='/bower_components/restangular/dist/restangular.min.js')
+	script(src='/bower_components/angular-ui-router/release/angular-ui-router.min.js')
+	script(src='/js/lib/jquery/jquery-2.1.0.min.js')
+	script(src='/js/angular/dashboard.js')

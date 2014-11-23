@@ -1,0 +1,20 @@
+thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
+	th(ng-click='changeState("search")', class='back')
+		i.fa.fa-angle-left
+	th(class='back'): a(ui-sref="user({id:user._id})")
+		|{{assessment.user}}
+		//- small: a(href='mailto:{{user.email}}') {{user.email}}
+	th(colspan="1")
+		|{{assessment.title}}
+		//- .pull-right: span.label.label-default Member Since {{memberSince | date: "HH:mma 'on' dd/MM/yyyy"}}
+tr
+	td(colspan='100', class='search')
+		input(type='text', placeholder='Search Assessments by Title...', ng-model='search')
+		i.fa.fa-search
+		span(ng-show="search", class="label label-default results") {{filteredPages.length}} Results
+tr
+	td(colspan='100', class='assessment')
+		div.sidebar
+			ul: li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search} ) | orderBy:predicate:reverse") {{page.name}}
+
+

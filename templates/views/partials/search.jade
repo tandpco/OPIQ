@@ -1,0 +1,26 @@
+tr
+	th(colspan='100')
+		i.fa.fa-users &nbsp;
+		| Search Users
+tr
+	//- th
+		i.fa.fa-filter &nbsp;
+		| Filters
+	td(colspan='100', class='search')
+		input(type='text', placeholder='Search {{users.length}} Users by Name...', ng-model='search')
+		i.fa.fa-search
+		span(ng-show="search", class="label label-default results") {{filteredUsers.length}} Results
+tr
+	th(ng-click="predicate = 'name.first'; reverse=!reverse; changeClass()", class='filter')= 'First Name '
+		i.fa.fa-sort
+	th(ng-click="predicate = 'name.last'; reverse=!reverse; changeClass()", class='filter')= 'Last Name '
+		i.fa.fa-sort
+	th(ng-click="predicate = 'email'; reverse=!reverse; changeClass()", class='filter')= 'User Email '
+		i.fa.fa-sort
+	th(ng-click="predicate = 'createdAt'; reverse=!reverse; changeClass()", class='filter')= 'Member Since '
+		i.fa.fa-sort
+tr(:ng-repeat='user in filteredUsers = ( users | filter:{name: search} ) | orderBy:predicate:reverse')
+	td: a(ui-sref="user({id:user._id})") {{user.name.first}}
+	td {{user.name.last}}
+	td: a(href='mailto:{{user.email}}') {{user.email}}
+	td {{user.createdAt | date: "HH:mma 'on' yyyy/dd/mm"}}

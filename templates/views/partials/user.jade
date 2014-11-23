@@ -1,0 +1,23 @@
+thead: th(colspan='100', class='no-pad inner-table'): table: thead
+	th(ng-click='changeState("search")', class='back')
+		i.fa.fa-angle-left
+	th(colspan="1")
+		{{user.name.first + ' ' + user.name.last + ' '}}
+		small: a(href='mailto:{{user.email}}') {{user.email}}
+		.pull-right: span.label.label-default Member Since {{memberSince | date: "HH:mma 'on' dd/MM/yyyy"}}
+tr
+	td(colspan='100', class='search')
+		input(type='text', placeholder='Search Assessments by Title...', ng-model='search')
+		i.fa.fa-search
+		span(ng-show="search", class="label label-default results") {{filteredAssessments.length}} Results
+tr(ng-init="predicate = 'complete'")
+	th(ng-click="predicate = 'complete'; reverse=!reverse; changeClass()", class='filter status') Status
+	th(ng-click="predicate = 'title'; reverse=!reverse; changeClass()", class='filter') Assessment Title
+	th(ng-click="predicate = 'percentComplete'; reverse=!reverse; changeClass()", class='filter percent') Percent Complete
+	//- th.score Assessment Score
+tr(ng-repeat='assessment in filteredAssessments = (assessments | filter: {title: search}) | orderBy:predicate:reverse')
+	td(ng-show='!assessment.complete', class='status_'): span.incomplete: i.fa.fa-cogs
+	td(ng-show='assessment.complete', class='status_'): span.complete: i.fa.fa-check-circle
+	td: a(ui-sref='assessment({id:assessment._id})'){{assessment.title}}
+	td {{assessment.percentComplete}}%
+
