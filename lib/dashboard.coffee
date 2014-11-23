@@ -11,6 +11,17 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
   # If no URL State is specified, load the search area
   $urlRouterProvider.otherwise "/"
 
+  # User List
+  $stateProvider.state "search",
+    url: "/"
+    templateUrl: "partials/search"
+    controller: (Restangular, $stateParams, $scope) ->
+      Restangular.all("api/v1").customGET("users/list").then (users) ->
+        $scope.users = users.data
+
+      $scope.toggleFilter =  ->
+        $scope.search.name.first = true
+
   # Individual User Page
   $stateProvider.state "user",
     url: "/user/:id"
@@ -41,17 +52,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
       $scope.changeState = (state) ->
         $state.go state
 
-  # User List
-  $stateProvider.state "search",
-    url: "/"
-    templateUrl: "partials/search"
-    controller: (Restangular, $stateParams, $scope) ->
-      Restangular.all("api/v1").customGET("users/list").then (users) ->
-        $scope.users = users.data
-
-      $scope.toggleFilter =  ->
-        $scope.search.name.first = true
-
   # Assessment Report
   $stateProvider.state "assessment",
     url: "/assessment/:id"
@@ -67,6 +67,8 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           $scope.assessment.pages = $scope.pages
           $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
           $scope.assessment.complete = true unless assessment.percentComplete < 100
+        Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
+          $scope.assessment.user = user.data
 
       $scope.changeState = (state) ->
         $state.go state

@@ -1,8 +1,8 @@
 thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
 	th(ng-click='changeState("search")', class='back')
 		i.fa.fa-angle-left
-	th(class='back'): a(ui-sref="user({id:user._id})")
-		|{{assessment.user}}
+	th(class='back'): a(ui-sref="user({id:assessment.user._id})")
+		|{{assessment.user.name.first + ' ' + assessment.user.name.last}}
 		//- small: a(href='mailto:{{user.email}}') {{user.email}}
 	th(colspan="1")
 		|{{assessment.title}}
@@ -14,7 +14,9 @@ tr
 		span(ng-show="search", class="label label-default results") {{filteredPages.length}} Results
 tr
 	td(colspan='100', class='assessment')
-		div.sidebar
-			ul: li(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search} ) | orderBy:predicate:reverse") {{page.name}}
+		div.sidebar: table.table.table-bordered.table-hover
+			tr: th Industry / Market
+			tr(ng-repeat="page in filteredPages = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:predicate:reverse") 
+				td {{page.name}}
 
 

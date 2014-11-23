@@ -5,6 +5,18 @@
 
   app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     $urlRouterProvider.otherwise("/");
+    $stateProvider.state("search", {
+      url: "/",
+      templateUrl: "partials/search",
+      controller: function(Restangular, $stateParams, $scope) {
+        Restangular.all("api/v1").customGET("users/list").then(function(users) {
+          return $scope.users = users.data;
+        });
+        return $scope.toggleFilter = function() {
+          return $scope.search.name.first = true;
+        };
+      }
+    });
     $stateProvider.state("user", {
       url: "/user/:id",
       templateUrl: "partials/user",
@@ -40,18 +52,6 @@
         };
       }
     });
-    $stateProvider.state("search", {
-      url: "/",
-      templateUrl: "partials/search",
-      controller: function(Restangular, $stateParams, $scope) {
-        Restangular.all("api/v1").customGET("users/list").then(function(users) {
-          return $scope.users = users.data;
-        });
-        return $scope.toggleFilter = function() {
-          return $scope.search.name.first = true;
-        };
-      }
-    });
     return $stateProvider.state("assessment", {
       url: "/assessment/:id",
       templateUrl: "partials/assessment",
@@ -61,13 +61,16 @@
         });
         Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then(function(assessment) {
           $scope.assessment = assessment.data[0];
-          return Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id).then(function(answers) {
+          Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id).then(function(answers) {
             $scope.assessment.answers = answers.data;
             $scope.assessment.pages = $scope.pages;
             $scope.assessment.percentComplete = Math.round(100 * $scope.assessment.answers.length / $scope.assessment.pages.length);
             if (!(assessment.percentComplete < 100)) {
               return $scope.assessment.complete = true;
             }
+          });
+          return Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then(function(user) {
+            return $scope.assessment.user = user.data;
           });
         });
         return $scope.changeState = function(state) {
