@@ -66,7 +66,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           $scope.assessment.answers = answers.data
           $scope.assessment.pages = $scope.pages
           $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
-          $scope.assessment.complete = true unless assessment.percentComplete != 100
+          $scope.assessment.complete = true unless !assessment.percentComplete >= 100
 
       $scope.changeState = (state) ->
         $state.go state
