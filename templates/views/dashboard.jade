@@ -49,7 +49,13 @@ html
 									li 
 										a(href='login') Sign In
 		.col-md-10.col-md-push-1
-			.ui-view-container: table(class='table table-bordered ui-view')
+			.ui-view-container
+				.alert.alert-info
+					ul
+						li To-Do: 
+						li • Calculate Scores
+						li • Calculate Whether or not a Section is Complete
+				table(class='table table-bordered ui-view')
 				//- tr: td(colspan="1000"): table.ui-view
 	
 	script(src='/bower_components/angular/angular.min.js')
