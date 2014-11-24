@@ -5,9 +5,10 @@ thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
 		|{{assessment.user.name.first}}
 	th(colspan="1")
 		|{{assessment.title}}
+		.pull-right: span.label.label-default Created On {{createdOn | date: "HH:mma 'on' dd/MM/yyyy"}}
 tr
 	td(colspan='100', class='assessment'): .row
-		div.sidebar.col-md-4: table.table.table-bordered(role="tablist", aria-multiselectable="true", id='accordion')
+		div.sidebar: table.table.table-bordered(role="tablist", aria-multiselectable="true", id='accordion')
 			tr: td(colspan='1', class='search')
 				input(type='text', placeholder='Search Sections by Title...', ng-model='search')
 				i.fa.fa-search
@@ -16,33 +17,31 @@ tr
 				.pull-right(ng-show="search"): small: span.badge {{industry.length}}
 			tr: td.accordion-group
 				ul(class="collapse in", id="industry").pages
-					li(ng-repeat="page in industry = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:'order'") {{page.name}}
+					li(ng-repeat="page in industry = ( assessment.pages | filter:{name: search, category: 'industry / market'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status", id="{{page.name | slug}}") {{page.name}}
 			tr: th.active.collapsed(data-toggle="collapse", data-target="#financial", data-parent="#accordion") Financial
 				.pull-right(ng-show="search"): small: span.badge {{financial.length}}
 			tr: td.accordion-group
 				ul(class="collapse", id="financial").pages
-					li(ng-repeat="page in financial = ( assessment.pages | filter:{name: search, category: 'financial'} ) | orderBy:'order'") {{page.name}}
+					li(ng-repeat="page in financial = ( assessment.pages | filter:{name: search, category: 'financial'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
 			tr: th.active.collapsed(data-toggle="collapse", data-target="#operational", data-parent="#accordion") Operational
 				.pull-right(ng-show="search"): small: span.badge {{operational.length}}
 			tr: td
 				ul(class="collapse", id="operational").pages
-					li(ng-repeat="page in operational = ( assessment.pages | filter:{name: search, category: 'operational'} ) | orderBy:'order'") {{page.name}}
+					li(ng-repeat="page in operational = ( assessment.pages | filter:{name: search, category: 'operational'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
 			tr: th.active.collapsed(data-toggle="collapse", data-target="#offering", data-parent="#accordion") Offering
 				.pull-right(ng-show="search"): small: span.badge {{offering.length}}
 			tr: td
 				ul(class="collapse", id="offering").pages
-					li(ng-repeat="page in offering = ( assessment.pages | filter:{name: search, category: 'offering'} ) | orderBy:'order'") {{page.name}}
+					li(ng-repeat="page in offering = ( assessment.pages | filter:{name: search, category: 'offering'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
 			tr: th.active.collapsed(data-toggle="collapse", data-target="#customer", data-parent="#accordion") Customer
 				.pull-right(ng-show="search"): small: span.badge {{customer.length}}
 			tr: td
 				ul(class="collapse", id="customer").pages
-					li(ng-repeat="page in customer = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:'order'") {{page.name}}
+					li(ng-repeat="page in customer = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
 			tr: td.print
 				|Print Report&nbsp;
 				i.fa.fa-print
-		div.content.col-md-8
-			|Content
-			
+		div.content(class='ui-view')
 			
 
 

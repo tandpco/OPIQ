@@ -16,8 +16,12 @@ tr(ng-init="predicate = 'complete'")
 	th(ng-click="predicate = 'percentComplete'; reverse=!reverse; changeClass()", class='filter percent') Percent Complete
 	//- th.score Assessment Score
 tr(ng-repeat='assessment in filteredAssessments = (assessments | filter: {title: search}) | orderBy:predicate:reverse')
-	td(ng-show='!assessment.complete', class='status_'): span.incomplete: i.fa.fa-cogs
-	td(ng-show='assessment.complete', class='status_'): span.complete: i.fa.fa-check-circle
-	td: a(ui-sref='assessment({id:assessment._id})'){{assessment.title}}
+	td(ng-show='!assessment.complete', class='status_'): span.incomplete: i.fa.fa-circle
+	td(ng-show='assessment.complete', class='status_'): span.complete: i.fa.fa-circle
+	td: a(ui-sref='assessment({id:assessment._id,assessSlug:(assessment.title | slug)})') {{assessment.title}}
 	td {{assessment.percentComplete}}%
+tr(ng-if='!search && filteredAssessments.length == 0')
+	td(colspan='100') No assessments found for {{user.name.first + ' ' + user.name.last}}.
+tr(ng-if='search && filteredAssessments.length == 0')
+	td(colspan='100') No results.
 

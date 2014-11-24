@@ -9,6 +9,7 @@ var _ = require('underscore'),
 
 var Analysis = new keystone.List('Analysis', {
 	// hidden : true
+	track : true
 });
 
 Analysis.add({

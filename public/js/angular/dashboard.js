@@ -1,7 +1,15 @@
 (function() {
   var app;
 
-  app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination"]);
+  app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination", "ngSanitize"]);
+
+  app.filter("slug", function() {
+    return function(input) {
+      if (input) {
+        return input.toLowerCase().replace(/[^a-z_]/g, "-");
+      }
+    };
+  });
 
   app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     $urlRouterProvider.otherwise("/");
@@ -52,33 +60,47 @@
         };
       }
     });
-    return $stateProvider.state("assessment", {
+    $stateProvider.state("assessment", {
       url: "/assessment/:id",
       templateUrl: "partials/assessment",
+      params: {
+        'id': 'id',
+        'assessSlug': 'assessSlug'
+      },
       controller: function(Restangular, $stateParams, $scope, $state) {
         Restangular.all("api/v1").customGET("pages/list").then(function(pages) {
           return $scope.pages = pages.data;
         });
         Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then(function(assessment) {
+          var utc;
           $scope.assessment = assessment.data[0];
+          $scope.createdOn = new Date($scope.assessment.createdAt);
+          utc = Date.parse($scope.createdOn);
+          if (isNaN(utc) !== false) {
+            $scope.createdOn = "N/A";
+          }
           Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then(function(answers) {
-            var answer, _i, _len, _ref, _results;
+            var i, pages, _results;
             $scope.assessment.answers = answers.data;
             $scope.assessment.pages = $scope.pages;
             $scope.assessment.percentComplete = Math.round(100 * $scope.assessment.answers.length / $scope.assessment.pages.length);
             if (!(assessment.percentComplete < 100)) {
               $scope.assessment.complete = true;
             }
-            _ref = $scope.assessment.answers;
+            i = 0;
+            answers = [];
+            pages = [];
+            while (i < $scope.assessment.answers.length) {
+              answers.push($scope.assessment.answers[i].page);
+              i++;
+            }
             _results = [];
-            for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-              answer = _ref[_i];
-              answer.complete = true;
-              if (answer.name === page.name) {
-                _results.push(console.log(page.name));
-              } else {
-                _results.push(void 0);
+            while (i < $scope.assessment.pages.length) {
+              pages.push($scope.assessment.pages[i].name);
+              if (_.contains(answers, $scope.assessment.pages[i].name) === true) {
+                $scope.assessment.pages[i].status = 'complete';
               }
+              _results.push(i++);
             }
             return _results;
           });
@@ -89,6 +111,29 @@
         return $scope.changeState = function(state) {
           return $state.go(state);
         };
+      }
+    });
+    return $stateProvider.state("assessment.child", {
+      url: "/:slug",
+      templateUrl: "partials/page",
+      params: {
+        'id': 'id',
+        'name': 'name',
+        'pageName': 'pageName',
+        'pageId': 'pageId'
+      },
+      controller: function(Restangular, $stateParams, $scope, $state) {
+        Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then(function(answer) {
+          return $scope.answer = answer.data[0];
+        });
+        return Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then(function(page) {
+          var answerText;
+          $scope.page = page.data[0];
+          if ($scope.answer) {
+            answerText = 'answer' + $scope.answer.answer;
+            return $scope.answerText = $scope.page[answerText];
+          }
+        });
       }
     });
   });

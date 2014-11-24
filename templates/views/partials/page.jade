@@ -1,0 +1,49 @@
+h2 {{page.category + ': ' + page.name}}
+hr
+.row.move-right
+	.col-md-7
+		h3 Key Principle
+		p(ng-bind-html="page['Key Principle']")
+		h3 Definition
+		p(ng-bind-html="page['Definition']")
+		h3(ng-show="answerText") Answer
+		p(ng-show="answerText") {{answerText}}
+		hr.visible-sm
+	.col-md-5.score-bars
+		h3 Assessment Score
+		.progress: .progress-bar(style="width: 60%") 60%
+		br
+		h3 Answer Score
+		.row.move-right
+			.col-xs-4: small POOR
+			.col-xs-4.right: small EXCELLENT
+			.col-xs-4.right: small PERCENTILE
+		hr
+		.row.move-right
+			.col-xs-8
+				small Opportunity Score
+				.progress: .progress-bar(style="width: 60%") 60%
+			.col-xs-4.right.percentile
+				small Nudge
+				.progress: .progress-bar(style="width: 100%") 60%
+			.col-xs-8
+				small Industry / Market Score
+				.progress: .progress-bar(style="width: 85%") 85%
+			.col-xs-4.right.percentile
+				small Nudge
+				.progress: .progress-bar(style="width: 100%") 85%
+			.col-xs-8
+				small Seasonality Score
+				.progress: .progress-bar(style="width: 45%") 45%
+			.col-xs-4.right.percentile
+				small Nudge
+				.progress: .progress-bar(style="width: 100%") 45%
+
+hr
+.row.move-right
+	.col-md-6
+		h3 Notes
+		p {{answer.notes}}
+	.col-md-6
+		h3 Scratchpad
+		p {{answer.work}}

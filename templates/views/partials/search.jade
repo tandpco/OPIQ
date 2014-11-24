@@ -7,7 +7,7 @@ tr
 		i.fa.fa-filter &nbsp;
 		| Filters
 	td(colspan='100', class='search')
-		input(type='text', placeholder='Search {{users.length}} Users by Name...', ng-model='search')
+		input(type='text', placeholder='Search {{users.length}} Users by Email...', ng-model='search')
 		i.fa.fa-search
 		span(ng-show="search", class="label label-default results") {{filteredUsers.length}} Results
 tr
@@ -19,9 +19,11 @@ tr
 		i.fa.fa-sort
 	th(ng-click="predicate = 'createdAt'; reverse=!reverse; changeClass()", class='filter')= 'Member Since '
 		i.fa.fa-sort
-tr(dir-paginate="user in filteredUsers = ( users | filter:{name: search} ) | orderBy:predicate:reverse | itemsPerPage: 15")
+tr(dir-paginate="user in filteredUsers = ( users | filter:{email:search} ) | orderBy:predicate:reverse | itemsPerPage: 15")
 	td: a(ui-sref="user({id:user._id})") {{user.name.first}}
 	td {{user.name.last}}
 	td: a(href='mailto:{{user.email}}') {{user.email}}
 	td {{user.createdAt | date: "HH:mma 'on' yyyy/dd/mm"}}
+//- tr(ng-if='filteredUsers.length == 0')
+	td(colspan='100') No results.
 tr: td(colspan="100", class="center"): div(dir-pagination-controls, template-url="/bower_components/angular-utils-pagination/dirPagination.tpl.html")

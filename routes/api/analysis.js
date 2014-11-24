@@ -55,6 +55,31 @@ exports.pages = function(req, res) {
 	});
 }
 
+// Need Answer + Page Endpoints
+exports.answer = function(req, res) {
+	Answers.model.find({'analysis': req.params.id, 'page': req.params.page}, function(err, answer) {
+
+		if (err) return res.apiError('database error', err);
+
+		res.apiResponse({
+			data: answer
+		});
+
+	});
+}
+
+exports.page = function(req, res) {
+	Pages.model.find({'name': req.params.id}, function(err, page) {
+
+		if (err) return res.apiError('database error', err);
+
+		res.apiResponse({
+			data: page
+		});
+
+	});
+}
+
 // exports.answers = function(req, res) {
 // 	Answers.model.find({'user': req.params.id})
 // }

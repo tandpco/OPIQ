@@ -1817,17 +1817,17 @@ div#footer-outer {
 			text-align: center;
 			font-size: 16px;
 		}
-		span.complete {
-			color: @brand-success;
+		span.incomplete i {
+			color: #DC6104;
 		}
-		span.incomplete {
-			color: lighten(@gray-light, 10%);
+		span.complete i {
+			color: @brand-success;
 		}
 		// Fancy search bar
 		td.search {
 			height: 60px;
 			position: relative;
-			i.fa.fa-search {
+			i {
 				color: #DADFE1;
 				position: absolute;
 				top: 20px;
@@ -1854,9 +1854,14 @@ div#footer-outer {
 	}
 }
 #report.dashboard td.assessment {
+	.sidebar, .content {
+		float: left;
+	}
 	.sidebar {
 		color: #FFF;
-		margin: -10px -15px -20px;
+		padding: 0 15px;
+		width: 30%;
+		margin: -10px 5px -20px -15px;
 		ul {
 			padding: 0;
 		}
@@ -1921,15 +1926,106 @@ div#footer-outer {
 					color: darken(#B7B7B7, 15%);
 					cursor: pointer;
 					font-weight: 400;
-					transition: border-width 0.3s ease;
+					transition: all 0.3s ease;
 					border-left: 0 solid lighten(#FFF, 10%);
 					padding: 10px 15px 10px 15px;
 					border-bottom: 1px solid #DDD;
-					&:hover, &:active, &.active {
-						color: #B3D338;
+					&:hover, &:active {
+						border-left: 5px solid #B3D338;
+					}
+					&.active {
+						border-left: 5px solid lighten(#B3D338, 10%);
+						background: lighten(#B3D338, 10%);
+						color: #FFF;
+						padding-left: 10px;
+					}
+					&.complete {
+						border-left: 5px solid lighten(#B3D338, 10%);
+						padding: 10px 15px 10px 10px;
 					}
 					&:last-of-type {
 						border-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+	.content {
+		color: #919191;
+		padding: 0 15px;
+		width: 70%;
+		h2, h3 {
+			color: #6C7A89;
+			font-size: 12px;
+			font-weight: bold;
+			letter-spacing: 0.075em;
+			text-transform: uppercase;
+		}
+		h2 {
+			margin-top: 15px;
+		}
+		h3 {
+			margin-top: 0;
+			margin-bottom: 5px;
+		}
+		hr {
+			margin-bottom: 22px;
+			margin-top: 22px;
+		}
+		p {
+			font-size: 14px;
+			letter-spacing: 0.025em;
+			line-height: 20px;
+			margin-bottom: 15px;
+		}
+		.move-right {
+			margin-right: -15px !important;
+		}
+		.col-md-7 {
+			p:last-of-type {
+				margin-bottom: 0;
+			}
+		}
+		.score-bars {
+			.right {
+				text-align: right;
+			}
+			.left {
+				text-align: left;
+			}
+			small {
+				font-size: 10px;
+				text-transform: uppercase;
+			}
+			hr {
+				margin: 0 0 5px;
+			}
+			.progress {
+				background: #FFF;
+				border: 1px solid lighten(#B3D338, 10%);
+				border-radius: 0;
+				box-shadow: none;
+				height: 15px;
+				margin-bottom: 0;
+				.progress-bar {
+					background: lighten(#B3D338, 10%);
+					box-shadow: none;
+					font-size: 10px;
+					line-height: 12px;
+				}
+			}
+			.percentile {
+				small {
+					color: #FFF;
+					display: inline-block;
+					width: 100%;
+				}
+				.progress {
+					border: 1px solid #545454;
+					display: inline-block;
+					width: 40px;
+					.progress-bar {
+						background: #545454;
 					}
 				}
 			}
