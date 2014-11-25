@@ -88,7 +88,9 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             pages = []
 
             while i < $scope.assessment.answers.length
+
               answers.push $scope.assessment.answers[i].page
+
               i++
 
             while l < $scope.assessment.pages.length
@@ -97,7 +99,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
               if _.contains answers, $scope.assessment.pages[l].name
                 $scope.assessment.pages[l].status = 'complete'
-                console.log $scope.assessment.pages[l].name
 
               l++
 
@@ -112,8 +113,10 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     templateUrl: "partials/page"
     params: { 'id', 'name', 'pageName', 'pageId' }
     controller: (Restangular, $stateParams, $scope, $state) ->
+
       Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
         $scope.answer = answer.data[0]
+        
       Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
         $scope.page = page.data[0]
         if $scope.answer

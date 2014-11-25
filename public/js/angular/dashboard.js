@@ -101,7 +101,6 @@
                 pages.push($scope.assessment.pages[l].name);
                 if (_.contains(answers, $scope.assessment.pages[l].name)) {
                   $scope.assessment.pages[l].status = 'complete';
-                  console.log($scope.assessment.pages[l].name);
                 }
                 _results.push(l++);
               }
