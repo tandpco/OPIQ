@@ -95,6 +95,7 @@
                 answers.push($scope.assessment.answers[i].page);
                 i++;
               }
+              console.log($scope.assessment.pages.length);
               while (i < $scope.assessment.pages.length) {
                 pages.push($scope.assessment.pages[i].name);
                 if (_.contains(answers, $scope.assessment.pages[i].name)) {
@@ -103,7 +104,7 @@
                 }
                 i++;
               }
-              return console.log(answers, pages);
+              return console.log(pages.length);
             });
             return Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then(function(user) {
               return $scope.assessment.user = user.data;
