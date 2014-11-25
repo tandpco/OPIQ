@@ -38,6 +38,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
       $scope.Math = window.Math;
 
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
+        console.log pages.data
         $scope.pages = pages.data
 
       Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->

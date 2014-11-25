@@ -31,6 +31,7 @@
       controller: function(Restangular, $stateParams, $scope, $state) {
         $scope.Math = window.Math;
         Restangular.all("api/v1").customGET("pages/list").then(function(pages) {
+          console.log(pages.data);
           return $scope.pages = pages.data;
         });
         Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
