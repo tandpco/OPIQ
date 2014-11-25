@@ -69,7 +69,7 @@
       },
       controller: function(Restangular, $stateParams, $scope, $state) {
         Restangular.all("api/v1").customGET("pages/list").then(function(pages) {
-          return $scope.pages = pages.data;
+          return $scope.assessment.pages = pages.data;
         });
         Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then(function(assessment) {
           var utc;
@@ -82,8 +82,7 @@
           Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then(function(answers) {
             var i, pages, _results;
             $scope.assessment.answers = answers.data;
-            $scope.assessment.pages = $scope.pages;
-            console.log($scope.pages);
+            console.log($scope.assessment.pages);
             $scope.assessment.percentComplete = Math.round(100 * $scope.assessment.answers.length / $scope.assessment.pages.length);
             if (!(assessment.percentComplete < 100)) {
               $scope.assessment.complete = true;

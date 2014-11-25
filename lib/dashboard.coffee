@@ -65,7 +65,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     params: { 'id', 'assessSlug' }
     controller: (Restangular, $stateParams, $scope, $state) ->
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
-        $scope.pages = pages.data
+        $scope.assessment.pages = pages.data
 
       Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then (assessment) ->
         $scope.assessment = assessment.data[0]
@@ -74,8 +74,8 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
         $scope.createdOn = "N/A" unless isNaN(utc) is false
         Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
           $scope.assessment.answers = answers.data
-          $scope.assessment.pages = $scope.pages
-          console.log $scope.pages
+          # $scope.assessment.pages = $scope.pages
+          console.log $scope.assessment.pages
           $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
           $scope.assessment.complete = true unless assessment.percentComplete < 100
 
