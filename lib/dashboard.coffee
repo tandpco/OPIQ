@@ -96,6 +96,8 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
                 $scope.assessment.pages[i].status = 'complete'
                 console.log $scope.assessment.pages[i].name
               i++
+
+            console.log answers, pages
             
           Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
             $scope.assessment.user = user.data
