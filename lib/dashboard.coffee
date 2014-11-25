@@ -83,6 +83,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             $scope.assessment.complete = true unless assessment.percentComplete < 100
 
             i = 0
+            l = 0
             answers = []
             pages = []
 
@@ -92,15 +93,14 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
             console.log $scope.assessment.pages.length
 
-            while i < $scope.assessment.pages.length
+            while l < $scope.assessment.pages.length
               pages.push $scope.assessment.pages[i].name
-
-              # console.log answers, pages
 
               if _.contains answers, $scope.assessment.pages[i].name
                 $scope.assessment.pages[i].status = 'complete'
                 console.log $scope.assessment.pages[i].name
-              i++
+
+              l++
 
             console.log pages.length
             
