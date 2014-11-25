@@ -126,6 +126,7 @@
         'pageId': 'pageId'
       },
       controller: function(Restangular, $stateParams, $scope, $state) {
+        console.log($scope.assessment);
         Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then(function(answer) {
           return $scope.answer = answer.data[0];
         });

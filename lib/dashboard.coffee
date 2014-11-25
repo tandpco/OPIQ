@@ -114,9 +114,11 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     params: { 'id', 'name', 'pageName', 'pageId' }
     controller: (Restangular, $stateParams, $scope, $state) ->
 
+      console.log $scope.assessment
+      
       Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
         $scope.answer = answer.data[0]
-        
+
       Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
         $scope.page = page.data[0]
         if $scope.answer

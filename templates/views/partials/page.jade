@@ -11,7 +11,7 @@ hr
 		hr.visible-sm
 	.col-md-5.score-bars
 		h3 Assessment Score
-		.progress: .progress-bar(style="width: 60%") 60%
+		.progress: .progress-bar(style="width: {{assessment.percentComplete}}%") {{assessment.percentComplete}}%
 		br
 		h3 Answer Score
 		.row.move-right
@@ -20,12 +20,6 @@ hr
 			.col-xs-4.right: small PERCENTILE
 		hr
 		.row.move-right
-			.col-xs-8
-				small Opportunity Score
-				.progress: .progress-bar(style="width: 60%") 60%
-			.col-xs-4.right.percentile
-				small Nudge
-				.progress: .progress-bar(style="width: 100%") 60%
 			.col-xs-8
 				small {{page.category}} Score
 				.progress: .progress-bar(style="width: 85%") 85%
