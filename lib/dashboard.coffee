@@ -68,35 +68,32 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
         $scope.pages = pages.data
 
-        Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then (assessment) ->
-          $scope.assessment = assessment.data[0]
-          $scope.createdOn = new Date($scope.assessment.createdAt)
-          utc = Date.parse($scope.createdOn)
-          $scope.createdOn = "N/A" unless isNaN(utc) is false
+      Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then (assessment) ->
+        $scope.assessment = assessment.data[0]
+        $scope.createdOn = new Date($scope.assessment.createdAt)
+        $utc = Date.parse($scope.createdOn)
+        $scope.createdOn = "N/A" unless isNaN($utc) is false
 
-          Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
-            $scope.assessment.answers = answers.data
-            $scope.assessment.pages = $scope.pages
+        Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
+          $scope.assessment.answers = answers.data
+          $scope.assessment.pages = $scope.pages
+          $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
+          $scope.assessment.complete = true unless assessment.percentComplete < 100
 
-            console.log $scope.assessment.pages
+          i = 0
+          answers = []
+          pages = []
 
-            $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
-            $scope.assessment.complete = true unless assessment.percentComplete < 100
+          while i < $scope.assessment.answers.length
+            answers.push $scope.assessment.answers[i].page
+            i++
 
-            i = 0
-            answers = []
-            pages = []
-
-            while i < $scope.assessment.answers.length
-              answers.push $scope.assessment.answers[i].page
-              i++
-
-            while i < $scope.assessment.pages.length
-              pages.push $scope.assessment.pages[i].name
-              if _.contains answers, $scope.assessment.pages[i].name
-                $scope.assessment.pages[i].status = 'complete'
-                console.log $scope.assessment.pages[i].name
-              i++
+          while i < $scope.assessment.pages.length
+            pages.push $scope.assessment.pages[i].name
+            if _.contains answers, $scope.assessment.pages[i].name
+              $scope.assessment.pages[i].status = 'complete'
+              console.log $scope.assessment.pages[i].name
+            i++
           
         Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
           $scope.assessment.user = user.data
