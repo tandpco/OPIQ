@@ -35,26 +35,27 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     controller: (Restangular, $stateParams, $scope, $state) ->
 
       # Inject MATH
-      $scope.Math = window.Math;
+      $scope.Math = window.Math
 
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
-        console.log pages.data
         $scope.pages = pages.data
+        console.log 'This is running, definitely.'
+        console.log $scope.pages
 
-      Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
-        $scope.user = user.data
-        $scope.memberSince = new Date(user.data.createdAt)
-        utc = Date.parse($scope.memberSince)
-        $scope.memberSince = "N/A" unless isNaN(utc) is false
+        Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
+          $scope.user = user.data
+          $scope.memberSince = new Date(user.data.createdAt)
+          utc = Date.parse($scope.memberSince)
+          $scope.memberSince = "N/A" unless isNaN(utc) is false
 
-      Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then (assessments) ->
-        $scope.assessments = assessments.data
-        assessments.data.forEach (assessment) ->
-          Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then (answers) ->
-            assessment.answers = answers.data
-            assessment.pages = $scope.pages
-            assessment.percentComplete = Math.round(100*assessment.answers.length/assessment.pages.length)
-            assessment.complete = true unless assessment.percentComplete != 100
+        Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then (assessments) ->
+          $scope.assessments = assessments.data
+          assessments.data.forEach (assessment) ->
+            Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then (answers) ->
+              assessment.answers = answers.data
+              assessment.pages = $scope.pages
+              assessment.percentComplete = Math.round(100*assessment.answers.length/assessment.pages.length)
+              assessment.complete = true unless assessment.percentComplete != 100
 
       $scope.changeState = (state) ->
         $state.go state

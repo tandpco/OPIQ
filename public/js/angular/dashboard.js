@@ -31,28 +31,29 @@
       controller: function(Restangular, $stateParams, $scope, $state) {
         $scope.Math = window.Math;
         Restangular.all("api/v1").customGET("pages/list").then(function(pages) {
-          console.log(pages.data);
-          return $scope.pages = pages.data;
-        });
-        Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
-          var utc;
-          $scope.user = user.data;
-          $scope.memberSince = new Date(user.data.createdAt);
-          utc = Date.parse($scope.memberSince);
-          if (isNaN(utc) !== false) {
-            return $scope.memberSince = "N/A";
-          }
-        });
-        Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then(function(assessments) {
-          $scope.assessments = assessments.data;
-          return assessments.data.forEach(function(assessment) {
-            return Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then(function(answers) {
-              assessment.answers = answers.data;
-              assessment.pages = $scope.pages;
-              assessment.percentComplete = Math.round(100 * assessment.answers.length / assessment.pages.length);
-              if (assessment.percentComplete === 100) {
-                return assessment.complete = true;
-              }
+          $scope.pages = pages.data;
+          console.log('This is running, definitely.');
+          console.log($scope.pages);
+          Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
+            var utc;
+            $scope.user = user.data;
+            $scope.memberSince = new Date(user.data.createdAt);
+            utc = Date.parse($scope.memberSince);
+            if (isNaN(utc) !== false) {
+              return $scope.memberSince = "N/A";
+            }
+          });
+          return Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then(function(assessments) {
+            $scope.assessments = assessments.data;
+            return assessments.data.forEach(function(assessment) {
+              return Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then(function(answers) {
+                assessment.answers = answers.data;
+                assessment.pages = $scope.pages;
+                assessment.percentComplete = Math.round(100 * assessment.answers.length / assessment.pages.length);
+                if (assessment.percentComplete === 100) {
+                  return assessment.complete = true;
+                }
+              });
             });
           });
         });
