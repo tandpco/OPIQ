@@ -69,7 +69,8 @@
       },
       controller: function(Restangular, $stateParams, $scope, $state) {
         Restangular.all("api/v1").customGET("pages/list").then(function(pages) {
-          return $scope.pages = pages.data;
+          $scope.pages = pages.data;
+          return console.log($scope.pages);
         });
         Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then(function(assessment) {
           var utc;
