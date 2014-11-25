@@ -223,10 +223,10 @@ exports = module.exports = function(app) {
 	app.all('/api/v1/page/:id', keystone.initAPI, routes.api.analysis.page);
 
 	// UI Router States
-	app.get('/partials/user', middleware.requireUser, routes.views.states.user)
-	app.get('/partials/search', middleware.requireUser, routes.views.states.search)
-	app.get('/partials/assessment', middleware.requireUser, routes.views.states.assessment)
-	app.get('/partials/page', middleware.requireUser, routes.views.states.page)
+	app.get('/partials/user', routes.views.states.user)
+	app.get('/partials/search', routes.views.states.search)
+	app.get('/partials/assessment', routes.views.states.assessment)
+	app.get('/partials/page', routes.views.states.page)
 	
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
