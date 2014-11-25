@@ -66,7 +66,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     controller: (Restangular, $stateParams, $scope, $state) ->
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
         $scope.pages = pages.data
-        console.log $scope.pages
+
       Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then (assessment) ->
         $scope.assessment = assessment.data[0]
         $scope.createdOn = new Date($scope.assessment.createdAt)
@@ -75,6 +75,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
         Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
           $scope.assessment.answers = answers.data
           $scope.assessment.pages = $scope.pages
+          console.log $scope.pages
           $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
           $scope.assessment.complete = true unless assessment.percentComplete < 100
 
