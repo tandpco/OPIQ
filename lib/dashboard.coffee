@@ -91,19 +91,16 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
               answers.push $scope.assessment.answers[i].page
               i++
 
-            console.log $scope.assessment.pages.length
-
             while l < $scope.assessment.pages.length
-              pages.push $scope.assessment.pages[i].name
 
-              if _.contains answers, $scope.assessment.pages[i].name
-                $scope.assessment.pages[i].status = 'complete'
-                console.log $scope.assessment.pages[i].name
+              pages.push $scope.assessment.pages[l].name
+
+              if _.contains answers, $scope.assessment.pages[l].name
+                $scope.assessment.pages[l].status = 'complete'
+                console.log $scope.assessment.pages[l].name
 
               l++
 
-            console.log pages.length
-            
           Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
             $scope.assessment.user = user.data
 
