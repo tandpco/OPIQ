@@ -88,6 +88,7 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           while i < $scope.assessment.pages.length
             pages.push $scope.assessment.pages[i].name
             if _.contains(answers, $scope.assessment.pages[i].name) == true
+              console.log _.contains(answers, $scope.assessment.pages[i].name)
               $scope.assessment.pages[i].status = 'complete'
             i++
           
