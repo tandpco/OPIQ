@@ -424,15 +424,21 @@ function getAnswers () {
 			cat_answers[v.category].total += 1;
 			main_total += Number(v.answer);
 			total += 1;
+
+			console.log(cat_answers);
 		}
 		
 	})
 
 	for(var i in cat_answers){
 		cat_totals[i] = (cat_answers[i].answer / cat_answers[i].total) * 20;
+
 	}
 
+	console.log(cat_totals)
+
 	return {main_total : (main_total / total) * 20 , cat_answers : cat_totals}
+
 }
 
 /**

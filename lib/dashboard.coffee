@@ -11,6 +11,13 @@ app.filter "slug", ->
   (input) ->
     input.toLowerCase().replace /[^a-z_]/g, "-"  if input
 
+count = (ary, classifier) ->
+  ary.reduce ((counter, item) ->
+    p = (classifier or String)(item)
+    counter[p] = (if counter.hasOwnProperty(p) then counter[p] + 1 else 1)
+    counter
+  ), {}
+
 # Inject Restangular into your controller
 app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
@@ -84,12 +91,19 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
             i = 0
             l = 0
+            j = 0
+            total = 0
             answers = []
             pages = []
+            complete = []
+            categoryTotal = []
 
             while i < $scope.assessment.answers.length
 
               answers.push $scope.assessment.answers[i].page
+
+              # Get the total of the answers
+              total = Number(total) + Number($scope.assessment.answers[i].answer)
 
               i++
 
@@ -98,9 +112,25 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
               pages.push $scope.assessment.pages[l].name
 
               if _.contains answers, $scope.assessment.pages[l].name
+
                 $scope.assessment.pages[l].status = 'complete'
 
+                # Get the number of answered questions
+                complete.push $scope.assessment.pages[l].name
+                categoryTotal.push $scope.assessment.pages[l].category
+
               l++
+
+            catCount = count(categoryTotal)
+
+            o = 0
+            while o < _.combine catCount
+              console.log catCount
+              o++ 
+
+            $scope.assessment.score = Math.round((total / complete.length) * 20)
+
+
 
           Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
             $scope.assessment.user = user.data
@@ -114,10 +144,9 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     params: { 'id', 'name', 'pageName', 'pageId' }
     controller: (Restangular, $stateParams, $scope, $state) ->
 
-      console.log $scope.assessment
-      
       Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
         $scope.answer = answer.data[0]
+        $scope.answer.score = Math.round(($scope.answer.answer/5)*100)
 
       Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
         $scope.page = page.data[0]

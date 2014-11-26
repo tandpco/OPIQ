@@ -11,27 +11,27 @@ hr
 		hr.visible-sm
 	.col-md-5.score-bars
 		h3 Assessment Score
-		.progress: .progress-bar(style="width: {{assessment.percentComplete}}%") {{assessment.percentComplete}}%
+		.progress: .progress-bar(style="width: {{assessment.score}}%") {{assessment.score}}%
 		br
-		h3 Answer Score
-		.row.move-right
+		h3(ng-show="answer.score") Answer Score
+		.row.move-right(ng-show="answer.score")
 			.col-xs-4: small POOR
 			.col-xs-4.right: small EXCELLENT
 			.col-xs-4.right: small PERCENTILE
 		hr
-		.row.move-right
-			.col-xs-8
-				small {{page.category}} Score
-				.progress: .progress-bar(style="width: 85%") 85%
-			.col-xs-4.right.percentile
-				small Nudge
-				.progress: .progress-bar(style="width: 100%") 85%
-			.col-xs-8
+		.row.move-right(ng-show="answer.score")
+			//- .col-xs-12
+			//- 	small {{page.category}} Score
+			//- .col-xs-8
+			//- 	.progress: .progress-bar(style="width: 85%")
+			//- .col-xs-4.right.percentile
+			//- 	.progress: .progress-bar(style="width: 100%") 85%
+			.col-xs-12
 				small {{page.name}} Score
-				.progress: .progress-bar(style="width: 45%") 45%
+			.col-xs-8
+				.progress: .progress-bar(style="width: {{answer.score}}%")
 			.col-xs-4.right.percentile
-				small Nudge
-				.progress: .progress-bar(style="width: 100%") 45%
+				.progress: .progress-bar(style="width: 100%") {{answer.score}}%
 
 hr
 .row.move-right

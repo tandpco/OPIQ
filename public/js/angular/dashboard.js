@@ -1,5 +1,5 @@
 (function() {
-  var app;
+  var app, count;
 
   app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination", "ngSanitize"]);
 
@@ -10,6 +10,15 @@
       }
     };
   });
+
+  count = function(ary, classifier) {
+    return ary.reduce((function(counter, item) {
+      var p;
+      p = (classifier || String)(item);
+      counter[p] = (counter.hasOwnProperty(p) ? counter[p] + 1 : 1);
+      return counter;
+    }), {});
+  };
 
   app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     $urlRouterProvider.otherwise("/");
@@ -81,7 +90,7 @@
               $scope.createdOn = "N/A";
             }
             Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then(function(answers) {
-              var i, l, _results;
+              var catCount, categoryTotal, complete, i, j, l, o, total;
               $scope.assessment.answers = answers.data;
               $scope.assessment.pages = $scope.pages;
               $scope.assessment.percentComplete = Math.round(100 * $scope.assessment.answers.length / $scope.assessment.pages.length);
@@ -90,21 +99,33 @@
               }
               i = 0;
               l = 0;
+              j = 0;
+              total = 0;
               answers = [];
               pages = [];
+              complete = [];
+              categoryTotal = [];
               while (i < $scope.assessment.answers.length) {
                 answers.push($scope.assessment.answers[i].page);
+                total = Number(total) + Number($scope.assessment.answers[i].answer);
                 i++;
               }
-              _results = [];
               while (l < $scope.assessment.pages.length) {
                 pages.push($scope.assessment.pages[l].name);
                 if (_.contains(answers, $scope.assessment.pages[l].name)) {
                   $scope.assessment.pages[l].status = 'complete';
+                  complete.push($scope.assessment.pages[l].name);
+                  categoryTotal.push($scope.assessment.pages[l].category);
                 }
-                _results.push(l++);
+                l++;
               }
-              return _results;
+              catCount = count(categoryTotal);
+              o = 0;
+              while (o < _.combine(catCount)) {
+                console.log(catCount);
+                o++;
+              }
+              return $scope.assessment.score = Math.round((total / complete.length) * 20);
             });
             return Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then(function(user) {
               return $scope.assessment.user = user.data;
@@ -126,9 +147,9 @@
         'pageId': 'pageId'
       },
       controller: function(Restangular, $stateParams, $scope, $state) {
-        console.log($scope.assessment);
         Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then(function(answer) {
-          return $scope.answer = answer.data[0];
+          $scope.answer = answer.data[0];
+          return $scope.answer.score = Math.round(($scope.answer.answer / 5) * 100);
         });
         return Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then(function(page) {
           var answerText;
