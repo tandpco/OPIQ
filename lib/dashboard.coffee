@@ -46,8 +46,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
         $scope.pages = pages.data
-        console.log 'This is running, definitely.'
-        console.log $scope.pages
 
         Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
           $scope.user = user.data
@@ -64,6 +62,43 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
               assessment.percentComplete = Math.round(100*assessment.answers.length/assessment.pages.length)
               assessment.complete = true unless assessment.percentComplete != 100
 
+              x = 0
+              test = []
+              totalz = 0
+
+              while x < answers.length
+
+                test.push assessment.answers[x].page
+
+                # Get the total of the answers
+                totalz = Number(total) + Number(assessment.answers[x].answer)
+
+                x++
+
+              z = 0
+              testing = []
+              completed = []
+
+              while z < assessment.pages.length
+
+                testing.push assessment.pages[z].name
+
+                if _.contains answers, assessment.pages[z].name
+
+                  $scope.assessment.pages[z].status = 'complete'
+
+                  # Get the number of answered questions
+                  completed.push $scope.assessment.pages[z].name
+
+                z++
+
+              console.log totalz, completed.length
+
+              console.log Math.round((totalz / completed.length) * 20)
+
+
+           
+
       $scope.changeState = (state) ->
         $state.go state
 
@@ -74,6 +109,11 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     params: { 'id', 'assessSlug' }
     controller: (Restangular, $stateParams, $scope, $state) ->
 
+      window.setTimeout (->
+        el = document.getElementById('addressable-market')
+        angular.element(el).triggerHandler 'click'
+      ), 500
+
       Restangular.all("api/v1").customGET("pages/list").then (pages) ->
         $scope.pages = pages.data
 
@@ -82,6 +122,9 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           $scope.createdOn = new Date($scope.assessment.createdAt)
           $utc = Date.parse($scope.createdOn)
           $scope.createdOn = "N/A" unless isNaN($utc) is false
+
+          Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
+            $scope.assessment.user = user.data
 
           Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
             $scope.assessment.answers = answers.data
@@ -123,33 +166,24 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
             $scope.assessment.score = Math.round((total / complete.length) * 20)
 
-            catCount = count(categoryTotal)
+            console.log $scope.assessment.score
 
-            o = 0
-            while o < _.combine catCount
-              console.log catCount
-              o++ 
+          $stateProvider.state "assessment.child",
+            url: "/:slug"
+            templateUrl: "partials/page"
+            params: { 'id', 'name', 'pageName', 'pageId', 'slug' }
+            controller: (Restangular, $stateParams, $scope, $state) ->
 
+              Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
+                $scope.answer = answer.data[0]
+                $scope.answer.score = Math.round((answer.data[0].answer/5)*100)
+                # console.log 
 
-
-          Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
-            $scope.assessment.user = user.data
+              Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
+                $scope.page = page.data[0]
+                # console.log $scope.answer
+                answerText = 'answer' + $scope.answer.answer
+                $scope.answerText = $scope.page[answerText]
 
       $scope.changeState = (state) ->
         $state.go state
-
-  $stateProvider.state "assessment.child",
-    url: "/:slug"
-    templateUrl: "partials/page"
-    params: { 'id', 'name', 'pageName', 'pageId' }
-    controller: (Restangular, $stateParams, $scope, $state) ->
-
-      Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
-        $scope.answer = answer.data[0]
-        $scope.answer.score = Math.round(($scope.answer.answer/5)*100)
-
-      Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
-        $scope.page = page.data[0]
-        if $scope.answer
-          answerText = 'answer' + $scope.answer.answer
-          $scope.answerText = $scope.page[answerText]

@@ -7,6 +7,7 @@ html
 		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
 		link(rel="stylesheet", href="/styles/font-awesome.min.css")
 		link(rel="stylesheet", href="/styles/site.min.css")
+		//- link(rel="stylesheet", href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css")
 	body(ng-app="Users"): #report.dashboard.analysis.clearfix
 		.head#nav
 			div(role="navigation")
@@ -57,7 +58,7 @@ html
 						li: s • Calculate Whether or not a Section is Complete
 						li • Print Report
 						//- li • Open sections w/ results when searching on Assessment page
-				table(class='table table-bordered ui-view')
+				table(class='table table-bordered ui-view anim-in-out anim-fade')
 				//- tr: td(colspan="1000"): table.ui-view
 	
 	script(src='/bower_components/angular/angular.min.js')
@@ -66,6 +67,8 @@ html
 	script(src='/bower_components/angular-ui-router/release/angular-ui-router.min.js')
 	script(src='/bower_components/angular-utils-pagination/dirPagination.js')
 	script(src='/bower_components/angular-sanitize/angular-sanitize.js')
+	//- script(src='/bower_components/angular-ui-router-anim-in-out/anim-in-out.js')
+	script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-animate.min.js')
 	script(src='/js/lib/jquery/jquery-2.1.0.min.js')
 	script(src='/js/lib/bootstrap/transition.js')
 	script(src='/js/lib/bootstrap/collapse.js')

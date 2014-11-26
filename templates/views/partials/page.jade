@@ -6,32 +6,33 @@ hr
 		p(ng-bind-html="page['Key Principle']")
 		h3 Definition
 		p(ng-bind-html="page['Definition']")
-		h3(ng-show="answerText") Answer
-		p(ng-show="answerText") {{answerText}}
+		h3(ng-if="answer.score") Answer
+		p(ng-if="answer.score") {{answerText}}
 		hr.visible-sm
 	.col-md-5.score-bars
 		h3 Assessment Score
 		.progress: .progress-bar(style="width: {{assessment.score}}%") {{assessment.score}}%
 		br
-		h3(ng-show="answer.score") Answer Score
-		.row.move-right(ng-show="answer.score")
-			.col-xs-4: small POOR
-			.col-xs-4.right: small EXCELLENT
-			.col-xs-4.right: small PERCENTILE
-		hr
-		.row.move-right(ng-show="answer.score")
-			//- .col-xs-12
-			//- 	small {{page.category}} Score
-			//- .col-xs-8
-			//- 	.progress: .progress-bar(style="width: 85%")
-			//- .col-xs-4.right.percentile
-			//- 	.progress: .progress-bar(style="width: 100%") 85%
-			.col-xs-12
-				small {{page.name}} Score
-			.col-xs-8
-				.progress: .progress-bar(style="width: {{answer.score}}%")
-			.col-xs-4.right.percentile
-				.progress: .progress-bar(style="width: 100%") {{answer.score}}%
+		.answer(ng-if="answer.score")
+			h3 Answer Score
+			.row.move-right
+				.col-xs-4: small POOR
+				.col-xs-4.right: small EXCELLENT
+				.col-xs-4.right: small PERCENTILE
+			hr
+			.row.move-right.anim-in-out
+				//- .col-xs-12
+				//- 	small {{page.category}} Score
+				//- .col-xs-8
+				//- 	.progress: .progress-bar(style="width: 85%")
+				//- .col-xs-4.right.percentile
+				//- 	.progress: .progress-bar(style="width: 100%") 85%
+				.col-xs-12
+					small {{page.name}} Score
+				.col-xs-8
+					.progress: .progress-bar(style="width: {{answer.score}}%")
+				.col-xs-4.right.percentile
+					.progress: .progress-bar(style="width: 100%") {{answer.score}}%
 
 hr
 .row.move-right
