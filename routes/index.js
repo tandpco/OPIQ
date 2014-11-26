@@ -85,7 +85,6 @@ exports = module.exports = function(app) {
 	app.get('/signout', routes.views.signout);
 	app.get('/industry', routes.views.content);
 	app.get('/financial', routes.views.content);
-	app.get('/dashboard', routes.views.dashboard);
 	app.get('/operational', routes.views.content);
 	app.get('/product-services', routes.views.content);
 	app.get('/customer', routes.views.content);
@@ -223,6 +222,7 @@ exports = module.exports = function(app) {
 	app.all('/api/v1/page/:id', keystone.initAPI, routes.api.analysis.page);
 
 	// UI Router States
+	app.get('/dashboard', middleware.requireUser, routes.views.dashboard);
 	app.get('/partials/user', routes.views.states.user)
 	app.get('/partials/search', routes.views.states.search)
 	app.get('/partials/assessment', routes.views.states.assessment)
