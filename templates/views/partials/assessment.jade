@@ -38,7 +38,7 @@ tr
 			tr: td
 				ul(class="collapse", id="customer").pages
 					li(ng-repeat="page in customer = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
-			tr: td.print
+			//- tr: td.print
 				|Print Report&nbsp;
 				i.fa.fa-print
 		div.content(class='ui-view anim-in-out anim-fade')
