@@ -121,14 +121,14 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
               l++
 
+            $scope.assessment.score = Math.round((total / complete.length) * 20)
+
             catCount = count(categoryTotal)
 
             o = 0
             while o < _.combine catCount
               console.log catCount
               o++ 
-
-            $scope.assessment.score = Math.round((total / complete.length) * 20)
 
 
 
