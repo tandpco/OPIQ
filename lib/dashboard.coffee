@@ -6,12 +6,14 @@ $(window).on "scroll", ->
   else
     $('th.inner-table').removeClass "fixed"
     $('.ui-view-container').css "padding-top": "0"
+
 # Add Restangular as a dependency to your app
 app = angular.module("Users", [
   "restangular"
   "ui.router"
   "angularUtils.directives.dirPagination"
   "ngSanitize"
+  "ngAnimate"
 ])
 
 

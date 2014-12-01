@@ -49,8 +49,8 @@ html
 										a(href="register") &nbsp; Sign Up
 									li 
 										a(href='login') Sign In	
-		.ui-view-container				
-			table(class='table table-bordered ui-view anim-in-out anim-fade')
+		.ui-view-container
+			table(class='table table-bordered', ui-view)
 
 				//- tr: td(colspan="1000"): table.ui-view
 	
@@ -60,6 +60,7 @@ html
 	script(src='/bower_components/angular-ui-router/release/angular-ui-router.min.js')
 	script(src='/bower_components/angular-utils-pagination/dirPagination.js')
 	script(src='/bower_components/angular-sanitize/angular-sanitize.js')
+	script(src='/bower_components/angular-animate/angular-animate.min.js')
 	//- script(src='/bower_components/angular-ui-router-anim-in-out/anim-in-out.js')
 	script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.2.0rc1/angular-animate.min.js')
 	script(src='/js/lib/jquery/jquery-2.1.0.min.js')

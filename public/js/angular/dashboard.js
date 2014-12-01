@@ -17,7 +17,7 @@
     }
   });
 
-  app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination", "ngSanitize"]);
+  app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination", "ngSanitize", "ngAnimate"]);
 
   app.filter("slug", function() {
     return function(input) {

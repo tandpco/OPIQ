@@ -14,19 +14,17 @@ exports = module.exports = function(req, res) {
 	locals.categories = {};
 	locals.categories.cats = [];
 	locals.cat_totals = {};
+
 	var id, user;
 
 	if (req.session.analysisid) {
 		var id = req.session.analysisid,
 			user = req.user._id;
 	} else if (req.body.origin == 'dashboard') {
-		console.log('AnalysisID was undefined, defining variables by form.')
+		req.session.analysisid = false;
 		var id = req.body['an-id']
 			user = req.body['an-user'];
 	}
-
-	console.log('User:', user)
-	console.log('ID:', id)
 
 
 	// Analysis.model.find({_id = id}).exec(function(e, analysis) {
