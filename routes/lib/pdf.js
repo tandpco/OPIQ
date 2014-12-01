@@ -9,8 +9,19 @@ var phantom = require('phantom');
 
 exports = module.exports = function(req, res) {
 	// console.log(req.body);
+	var id, user;
+
+	if (req.session.analysisid) {
+		var id = req.session.analysisid,
+			user = req.user._id;
+	} else if (req.body.origin == 'dashboard') {
+		req.session.analysisid = false;
+		var id = req.body['an-id']
+			user = req.body['an-user'];
+	}
+
 	var body = req.body;
-	var analysis = req.session.analysis;
+	var analysis = id;
 		// total = req.body.total,
 		// categories = JSON.parse(req.body.categories),
 	// 	text = '<body>',

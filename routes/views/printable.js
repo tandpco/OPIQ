@@ -91,7 +91,6 @@ exports = module.exports = function(req, res) {
 	})
 
 	function showPage () {
-		
 		view.render('print-report');
 	}
 }
