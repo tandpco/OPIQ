@@ -21,9 +21,10 @@ exports = module.exports = function(req, res) {
 		var id = req.session.analysisid,
 			user = req.user._id;
 	} else if (req.body.origin == 'dashboard') {
-		req.session.analysisid = false;
-		var id = req.body['an-id']
-			user = req.body['an-user'];
+		var id    = req.body['an-id']
+			user  = req.body['an-user'],
+			title = req.body['an-title'];
+		req.session.analysis = title;
 	}
 
 
