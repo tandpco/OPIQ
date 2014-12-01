@@ -1,6 +1,22 @@
 (function() {
   var app, count;
 
+  $(window).on("scroll", function() {
+    var pos;
+    pos = $(window).scrollTop();
+    if (pos > 61) {
+      $('th.inner-table').addClass("fixed");
+      return $('.ui-view-container').css({
+        "padding-top": "40px"
+      });
+    } else {
+      $('th.inner-table').removeClass("fixed");
+      return $('.ui-view-container').css({
+        "padding-top": "0"
+      });
+    }
+  });
+
   app = angular.module("Users", ["restangular", "ui.router", "angularUtils.directives.dirPagination", "ngSanitize"]);
 
   app.filter("slug", function() {
@@ -54,7 +70,7 @@
             $scope.assessments = assessments.data;
             return assessments.data.forEach(function(assessment) {
               return Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then(function(answers) {
-                var completed, test, testing, totalz, x, z;
+                var completed, test, testing, totalz, x, z, _results;
                 assessment.answers = answers.data;
                 assessment.pages = $scope.pages;
                 assessment.percentComplete = Math.round(100 * assessment.answers.length / assessment.pages.length);
@@ -72,16 +88,16 @@
                 z = 0;
                 testing = [];
                 completed = [];
+                _results = [];
                 while (z < assessment.pages.length) {
                   testing.push(assessment.pages[z].name);
                   if (_.contains(answers, assessment.pages[z].name)) {
                     $scope.assessment.pages[z].status = 'complete';
                     completed.push($scope.assessment.pages[z].name);
                   }
-                  z++;
+                  _results.push(z++);
                 }
-                console.log(totalz, completed.length);
-                return console.log(Math.round((totalz / completed.length) * 20));
+                return _results;
               });
             });
           });
@@ -99,6 +115,11 @@
         'assessSlug': 'assessSlug'
       },
       controller: function(Restangular, $stateParams, $scope, $state) {
+        $scope.submit = function() {
+          var form;
+          form = document.getElementById('print');
+          return form.submit();
+        };
         window.setTimeout((function() {
           var el;
           el = document.getElementById('addressable-market');
@@ -147,8 +168,7 @@
                 }
                 l++;
               }
-              $scope.assessment.score = Math.round((total / complete.length) * 20);
-              return console.log($scope.assessment.score);
+              return $scope.assessment.score = Math.round((total / complete.length) * 20);
             });
             return $stateProvider.state("assessment.child", {
               url: "/:slug",

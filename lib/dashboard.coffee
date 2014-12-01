@@ -1,3 +1,11 @@
+$(window).on "scroll", ->
+  pos = $(window).scrollTop()
+  if pos > 61
+    $('th.inner-table').addClass "fixed"
+    $('.ui-view-container').css "padding-top": "40px"
+  else
+    $('th.inner-table').removeClass "fixed"
+    $('.ui-view-container').css "padding-top": "0"
 # Add Restangular as a dependency to your app
 app = angular.module("Users", [
   "restangular"
@@ -92,13 +100,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
                 z++
 
-              console.log totalz, completed.length
-
-              console.log Math.round((totalz / completed.length) * 20)
-
-
-           
-
       $scope.changeState = (state) ->
         $state.go state
 
@@ -108,6 +109,11 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     templateUrl: "partials/assessment"
     params: { 'id', 'assessSlug' }
     controller: (Restangular, $stateParams, $scope, $state) ->
+
+      # Scope Functions
+      $scope.submit = ->
+        form = document.getElementById('print')
+        form.submit()
 
       window.setTimeout (->
         el = document.getElementById('addressable-market')
@@ -166,8 +172,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
 
             $scope.assessment.score = Math.round((total / complete.length) * 20)
 
-            console.log $scope.assessment.score
-
           $stateProvider.state "assessment.child",
             url: "/:slug"
             templateUrl: "partials/page"
@@ -177,11 +181,9 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
               Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
                 $scope.answer = answer.data[0]
                 $scope.answer.score = Math.round((answer.data[0].answer/5)*100)
-                # console.log 
 
               Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
                 $scope.page = page.data[0]
-                # console.log $scope.answer
                 answerText = 'answer' + $scope.answer.answer
                 $scope.answerText = $scope.page[answerText]
 

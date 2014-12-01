@@ -1,5 +1,6 @@
 var	keystone = require('keystone'),
 	Answer = keystone.list('Answer'),
+	Analysis = keystone.list('Analysis'),
 	Page = keystone.list('Page'),
 	_ = require('underscore');
 
@@ -9,13 +10,30 @@ exports = module.exports = function(req, res) {
 	var view = new keystone.View(req, res),
 		locals = res.locals,
 		ip = req.headers['x-forwarded-for'];
-	console.log(req.session.analysis);
-	locals.analysis = req.session.analysis;
+	// locals.analysis = req.session.analysis;
 	locals.categories = {};
 	locals.categories.cats = [];
 	locals.cat_totals = {};
+	var id, user;
 
-	Answer.model.find({analysis : req.session.analysisid, user : req.user._id}).exec(function (e, answers) {
+	if (req.session.analysisid) {
+		var id = req.session.analysisid,
+			user = req.user._id;
+	} else if (req.body.origin == 'dashboard') {
+		console.log('AnalysisID was undefined, defining variables by form.')
+		var id = req.body['an-id']
+			user = req.body['an-user'];
+	}
+
+	console.log('User:', user)
+	console.log('ID:', id)
+
+
+	// Analysis.model.find({_id = id}).exec(function(e, analysis) {
+	// 	locals.analysis = 
+	// })
+
+	Answer.model.find({analysis : id, user : user}).exec(function (e, answers) {
 		locals.analysis = answers;
 		Page.model.find().sort('order').exec(function  (e, pages) {
 			var cat_totals = {}, total_pages_answered = 0, main_total = 0;

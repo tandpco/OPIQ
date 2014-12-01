@@ -4,6 +4,8 @@ exports = module.exports = function(req, res) {
 
 	var view = new keystone.View(req, res),
 		locals = res.locals;
+
+	req.session = false;
 	
 	view.render('dashboard');
 	

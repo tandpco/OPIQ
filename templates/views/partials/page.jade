@@ -36,9 +36,14 @@ hr
 
 hr
 .row.move-right
-	.col-md-6
+	.col-md-12
+		h3 Why This Matters
+		p(ng-bind-html="page['Why This Matters']")
+hr
+.row.move-right
+	.col-md-6(ng-if="answer.notes")
 		h3 Notes
 		p {{answer.notes}}
-	.col-md-6
+	.col-md-6(ng-if="answer.work")
 		h3 Scratchpad
 		p {{answer.work}}

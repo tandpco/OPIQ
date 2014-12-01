@@ -4,8 +4,10 @@ thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
 	th(class='back'): a(ui-sref="user({id:assessment.user._id})")
 		|{{assessment.user.name.first}}
 	th(colspan="1")
-		|{{assessment.title}}
-		.pull-right: span.label.label-default Created On {{createdOn | date: "HH:mma 'on' dd/MM/yyyy"}}
+		|{{assessment.title + ' '}}
+		i.fa.fa-print(ng-click="submit()")
+		.pull-right
+			span.label.label-default Created On {{createdOn | date: "HH:mma 'on' dd/MM/yyyy"}}
 tr
 	td(colspan='100', class='assessment'): .row
 		div.sidebar: table.table.table-bordered(role="tablist", aria-multiselectable="true", id='accordion')
@@ -38,9 +40,14 @@ tr
 			tr: td
 				ul(class="collapse", id="customer").pages
 					li(ng-repeat="page in customer = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
-			//- tr: td.print
-				|Print Report&nbsp;
-				i.fa.fa-print
+			tr: td
+				form(action="/print", method="post", target="_blank", id="print")
+					input(type='hidden', name='origin', value='dashboard', class='form-control')
+					input(type='hidden', name='an-id', value='{{assessment._id}}', class='form-control')
+					input(type='hidden', name='an-user', value='{{assessment.user._id}}', class='form-control')
+					button(type='submit')
+						i.fa.fa-print
+						span.text Print Final Report
 		div.content(class='ui-view anim-in-out anim-fade')
 
 

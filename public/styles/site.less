@@ -52,8 +52,8 @@
 	src: url(/fonts/Museo_Slab_500.otf);
 }
 li{list-style: none; position: relative;}
-body {
-	font-family: arial;
+body * {
+	// font-family: sans-serif;
 }
 div.error {
     color: red;
@@ -1235,8 +1235,7 @@ div#tos {
 	}
 }
 #report{
-
-
+	font-family: sans-serif;
 	margin-bottom: 120px;
 	.download-pdf{
 		text-align: center;
@@ -1273,7 +1272,7 @@ div#tos {
 	.header {
 	    padding:20px 30px;
 	    color: #545454;
-	    font-family: museo slab;
+	    font-family: sans-serif;
 		> small {
 		    color: #bdbdbd;
 		}
@@ -1724,16 +1723,21 @@ div#footer-outer {
 		}
 	}
 }
-
+.fixed {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: 999;
+	transition: all 0.3s ease;
+}
 #report.dashboard {
 	background: rgb(250,250,250);
 	margin-bottom: 0;
 	height: 100%;
 	min-height: 100vh;
 	font-family: 'Lato' !important;
-	.ui-view-container {
-		margin: 60px 0 80px;
-	}
 	.label {
 		padding: .3em .6em;
 		position: relative;
@@ -1741,9 +1745,9 @@ div#footer-outer {
 	}
 	table.table, table.table-bordered {
 		background: #FFF;
-		border-radius: 5px;
 		color: #7f8c8d;
 		overflow: hidden;
+		margin-bottom: 0;
 		// Cool TH
 		th {
 			color: #6C7A89;
@@ -1752,6 +1756,9 @@ div#footer-outer {
 			font-size: 12px;
 			font-weight: 400;
 			white-space: nowrap;
+			&.inner-table {
+				background: rgba(255,255,255,0.975)
+			}
 			&.filter, &.back {
 				cursor: pointer;
 				&:hover i.fa.fa-sort {
@@ -1905,20 +1912,42 @@ div#footer-outer {
 						top: 22px;
 					}
 				}
-				&.print {
+				& button {
+					span.text {
+						margin-left: 30px;
+					}
 					background: lighten(#B3D338, 10%);
+					border: 0;
 					color: #FFF;
 					cursor: pointer;
 					padding: 10px 15px;
-					font-size: 12px;
+					font-size: 14px;
 					font-weight: 400;
+					letter-spacing: 0.075em;
+					position: relative;
 					transition: all 0.3s ease;
 					text-transform: uppercase;
-					i {
-						float: right;
-					}
+					width: 100%;
+					text-align: left;
+					outline: 0;
+					overflow: hidden;
 					&:hover {
 						background: #B3D338;
+					}
+					i {
+						position: relative;
+						z-index: 1;
+					}
+					&:before {
+						background: rgba(0,0,0,0.1);
+						content: "";
+						height: 150px;
+						width: 150px;
+						position: absolute;
+						left: -100px;
+						top: -75px;
+						transform: rotateZ(20deg);
+						z-index: 0;
 					}
 				}
 			}

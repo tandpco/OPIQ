@@ -1,5 +1,5 @@
 tr
-	th(colspan='100')
+	th(colspan='100', class="inner-table")
 		i.fa.fa-users &nbsp;
 		| Search Users
 tr
@@ -10,7 +10,7 @@ tr
 		input(type='text', placeholder='Search {{users.length}} Users by Email...', ng-model='search')
 		i.fa.fa-search
 		span(ng-show="search", class="label label-default results") {{filteredUsers.length}} Results
-tr
+tr#search
 	th(ng-click="predicate = 'name.first'; reverse=!reverse; changeClass()", class='filter')= 'First Name '
 		i.fa.fa-sort
 	th(ng-click="predicate = 'name.last'; reverse=!reverse; changeClass()", class='filter')= 'Last Name '
