@@ -40,7 +40,7 @@ tr
 			tr: td
 				ul(class="collapse", id="customer").pages
 					li(ng-repeat="page in customer = ( assessment.pages | filter:{name: search, category: 'customer'} ) | orderBy:'order'", ui-sref-active="active", ui-sref="assessment.child({name:page.name,slug:(page.name | slug),pageName:page.name,userId:assessment.user._id,pageId:page._id})", ng-class="page.status") {{page.name}}
-			tr: td
+			tr(ng-if="assessment.percentComplete"): td
 				form(action="/print", method="post", target="_blank", id="print")
 					input(type='hidden', name='origin', value='dashboard', class='form-control')
 					input(type='hidden', name='an-id', value='{{assessment._id}}', class='form-control')
