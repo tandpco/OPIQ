@@ -6,12 +6,11 @@ exports = module.exports = function(req, res) {
 	
 	var locals = res.locals,
 		view = new keystone.View(req, res),
-	    Page = keystone.list('Page'),
-	    Answer = keystone.list('Answer'),
-	    Analysis = keystone.list('Analysis'),
-	    ip = req.headers['x-forwarded-for'];
-
-	    locals.categories = {};
+    Page = keystone.list('Page'),
+    Answer = keystone.list('Answer'),
+    Analysis = keystone.list('Analysis'),
+    ip = req.headers['x-forwarded-for'];
+    locals.categories = {};
 		locals.categories.cats = [];
  		locals.analysis = {};
  		locals.cat_totals = {};
@@ -33,6 +32,8 @@ exports = module.exports = function(req, res) {
  					a.save(function(){
 	 					Analysis.model.findOne({user: req.user._id, _id: a._id}).exec(function(e, an){
 	 						locals.analysis = an;
+	 						req.session.analysis = an.title;
+	 						req.session.analysisid = an._id
 	 						getPages();					
 	 					})
  					});
@@ -47,6 +48,8 @@ exports = module.exports = function(req, res) {
 	 					a.save(function(){
 		 					Analysis.model.findOne({user: req.user._id, _id: a._id}).exec(function(e, an){
 		 						locals.analysis = an;
+		 						req.session.analysis = an.title;
+		 						req.session.analysisid = an._id
 		 						getPages();
 		 					})
 	 					});

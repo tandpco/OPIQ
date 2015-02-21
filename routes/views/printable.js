@@ -17,16 +17,15 @@ exports = module.exports = function(req, res) {
 
 	var id, user;
 
-	if (req.session.analysisid) {
-		var id = req.session.analysisid,
-			user = req.user._id;
-	} else if (req.body.origin == 'dashboard') {
-		var id    = req.body['an-id']
+	if (req.body.origin == 'dashboard') {
+		var id  = req.body['an-id']
 			user  = req.body['an-user'],
 			title = req.body['an-title'];
-		req.session.analysis = title;
+		  req.session.analysis = title;
+	} else if (req.session.analysisid) {
+		var id   = req.session.analysisid,
+				user = req.user._id;
 	}
-
 
 	// Analysis.model.find({_id = id}).exec(function(e, analysis) {
 	// 	locals.analysis = 
@@ -39,13 +38,12 @@ exports = module.exports = function(req, res) {
 			for(var i = 0; i < pages.length; i++){
 				var answer;
 				if(answers)
-				answer = _.findWhere(answers, {page : pages[i].name});
+					answer = _.findWhere(answers, {page : pages[i].name});
 
-				locals.categories.cats = _.uniq(_.pluck(pages, 'category'));
+					locals.categories.cats = _.uniq(_.pluck(pages, 'category'));
 
 
-				pages[i].answer =  answer ? answer.answer : 0;
-
+					pages[i].answer =  answer ? answer.answer : 0;
 
 				if(typeof locals.categories[pages[i].category] === 'undefined')
 					locals.categories[pages[i].category] = [];
@@ -76,7 +74,7 @@ exports = module.exports = function(req, res) {
 
 			for(var i in cat_totals){
 				// console.log(cat_totals[i])
-				locals.cat_totals[ i ] = (cat_totals[i].total / cat_totals[i].total_pages) * 20;
+				locals.cat_totals[i] = (cat_totals[i].total / cat_totals[i].total_pages) * 20;
 			}
 			
 			
