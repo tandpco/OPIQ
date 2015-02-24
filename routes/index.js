@@ -99,7 +99,7 @@ exports = module.exports = function(app) {
   app.post('/message', get_message);
   app.get('/forgot-page', routes.views.forgotPage);
   app.all('/print', routes.views.printable);
-  app.post('/help', function(req, res) {
+  app.all('/help', function(req, res) {
     var nodemailer = require("nodemailer");
     // create reusable transport method (opens pool of SMTP connections)
     var smtpTransport = nodemailer.createTransport("SMTP",{
