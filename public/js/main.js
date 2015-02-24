@@ -34,20 +34,20 @@ $('.close').click(function() {
 	return false;
 });
 $('.qaform').submit(function(req) {
-	var $this = $(this);
+	var form = $(this);
 	var updatePage = function(data) {
-		$this.fadeOut(function() {
-			$this.html('We have recieved your enquiry and will get back to you as soon as possible.').fadeIn();
+		$(form).fadeOut(function() {
+			$(form).html('We have recieved your enquiry and will get back to you as soon as possible.').fadeIn();
 		});
 	};
 	var printError = function(error) {
-		$this.html('We were unable to send your message.', status, err );
+		$(form).html('We were unable to send your message.', status, err );
 		$('button[value="SUBMIT"]').prop('disabled', false);
 	};
 	var ajaxOptions = {
 		url: '/help',
 		type: 'POST',
-		data: $this.serialize(),
+		data: $(form).serialize(),
 		success: updatePage,
 		error: printError
 	};
