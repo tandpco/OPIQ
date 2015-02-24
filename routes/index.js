@@ -112,7 +112,7 @@ exports = module.exports = function(app) {
     // setup e-mail data with unicode symbols
     var mailOptions = {
       from: "OpportunityIQ <opiq@launchthought.com>", // sender address
-      to: "daniel@theoryandpractice.co", // list of receivers
+      to: "wade@boldmore.com", // list of receivers
       subject: "OPIQ " + req.body.page, // Subject line
       html: '<strong>' + req.body.page + '</strong><br /><br />' + req.body.question + '<br /><br /><b>From:</b> ' + req.body.user + '<br><b>Email Address:</b> ' + req.body.email // html body
     }
@@ -148,7 +148,7 @@ exports = module.exports = function(app) {
             from: "notifications@opportunityIQ.com", // sender address
             to: email, // list of receivers
             subject: "Change Password", // Subject line
-            html: "Click <a href='http://localhost:3000/reset?" + uri + "'>here to change your password</a>"
+            html: "Click <a href='http://opiq.opportunityiq.com/reset?" + uri + "'>here to change your password</a>"
         });
         req.flash('success', 'Check your inbox or spam box for a password reset message.');
           view.render('forgot-page');
