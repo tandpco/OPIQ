@@ -1,5 +1,29 @@
 $(document).ready(function() {
 	updateAllScores();
+
+	$('.qaform').submit(function(req) {
+		var form = $(this);
+		var updatePage = function(data) {
+			$(form).fadeOut(function() {
+				$(form).html('We have recieved your enquiry and will get back to you as soon as possible.').fadeIn();
+			});
+		};
+		var printError = function(error) {
+			$(form).html('We were unable to send your message.');
+			$('button[value="SUBMIT"]').prop('disabled', false);
+		};
+		var ajaxOptions = {
+			url: '/help',
+			type: 'POST',
+			data: $(form).serialize(),
+			success: updatePage,
+			error: printError
+		};
+		$.ajax(ajaxOptions);
+		$('button[value="SUBMIT"]').prop('disabled', true);
+		return false;
+	});
+
 });
 
 $('#viewReport').on('click', function() {
@@ -31,28 +55,6 @@ $('.close').click(function() {
 	$('body').removeClass('open');
 	$('.overlay').fadeOut();
 	$('section#lightbox').fadeOut();
-	return false;
-});
-$('.qaform').submit(function(req) {
-	var form = $(this);
-	var updatePage = function(data) {
-		$(form).fadeOut(function() {
-			$(form).html('We have recieved your enquiry and will get back to you as soon as possible.').fadeIn();
-		});
-	};
-	var printError = function(error) {
-		$(form).html('We were unable to send your message.', status, err );
-		$('button[value="SUBMIT"]').prop('disabled', false);
-	};
-	var ajaxOptions = {
-		url: '/help',
-		type: 'POST',
-		data: $(form).serialize(),
-		success: updatePage,
-		error: printError
-	};
-	$.ajax(ajaxOptions);
-	$('button[value="SUBMIT"]').prop('disabled', true);
 	return false;
 });
 // HELPER FUNCS
