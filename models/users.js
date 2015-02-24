@@ -56,7 +56,7 @@ User.schema.methods.resetPassword = function(callback) {
 		
 		new keystone.Email('forgotten-password').send({
 			user: user,
-			link: '/reset-password/' + user.resetPasswordKey,
+			link: '/reset/' + user.resetPasswordKey,
 			subject: 'Reset your password',
 			to: user.email,
 			from: {

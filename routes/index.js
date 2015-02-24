@@ -101,7 +101,9 @@ exports = module.exports = function(app) {
   app.post('/pdf', routes.lib.pdf);
   app.post('/charge', routes.lib.charge);
   app.post('/message', get_message);
-  app.get('/forgot-page', routes.views.forgotPage);
+  app.get('/forgot-page', function(req,res) {
+    res.redirect('/forgot-password');
+  });
   app.all('/print', routes.views.printable);
   app.all('/help', function(req, res) {
     var nodemailer = require("nodemailer");
