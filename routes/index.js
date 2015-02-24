@@ -148,7 +148,7 @@ exports = module.exports = function(app) {
             from: "notifications@opportunityIQ.com", // sender address
             to: email, // list of receivers
             subject: "Change Password", // Subject line
-            html: "Click <a href='http://opiq.opportunityiq.com/reset?" + uri + "'>here to change your password</a>"
+            html: "Click <a href='http://opiq.opportunityiq.com/reset?token=" + uri + "'>here to change your password</a>"
         });
         req.flash('success', 'Check your inbox or spam box for a password reset message.');
           view.render('forgot-page');
