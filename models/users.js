@@ -18,7 +18,8 @@ User.add({
 	image : { type : Types.LocalFile, dest : 'images'},
 	stripeid : { type : String, hidden : true},
 	zip : {type : String},
-	oneYearPaidAccess : {type : Date}
+	oneYearPaidAccess : {type : Date},
+	resetPasswordKey : {type: String},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone' },
 	freeAccess : {type : Boolean, label : 'Free Analysis'}
@@ -40,6 +41,33 @@ User.schema.add({
 User.schema.virtual('canAccessKeystone').get(function() {
 	return this.isAdmin;
 });
+
+/* Reset Password */
+
+User.schema.methods.resetPassword = function(callback) {
+	
+	var user = this;
+
+	user.resetPasswordKey = keystone.utils.randomString([16,24]);
+	
+	user.save(function(err) {
+		
+		if (err) return callback(err);
+		
+		new keystone.Email('forgotten-password').send({
+			user: user,
+			link: '/reset-password/' + user.resetPasswordKey,
+			subject: 'Reset your password',
+			to: user.email,
+			from: {
+				name: 'Opportunity IQ',
+				email: 'support@opportunityiq.com'
+			}
+		}, callback);
+		
+	});
+	
+}
 
 
 /**

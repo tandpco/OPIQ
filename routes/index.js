@@ -78,6 +78,10 @@ exports = module.exports = function(app) {
   app.all('/:route', middleware.forceSSL);
   app.all('/', middleware.forceSSL);
 
+  // Reset Password
+  app.all('/forgot-password', routes.views.password.forgotPass);
+  app.all('/reset/:key', routes.views.password.resetPass);
+
   // Views
   app.get('/', routes.views.analysis);
   app.get('/allanswers', routes.updatedb.getallanswers);
@@ -128,72 +132,7 @@ exports = module.exports = function(app) {
         //smtpTransport.close(); // shut down the connection pool, no more messages
     });
   });
-  app.post('/forgot', function (req, res) {
-    var view = new keystone.View(req, res);
-      var email = req.body.email;
-      var ip = req.connection.remoteAddress;
-    
-    var crypto = require('crypto')
-      , shasum = crypto.createHash('sha1')
-    var mail = require("nodemailer").mail;
-
-    User.model.find({email : email}).exec(function (i, e) {
-      if(e.length > 0){
-        shasum.update("foo");
-        var uri = shasum.digest('hex');
-
-        keystone.set(ip + 'reset', {email : email , token : uri});
-
-        mail({
-            from: "notifications@opportunityIQ.com", // sender address
-            to: email, // list of receivers
-            subject: "Change Password", // Subject line
-            html: "Click <a href='http://opiq.opportunityiq.com/reset?token=" + uri + "'>here to change your password</a>"
-        });
-        req.flash('success', 'Check your inbox or spam box for a password reset message.');
-          view.render('forgot-page');
-      }else{
-        req.flash('error', 'No user found for email address');
-        view.render('forgot-page');
-      }
-    })
-
-  });
-  app.get('/reset', function  (req, res) {
-    var view = new keystone.View(req, res);
-
-    view.render('reset');
-  })
-  app.post('/reset', function (req, res) {
-    var view = new keystone.View(req, res),
-      User = keystone.list('User'),
-      ip = req.connection.remoteAddress;
-
-      if (!keystone.get(ip + 'reset')) {
-        req.flash('error', 'reset token not set');
-        view.render('reset');
-        return;
-      }
-
-      var password = req.body.password;
-      var confirm = req.body.confirm;
-      if (password !== confirm) {
-        req.flash('error', 'passwords do not match');
-        view.render('reset');
-        return;
-      }
-
-      User.model.findOne({email : keystone.get(ip + 'reset').email}).exec(function (e, u) {
-        u.password = password;
-        u.save();
-      })
- 
-      req.flash('success', 'password reset');
-      keystone.set(ip + 'reset', null);
-      res.locals.relocate = 'true';
-      view.render('reset');
-  });
-
+  
   app.post('/questions', routes.views.index);
   app.get('/questions', function(req, res, next) {
     // if(req.session.analysisid) {

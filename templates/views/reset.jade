@@ -9,12 +9,6 @@ html
 		link(rel="stylesheet", href="/styles/font-awesome.min.css")
 		link(rel="stylesheet", href="/styles/site.min.css")
 	body: #login
-		script.
-			var relocate =!{JSON.stringify(relocate)} || false;
-			if(relocate === 'true')
-				setTimeout(function(){
-					location.href='/';
-					}, 3000)
 		.head: .logo
 			a(href='/')
 				img(src="images/iq_logo.jpg")
@@ -23,13 +17,14 @@ html
 		.login-form
 			h1 Reset Password
 			+flash-messages(messages)
-			form(action='reset', method="post", novalidate)
+			form(method="post", novalidate)
+				input(type='hidden', name='action', value='reset')
 				.form-group
 					label(for='password') Password*
 					input(type='password', name='password', id='password').form-control
 				.form-group
 					label(for='confirm') Confirm Password*
-					input(type='password', name='confirm', id='confirm').form-control
+					input(type='password', name='password_confirm', id='confirm').form-control
 				button(type='submit') Submit
 		div.spacer(style="height: 200px;")
 		div#footer-outer.clearfix

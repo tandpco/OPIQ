@@ -21,6 +21,8 @@ keystone.init({
 	'views': 'templates/views',
 	'view engine': 'jade',
 	
+	'emails': 'templates/emails',
+
 	'updates' : 'updates',
 	'auto update': true,
 	
@@ -54,6 +56,14 @@ keystone.set('routes', require('./routes'));
 
 // Setup common locals for your emails. The following are required by Keystone's
 // default email templates, you may remove them if you're using your own.
+keystone.set('email rules', [{
+	find: '/images/',
+	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/images/' : 'http://localhost:3000/images/'
+}, {
+	find: '/keystone/',
+	replace: (keystone.get('env') == 'production') ? 'http://www.your-server.com/keystone/' : 'http://localhost:3000/keystone/'
+}]);
+
 
 // Configure the navigation bar in Keystone's Admin UI
 
