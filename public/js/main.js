@@ -5,7 +5,7 @@ $(document).ready(function() {
 		var form = $(this);
 		var updatePage = function(data) {
 			$(form).fadeOut(function() {
-				$(form).html('We have recieved your enquiry and will get back to you as soon as possible.').fadeIn();
+				$(form).html('We have received your inquiry and will get back to you as soon as possible.').fadeIn();
 			});
 		};
 		var printError = function(error) {
