@@ -32,12 +32,14 @@ mixin column(list, col, item)
 			+column_link(value, 'mailto:' + value)
 		else if col.type == 'boolean'
 			+column_boolean(value)
+		else if col.type == 'url'
+			+column_link(value, value, true)
 		else
 			+column_basic(value)
 
-mixin column_link(value, href)
+mixin column_link(value, href, newWindow)
 	if value
-		a(href=href)= value
+		a(href=href, target=newWindow ? '_blank' : undefined)= value
 
 mixin column_gravatar(src)
 	img(src=src).img-thumbnail

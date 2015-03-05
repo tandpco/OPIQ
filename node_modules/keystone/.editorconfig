@@ -7,11 +7,15 @@ end_of_line = lf
 charset = utf-8
 trim_trailing_whitespace = false
 insert_final_newline = true
-
-[*.jade]
 indent_style = tab
+
+[*.js]
 indent_size = 4
 
-[*.less]
-indent_style = tab
+[*.json]
+indent_style = space
+indent_size = 2
+
+[*.yml]
+indent_style = space
 indent_size = 2
