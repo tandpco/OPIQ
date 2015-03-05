@@ -92,3 +92,41 @@ exports.forceSSL = function(req,res,next) {
 	// // }
 	next();
 }
+
+
+exports.initAPI = function(keystone) {
+	return function initAPI(req, res, next) {
+		
+		res.apiResponse = function(data) {
+			if (req.query.callback) {
+				res.jsonp(data);
+			} else {
+				res.json(data);
+			}
+		};
+
+		res.apiError = function(key, err, msg, code) {
+			msg = msg || 'Error';
+			key = key || 'unknown error';
+			msg += ' (' + key + ')';
+			if (keystone.get('logger')) {
+				console.log(msg + (err ? ':' : ''));
+				if (err) {
+					console.log(err);
+				}
+			}
+			res.status(code || 500);
+			res.apiResponse({ error: key || 'error', detail: err });
+		};
+		
+		res.apiNotFound = function (err, msg) {
+			res.apiError('data not found', err, msg || 'not found', 404);
+		};
+		
+		res.apiNotAllowed = function (err, msg) {
+			res.apiError('access allowed', err, msg || 'not allowed', 403);
+		};
+
+		next();
+	};
+};

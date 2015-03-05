@@ -25,7 +25,6 @@ User.add({
 	freeAccess : {type : Boolean, label : 'Free Analysis'}
 });
 
-
 var TestSchema = new keystone.mongoose.Schema({
    zip : String,
    last4 : String,
@@ -35,7 +34,6 @@ var TestSchema = new keystone.mongoose.Schema({
 User.schema.add({
     cards: [TestSchema]
 });
-
 
 // Provide access to Keystone
 User.schema.virtual('canAccessKeystone').get(function() {

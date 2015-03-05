@@ -7,6 +7,7 @@ var Post = keystone.list('User');
  * List Posts
  */
 exports.list = function(req, res) {
+
 	Post.model.find(function(err, users) {
 		
 		if (err) return res.apiError('database error', err);
@@ -16,6 +17,7 @@ exports.list = function(req, res) {
 		});
 		
 	});
+	
 }
 
 exports.get = function(req, res) {

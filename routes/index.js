@@ -54,11 +54,6 @@ keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live 
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
 
-
-
-
-
-
 // Import Route Controllers
 var routes = {
   views: importRoutes('./views'),
