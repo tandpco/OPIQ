@@ -23,7 +23,8 @@ var _ = require('underscore'),
   middleware = require('./middleware'),
   importRoutes = keystone.importer(__dirname),
   url = require('url'),
-  User = keystone.list('User');
+  User = keystone.list('User'),
+  bodyParser = require('body-parser');
 
 
 
@@ -69,6 +70,7 @@ function get_message (req, res) {
 
 // Setup Route Bindings
 exports = module.exports = function(app) {
+
   // Session
   app.all('/:route', middleware.forceSSL);
   app.all('/', middleware.forceSSL);
@@ -99,7 +101,7 @@ exports = module.exports = function(app) {
   app.get('/forgot-page', function(req,res) {
     res.redirect('/forgot-password');
   });
-  app.all('/print', routes.views.printable);
+  app.all('/print', bodyParser({limit: '10mb'}), routes.views.printable);
   app.all('/help', function(req, res) {
     var nodemailer = require("nodemailer");
     // create reusable transport method (opens pool of SMTP connections)
@@ -148,14 +150,25 @@ exports = module.exports = function(app) {
   app.all('/register', routes.views.register);
   app.all('/contact', routes.views.contact);
 
-  app.all('/api/v1/users/list', keystone.middleware.api, routes.api.users.list);
-  app.all('/api/v1/user/:id', keystone.middleware.api, routes.api.users.get);
-  app.all('/api/v1/user/:id/assessments', keystone.middleware.api, routes.api.analysis.list);
-  app.all('/api/v1/assessment/:id/:user', keystone.middleware.api, routes.api.analysis.answers);
-  app.all('/api/v1/pages/list', keystone.middleware.api, routes.api.analysis.pages);
-  app.all('/api/v1/assessment/:id', keystone.middleware.api, routes.api.analysis.assessment);
-  app.all('/api/v1/answer/:id/:page', keystone.middleware.api, routes.api.analysis.answer);
-  app.all('/api/v1/page/:id', keystone.middleware.api, routes.api.analysis.page);
+  app.all('/api/v1/users/list', keystone.initAPI, routes.api.users.list);
+  app.all('/api/v1/user/:id', keystone.initAPI, routes.api.users.get);
+  app.all('/api/v1/user/:id/assessments', keystone.initAPI, routes.api.analysis.list);
+  app.all('/api/v1/assessment/:id/:user', keystone.initAPI, routes.api.analysis.answers);
+  app.all('/api/v1/pages/list', keystone.initAPI, routes.api.analysis.pages);
+  app.all('/api/v1/assessment/:id', keystone.initAPI, routes.api.analysis.assessment);
+  app.all('/api/v1/answer/:id/:page', keystone.initAPI, routes.api.analysis.answer);
+  app.all('/api/v1/page/:id', keystone.initAPI, routes.api.analysis.page);
+
+  // 3.0+
+  // app.all('/api/v1/users/list', keystone.middleware.api, routes.api.users.list);
+  // app.all('/api/v1/user/:id', keystone.middleware.api, routes.api.users.get);
+  // app.all('/api/v1/user/:id/assessments', keystone.middleware.api, routes.api.analysis.list);
+  // app.all('/api/v1/assessment/:id/:user', keystone.middleware.api, routes.api.analysis.answers);
+  // app.all('/api/v1/pages/list', keystone.middleware.api, routes.api.analysis.pages);
+  // app.all('/api/v1/assessment/:id', keystone.middleware.api, routes.api.analysis.assessment);
+  // app.all('/api/v1/answer/:id/:page', keystone.middleware.api, routes.api.analysis.answer);
+  // app.all('/api/v1/page/:id', keystone.middleware.api, routes.api.analysis.page);
+
 
   // UI Router States
   app.get('/dashboard', middleware.requireUser, routes.views.dashboard);
