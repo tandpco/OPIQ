@@ -74,12 +74,16 @@ html
 				.footer
 					div CURRENT OPPORTUNITIES
 					each a in analysis
-						form.analysis(action='questions', method='post', autocomplete="off")
+						a(href='/questions/'+a._id, class='analysis')
 							.icon: i.fa.fa-file-text-o
 							.t= a.title
-							input(type='hidden', value=a.title, name='title')
-							input(type='hidden', value=a._id, name='_id')
-							input(type='submit')
+							|&nbsp;
+						//- form.analysis(action='questions', method='post', autocomplete="off")
+						//- 	.icon: i.fa.fa-file-text-o
+						//- 	.t= a.title
+						//- 	input(type='hidden', value=a.title, name='title')
+						//- 	input(type='hidden', value=a._id, name='_id')
+						//- 	input(type='submit')
 	div#footer-outer.clearfix
 		div#footer-widgets
 			div.container

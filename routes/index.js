@@ -146,6 +146,7 @@ exports = module.exports = function(app) {
     // }
     res.redirect('/');
   });
+  app.get('/questions/:id', routes.views.index);
   app.all('/login', routes.views.login);
   app.all('/register', routes.views.register);
   app.all('/contact', routes.views.contact);
