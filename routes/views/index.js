@@ -194,7 +194,7 @@ function getPages(answers) {
       locals.pages = pages;
 
       // Render the view
-      view.render('index');
+      // view.render('index');
 
     });
 
