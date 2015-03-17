@@ -39,10 +39,11 @@ exports = module.exports = function(req, res) {
     // ENDIF
     // =============================
     if (!req.user) {
+      var trialID = (req.session.trialID ? req.session.trialID : null) 
       var newAn = new Analysis.model({
         title: req.body.analysis,
         trial: true,
-        user: req.session.trialID,
+        user: trialID,
       });
       newAn.save(function(){
         Analysis.model.findOne({_id: newAn._id}).exec(function(e, an){
