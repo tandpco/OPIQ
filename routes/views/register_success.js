@@ -14,12 +14,24 @@ exports = module.exports = function(req, res) {
 
 	} else {
 
-		Analysis.model.findOne({user: req.user._id}).exec(function(err, assessment) {
+		var id = (req.user.trialID ? req.user.trialID : req.user._id);
+
+		Analysis.model.findOne({user: id}).exec(function(err, assessment) {
 
 			if (assessment) {
+
 				res.redirect('/questions/'+assessment._id);
+
+				assessment.set({
+					user: req.user._id
+				});
+
+				assessment.save();
+
 			} else {
+
 				view.render('register_success');
+				
 			}
 
 		});

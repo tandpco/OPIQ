@@ -1,6 +1,6 @@
-var _ = require('underscore'),
-	keystone = require('keystone'),
-	Types = keystone.Field.Types;
+var _        = require('underscore'),
+		keystone = require('keystone'),
+		Types    = keystone.Field.Types;
 
 /**
  * Users
@@ -8,32 +8,33 @@ var _ = require('underscore'),
  */
 
 var User = new keystone.List('User', {
-	track : true
+	track: true
 });
 
 User.add({
 	name: { type: Types.Name, required: true, index: true },
 	email: { type: Types.Email, initial: true, required: true, index: true },
 	password: { type: Types.Password, initial: true, required: false },
-	image : { type : Types.LocalFile, dest : 'images'},
-	stripeid : { type : String, hidden : true},
-	zip : {type : String},
+	image : { type: Types.LocalFile, dest: 'images'},
+	stripeid : { type: String, hidden: true},
+	zip : {type: String},
 	oneYearPaidAccess : {type: Date},
 	resetPasswordKey : {type: String},
-	_id: {type: String},
+	trialID: {type: String, hidden: true},
+	// _id: {type: String},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone' },
-	freeAccess : {type : Boolean, label : 'Free Analysis'}
+	freeAccess: { type : Boolean, label : 'Free Analysis' }
 });
 
 var TestSchema = new keystone.mongoose.Schema({
-   zip : String,
-   last4 : String,
-   stripeCardID : String
+	zip : String,
+	last4 : String,
+	stripeCardID : String
 });
 
 User.schema.add({
-    cards: [TestSchema]
+	cards: [TestSchema]
 });
 
 // Provide access to Keystone

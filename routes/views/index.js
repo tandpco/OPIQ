@@ -42,7 +42,7 @@ exports = module.exports = function(req, res) {
       var newAn = new Analysis.model({
         title: req.body.analysis,
         trial: true,
-        user: req.session.userID
+        user: req.session.trialID,
       });
       newAn.save(function(){
         Analysis.model.findOne({_id: newAn._id}).exec(function(e, an){

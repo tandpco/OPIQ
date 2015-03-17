@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 	locals.anID = req.query.an;
 	req.session.analysisid = req.query.an;
 
-  console.log(req.session.userID);
+  console.log('Trial ID: ', req.session.trialID);
 
 	if (req.body.last4 instanceof Array) req.body.last4 = req.body.last4[0];
 	if (req.body.freepass instanceof Array) req.body.freepass = 'true';	
@@ -236,7 +236,7 @@ function build_user (fields, view, req, locals, res) {
 		zip: fields.zip,
 		_req_user: req.user,
 		oneYearPaidAccess: Date.now(),
-    _id: req.session.userID
+    trialID: req.session.trialID
 	});
 
 	var oldsession = req.session;
