@@ -14,5 +14,11 @@ Opportunity IQ is built on [KeystoneJS](http://www.keystonejs.com) which runs on
 ``` /routes/views/password/resetPass.js ``` is where the user enters a new password and the users token is checked for authenticity.
 ``` /models/users.js ``` has the resetPassword method which is where the reset token is generated and stored to the users account.
 ``` /templates/emails/forgotten-password.js ``` is the template for the email sent out to the user that requested a password reset token.
-### Assessmens
-Assessments are stored in a few seperated models. ```analysis.js``` is the main assessment model. This stores two primary fields, "user", and "title", as well as the database "_id". Using these fields we load the related records for each answer (```answer.js```). Each record in ```pages.js``` is a question in the assessment flow.  
+### Assessments
+Assessments are stored in a few seperated models. ```analysis.js``` is the main assessment model. This stores two primary fields, "user", and "title", as well as the database "_id". Using these fields we load the related records for each answer (```answer.js```). Each record in ```pages.js``` is a question in the assessment flow.
+### Environments
+OPIQ is currently hosted on Heroku.
+
+The staging environment can always be found with the latest code at ```http://opiq-stage.herokuapp.com/```
+
+The live environment can be found at ```http://opiq.opportunityiq.com/```, which functions as a CNAME for ```http://opportunityiq.herokuapp.com/```
