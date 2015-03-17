@@ -21,4 +21,4 @@ OPIQ is currently hosted on Heroku.
 
 The staging environment can always be found with the latest code at ```http://opiq-stage.herokuapp.com/```
 
-The live environment can be found at ```http://opiq.opportunityiq.com/```, which functions as a CNAME for ```http://opportunityiq.herokuapp.com/```
+The production environment can be found at ```http://opiq.opportunityiq.com/```, which functions as a CNAME for ```http://opportunityiq.herokuapp.com/```
