@@ -210,11 +210,8 @@ exports = module.exports = function(req, res) {
 					});
 				else getPages(view, locals, req, res);
 			}
-				
 
 		}
-		
-		
 
 	} 
 	
@@ -228,6 +225,10 @@ function resendPost (req, res) {
 
 function build_user (fields, view, req, locals, res) {
 
+	var trialID = (req.session.trialID ? req.session.trialID : null);
+
+	console.log('User ID: ', trialID)
+
 	var newUser = User.model({
 		name: { first : fields.firstname, last : fields.lastname},
 		email: fields.email,
@@ -236,7 +237,7 @@ function build_user (fields, view, req, locals, res) {
 		zip: fields.zip,
 		_req_user: req.user,
 		oneYearPaidAccess: Date.now(),
-    trialID: req.session.trialID
+    trialID: trialID
 	});
 
 	var oldsession = req.session;
@@ -248,18 +249,22 @@ function build_user (fields, view, req, locals, res) {
 	locals.main_total = 0;
 
 	var ip = req.headers['x-forwarded-for'];
+
 	newUser.save(function(err){
 
 		if(err)console.log(err);
 
-		User.model.findOne({email : fields.email}).exec(function(er, user){
+		User.model.findOne({email: fields.email}).exec(function(er, user) {
+
 			var backlog = keystone.get(ip + 'backlog'), ans;
 
 			// console.log('this is the ip in register' , req.headers['x-forwarded-for']);
 			
+			// session.signin(req.body, req, res, onSuccess, onFail);
+
 			if(backlog){
 
-				Analysis.model.findOne({title : backlog[0].analysistitle, user : ip}).exec(function(e, a){
+				Analysis.model.findOne({user: trialID}).exec(function(e, a){
 					a.user = user._id;
 					a.save();
 					for(var i = 0 ; i < backlog.length; i++){
@@ -319,20 +324,24 @@ function build_user (fields, view, req, locals, res) {
 					});
 				})
 				
-				
-			}else {
+			} else {
+
 				session.signin(req.body, req, res, onSuccess, onFail);
+
 			}
 
-			function onSuccess () {
+			function onSuccess() {
+
 				req.session.zip = oldsession.zip || null;
 				req.session.last4 = oldsession.last4 || null;
 				req.session.stripeid = oldsession.stripeid || null;
 				req.session.card = oldsession.card || null;
 				// console.log(req.session);			
 				res.redirect('/register-success');
+
 			}
-			function onFail () {
+
+			function onFail() {
 				locals.error = "Failed to sign in. Please try again.";
 				view.render(req.path.substring(1));
 			}

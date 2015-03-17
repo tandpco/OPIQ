@@ -1,6 +1,6 @@
-var keystone = require('keystone'),
-  _ = require('underscore'),
-  stripecust = require('../lib/stripecust.js');
+var keystone   = require('keystone'),
+    _          = require('underscore'),
+    stripecust = require('../lib/stripecust.js');
 
 exports = module.exports = function(req, res) {
   
@@ -51,7 +51,8 @@ exports = module.exports = function(req, res) {
           req.session.analysis = an.title;
           req.session.analysisid = an._id
           start(an);
-          res.redirect('/questions/' + an._id);
+          // res.location('/questions/'+an._id);
+          // res.redirect('/questions/' + an._id);
         });
       });
     } else {
@@ -69,7 +70,8 @@ exports = module.exports = function(req, res) {
               req.session.analysis = an.title;
               req.session.analysisid = an._id
               start(an);
-              res.redirect('/questions/' + an._id);
+              // res.location(an._id);
+              // res.redirect('/questions/' + an._id);
             });
           });
           // * End Creation
@@ -92,7 +94,8 @@ exports = module.exports = function(req, res) {
                 req.session.analysis = an.title;
                 req.session.analysisid = an._id
                 start(an);
-                res.redirect('/questions/' + an._id);
+                // res.location(an._id);
+                // res.redirect('/questions/' + an._id);
               });
             });
             // - * End Creation
@@ -115,7 +118,9 @@ exports = module.exports = function(req, res) {
         locals.Analysis = an;
         req.session.analysis = an.title;
         req.session.analysisid = an._id;
+        // res.location('/questions/'+an._id);
         start(an);
+        // res.location(an._id);
       } else if (req.user && an.user != req.user._id) {
         res.redirect('/');
         req.flash('error', 'You do not have the required permissions to view this assessment.');
@@ -129,14 +134,14 @@ exports = module.exports = function(req, res) {
   }
 
   function start(an) {
-    Answer.model.find({analysis : an._id}).exec(function (err, answers) {
+    Answer.model.find({analysis: an._id}).exec(function (err, answers) {
       if(err) console.log(err);
-      getPages(answers);
+      getPages(answers, an);
     });
   }
 
-  function getPages(answers) {
-    
+  function getPages(answers, assessment) {
+
     Page.model.find().sort('order').exec(function(err, pages) {
 
       var cat_totals = {},
@@ -192,12 +197,13 @@ exports = module.exports = function(req, res) {
       // Set locals
       locals.pages = pages;
 
-
       // Render the view
       view.render('index');
 
     });
 
   }
-  
+
+  // view.render('index');
+
 }

@@ -14,9 +14,13 @@ exports = module.exports = function(req, res) {
 
 	} else {
 
+		console.log(req.user._id);
+
 		var id = (req.user.trialID ? req.user.trialID : req.user._id);
 
 		Analysis.model.findOne({user: id}).exec(function(err, assessment) {
+
+			console.log(assessment);
 
 			if (assessment) {
 
