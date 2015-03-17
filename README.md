@@ -1,2 +1,2 @@
-OpportunityIQ
-=============
+# OPIQ
+Opportunity IQ
