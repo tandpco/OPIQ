@@ -239,25 +239,25 @@ function subMenu () {
 }
 function save () {
 	var answer = BASE.find('.answer i:visible').attr('answer');
-
-		if(!answer){
-			alert('Please Choose An Answer.');
-			return;
-		}
-
-
-		setanswer(answer);
+	if(!answer){
+		alert('Please Choose An Answer.');
+		return;
+	}
+	setanswer(answer);
 }
 
 function setanswer (answer) {
+
+	console.log('Analysis ID: ', Analysis._id);
+	console.log('Analysis Title: ', Analysis.title)
 
 	var obj = {
 		answer : answer,
 		page : current.name,
 		category : current.category,
 		analysis : Analysis._id || '',
-		analysistitle : Analysis.title ,
-		whatthismeans : current[ 'answer ' + answer + ' text'] || current['asnwer ' + answer + ' text'],
+		analysistitle : Analysis.title,
+		whatthismeans : current[ 'Answer ' + answer + ' text'] || current['Answer ' + answer + ' text'],
 		notes : BASE.find('textarea[name=notes]').val(),
 		work : BASE.find('textarea[name=work]').val()
 	}
@@ -266,11 +266,11 @@ function setanswer (answer) {
 
 	if(User)
 		obj.user = User._id;
+
 	$('#' + current._id).addClass('page-complete');
 
-
-	if(User){
-		$.post('savequestion', obj);
+	if (User) {
+		$.post('/savequestion', obj);
 		show_check(answer);
 	} else {
 		notLogged++;

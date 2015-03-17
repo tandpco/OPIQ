@@ -5,7 +5,7 @@ thead#assessment: th(colspan='100', class='no-pad inner-table'): table: thead
 		|{{assessment.user.name.first}}
 	th(colspan="1")
 		|{{assessment.title + ' '}}
-		i.fa.fa-print(ng-click="submit()")
+		a(href="/print/{{assessment._id}}", target="_blank"): i.fa.fa-print
 		.pull-right
 			span.label.label-default Created On {{createdOn | date: "HH:mma 'on' dd/MM/yyyy"}}
 tr
@@ -46,7 +46,7 @@ tr
 					input(type='hidden', name='an-id', value='{{assessment._id}}', class='form-control')
 					input(type='hidden', name='an-user', value='{{assessment.user._id}}', class='form-control')
 					input(type='hidden', name='an-title', value='{{assessment.title}}', class='form-control')
-					button(type='submit')
+				a(href="/print/{{assessment._id}}", target="_blank"): button(type='submit')
 						i.fa.fa-print
 						span.text Print Final Report
 		div.content(class='ui-view anim-in-out anim-fade')

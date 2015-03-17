@@ -28,11 +28,11 @@ var _ = require('underscore'),
 
 
 
-// keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
-// keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
+keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
+keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
 
-keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
-keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
+// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
+// keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
 
 
 // // Common Middleware
@@ -101,7 +101,7 @@ exports = module.exports = function(app) {
   app.get('/forgot-page', function(req,res) {
     res.redirect('/forgot-password');
   });
-  app.all('/print', bodyParser({limit: '10mb'}), routes.views.printable);
+  app.all('/print/:id', bodyParser({limit: '10mb'}), routes.views.printable);
   app.all('/help', function(req, res) {
     var nodemailer = require("nodemailer");
     // create reusable transport method (opens pool of SMTP connections)

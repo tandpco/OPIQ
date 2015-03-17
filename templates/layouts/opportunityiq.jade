@@ -57,10 +57,10 @@ html
 			#analysis-field.none=analysis
 		.splash.answered.none
 			.check-mark
-				img(src="images/answersaved.jpg")
+				img(src="/images/answersaved.jpg")
 		.splash.none.not-logged
 			.inner#lock
-				.lock: img(src="images/unlock.png")
+				.lock: img(src="/images/unlock.png")
 				.body
 					.head Unlock Your Venture's Opportunity
 					.body
@@ -69,7 +69,7 @@ html
 						p Congratulations! You’ve completed the analysis of the first three of more than 50 proven principles that make or break an opportunity. 
  
 						p Sign up now to save your results and complete the OpportunityIQ to dramatically improve the outcome of your venture.
-					.login: a(href="register") SIGN UP NOW!
+					.login: a(href="/register?an="+analysis._id) SIGN UP NOW!
 		.splash.none.rightwrong-box
 			.inner
 				.header: img(src="")
@@ -87,7 +87,7 @@ html
 							span.sr-only Toggle navigation
 							i.fa.fa-cog
 						a.navbar-brand(href='/')
-							img(src="images/iq_logo.jpg")
+							img(src="/images/iq_logo.jpg")
 							| Opportunity
 							span.gtext IQ
 				//- Navbar - left side
@@ -152,7 +152,7 @@ html
 												a=page.name
 					
 					.how-you-answered#score.none
-							.final-report: a.show-report(href="#report"): img(src='images/final.png')
+							.final-report: a.show-report(href="#report"): img(src='/images/final.png')
 							.body
 								.top
 									span 
@@ -305,16 +305,19 @@ html
 							//- 	a(href='print').large-main-button#get-pdf
 							//- 		img(src="images/pdf.png")
 							//- 		| Print Report
-							.download-pdf: form(action="print", method="post", target='_blank')
-								if typeof analysis === 'object'
-									input(type='hidden' name='analysis' value=analysis._id)
-								else
-									input(type='hidden' name='analysis' value=analysis)
-								input(type="hidden" value=JSON.stringify(categories) name='categories')
-								input(type="hidden" value=main_total name='total')
-								a(target='_blank').large-main-button#get-pdf
-									img(src="images/pdf.png")
-									| Print Report
+							//- .download-pdf: form(action="print", method="post", target='_blank')
+							//- 	if typeof analysis === 'object'
+							//- 		input(type='hidden' name='analysis' value=analysis._id)
+							//- 	else
+							//- 		input(type='hidden' name='analysis' value=analysis)
+							//- 	input(type="hidden" value=JSON.stringify(categories) name='categories')
+							//- 	input(type="hidden" value=main_total name='total')
+							//- 	a(target='_blank').large-main-button#get-pdf
+							//- 		img(src="/images/pdf.png")
+							//- 		| Print Report
+							.download-pdf: a(target='_blank', href='/print/'+analysis._id).large-main-button#get-pdf
+								img(src="/images/pdf.png")
+								| Print Report
 		block footer
 			div#footer-outer
 				div#footer-widgets

@@ -62,7 +62,7 @@ html
 				span.price 99
 				|/year, Unlimited Assessments
 			div 
-		form(method="post" id="register")
+		form(method="post", id="register", action="/register?redirect="+anID)
 			.regsection.col-xs-12
 				.col-sm-6.left
 					.number 1
@@ -114,7 +114,6 @@ html
 							img(src='images/cards.png')
 							br
 							input(type="text" size="20" name='number' value=(number ? number : '') data-stripe="number").form-control
-
 						.form-row.expiration
 							.labels
 								label: span Expiration

@@ -18,8 +18,9 @@ User.add({
 	image : { type : Types.LocalFile, dest : 'images'},
 	stripeid : { type : String, hidden : true},
 	zip : {type : String},
-	oneYearPaidAccess : {type : Date},
+	oneYearPaidAccess : {type: Date},
 	resetPasswordKey : {type: String},
+	_id: {type: String},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone' },
 	freeAccess : {type : Boolean, label : 'Free Analysis'}

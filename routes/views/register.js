@@ -12,11 +12,11 @@ var keystone = require('keystone'),
 
 exports = module.exports = function(req, res) {
 	
-	var view = new keystone.View(req, res),
-		locals = res.locals,
-		fields = req.body || {},
-		ip = req.headers['x-forwarded-for'],
-		page = req.body.checkout ? 'checkout' : 'register';
+	var view   = new keystone.View(req, res),
+		  locals = res.locals,
+		  fields = req.body || {},
+		  ip     = req.headers['x-forwarded-for'],
+		  page   = req.body.checkout ? 'checkout' : 'register';
 
 	locals.categories = {};
 	locals.categories.cats = [];
@@ -25,51 +25,55 @@ exports = module.exports = function(req, res) {
 	locals.main_total = 0;
 	locals.stripeApiKey = keystone.get('stripeApiKeyClient');
 
-	if(req.body.last4 instanceof Array)req.body.last4 = req.body.last4[0];
-	if(req.body.freepass instanceof Array)req.body.freepass = 'true';	
+	locals.anID = req.query.an;
+	req.session.analysisid = req.query.an;
 
+  console.log(req.session.userID);
 
+	if (req.body.last4 instanceof Array) req.body.last4 = req.body.last4[0];
+	if (req.body.freepass instanceof Array) req.body.freepass = 'true';	
 
 	if(req.body.analysis)
 		req.session.newanalysis = req.body.analysis;
 	
-	if(req.method === 'GET'){
+	if (req.method === 'GET') {
+
 		view.render('register');
-	}else{
+
+	} else {
+
 		var coupon, amount = 9900;
 
 		// Set Stripe api key to ENV variable
 		stripe.setApiKey(keystone.get('stripeApiKey'));
 
 		var COUPON_ID = req.body.coupon;
-		if(COUPON_ID){
-			stripecust.getCoupon(COUPON_ID, amount, startWithCoupon);
-		}else start(amount);
 
+		if (COUPON_ID) {
+
+			stripecust.getCoupon(COUPON_ID, amount, startWithCoupon);
+
+		} else start(amount);
 
 		function startWithCoupon (e, amount) {
-				if(!e){
-					if(amount < 50)amount = 50;
-					start(amount);	
-				}else{
-					resendPost(req, res);
-					locals.error = 'Failed to retrieve coupon';
-					page === 'checkout' ? stripecust.renderCheckout(req, res) : view.render('register');
-				}
-				
+			if(!e){
+				if(amount < 50)amount = 50;
+				start(amount);	
+			}else{
+				resendPost(req, res);
+				locals.error = 'Failed to retrieve coupon';
+				page === 'checkout' ? stripecust.renderCheckout(req, res) : view.render('register');
 			}
+		}
 		
-
-
 		function start(amount){
 			// Get the credit card details submitted by the form
 			var stripeToken = req.body.stripeToken;
 			// console.log(amount);
 			if(!stripeToken && req.headers.referer.match('register') && amount !== 0)
-					res.locals.error = 'No card info was put in';
-
+				res.locals.error = 'No card info was put in';
 			
-			if(!req.body.freepass || (req.user && !req.user.freeAccess) || !(req.user && Date.now() - req.user.oneYearPaidAccess >=  31536000730)){
+			if (!req.body.freepass || (req.user && !req.user.freeAccess) || !(req.user && Date.now() - req.user.oneYearPaidAccess >=  31536000730)) {
 				
 				if(req.headers.referer.match('register') && !req.body.checkout){
 					
@@ -223,15 +227,18 @@ function resendPost (req, res) {
 }
 
 function build_user (fields, view, req, locals, res) {
+
 	var newUser = User.model({
-		name : { first : fields.firstname, last : fields.lastname},
-		email : fields.email,
-		password : fields.password,
-		stripeid : req.session.stripeid,
-		zip : fields.zip,
-		_req_user : req.user,
-		oneYearPaidAccess : Date.now()
-	})
+		name: { first : fields.firstname, last : fields.lastname},
+		email: fields.email,
+		password: fields.password,
+		stripeid: req.session.stripeid,
+		zip: fields.zip,
+		_req_user: req.user,
+		oneYearPaidAccess: Date.now(),
+    _id: req.session.userID
+	});
+
 	var oldsession = req.session;
 
 	locals.categories = {};
@@ -240,11 +247,10 @@ function build_user (fields, view, req, locals, res) {
 	locals.cat_totals = {};
 	locals.main_total = 0;
 
-
 	var ip = req.headers['x-forwarded-for'];
 	newUser.save(function(err){
-		if(err)console.log(err);
 
+		if(err)console.log(err);
 
 		User.model.findOne({email : fields.email}).exec(function(er, user){
 			var backlog = keystone.get(ip + 'backlog'), ans;
@@ -273,21 +279,19 @@ function build_user (fields, view, req, locals, res) {
 					}
 					keystone.set(ip + 'routeToQuestions', true);
 					keystone.set(ip + 'backlog', null);
+
 				Page.model.find()
-				.sort('order')
+					.sort('order')
 			    .exec(function(err, pages) {
 			    		var cat_totals = {}, total_pages_answered = 0, main_total = 0;
 			    		for(var i = 0; i < pages.length; i++){
 							
 							locals.categories.cats = _.uniq(_.pluck(pages, 'category'));
 
-
 							pages[i].answer = 0;
-
 
 							if(typeof locals.categories[pages[i].category] === 'undefined')
 								locals.categories[pages[i].category] = [];
-
 
 							if(typeof cat_totals[pages[i].category] === 'undefined'){
 								// console.log(pages[i].category)
@@ -296,27 +300,19 @@ function build_user (fields, view, req, locals, res) {
 								cat_totals[pages[i].category].total_pages = 0;
 							}
 
-
 							locals.categories[pages[i].category].push(pages[i]);
-							
-							
+								
 						}
 						
-
-
 						locals.main_total = (main_total / total_pages_answered) * 20;
 
 						for(var i in cat_totals){
 							// console.log(cat_totals[i])
 							locals.cat_totals[ i ] = (cat_totals[i].total / cat_totals[i].total_pages) * 20;
 						}
-						
-			
-						
-
+					
 						// Set locals
 						locals.pages = pages;
-
 
 						session.signin(req.body, req, res, onSuccess, onFail);
 					
@@ -334,7 +330,7 @@ function build_user (fields, view, req, locals, res) {
 				req.session.stripeid = oldsession.stripeid || null;
 				req.session.card = oldsession.card || null;
 				// console.log(req.session);			
-				res.redirect('register-success');
+				res.redirect('/register-success');
 			}
 			function onFail () {
 				locals.error = "Failed to sign in. Please try again.";
@@ -355,56 +351,43 @@ function getPages (view, locals, req, res) {
 
 	locals.analysis = a;
 	a.save();
-	console.log('getting pages');
+	// console.log('getting pages');
 	
-
-
 	Page.model.find()
 		.sort('order')
-	    .exec(function(err, pages) {
-	    		var cat_totals = {}, total_pages_answered = 0, main_total = 0;
-	    		for(var i = 0; i < pages.length; i++){
-					
-					locals.categories.cats = _.uniq(_.pluck(pages, 'category'));
+    .exec(function(err, pages) {
+    		var cat_totals = {}, total_pages_answered = 0, main_total = 0;
+    		for(var i = 0; i < pages.length; i++){
+				
+				locals.categories.cats = _.uniq(_.pluck(pages, 'category'));
 
+				pages[i].answer = 0;
 
-					pages[i].answer = 0;
+				if(typeof locals.categories[pages[i].category] === 'undefined')
+					locals.categories[pages[i].category] = [];
 
-
-					if(typeof locals.categories[pages[i].category] === 'undefined')
-						locals.categories[pages[i].category] = [];
-
-
-					if(typeof cat_totals[pages[i].category] === 'undefined'){
-						// console.log(pages[i].category)
-						cat_totals[pages[i].category] = {};
-						cat_totals[pages[i].category].total = 0;
-						cat_totals[pages[i].category].total_pages = 0;
-					}
-
-
-					locals.categories[pages[i].category].push(pages[i]);
-					
-					
+				if(typeof cat_totals[pages[i].category] === 'undefined'){
+					// console.log(pages[i].category)
+					cat_totals[pages[i].category] = {};
+					cat_totals[pages[i].category].total = 0;
+					cat_totals[pages[i].category].total_pages = 0;
 				}
-				
 
+				locals.categories[pages[i].category].push(pages[i]);
+					
+			}
+			
+			locals.main_total = (main_total / total_pages_answered) * 20;
 
-				locals.main_total = (main_total / total_pages_answered) * 20;
-
-				for(var i in cat_totals){
-					// console.log(cat_totals[i])
-					locals.cat_totals[ i ] = (cat_totals[i].total / cat_totals[i].total_pages) * 20;
-				}
-				
-	
-				
-
-				// Set locals
-				locals.pages = pages;
-				
-				// Render the view
-				res.redirect('register-success');
-			});
-		
+			for(var i in cat_totals){
+				// console.log(cat_totals[i])
+				locals.cat_totals[ i ] = (cat_totals[i].total / cat_totals[i].total_pages) * 20;
+			}
+			
+			// Set locals
+			locals.pages = pages;
+			
+			// Render the view
+			res.redirect('register-success');
+		});
 }

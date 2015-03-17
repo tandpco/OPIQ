@@ -24,10 +24,12 @@ exports = module.exports = function(req, res) {
 	locals.main_total = 0;
 	
 	if(req.method === 'GET'){
-		view.render('checkout');
-	}else{
-		var coupon;
 
+		view.render('checkout');
+
+	}else{
+		
+		var coupon;
 		
 		stripe.setApiKey(keystone.get('stripeApiKey'));
 

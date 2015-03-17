@@ -10,21 +10,19 @@ html
 		script(src='/js/lib/jquery/jquery-1.10.2.js')
 		link(rel="stylesheet", href="/styles/print.css")
 			
-
-
 	body: #login.print
 		//- .analysis(style='display: ;')= analysis
 		.head
 			.text FINAL REPORT
 			.logo
 				a(href="/")
-					img(src="images/iq_logo.jpg")
+					img(src="/images/iq_logo.jpg")
 					| Opportunity
 					span.gtext IQ
 		.main-content
 			.first-page
 				img(src="http://opiq-stage.herokuapp.com/pdfimg/vert-logo.png")
-				.analysis-header(style='font-size: 30px')=analysis[0].analysistitle
+				.analysis-header(style='font-size: 30px')=analysis.analysistitle
 				br
 				.analysis-subtitle Opportunity Analysis
 				.date #{moment().format('MMMM d, YYYY')}
@@ -32,7 +30,7 @@ html
 				.header
 					.content-header: .t: span.venture
 						-console.log(analysis)
-						.bob=analysis[0].analysistitle
+						.bob=analysis.analysistitle
 					input(type="hidden" name="percentComplete" id="percentComplete" value="0")
 				.innerbody
 					.stripe

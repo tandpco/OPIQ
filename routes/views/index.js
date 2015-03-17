@@ -17,8 +17,6 @@ exports = module.exports = function(req, res) {
       locals.main_total = 0;
       locals.stripeApiKey = keystone.get('stripeApiKeyClient');
 
-      console.log('Request From:' + req.originalUrl);
-
   var anID = req.params.id;
 
   // IF REQ.METHOD == POST
@@ -40,33 +38,26 @@ exports = module.exports = function(req, res) {
     // - ENDIF
     // ENDIF
     // =============================
-    Analysis.model.find({user: req.user._id}).exec(function(e, an) {
-      // IF User has 0 Analysis OR Has Free Access
-      if (an.length <= 0 || req.user.freeAccess) {
-        // * Create the Analysis
-        var newAn = new Analysis.model({
-          title : req.body.analysis,
-          user : req.user._id
+    if (!req.user) {
+      var newAn = new Analysis.model({
+        title: req.body.analysis,
+        trial: true,
+        user: req.session.userID
+      });
+      newAn.save(function(){
+        Analysis.model.findOne({_id: newAn._id}).exec(function(e, an){
+          locals.analysis = an;
+          req.session.analysis = an.title;
+          req.session.analysisid = an._id
+          start(an);
+          res.redirect('/questions/' + an._id);
         });
-        newAn.save(function(){
-          Analysis.model.findOne({_id: newAn._id}).exec(function(e, an){
-            locals.analysis = an;
-            req.session.analysis = an.title;
-            req.session.analysisid = an._id
-            start(an);
-            res.redirect('/questions/' + an._id);
-          });
-        });
-        // * End Creation
-      // ELSE
-      } else {
-        // - IF User Hasn't Paid or Their Year of Access is Up
-        if (!req.user.oneYearPaidAccess || (Date.now() - req.user.oneYearPaidAccess >=  31536000730)) {
-          // - * Render the Checkout View
-          stripecust.renderCheckout(req, res);
-        // - ELSE (User has paid)
-        } else {
-          // - * Create the Analysis
+      });
+    } else {
+      Analysis.model.find({user: req.user._id}).exec(function(e, an) {
+        // IF User has 0 Analysis OR Has Free Access
+        if (an.length <= 0 || req.user.freeAccess) {
+          // * Create the Analysis
           var newAn = new Analysis.model({
             title : req.body.analysis,
             user : req.user._id
@@ -80,12 +71,36 @@ exports = module.exports = function(req, res) {
               res.redirect('/questions/' + an._id);
             });
           });
-          // - * End Creation
+          // * End Creation
+        // ELSE
+        } else {
+          // - IF User Hasn't Paid or Their Year of Access is Up
+          if (!req.user.oneYearPaidAccess || (Date.now() - req.user.oneYearPaidAccess >=  31536000730)) {
+            // - * Render the Checkout View
+            stripecust.renderCheckout(req, res);
+          // - ELSE (User has paid)
+          } else {
+            // - * Create the Analysis
+            var newAn = new Analysis.model({
+              title : req.body.analysis,
+              user : req.user._id
+            });
+            newAn.save(function(){
+              Analysis.model.findOne({_id: newAn._id}).exec(function(e, an){
+                locals.analysis = an;
+                req.session.analysis = an.title;
+                req.session.analysisid = an._id
+                start(an);
+                res.redirect('/questions/' + an._id);
+              });
+            });
+            // - * End Creation
+          }
+          // ENDIF
         }
         // ENDIF
-      }
-      // ENDIF
-    });
+      });
+    }
   } else {
 
     Analysis.model.findOne({_id: anID}).exec(function(err, an){
@@ -93,18 +108,20 @@ exports = module.exports = function(req, res) {
       if (err || !an) {
         res.redirect('/');
         req.flash('error', 'We were unable to find the opportunity assessment you were looking for.');
-      } else if (!req.user) {
-        res.redirect('/');
-        req.flash('error', 'You do not have the required permissions to view this assessment. Please try logging in or creating an account.');
-      } else if (req.user.isAdmin || an.user === req.user._id) {
+      } else if (req.user && req.user.isAdmin || req.user && an.user === req.user._id || an.trial === true) {
         locals.analysis = an;
+        locals.Analysis = an;
         req.session.analysis = an.title;
-        req.session.analysisid = an._id
+        req.session.analysisid = an._id;
         start(an);
-      } else if (an.user != req.user._id) {
+      } else if (req.user && an.user != req.user._id) {
         res.redirect('/');
         req.flash('error', 'You do not have the required permissions to view this assessment.');
+      } else {
+        res.redirect('/');
+        req.flash('error', 'Something went wrong.');
       }
+
     });
 
   }

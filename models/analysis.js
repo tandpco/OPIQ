@@ -13,9 +13,10 @@ var Analysis = new keystone.List('Analysis', {
 });
 
 Analysis.add({
-	user : { type: String },
-	title : {type : String},
-	paid : {type : Boolean}
+	user: {type: String},
+	title: {type: String},
+	paid: {type: Boolean},
+	trial: {type: Boolean, hidden: true}
 });
 
 Analysis.register();
