@@ -102,6 +102,7 @@ exports = module.exports = function(req, res) {
         // ENDIF
       });
     }
+
   } else {
 
     Analysis.model.findOne({_id: anID}).exec(function(err, an){
@@ -127,18 +128,16 @@ exports = module.exports = function(req, res) {
 
   }
 
-function start(an) {
-  Answer.model.find({analysis : an._id}).exec(function (err, answers) {
-    if(err) console.log(err);
-    getPages(answers);
-  });
-}
+  function start(an) {
+    Answer.model.find({analysis : an._id}).exec(function (err, answers) {
+      if(err) console.log(err);
+      getPages(answers);
+    });
+  }
 
-function getPages(answers) {
-  
-  Page.model.find()
-    .sort('order')
-    .exec(function(err, pages) {
+  function getPages(answers) {
+    
+    Page.model.find().sort('order').exec(function(err, pages) {
 
       var cat_totals = {},
         total_pages_answered = 0,
@@ -193,11 +192,12 @@ function getPages(answers) {
       // Set locals
       locals.pages = pages;
 
+
       // Render the view
-      // view.render('index');
+      view.render('index');
 
     });
 
   }
-
+  
 }
