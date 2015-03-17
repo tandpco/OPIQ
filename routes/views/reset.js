@@ -1,23 +1,22 @@
 var keystone = require('keystone');
 
 exports = module.exports = function(req, res) {
-		var view = new keystone.View(req, res);
+	
+	var view = new keystone.View(req, res);
 
-			console.log('Testing', req.query.token);
+  if (!req.session.reset) return req.flash('error', 'Reset token not set');
 
-	    if (!req.session.reset) return req.flash('error', 'Reset token not set');
+  var password = req.body.password;
+  var confirm = req.body.confirm;
+  if (password !== confirm) return req.flash('error', 'Passwords do not match');
 
-	    var password = req.body.password;
-	    var confirm = req.body.confirm;
-	    if (password !== confirm) return req.flash('error', 'Passwords do not match');
+  // update the user db here
+  forgot.expire(req.session.reset.id);
+  delete req.session.reset;
+  res.flash('success','password reset');
 
-	    // update the user db here
+  setTimeout(function () {
+  	view.render('/');
+  }, 3000);
 
-	    forgot.expire(req.session.reset.id);
-	    delete req.session.reset;
-	    res.flash('success','password reset');
-
-	    setTimeout(function () {
-	    	view.render('/');
-	    }, 3000);
-	}
+}

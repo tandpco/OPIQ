@@ -1,6 +1,6 @@
-var _ = require('underscore'),
-	keystone = require('keystone'),
-	Types = keystone.Field.Types;
+var _        = require('underscore'),
+  	keystone = require('keystone'),
+	  Types    = keystone.Field.Types;
 
 /**
  * Users
