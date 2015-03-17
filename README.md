@@ -1,6 +1,6 @@
 # OPIQ
 ### Basics
-Opportunity IQ is built on [KeystoneJS](http://www.keystonejs.com) which runs on [Node](https://nodejs.org/) &amp; [Express](http://expressjs.com/), and uses [MongoDB](http://www.mongodb.org/) for storage.
+Opportunity IQ is built on [KeystoneJS](http://www.keystonejs.com) which runs on [Node](https://nodejs.org/) &amp; [Express](http://expressjs.com/), and uses [MongoDB](http://www.mongodb.org/) for storage. The templating language is [Jade](jade-lang.com).
 ### Primary Flows
 #### Registration
 ``` /routes/views/register.js ``` is where the registration / pricing logic is run.  
@@ -13,5 +13,6 @@ Opportunity IQ is built on [KeystoneJS](http://www.keystonejs.com) which runs on
 ``` /routes/views/password/forgotPass.js ``` is the password reset form, where the user requests a reset email.
 ``` /routes/views/password/resetPass.js ``` is where the user enters a new password and the users token is checked for authenticity.
 ``` /models/users.js ``` has the resetPassword method which is where the reset token is generated and stored to the users account.
+``` /templates/emails/forgotten-password.js ``` is the template for the email sent out to the user that requested a password reset token.
 ### Assessmens
 Assessments are stored in a few seperated models. ```analysis.js``` is the main assessment model. This stores two primary fields, "user", and "title", as well as the database "_id". Using these fields we load the related records for each answer (```answer.js```). Each record in ```pages.js``` is a question in the assessment flow.
