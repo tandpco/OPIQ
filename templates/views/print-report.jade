@@ -55,7 +55,7 @@ html
 							tr.overall-wrap
 								td: div
 									span.circle
-									span.t OVERALL OPPORTUNITY
+									span.t Overall Opportunity
 								td: div: .bar: .bar-complete(percent=main_total || 0, style="width:#{main_total}%") 50
 								td: div: .percent: .num: span #{main_total || 0}%
 					each category in categories.cats
@@ -65,7 +65,7 @@ html
 									tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
 										td.category: div
 											span.circle
-											span.t=category.toUpperCase()
+											span.t=category
 										td: div: .bar(percent=cat_totals[category] || 0): .bar-complete(style="width:#{cat_totals[category]}%") #{cat_totals[category]}
 										td: div: .percent: .num: span #{Math.round(cat_totals[category]) || 0}%
 									each page in categories[category]
@@ -74,7 +74,7 @@ html
 												td.page: div
 													.connected
 													span.circle
-													span.t=page.name.toUpperCase()
+													span.t=page.name
 												td: div: .bar: .bar-complete(percent=page.answer style="width:#{page.answer * 20}%") #{page.answer}
 												td: div: .percent: .num: span #{page.answer * 20 || 0}%
 			.analysis= analysis.title
@@ -82,7 +82,9 @@ html
 				-var page = _.findWhere(pages, {name : answer.page})
 				.content-holder
 					.content-conent
-						.content-header: .t: span.name=answer.category.toUpperCase()+ ': ' + answer.page
+						.content-header: .t(style="width:100%;")
+							span.name=answer.category.toUpperCase()+ ': ' + answer.page
+							span(style="float:right;")= page.order + 1
 						- var main_word_length = 30
 						.inner-content
 							.section#keyprinciple

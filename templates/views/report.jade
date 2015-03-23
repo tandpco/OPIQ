@@ -53,7 +53,7 @@ html
 							tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
 								td.category: div
 									span.circle
-									span.t=category.toUpperCase()
+									span.t=category
 								td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
 								td: div: .percent: .num: span 50%
 							each page in categories[category]
@@ -61,7 +61,7 @@ html
 									td.page: div
 										.connected
 										span.circle
-										span.t=page.name.toUpperCase()
+										span.t=page.name
 									td: div: .bar(percent=page.answer): .bar-complete 50
 									td: div: .percent: .num: span 50%
 			a.pdf(href='pdf') pdf				

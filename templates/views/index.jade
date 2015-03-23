@@ -58,7 +58,23 @@ block content
 							.body: .t=page.answer5
 					.save
 						| SAVE ANSWER
-					
+					.content-header.sidebar-next
+						if page.order === 50
+							.nextprev
+								.t
+									span 
+										i.fa.fa-angle-left
+									span#viewReport(class='next') View Report
+									span 
+										i.fa.fa-angle-right
+						else
+							.nextprev
+								.t
+									span 
+										i.fa.fa-angle-left
+									span(data-action='next', class='next') Next Question
+									span 
+										i.fa.fa-angle-right
 					.how-you-answered.sb-head.sidebar-how-you-answered
 						.header.green
 							span(style="text-align: center;")
@@ -215,12 +231,29 @@ block content
 								.text
 									|Show Your Work (shared)
 							.body#notes: textarea(name='work')=(answer && answer.work || '')
-
+						.content-header.footer
+							if page.order === 50
+								.nextprev
+									.t
+										span 
+											i.fa.fa-angle-left
+										span#viewReport View Report
+										span 
+											i.fa.fa-angle-right
+							else
+								.nextprev
+									.t
+										span 
+											i.fa.fa-angle-left
+										span(data-action='next') Next Question
+										span 
+											i.fa.fa-angle-right
 						.section#needhelp
 							.header
 								.icon
 									i.fa.fa-question-circle
-								.text Need Help With This?
+								.text Need Help With This? 
+									small (This will not redirect you or interrupt your assessment)
 							.body
 								form.qaform(id='#' + page._id, action='help')
 									.textbox
@@ -233,7 +266,7 @@ block content
 										input(type="text", name="email", value='', class='form-control', placeholder='Email Address*', style='border-radius: 0; margin: 10px 0;', required)
 										input(type="text", name="user", value='', placeholder='Name*' class='form-control', style='border-radius: 0; margin: 10px 0;', required)
 									.submit
-										input(type="submit", value="SUBMIT")
+										input(type="submit", value="SUBMIT FOR HELP")
 
 	else
 		h1 Hello
