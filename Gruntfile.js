@@ -1,133 +1,142 @@
 'use strict()';
 
 var config= {
-		port: 3000
+  port: 3000
 };
 
 module.exports = function(grunt) {
 
-		// Load grunt tasks automatically
-		require('load-grunt-tasks')(grunt);
+    // Load grunt tasks automatically
+    require('load-grunt-tasks')(grunt);
 
-		// Time how long tasks take. Can help when optimizing build times
-		require('time-grunt')(grunt);
+    // Time how long tasks take. Can help when optimizing build times
+    require('time-grunt')(grunt);
 
-		// Project configuration.
-		grunt.initConfig({
-				pkg: grunt.file.readJSON('package.json'),
-				express: {
-						options: {
-								port: config.port
-						},
-						dev: {
-								options: {
-										script: 'keystone.js',
-										debug: true
-								}
-						}
-				},
+    // Project configuration.
+    grunt.initConfig({
+      pkg: grunt.file.readJSON('package.json'),
+      express: {
+        options: {
+          port: config.port
+        },
+        dev: {
+          options: {
+            script: 'keystone.js',
+            debug: true
+          }
+        }
+      },
 
-				jshint: {
-						options: {
-								reporter: require('jshint-stylish'),
-								force: true
-						},
-						all: [ 'routes/**/*.js',
-												 'models/**/*.js'
-						],
-						server: [
-								'./keystone.js'
-						]
-				},
+      jshint: {
+        options: {
+          reporter: require('jshint-stylish'),
+          force: true
+        },
+        all: [ 'routes/**/*.js', 'models/**/*.js'],
+        server: ['./keystone.js']
+      },
 
-				concurrent: {
-						dev: {
-								tasks: ['nodemon', 'node-inspector', 'watch'],
-								options: {
-										logConcurrentOutput: true
-								}
-						}
-				},
+      concurrent: {
+        dev: {
+          tasks: ['nodemon', 'node-inspector', 'watch'],
+          options: {
+            logConcurrentOutput: true
+          }
+        }
+      },
 
-				'node-inspector': {
-						custom: {
-								options: {
-										'web-host': 'localhost'
-								}
-						}
-				},
+      'node-inspector': {
+        custom: {
+          options: {
+            'web-host': 'localhost'
+          }
+        }
+      },
 
-				nodemon: {
-						debug: {
-								script: 'keystone.js',
-								options: {
-										nodeArgs: ['--debug'],
-										env: {
-												port: config.port
-										}
-								}
-						}
-				},
-				coffee: {
-					compile: {
-						files: {
-							'public/js/angular/dashboard.js': ['lib/**/*.coffee']
-						}
-					}
-				},
-				watch: {
-						js: {
-								files: [
-										'model/**/*.js',
-										'routes/**/*.js'
-								],
-								tasks: ['jshint:all']
-						},
-						express: {
-								files: [
-										'keystone.js',
-										'public/js/lib/**/*.{js,json}'
-								],
-								tasks: ['jshint:server', 'concurrent:dev']
-						},
-						livereload: {
-								files: [
-										'public/styles/**/*.css',
-										'public/styles/**/*.less',
-										'templates/**/*.jade',
-										'node_modules/keystone/templates/**/*.jade',
-										'public/js/**/*.js',
-										'lib/**/*.coffee'
-								],
-								options: {
-										livereload: true
-								}
-						},
-						coffee: {
-							files: ['lib/**/*.coffee'],
-							tasks: 'coffee'
-						}
-				}
-		});
+      nodemon: {
+        debug: {
+          script: 'keystone.js',
+          options: {
+            nodeArgs: ['--debug'],
+            env: {
+              port: config.port
+            }
+          }
+        }
+      },
+      coffee: {
+        compile: {
+          files: {
+            'public/js/angular/dashboard.js': ['lib/**/*.coffee']
+          }
+        }
+      },
+      stylus: {
+        compile: {
+          files: {
+            'public/styles/report/main.css': 'public/styles/report/main.styl',
+          },
+        },
+      },
+      watch: {
+        js: {
+          files: [
+          'model/**/*.js',
+          'routes/**/*.js'
+          ],
+          tasks: ['jshint:all']
+        },
+        express: {
+          files: [
+          'keystone.js',
+          'public/js/lib/**/*.{js,json}'
+          ],
+          tasks: ['jshint:server', 'concurrent:dev']
+        },
+        livereload: {
+          files: [
+          'public/styles/**/*.css',
+          'public/styles/**/*.less',
+          'templates/**/*.jade',
+          'node_modules/keystone/templates/**/*.jade',
+          'public/js/**/*.js',
+          'lib/**/*.coffee',
+          'public/styles/report/main.css',
+          'public/styles/report/main.styl'
+          ],
+          options: {
+            livereload: true
+          }
+        },
+        stylus: {
+          files: ['public/styles/report/*.styl'],
+          tasks: 'stylus'
+        },
+        coffee: {
+          files: ['lib/**/*.coffee'],
+          tasks: 'coffee'
+        }
+      }
+    });
 
-		// load jshint
-		grunt.registerTask('lint', function(target) {
-				grunt.task.run([
-						'jshint'
-				]);
-		});
+    // load jshint
+    grunt.registerTask('lint', function(target) {
+      grunt.task.run([
+        'jshint'
+      ]);
+    });
 
-		// default option to connect server
-		grunt.registerTask('serve', function(target) {
-				grunt.task.run([
-						'jshint',
-						'concurrent:dev'
-				]);
-		});
+    // default option to connect server
+    grunt.registerTask('serve', function(target) {
+      grunt.task.run([
+        'jshint',
+        'concurrent:dev'
+      ]);
+    });
 
-		grunt.registerTask('server', function () {
-				grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-				grunt.task.run(['serve:' + target]);
-		});
+    grunt.registerTask('server', function () {
+      grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+      grunt.task.run(['serve:' + target]);
+    });
 
-};
+  };

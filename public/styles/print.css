@@ -39,25 +39,50 @@ div.analysis {
 	text-align: center
 }
 .first-page img {
-	margin: 200px auto 40px;
-	width: 200px !important;
+	margin: 100px auto 40px;
+	width: auto;
 }
-.first-page, .last-page {
+.first-page p {
+	color: #666;
+	font-size: 22px;
+	font-weight: 300;
+	letter-spacing: 0.05em;
+	/*margin-top: 20px;*/
+}
+/*.first-page, .last-page {
 	display: none;
-}
+}*/
 .first-page, .last-page img{
 	color:white;
 }
 .analysis-header {
-    color: #999;
-    text-align: center;
-    font-size: 50px;
-    width: 100%;
-    font-family: museo !important;
+  text-align: center;
+  /*font-size: 144px;*/
+  width: 100%;
+  font-family: serif;
+  color: #FFF;
+  line-height: 142px;
+  background-color: #4D5B28;
+  border-top: 10px solid #ACCC49;
+  letter-spacing: 0.05em;
+  margin: 20px auto;
 }
-
 .first-page {
-    position: relative;
+  position: relative;
+}
+.first-page .footer {
+	background-color: #DFDFC9;
+	bottom: 0;
+	position: absolute;
+	left: 0;
+	right: 0;
+	text-align: center;
+	padding: 30px 0;
+}
+.first-page .footer p {
+	color: #3C4A1E;
+	margin: 0;
+	font-size: 18px;
 }
 #loader div img{
     width: 14px;
@@ -66,24 +91,24 @@ div.analysis {
 	margin-top: 5px;
 }
 #loader .cancel {
-    position: absolute;
-    top: -16px;
-    right: -7px;
-    background: black;
-    padding: 3px 7px;
-    font-size: 10px;
-    border-radius: 30px;
-    color: white;
-    border: 1px solid white;
-    cursor: pointer;
+  position: absolute;
+  top: -16px;
+  right: -7px;
+  background: black;
+  padding: 3px 7px;
+  font-size: 10px;
+  border-radius: 30px;
+  color: white;
+  border: 1px solid white;
+  cursor: pointer;
 }
 .logo #get-pdf {
-    font-size: 10px !important;
-    padding: 6px;
-    height: auto;
-    margin-right: 11px;
-    border-radius: 0;
-    vertical-align: 5px;
+  font-size: 10px !important;
+  padding: 6px;
+  height: auto;
+  margin-right: 11px;
+  border-radius: 0;
+  vertical-align: 5px;
 }
 .large-main-button {
 	background: #a8ba57;

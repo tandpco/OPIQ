@@ -32,7 +32,8 @@ exports = module.exports = function(req, res) {
 			locals.categories.cats;
 			locals.answers = answers;
 
-			view.render('report');		
+			view.render('report');
+			
 		})
 	})
 	

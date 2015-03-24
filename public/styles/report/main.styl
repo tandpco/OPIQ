@@ -1,0 +1,353 @@
+@import 'nib'
+
+/*
+ * Variables
+ */
+$green      = #B3D338
+$fadedGreen = #A8BA57
+$gray       = #383D40
+
+@media print
+  .report__header
+    display none !important
+  .report__container
+    background none !important
+    &:after
+      display none !important
+  .report__content
+    width 100% !important 
+    margin 0 !important
+    max-width none !important
+    .content__page
+      height 100% !important
+      margin-bottom 0 !important
+      padding-bottom 0 !important
+      .page__content .content__section
+        span
+          background-color #E8E8E8 !important
+          float left
+          &:first-of-type
+            display none !important
+          &:last-of-type
+            font-weight bold
+            letter-spacing 0.075em 
+            padding-left 1%
+            text-transform uppercase
+            width 100% !important
+        .section__header span
+          padding 0 15px !important
+        .section__body
+          padding 0 15px !important
+      &.overview
+        .page__header
+          line-height 60px !important
+          color #FFF !important
+          clearfix()
+          .overall-score
+            background none !important
+            color #FFF !important
+            position relative !important
+            right initial !important
+            top initial !important
+            float right !important
+            text-align right !important
+            height auto !important
+            width auto !important
+  .chart.inverse
+    background-color transparent !important
+  .chart table
+    td, th
+      font-size 12px !important
+      vertical-align middle !important
+      span.circle
+        position relative !important
+        top 1px !important
+  .report__content .content__page.answer .page__content .content__section.chart .section__header .progress-bar
+    &.gray
+      border 1px solid $gray !important
+      span
+        background-color $gray !important
+        display block !important
+    &.darkGreen
+      border 1px solid #778632 !important
+      span
+        background-color #778632 !important
+        display block !important
+    &.fadedGreen
+      border 1px solid $fadedGreen !important
+      span
+        background-color $fadedGreen !important
+        display block !important
+    
+@media all
+  /*
+   * Helper Classes
+   */
+  .align-left
+    text-align left
+  .align-right
+    text-align right
+  .align-middle
+    text-align center
+
+  .report__container
+    background-color darken($gray, 40%)
+    z-index 1
+    &:after
+      background-image url('/images/report-bg.png')
+      background-repeat repeat
+      bottom 0
+      content ""
+      left 0
+      opacity 0.25
+      position fixed
+      right 0
+      top 0
+      z-index 1
+
+  .report__header
+    background-color $gray
+    color #FFF
+    letter-spacing 0.1em
+    left 0
+    line-height 60px
+    position fixed
+    right 0
+    top 0
+    transition all 300ms ease
+    vertical-align middle
+    z-index 3
+    .header__logo
+      color #FFF
+      text-decoration none
+      span
+        color $green
+    .header__title
+      font-size 24px
+      font-weight 100
+    &.opaque
+      background-color rgba(#383D40, 0.95)
+      line-height 32px
+      .header__logo
+        img
+          // height 18px
+          display none
+      .header__title
+        font-size 16px
+      
+  .report__content
+    margin 75px auto 40px
+    max-width 816px
+    position relative
+    width 80%
+    z-index 2
+    .content__page
+      background-color #FFF
+      box-shadow 0 0 5px black
+      height 1056px
+      margin-bottom 30px
+      padding-bottom 50px
+      padding-top 50px
+      page-break-after always
+      &.cover
+        padding-top 200px
+        position relative
+        .cover__body
+          margin-top 200px
+          p
+            color #5D5D5D
+            font-size 18px
+          .cover__title
+            background-color #4C5B28 !important
+            border-top 6px solid $green
+            color #FFF !important
+            font-family serif
+            font-size 72px
+            line-height 144px
+        .cover__footer
+          background-color #DDE7C9 !important
+          bottom 0
+          color #4C5B28 !important
+          left 0
+          position absolute
+          right 0
+          padding-top 30px
+          padding-bottom 30px
+          p
+            margin 0
+            font-size 16px
+            // font-weight 500
+      &.overview
+        .page__header
+          background-color $fadedGreen !important
+          color #FFF !important
+          font-size 18px !important
+          line-height 48px !important
+          margin-bottom 25px !important
+          padding 0 15px !important
+          clearfix()
+          .overall-score
+            background-color $gray
+            height 60px 
+            line-height 60px
+            position absolute 
+            right 15px 
+            text-align center 
+            top -6px 
+            width 70px 
+      &.answer
+        padding-bottom 30px
+        padding-left 15px
+        padding-right 15px
+        padding-top 30px
+        .page__header
+          border-bottom 1px solid #DDD
+          color $green
+          margin-bottom 10px
+          padding-bottom 10px
+          text-transform capitalize
+        .page__content
+          .content__section
+            color #666
+            margin-bottom 30px
+            .section__header
+              line-height 32px
+              margin-bottom 15px
+              clearfix()
+              span
+                background-color #E8E8E8 !important
+                float left
+                &:first-of-type
+                  margin-right 1%
+                  text-align center
+                  width 5%
+                &:last-of-type
+                  font-weight bold
+                  letter-spacing 0.075em 
+                  padding-left 1%
+                  text-transform uppercase
+                  width 94%
+            .section__body
+              font-size 13px
+              padding-left 7%
+              white-space pre-line
+              p
+                margin 0
+            &.answer
+              background-color #E8E8E8 !important
+              padding 30px
+              .section__header
+                font-weight bold
+                line-height 18px
+                margin-bottom 5px
+                text-transform uppercase
+              .section__body
+                padding 0
+                white-space initial !important
+                .opt:nth-child(n+2)
+                  margin-top 10px
+                .opt
+                  padding-left 30px
+                  position relative
+                  .fa-stack
+                    left 0
+                    position absolute
+                .fa-stack
+                  margin-right 5px
+                i.fa.fa-check.fa-stack-1x
+                  color $green !important
+                i.fa.fa-square
+                  color #FFF
+      &.back-cover
+        background-color #4C5B28 !important
+        img
+          margin-top 300px
+        .cover__footer
+          background-color #DDE7C9 !important
+          bottom 0
+          color #4C5B28 !important
+          left 0
+          position absolute
+          right 0
+          padding-top 60px
+          padding-bottom 60px
+          p
+            margin 0
+            font-size 16px
+  // Styling for Charts
+  .chart 
+    table
+      background-color transparent !important
+      margin-bottom 0
+      table-layout fixed !important
+      span.circle
+        background-color $gray !important
+        border-radius 50% !important
+        display inline-block !important
+        height 11px !important
+        margin-right 5px !important
+        width 11px !important
+      .progress-bar
+        background-color transparent
+        box-shadow none
+        height 20px
+        overflow hidden
+        width 100%
+        span
+          color #FFF !important
+          display block
+          font-size 11px
+          height 18px
+          line-height 18px
+          min-width 30%
+          text-align center
+        &.gray
+          border 1px solid $gray !important
+          & > span
+            background-color $gray !important
+        &.darkGreen
+          border 1px solid #778632 !important
+          & > span
+            background-color #778632 !important
+        &.fadedGreen
+          border 1px solid $fadedGreen !important
+          & > span
+            background-color $fadedGreen !important
+      &.answer-score
+        text-transform capitalize
+    &.inverse
+      background-color #F9F9F9
+      padding 15px
+      // margin 0 px
+      table
+        background-color transparent !important
+        span.circle
+          background-color #666 !important
+        tr.sub-row:nth-child(n+3) td.sub-list
+          position relative !important
+          &:before
+            background-color #666 !important
+            content "" !important
+            height 30px !important
+            left 25px !important
+            position absolute !important
+            top -15px !important
+            width 1px !important
+        td
+          border 0 !important
+          text-transform capitalize !important
+          &.sub-list
+            padding-left 20px !important
+  .report__content .content__page.answer .page__content .content__section.chart .section__header .progress-bar
+    &.gray
+      border 1px solid $gray !important
+      span
+        background-color $gray !important
+    &.darkGreen
+      border 1px solid #778632 !important
+      span
+        background-color #778632 !important
+    &.fadedGreen
+      border 1px solid $fadedGreen !important
+      span
+        background-color $fadedGreen !important

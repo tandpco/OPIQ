@@ -1,0 +1,183 @@
+doctype html
+html
+	head
+		title View Report - #{anInfo.title}
+
+		meta(charset="utf-8")
+		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+
+		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+
+		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+		link(rel="stylesheet", href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css")
+
+		link(rel="stylesheet", href="/styles/report/main.css")
+
+		//- link(rel="stylesheet", href="/styles/site.min.css")
+		//- link(rel="stylesheet", href="/styles/print.css")
+
+		script(src='/js/lib/jquery/jquery-1.10.2.js')
+		script(src='http://f.cl.ly/items/2V1h222T1d2C3U150k0F/xepOnline.jqPlugin.js')
+			
+	body.report__container
+		.report__header: .row: .container-fluid
+			.col-md-3
+				a(href='/', class='header__logo')
+					img(src="/images/opiq-icon.png", height="30") 
+					|&nbsp;Opportunity
+					span IQ
+			.col-md-6.align-middle.header__title #{anInfo.title}
+			.col-md-3.align-right FINAL REPORT 
+				i.fa.fa-print#print
+		#reportWrapper: .report__content
+			.content__page.cover: .align-middle
+				.logo
+					img(src="/images/logo.png", height="70")
+				.cover__body
+					p Exclusively Prepared For
+					p.cover__title #{anInfo.title}
+					p #{moment().format('MMMM d, YYYY')}
+				.cover__footer
+					p: strong Confidential
+					br
+					p Copyright © 2014 Boldmore Growth Partners, LLC. All rights reserved.
+				//- h1 #{anInfo.title}
+			.content__page.overview
+				.page__header: .row: .col-md-12
+					div(style="float: left; line-height: 60px; color: #FFF !important;") Summary - Overall Opportunity Score
+					.align-right(style="float: right; height: auto; line-height: 60px;"): .overall-score(style="height: auto; line-height: 60px; top: 0;") #{main_total + '%' || 0 + '%'}
+				.page__content: .container-fluid
+					.chart
+						-var total = [];
+						each category in categories
+							each i in category
+								if typeof i.answer !== 'undefined'
+									-total.push(i.answer);
+						table.table(style="margin-bottom: 15px;")
+							thead
+								tr
+									th.col-md-3(style="width: 25% !important;") Category
+									th.col-md-7(style="width: 58.33333333% !important;")
+										div(style="float: left;") Needs Improvement
+										.align-right(style="float: right;") Excellent
+									th.col-md-2.align-right(style="width: 16.66666667% !important;") Percent
+							tbody
+								tr
+									td
+										span.circle
+										span.title Overall
+									td
+										.progress-bar.gray: span(style="width: 30%")
+									td
+										.progress-bar.gray: span(style="width: 30%") 30%
+					each category in categories.cats
+						if cat_totals[category] > 0
+							.row.chart.inverse
+								table.table
+									tbody
+										tr
+											td.col-md-3(style="width: 25% !important;")
+												span.circle
+												span.title #{category}
+											td.col-md-7(style="width: 58.33333333% !important;")
+												.progress-bar.darkGreen: span(style="width: #{cat_totals[category]}%")
+											td.col-md-2(style="width: 16.66666667% !important;")
+												.progress-bar.darkGreen: span(style="width: #{Math.round(cat_totals[category]) || 0}%") #{Math.round(cat_totals[category]) || 0}%
+										each page in categories[category]
+											if page && page.answer > 0
+												tr.sub-row
+													td.sub-list
+														span.circle
+														span.title #{page.name}
+													td: .progress-bar.fadedGreen: span(style='width: #{page.answer * 20}%;')
+													td: .progress-bar.fadedGreen: span(style='width: #{page.answer * 20}%;') #{page.answer * 20}%
+			each answer, i in answers
+				-var page = _.findWhere(pages, {name: answer.page})
+				.content__page.answer: .container-fluid
+					.page__header: .row: .col-md-12
+						div(style="float: left;") #{answer.category + ': ' + answer.page} 
+						.align-right(style="float: right;") Page #{i + 2}
+					.page__content
+						.content__section
+							.section__header
+								span: i.fa.fa-lightbulb-o
+								span Key Principle
+							.section__body !{page['Key Principle']}
+						.content__section
+							.section__header
+								span: i.fa.fa-book
+								span Definition
+							.section__body !{page['Definition']}
+						.content__section
+							.section__header
+								span: i.fa.fa-flag
+								span Why This Matters
+							.section__body !{page['Why This Matters']}
+						if answer.work
+							.content__section
+								.section__header
+									span: i.fa.fa-superscript
+									span Show Your Work 
+										small(style="float: right; padding-right: 1%;") (Shared)
+								.section__body #{answer.work}
+						.content__section.answer
+							.section__header Answer
+							.section__body
+								-var ans = _.findWhere(pages, {name: answer.page})
+								-var ans = ans ? Number(ans.answer) : null
+								each val in [1, 2, 3, 4, 5]
+									.opt(class='opt-#{val}')
+										if (ans === val)
+											.fa-stack.fa-sm
+												i.fa.fa-square.fa-stack-2x
+												i.fa.fa-check.fa-stack-1x
+											//- i.fa.fa-check-square.fa-fw
+										else
+											.fa-stack.fa-sm
+												i.fa.fa-square.fa-stack-2x
+										!=page['answer'+val]
+						.content__section.green.chart
+							.section__header
+								span: i.fa.fa-tasks
+								span How You Answered
+								table.table.answer-score
+									-var total = [];
+									-var obj = {};
+									each category in categories
+										each i in category
+											if typeof i.answer !== 'undefined' 
+												- total.push(i.answer)
+												- obj[i.name] = i.answer
+									thead
+										tr
+											th.col-md-3(style="width: 25% !important;") Score By Category
+											th.col-md-7(style="width: 58.33333333% !important;")
+												div(style="float: left;") Needs Improvement
+												.align-right(style="float: right;") Excellent
+											th.col-md-2.align-right(style="width: 16.66666667% !important;") Percent
+									tbody
+										tr
+											td Opportunity
+											td
+												.progress-bar.gray: span(style="width: "+main_total+"%")
+											td
+												.progress-bar.gray: span(style="width: "+main_total+"%") #{main_total.toFixed(0)}%
+										tr
+											td #{page.category}
+											td
+												.progress-bar.gray: span(style="width: "+cat_totals[page.category]+"%")
+											td
+												.progress-bar.gray: span(style="width: "+cat_totals[page.category]+"%") #{cat_totals[page.category].toFixed(0)}%
+										tr
+											td #{page.name}
+											td
+												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"%")
+											td
+												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"%") #{(answer.answer * 20).toFixed(0)}%
+			.content__page.back-cover: .align-middle
+				.logo
+					img(src="/images/logo-white.png", height="70")
+				.cover__footer
+					p www.OpportunityIQ.com
+form(action="/pdf" method="post")
+script(src="/js/print-pdf.js")

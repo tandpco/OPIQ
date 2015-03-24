@@ -102,6 +102,9 @@ exports = module.exports = function(app) {
     res.redirect('/forgot-password');
   });
   app.all('/print/:id', bodyParser({limit: '10mb'}), routes.views.printable);
+
+  app.all('/report/:id', bodyParser({limit: '10mb'}), routes.views.reportPreview);
+
   app.all('/help', function(req, res) {
     var nodemailer = require("nodemailer");
     // create reusable transport method (opens pool of SMTP connections)
@@ -122,9 +125,9 @@ exports = module.exports = function(app) {
     // send mail with defined transport object
     smtpTransport.sendMail(mailOptions, function(error, response){
         if(error){
-            console.log(error);
+          console.log(error);
         }else{
-            res.send(true);
+          res.send(true);
         }
 
         // if you don't want to use this transport object anymore, uncomment following line

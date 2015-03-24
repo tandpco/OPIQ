@@ -17,6 +17,8 @@ exports = module.exports = function(req, res) {
 
 	var anID = req.params.id;
 
+	console.log(anID);
+
 	// if (req.body.origin == 'dashboard') {
 	// 	var id  = req.body['an-id']
 	// 		user  = req.body['an-user'],
@@ -35,8 +37,13 @@ exports = module.exports = function(req, res) {
 
 		req.session.analysis   = an.title;
 		req.session.analysisid = an._id;
+
 		var id   = req.session.analysisid,
 				user = req.user._id;
+
+		locals.anInfo = an;
+
+		// console.log(locals.anInfo);
 
 		Answer.model.find({analysis: id, user: user}).exec(function (e, answers) {
 
@@ -92,6 +99,7 @@ exports = module.exports = function(req, res) {
 				locals.pages = pages;
 
 				showPage();
+				
 			})
 
 		});
