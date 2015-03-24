@@ -17,13 +17,13 @@ html
 		//- link(rel="stylesheet", href="/styles/print.css")
 
 		script(src='/js/lib/jquery/jquery-1.10.2.js')
-		script(src='http://f.cl.ly/items/2V1h222T1d2C3U150k0F/xepOnline.jqPlugin.js')
+		//- script(src='http://f.cl.ly/items/2V1h222T1d2C3U150k0F/xepOnline.jqPlugin.js')
 			
 	body.report__container
 		.report__header: .row: .container-fluid
 			.col-md-3
 				a(href='/', class='header__logo')
-					img(src="/images/opiq-icon.png", height="30") 
+					img(src="http://opiq-stage.herokuapp.com/images/logo.png", height="30") 
 					|&nbsp;Opportunity
 					span IQ
 			.col-md-6.align-middle.header__title #{anInfo.title}
@@ -35,7 +35,7 @@ html
 					img(src="/images/logo.png", height="70")
 				.cover__body
 					p Exclusively Prepared For
-					p.cover__title #{anInfo.title}
+					p.cover__title(style="font-family: serif;") #{anInfo.title}
 					p #{moment().format('MMMM d, YYYY')}
 				.cover__footer
 					p: strong Confidential
@@ -176,7 +176,7 @@ html
 												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"%") #{(answer.answer * 20).toFixed(0)}%
 			.content__page.back-cover: .align-middle
 				.logo
-					img(src="/images/logo-white.png", height="70")
+					img(src="http://opiq-stage.herokuapp.com/images/logo-white.png", height="70")
 				.cover__footer
 					p www.OpportunityIQ.com
 form(action="/pdf" method="post")
