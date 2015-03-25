@@ -18,9 +18,9 @@ $gray       = #383D40
     width 100% !important 
     margin 0 !important
     max-width none !important
-    font-family initial !important
+    font-family sans-serif !important
     .content__page
-      font-family initial !important
+      font-family sans-serif !important
       height 100% !important
       margin-bottom 0 !important
       padding-bottom 0 !important
@@ -40,7 +40,6 @@ $gray       = #383D40
           padding 0 15px !important
         .section__body
           padding 0 15px !important
-          white-space pre-line !important
       &.overview
         .page__header
           line-height 60px !important
@@ -81,6 +80,8 @@ $gray       = #383D40
       span
         background-color $fadedGreen !important
         display block !important
+  table, tbody, thead, th, td, tr
+    page-break-after avoid !important
     
 @media all
   /*
@@ -233,7 +234,7 @@ $gray       = #383D40
             .section__body
               font-size 13px
               padding-left 7%
-              white-space pre-line
+              white-space pre-line !important
               p
                 margin 0
             &.answer

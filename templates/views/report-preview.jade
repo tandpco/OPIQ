@@ -29,7 +29,7 @@ html
 			.col-md-6.align-middle.header__title #{anInfo.title}
 			.col-md-3.align-right FINAL REPORT 
 				i.fa.fa-print#print
-		#reportWrapper: .report__content
+		#reportWrapper: .report__content(style="font-family: sans-serif;")
 			.content__page.cover: .align-middle
 				.logo
 					img(src="http://opiq-stage.herokuapp.com/images/logo.png", height="70")
@@ -102,24 +102,24 @@ html
 							.section__header
 								span: i.fa.fa-lightbulb-o
 								span Key Principle
-							.section__body !{page['Key Principle']}
+							.section__body(style='white-space: pre;') !{page['Key Principle']}
 						.content__section
 							.section__header
 								span: i.fa.fa-book
 								span Definition
-							.section__body !{page['Definition']}
+							.section__body(style='white-space: pre;') !{page['Definition']}
 						.content__section
 							.section__header
 								span: i.fa.fa-flag
 								span Why This Matters
-							.section__body !{page['Why This Matters']}
+							.section__body(style='white-space: pre;') !{page['Why This Matters']}
 						if answer.work
 							.content__section
 								.section__header
 									span: i.fa.fa-superscript
 									span Show Your Work 
 										small(style="float: right; padding-right: 1%;") (Shared)
-								.section__body #{answer.work}
+								.section__body(style='white-space: pre;') #{answer.work}
 						.content__section.answer
 							.section__header Answer
 							.section__body
