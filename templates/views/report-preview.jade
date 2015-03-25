@@ -17,18 +17,29 @@ html
 		//- link(rel="stylesheet", href="/styles/print.css")
 
 		script(src='/js/lib/jquery/jquery-1.10.2.js')
-		script(src='http://f.cl.ly/items/2V1h222T1d2C3U150k0F/xepOnline.jqPlugin.js')
 			
-	body.report__container
-		.report__header: .row: .container-fluid
-			.col-md-3
-				a(href='/', class='header__logo')
-					img(src="/images/opiq-icon.png", height="30") 
-					|&nbsp;Opportunity
-					span IQ
-			.col-md-6.align-middle.header__title #{anInfo.title}
-			.col-md-3.align-right FINAL REPORT 
-				i.fa.fa-print#print
+	body.report__container.download
+		.loading-overlay
+			.dl-overlay: .text
+				.print: a(class='btn btn-lightbox') Download Now 
+					i.fa.fa-download
+				br
+				small.shut View Report
+			.report__header: .row: .container-fluid
+				.col-md-3
+					a(href='/', class='header__logo')
+						img(src="/images/opiq-icon.png", height="30") 
+						|&nbsp;Opportunity
+						span IQ
+				.col-md-6.align-middle.header__title #{anInfo.title}
+				.col-md-3.align-right: span.print Download PDF
+					.loading
+						i.fa.fa-cog.fa-spin
+					.loaded
+						i.fa.fa-print
+				a.download-btn.print
+					| Download 
+					i.fa.fa-download
 		#reportWrapper: .report__content(style="font-family: sans-serif;")
 			.content__page.cover: .align-middle
 				.logo
@@ -179,5 +190,5 @@ html
 					img(src="http://opiq-stage.herokuapp.com/images/logo-white.png", height="70")
 				.cover__footer
 					p www.OpportunityIQ.com
-form(action="/pdf" method="post")
-script(src="/js/print-pdf.js")
+form(action="/print-report" method="post")
+script(src="/js/print-report.js")

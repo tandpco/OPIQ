@@ -95,7 +95,7 @@ exports = module.exports = function(app) {
   app.post('/logged', routes.updatedb.checklogged);
   app.post('/bklog', routes.lib.newbl);
   app.post('/savequestion', routes.updatedb.savequestion);
-  app.post('/pdf', routes.lib.pdf);
+  app.post('/print-report', routes.lib['print-report']);
   app.post('/charge', routes.lib.charge);
   app.post('/message', get_message);
   app.get('/forgot-page', function(req,res) {
@@ -149,6 +149,7 @@ exports = module.exports = function(app) {
     // }
     res.redirect('/');
   });
+
   app.get('/questions/:id', routes.views.index);
   app.all('/login', routes.views.login);
   app.all('/register', routes.views.register);

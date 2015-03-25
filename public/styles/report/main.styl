@@ -8,7 +8,7 @@ $fadedGreen = #A8BA57
 $gray       = #383D40
 
 @media print
-  .report__header
+  .report__header, .loading-overlay
     display none !important
   .report__container
     background none !important
@@ -87,13 +87,117 @@ $gray       = #383D40
   /*
    * Helper Classes
    */
+  .download-btn
+    color #FFF
+    position fixed
+    right 15px
+    bottom 15px
+    line-height 32px
+    border 2px solid
+    padding 0 15px
+    transition all 300ms ease
+    &:hover
+      text-decoration none
+      color #FFF
+      background-color rgba(#FFF, 0.15)
+  .print
+    cursor pointer
   .align-left
     text-align left
   .align-right
     text-align right
   .align-middle
     text-align center
-
+  .loading
+    display none
+  .loaded
+    display inline-block
+  .dl-overlay
+    background-color rgba(darken($gray, 45%), 0.95)
+    bottom 0
+    left 0
+    opacity 0
+    right 0
+    position fixed
+    top 60px
+    text-align center
+    transition all 300ms ease
+    visibility hidden
+    z-index 3
+    .shut
+      cursor pointer
+    .text
+      bottom 0
+      color #FFF
+      position fixed
+      left 0
+      right 0
+      text-align center
+      top 45%
+      #print
+        display inline-block
+      .btn
+        border-radius 0
+        color #FFF
+        display inline-block
+        letter-spacing 0.125em
+        text-transform uppercase
+        border 2px solid #FFF
+      small
+        display inline-block
+        letter-spacing 0.125em
+        margin-top 15px
+        padding-top 15px
+        position relative
+        text-transform uppercase
+        &:before
+          background-color #FFF
+          content ''
+          height 1px
+          left 50%
+          margin-left -15px
+          position absolute
+          top 1px
+          width 30px
+  .overlay
+    opacity 0
+    visibility hidden
+    background-color $gray
+    bottom 0
+    left 0
+    position fixed
+    right 0
+    top 60px
+    transition all 300ms ease
+    z-index 3
+    .text
+      position fixed
+      top 45%
+      left 0
+      right 0
+      text-align center
+      font-family 'Museo', sans-serif
+      font-size 24px
+      font-weight 100
+      color #999
+  .show
+    overflow hidden 
+    .loading-overlay
+      .overlay
+        opacity 1
+        visibility visible
+      .loading
+        display inline-block
+      .loaded
+        display none
+  .download 
+    overflow hidden
+    .dl-overlay
+      opacity 1
+      visibility visible
+    .download-btn
+      display none
+    
   .report__container
     background-color darken($gray, 40%)
     z-index 1

@@ -69,7 +69,6 @@ User.schema.methods.resetPassword = function(callback) {
 	
 }
 
-
 /**
  * Registration
  */
