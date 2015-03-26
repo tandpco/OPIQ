@@ -52,35 +52,6 @@ User.schema.methods.resetPassword = function(callback) {
 	
 }
 
-User.schema.pre('save', function(next) {
-
-	var user = this;
-
-	user.password = 'keystone.utils.randomString([16,24])';
-
-	next();
-
-})
-
-User.schema.post('save', function(next) {
-
-	var user = this;
-
-	new keystone.Email('forgotten-password').send({
-		user: user,
-		link: '/testing',
-		subject: 'Welcome to Opportunity IQ',
-		to: user.email,
-		from: {
-			name: 'Opportunity IQ',
-			email: 'support@opportunityiq.com'
-		}
-	});
-
-	next();
-
-})
-
 /**
  * Registration
  */

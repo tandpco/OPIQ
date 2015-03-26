@@ -1,0 +1,62 @@
+extends ../layouts/dashboard
+
+block content
+  .container-fluid
+    //- Modals
+    .overlay
+      .modal#client: .modal-pane Client
+      .modal#invoice: .modal-pane Invoice
+      .modal#keys: .modal-pane Keys
+      .modal#staff: .modal-pane Staff
+    div(style="margin-top: 30px;")
+    .col.col-md-8
+      .ui-view-container
+        table(class='table table-bordered', ui-view="main")
+      div(style="margin-top: 30px;")
+    .col.col-md-4
+      table(class='table table-bordered sidebar-table')
+        tr
+          th(colspan=3)
+            strong Invoice History
+            .pull-right: small: a(href='#', class='modal-trigger', data-target='invoices') See All +
+        tr
+          th Sent
+          th Amount
+          th Status
+        tr
+          td: a(href='#') February 31, 2015
+          td $10,000
+          td.status.pending Pending
+        tr
+          td: a(href='#') January 31, 2015
+          td $100,000
+          td.status.paid Paid
+        tr
+          td: a(href='#') December 31, 2015
+          td $12,000
+          td.status.cancelled: s Cancelled
+      div(style="margin-top: 30px;")
+      table(class='table table-bordered sidebar-table')
+        tr
+          th(colspan=2)
+            strong License Keys
+            .pull-right: small: a(href='#', class='modal-trigger', data-target='keys') Request More +
+        tr
+          th Active
+          td 400
+        tr
+          th Inactive
+          td 600
+        tr
+          th Pending
+          td 1,000
+        tr
+          th Clients
+          td 400
+        tr
+          th Next Invoice
+          td March 31, 2015
+      div(style="margin-top: 30px;")
+      table(class='table table-bordered sidebar-table', ui-view="staff")
+        
+      div(style="margin-top: 30px;")

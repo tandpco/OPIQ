@@ -1,0 +1,12 @@
+tr
+  th(colspan=2)
+    strong Staff Members ({{staff.length}})
+    .pull-right: small: a(href='#', class='modal-trigger', data-target='staff') Add Staff Member +
+tr
+  th Name
+  th Email Address
+tr(ng-repeat="staffMember in staff")
+  td {{staffMember.name.first}} {{staffMember.name.last}}
+  td {{staffMember.email}}
+tr(ng-if="staff.length == 0")
+  td(colspan=2) No Staff Members Found

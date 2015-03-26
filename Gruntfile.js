@@ -75,6 +75,7 @@ module.exports = function(grunt) {
         compile: {
           files: {
             'public/styles/report/main.css': 'public/styles/report/main.styl',
+            'public/styles/partner/main.css': 'public/styles/partner/main.styl',
           },
         },
       },
@@ -102,14 +103,16 @@ module.exports = function(grunt) {
           'public/js/**/*.js',
           'lib/**/*.coffee',
           'public/styles/report/main.css',
-          'public/styles/report/main.styl'
+          'public/styles/report/main.styl',
+          'public/styles/partner/main.css',
+          'public/styles/partner/main.styl',
           ],
           options: {
             livereload: true
           }
         },
         stylus: {
-          files: ['public/styles/report/*.styl'],
+          files: ['public/styles/report/*.styl', 'public/styles/partner/*.styl'],
           tasks: 'stylus'
         },
         coffee: {

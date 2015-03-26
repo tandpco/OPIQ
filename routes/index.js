@@ -28,11 +28,11 @@ var _ = require('underscore'),
 
 
 
-keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
-keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
+// keystone.set('stripeApiKey', 'sk_test_His9L7RGJvdVRuuPOkCeuand'); // Test ENV key
+// keystone.set('stripeApiKeyClient', 'pk_test_SxLXrzbxiAiTwnt8qiOW1agS'); // Test client ENV key
 
-// keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
-// keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
+keystone.set('stripeApiKey', 'sk_live_cSlbqodvJ9gkpQ9030kwv46v'); // Live ENV key
+keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live client ENV key
 
 
 // // Common Middleware
@@ -155,25 +155,24 @@ exports = module.exports = function(app) {
   app.all('/register', routes.views.register);
   app.all('/contact', routes.views.contact);
 
-  app.all('/api/v1/users/list', keystone.initAPI, routes.api.users.list);
-  app.all('/api/v1/user/:id', keystone.initAPI, routes.api.users.get);
-  app.all('/api/v1/user/:id/assessments', keystone.initAPI, routes.api.analysis.list);
-  app.all('/api/v1/assessment/:id/:user', keystone.initAPI, routes.api.analysis.answers);
-  app.all('/api/v1/pages/list', keystone.initAPI, routes.api.analysis.pages);
-  app.all('/api/v1/assessment/:id', keystone.initAPI, routes.api.analysis.assessment);
-  app.all('/api/v1/answer/:id/:page', keystone.initAPI, routes.api.analysis.answer);
-  app.all('/api/v1/page/:id', keystone.initAPI, routes.api.analysis.page);
+  // app.all('/api/v1/users/list', keystone.initAPI, routes.api.users.list);
+  // app.all('/api/v1/user/:id', keystone.initAPI, routes.api.users.get);
+  // app.all('/api/v1/user/:id/assessments', keystone.initAPI, routes.api.analysis.list);
+  // app.all('/api/v1/assessment/:id/:user', keystone.initAPI, routes.api.analysis.answers);
+  // app.all('/api/v1/pages/list', keystone.initAPI, routes.api.analysis.pages);
+  // app.all('/api/v1/assessment/:id', keystone.initAPI, routes.api.analysis.assessment);
+  // app.all('/api/v1/answer/:id/:page', keystone.initAPI, routes.api.analysis.answer);
+  // app.all('/api/v1/page/:id', keystone.initAPI, routes.api.analysis.page);
 
   // 3.0+
-  // app.all('/api/v1/users/list', keystone.middleware.api, routes.api.users.list);
-  // app.all('/api/v1/user/:id', keystone.middleware.api, routes.api.users.get);
-  // app.all('/api/v1/user/:id/assessments', keystone.middleware.api, routes.api.analysis.list);
-  // app.all('/api/v1/assessment/:id/:user', keystone.middleware.api, routes.api.analysis.answers);
-  // app.all('/api/v1/pages/list', keystone.middleware.api, routes.api.analysis.pages);
-  // app.all('/api/v1/assessment/:id', keystone.middleware.api, routes.api.analysis.assessment);
-  // app.all('/api/v1/answer/:id/:page', keystone.middleware.api, routes.api.analysis.answer);
-  // app.all('/api/v1/page/:id', keystone.middleware.api, routes.api.analysis.page);
-
+  app.all('/api/v1/users/list', keystone.middleware.api, routes.api.users.list);
+  app.all('/api/v1/user/:id', keystone.middleware.api, routes.api.users.get);
+  app.all('/api/v1/user/:id/assessments', keystone.middleware.api, routes.api.analysis.list);
+  app.all('/api/v1/assessment/:id/:user', keystone.middleware.api, routes.api.analysis.answers);
+  app.all('/api/v1/pages/list', keystone.middleware.api, routes.api.analysis.pages);
+  app.all('/api/v1/assessment/:id', keystone.middleware.api, routes.api.analysis.assessment);
+  app.all('/api/v1/answer/:id/:page', keystone.middleware.api, routes.api.analysis.answer);
+  app.all('/api/v1/page/:id', keystone.middleware.api, routes.api.analysis.page);
 
   // UI Router States
   app.get('/dashboard', middleware.requireUser, routes.views.dashboard);
@@ -181,6 +180,21 @@ exports = module.exports = function(app) {
   app.get('/partials/search', routes.views.states.search)
   app.get('/partials/assessment', routes.views.states.assessment)
   app.get('/partials/page', routes.views.states.page)
+  
+  // app.get('/partials/assessment', routes.views.states.assessment)
+  // app.get('/partials/page', routes.views.states.page)
+
+  // Partner Panel
+  // =============
+  app.get('/partner', routes.views.partner);
+  app.get('/partner-panel/:id', routes.views['partner-panel']);
+  // States
+  app.get('/partner/partials/user', routes.views.partnerPanel.states.user)
+  app.get('/partner/partials/search', routes.views.partnerPanel.states.search)
+  app.get('/partner/partials/staff', routes.views.partnerPanel.states.staff)
+  // API
+  app.all('/api/v1/partner/clients/:id', keystone.middleware.api, routes.api.users.partnerClients);
+  app.all('/api/v1/partner/staff/:id', keystone.middleware.api, routes.api.users.partnerStaff);
   
   // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
   // app.get('/protected', middleware.requireUser, routes.views.protected);

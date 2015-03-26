@@ -1,0 +1,62 @@
+@import 'nib'
+
+$success = #79B700
+$error   = #d9534f
+$pending = #f0ad4e
+
+a.btn.btn-success
+	background-color $success
+	border-radius 2px
+	color #FFF !important
+	text-transform uppercase
+	font-size 12px
+	border 0
+
+a.success
+	color $success !important	
+
+.table
+	.status
+		font-size 11px
+		letter-spacing 0.1em
+		text-transform uppercase
+		&.paid
+			color $success
+		&.cancelled
+			color $error
+		&.pending
+			color $pending
+
+.overlay
+	background-color rgba(black, 0.85)
+	bottom 0
+	color #FFF
+	display block
+	left 0
+	opacity 0
+	position fixed
+	right 0
+	top 0
+	transition all 300ms ease
+	visibility hidden
+	z-index 100
+	.modal
+		color #666
+		display none
+		height auto
+		left 0
+		margin 0 auto
+		position fixed
+		right 0
+		top 40%
+		width 460px
+		.modal-pane
+			background-color #FFF
+			height auto
+			padding 30px
+			width 100%
+
+.modal-open
+	.overlay
+		opacity 1
+		visibility visible
