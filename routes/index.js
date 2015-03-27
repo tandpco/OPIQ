@@ -59,7 +59,7 @@ keystone.pre('render', middleware.flashMessages);
 var routes = {
   views: importRoutes('./views'),
   updatedb: importRoutes('./updatedb'),
-  lib : importRoutes('./lib'),
+  lib: importRoutes('./lib'),
   api: importRoutes('./api')
 };
 
@@ -166,6 +166,7 @@ exports = module.exports = function(app) {
 
   // 3.0+
   app.all('/api/v1/users/list', keystone.middleware.api, routes.api.users.list);
+  // app.all('/api/v1/users/create', keystone.middleware.api, routes.api.users.list);
   app.all('/api/v1/user/:id', keystone.middleware.api, routes.api.users.get);
   app.all('/api/v1/user/:id/assessments', keystone.middleware.api, routes.api.analysis.list);
   app.all('/api/v1/assessment/:id/:user', keystone.middleware.api, routes.api.analysis.answers);
@@ -176,10 +177,10 @@ exports = module.exports = function(app) {
 
   // UI Router States
   app.get('/dashboard', middleware.requireUser, routes.views.dashboard);
-  app.get('/partials/user', routes.views.states.user)
-  app.get('/partials/search', routes.views.states.search)
-  app.get('/partials/assessment', routes.views.states.assessment)
-  app.get('/partials/page', routes.views.states.page)
+  app.get('/partials/user', routes.views.states.user);
+  app.get('/partials/search', routes.views.states.search);
+  app.get('/partials/assessment', routes.views.states.assessment);
+  app.get('/partials/page', routes.views.states.page);
   
   // app.get('/partials/assessment', routes.views.states.assessment)
   // app.get('/partials/page', routes.views.states.page)
@@ -187,14 +188,26 @@ exports = module.exports = function(app) {
   // Partner Panel
   // =============
   app.get('/partner', routes.views.partner);
-  app.get('/partner-panel/:id', routes.views['partner-panel']);
+  // app.get('/partner-panel/:id', routes.views['partner-panel']);
   // States
-  app.get('/partner/partials/user', routes.views.partnerPanel.states.user)
-  app.get('/partner/partials/search', routes.views.partnerPanel.states.search)
-  app.get('/partner/partials/staff', routes.views.partnerPanel.states.staff)
+  app.get('/partner/partials/client', routes.views.partnerPanel.states.client);
+  app.get('/partner/partials/client/create', routes.views.partnerPanel.states.createClient);
+  app.get('/partner/partials/client/keys/manage', routes.views.partnerPanel.states.manageClientKeys);
+  app.get('/partner/partials/search', routes.views.partnerPanel.states.search);
+  app.get('/partner/partials/staff', routes.views.partnerPanel.states.staff);
+  app.get('/partner/partials/staff/edit', routes.views.partnerPanel.states.staffEdit);
+  app.get('/partner/partials/staff/create', routes.views.partnerPanel.states.staffCreate);
+  app.get('/partner/partials/keys', routes.views.partnerPanel.states.keys);
   // API
+  app.all('/api/v1/partner/clients', keystone.middleware.api, routes.api.users.createClient);
   app.all('/api/v1/partner/clients/:id', keystone.middleware.api, routes.api.users.partnerClients);
+  app.all('/api/v1/partner/clients/:id/update', keystone.middleware.api, routes.api.users.updateClient);
+  app.all('/api/v1/partner/clients/:id/delete', keystone.middleware.api, routes.api.users.removeClient);
+  app.all('/api/v1/partner/staff', keystone.middleware.api, routes.api.users.createStaff);
   app.all('/api/v1/partner/staff/:id', keystone.middleware.api, routes.api.users.partnerStaff);
+  app.all('/api/v1/partner/staff/:id/update', keystone.middleware.api, routes.api.users.updateStaff);
+  app.all('/api/v1/partner/staff/:id/delete', keystone.middleware.api, routes.api.users.removeStaff);
+  app.all('/api/v1/partner/keys/:id/list', keystone.middleware.api, routes.api.keys.listKeysDist)
   
   // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
   // app.get('/protected', middleware.requireUser, routes.views.protected);

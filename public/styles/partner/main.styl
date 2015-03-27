@@ -4,6 +4,12 @@ $success = #79B700
 $error   = #d9534f
 $pending = #f0ad4e
 
+.align-right
+	text-align right
+
+[ng-click]
+	cursor pointer
+
 a.btn.btn-success
 	background-color $success
 	border-radius 2px
@@ -60,3 +66,19 @@ a.success
 	.overlay
 		opacity 1
 		visibility visible
+		
+.table.edit
+	td
+		input
+			border 0
+			outline 0
+			transition background-color 300ms ease
+			width 100%
+			&:hover, &:active, &:focus
+				background-color rgba($pending, 0.15)
+	button
+		background none
+		border 0
+		margin 0
+		padding 0
+		text-transform uppercase

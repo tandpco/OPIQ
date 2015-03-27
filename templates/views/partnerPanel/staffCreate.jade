@@ -1,0 +1,29 @@
+form(ng-submit="createStaff()")
+  //- |{{currentUser}}
+  table(class='table table-bordered edit')
+    thead: th(colspan='100', class='no-pad inner-table'): table: thead
+      th(ng-click='changeState("home")', class='back')
+        i.fa.fa-angle-left
+      th(colspan="1")
+        strong New Staff Member
+        .pull-right
+          //- span.label.label-success(ng-show="saving", ng-click="createstaff()") Saving Changes
+          //- span.label.label-success(ng-show="saved", ng-click="createstaff()") Saved
+          //- span.label.label-success(ng-show="!saving && !saved", ng-click="createstaff()") Save Changes
+          span.label.label-default(ng-if="!staff.name.first.length || !staff.name.last.length || !staff.email.length") Create staff
+          button(type='submit'): span.label.label-success(ng-if="staff.name.first.length > 0 && staff.name.last.length > 0 && staff.email.length > 0") Create staff 
+    tr
+      th First Name*
+      th Last Name*
+      th Role
+      th Email Address*
+    tr
+      td: input(type='text', ng-model='staff.name.first')
+      td: input(type='text', ng-model='staff.name.last')
+      td: input(type='text', ng-model='staff.role')
+      td: input(type='text', ng-model='staff.email')
+    //- tr
+    //-   td: input(type='text', ng-model='staff.licensePartner', value='')
+    //-   td: {{currentUser}}
+
+div(style="margin-top: 30px;")

@@ -1,0 +1,54 @@
+form(ng-submit="onSubmit()")
+  table(class='table table-bordered edit')
+    thead: th(colspan='100', class='no-pad inner-table'): table: thead
+      th(ng-click='changeState("home")', class='back')
+        i.fa.fa-angle-left
+      th(colspan="1")
+        i.fa.fa-trash(ng-really-message="Are you sure you want to remove this staff member? This action cannot be undone.", ng-really-click="deleteClient()")
+        |{{' ' + user.name.first + ' ' + user.name.last + ' '}}
+        small: a(href='mailto:{{user.email}}') {{user.email}}
+        .pull-right: span.label.label-default Member Since {{memberSince | date: "HH:mma 'on' dd/MM/yyyy"}}
+    thead: th(colspan=100)
+      i.fa.fa-pencil 
+      | 
+      strong Edit Staff Member
+      .pull-right: button(type='submit')
+        span.label.label-success(ng-show="saving") Saving Changes
+        span.label.label-success(ng-show="saved") Saved
+        span.label.label-success(ng-show="!saving && !saved") Save Changes
+    tr
+      th First Name
+      th Last Name
+      th Company Role
+      th Email Address
+    tr
+      td: input(type='text', ng-model='user.name.first')
+      td: input(type='text', ng-model='user.name.last')
+      td: input(type='text', ng-model='user.role')
+      td: input(type='text', ng-model='user.email')
+
+div(style="margin-top: 30px;")
+
+//- table(class='table table-bordered')
+//-   tr
+//-     th(colspan=100): strong Search Assessments
+//-   tr
+//-     td(colspan=100, class='search')
+//-       input(type='text', placeholder='Search Assessments by Title...', ng-model='search')
+//-       i.fa.fa-search
+//-       span(ng-show="search", class="label label-default results") {{filteredAssessments.length}} Results
+//-   tr(ng-init="predicate = 'complete'")
+//-     th(ng-click="predicate = 'complete'; reverse=!reverse; changeClass()", class='filter status') Status
+//-     th(ng-click="predicate = 'title'; reverse=!reverse; changeClass()", class='filter') Assessment Title
+//-     th(ng-click="predicate = 'percentComplete'; reverse=!reverse; changeClass()", class='filter percent') Percent Complete
+//-     //- th.score Assessment Score
+//-   tr(ng-repeat='assessment in filteredAssessments = (assessments | filter: {title: search}) | orderBy:predicate:reverse')
+//-     td(ng-show='!assessment.complete', class='status_'): span.incomplete: i.fa.fa-circle
+//-     td(ng-show='assessment.complete', class='status_'): span.complete: i.fa.fa-circle
+//-     td: a(ui-sref='assessment({id:assessment._id,assessSlug:(assessment.title | slug)})') {{assessment.title}}
+//-     td {{assessment.percentComplete}}%
+//-   tr(ng-if='!search && assessments.length == 0')
+//-     td(colspan='100') No assessments found for {{user.name.first + ' ' + user.name.last}}.
+//-   tr(ng-if='search && filteredAssessments.length == 0')
+//-     td(colspan='100') No results.
+

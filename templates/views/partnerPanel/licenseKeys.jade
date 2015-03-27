@@ -1,0 +1,21 @@
+table(class='table table-bordered sidebar-table')
+  tr
+    th(colspan=2)
+      strong License Keys ({{keys.length}})
+      .pull-right: small: a(href='#', class='modal-trigger', data-target='keys') Request More 
+        i.fa.fa-plus-circle
+  tr
+    th Active
+    td {{keys.active.length}}
+  tr
+    th Inactive
+    td {{keys.inactive.length}}
+  tr
+    th Pending
+    td {{keys.pending.length}}
+  tr
+    th Clients
+    td {{clientsList.length}}
+  tr
+    th Next Invoice
+    td March 31, 2015

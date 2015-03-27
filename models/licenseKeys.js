@@ -8,14 +8,14 @@ var _ = require('underscore'),
  */
 
 var Key = new keystone.List('License Keys', {
-	// hidden : true
 	track : true
 });
 
 Key.add({
-	licensePartner: {type: Types.Relationship, ref: 'License Partner'},
-	client: {type: Types.Relationship, ref: 'License Partner Clients'},
-	user: {type: String, note: 'Will be the user the key is assigned to by the client.'}
+	licensePartner: {type: Types.Relationship, ref: 'User', filters: {userLevel: 'Distributor Level'}},
+	client: {type: Types.Relationship, ref: 'User', filters: {userLevel: 'Client Level'}},
+	user: {type: String, note: 'Will be the user the key is assigned to by the client.'},
+	status: {type: Types.Select, options: 'Active, Pending, Inactive'}
 });
 
 Key.register();

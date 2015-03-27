@@ -1,31 +1,37 @@
-tr
-	th(colspan='100', class="inner-table")
-		i.fa.fa-users &nbsp;
-		strong Search Clients
-		.pull-right
-			small: a(href='#') Add New Client +
-tr
-	//- th
-		i.fa.fa-filter &nbsp;
-		| Filters
-	td(colspan='100', class='search')
-		input(type='text', placeholder='Search {{users.length}} Clients by Email...', ng-model='search')
-		i.fa.fa-search
-		span(ng-show="search", class="label label-default results") {{filteredUsers.length}} Results
-tr#search
-	th(ng-click="predicate = 'name.first'; reverse=!reverse; changeClass()", class='filter')= 'First Name '
-		i.fa.fa-sort
-	th(ng-click="predicate = 'name.last'; reverse=!reverse; changeClass()", class='filter')= 'Last Name '
-		i.fa.fa-sort
-	th(ng-click="predicate = 'email'; reverse=!reverse; changeClass()", class='filter')= 'User Email '
-		i.fa.fa-sort
-	th(ng-click="predicate = 'createdAt'; reverse=!reverse; changeClass()", class='filter')= 'Member Since '
-		i.fa.fa-sort
-tr(dir-paginate="user in filteredUsers = ( users | filter:{email:search} ) | orderBy:predicate:reverse | itemsPerPage: 15")
-	td: a(ui-sref="user({id:user._id})") {{user.name.first}}
-	td {{user.name.last}}
-	td: a(href='mailto:{{user.email}}') {{user.email}}
-	td {{user.createdAt | date: "HH:mma 'on' yyyy/dd/mm"}}
-//- tr(ng-if='filteredUsers.length == 0')
-	td(colspan='100') No results.
-tr: td(colspan="100", class="center"): div(dir-pagination-controls, template-url="/bower_components/angular-utils-pagination/dirPagination.tpl.html")
+table(class='table table-bordered')
+	tr
+		th(colspan='100', class="inner-table")
+			i.fa.fa-users &nbsp;
+			strong Search Clients
+			.pull-right
+				small: a(ng-click='changeState("createClient")') Add New Client 
+					i.fa.fa-plus-circle
+	tr
+		//- th
+			i.fa.fa-filter &nbsp;
+			| Filters
+		td(colspan='100', class='search')
+			input(type='text', placeholder='Search {{users.length}} Clients by Email...', ng-model='search')
+			i.fa.fa-search
+			span(ng-show="search", class="label label-default results") {{filteredUsers.length}} Results
+	tr#search
+		th(ng-click="predicate = 'name.first'; reverse=!reverse; changeClass()", class='filter')= 'First Name '
+			i.fa.fa-sort
+		th(ng-click="predicate = 'name.last'; reverse=!reverse; changeClass()", class='filter')= 'Last Name '
+			i.fa.fa-sort
+		th(ng-click="predicate = 'email'; reverse=!reverse; changeClass()", class='filter')= 'User Email '
+			i.fa.fa-sort
+		th(ng-click="predicate = 'createdAt'; reverse=!reverse; changeClass()", class='filter')= 'Member Since '
+			i.fa.fa-sort
+		th(class='align-right') License Keys
+	tr(dir-paginate="user in filteredUsers = ( users | filter:{email:search} ) | orderBy:predicate:reverse | itemsPerPage: 15")
+		td
+			a(ui-sref='client({id:user._id})', ng-mouseenter='edit = true', ng-mouseleave='edit = false') {{user.name.first}}
+			.pull-right(ng-if='edit'): i.fa.fa-pencil 
+		td {{user.name.last}}
+		td: a(href='mailto:{{user.email}}') {{user.email}}
+		td {{user.createdAt | date: "HH:mma 'on' yyyy/dd/mm"}}
+		td(class='align-right') 100
+	//- tr(ng-if='filteredUsers.length == 0')
+		td(colspan='100') No results.
+	tr: td(colspan="100", class="center"): div(dir-pagination-controls, template-url="/bower_components/angular-utils-pagination/dirPagination.tpl.html")

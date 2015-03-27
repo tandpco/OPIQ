@@ -69,7 +69,7 @@ keystone.set('email rules', [{
 
 keystone.set('nav', {
 	'pages': 'pages',
-	'User Levels': ['License Partner', 'License Partner Clients']
+	// 'User Levels': ['License Partner', 'License Partner Clients']
 });
 
 // Start Keystone to connect to your database and initialise the web server

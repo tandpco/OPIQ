@@ -16,6 +16,19 @@ app = angular.module("Partner Panel", [
   "ngAnimate"
 ])
 
+angular.module("Partner Panel").directive 'ngReallyClick', [ ->
+  {
+    restrict: 'A'
+    link: (scope, element, attrs) ->
+      element.bind 'click', ->
+        message = attrs.ngReallyMessage
+        if message and confirm(message)
+          scope.$apply attrs.ngReallyClick
+        return
+      return
+  }
+ ]
+
 app.filter "slug", ->
   (input) ->
     input.toLowerCase().replace /[^a-z_]/g, "-"  if input
@@ -39,12 +52,134 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
     views: 
       'main':
         templateUrl: "/partner/partials/search"
-        controller: (Restangular, $stateParams, $scope) ->
+        controller: (Restangular, $stateParams, $scope, $state, $filter) ->
           Restangular.all("api/v1").customGET("partner/clients/" + $currentUser).then (clients) ->
             $scope.users = clients.data
+            $scope.$root.clientsList = clients.data
+          Restangular.one("api/v1").customGET("user/" + $currentUser).then (user) ->
+            $scope.$root.currentUser = user.data
+            $scope.memberSince = new Date(user.data.createdAt)
+            utc = Date.parse($scope.memberSince)
+            $scope.memberSince = "N/A" unless isNaN(utc) is false
+          Restangular.all("api/v1").customGET("partner/keys/" + $currentUser + "/list").then (keys) ->
+            $scope.$root.keys = keys.data
+            $scope.$root.keys.active = $filter('filter')(keys.data, {status: 'Active'}, true)
+            $scope.$root.keys.pending = $filter('filter')(keys.data, {status: 'Pending'}, true)
+            $scope.$root.keys.inactive = $filter('filter')(keys.data, {status: 'Inactive'}, true)
           $scope.toggleFilter =  ->
             $scope.search.name.first = true
-      'staff':
+          $scope.changeState = (state) ->
+            $state.go state
+          $scope.edit = false
+      'sidebarOne': 
+        templateUrl: "/partner/partials/keys"
+      'sidebarTwo':
+        templateUrl: "/partner/partials/staff"
+        controller: (Restangular, $stateParams, $scope, $state) ->
+          $scope.edit = false
+          Restangular.all("api/v1").customGET("partner/staff/" + $currentUser).then (staff) ->
+            $scope.staff = staff.data
+          $scope.toggleFilter =  ->
+            $scope.search.name.first = true
+          $scope.changeState = (state) ->
+            $state.go state
+
+  # Individual User Page
+  $stateProvider.state "client",
+    url: "/client/:id"
+    views:
+      "main":
+        templateUrl: "/partner/partials/client"
+        controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window) ->
+          $scope.saving = false
+          $scope.saved = false
+          $scope.onSubmit = ->
+            $scope.saving = true
+            $http.post('/api/v1/partner/clients/'+$scope.user._id+'/update', $scope.user)
+              .success (data, status, headers, config) ->
+                $scope.saving = false
+                $scope.saved = true
+                $timeout ->
+                  $scope.saved = false
+                , 1000
+              .error (data, status, headers, config) ->
+                # Error
+                console.log status
+          $scope.deleteClient = ->
+            $http.delete('/api/v1/partner/clients/'+$scope.user._id+'/delete')
+              .success (data, status, headers, config) ->
+                # Redirect
+                $window.location = '/partner'
+              .error (data, status, headers, config) ->
+                # Error
+                console.log status
+          Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
+            $scope.user = user.data
+            $scope.memberSince = new Date(user.data.createdAt)
+            utc = Date.parse($scope.memberSince)
+            $scope.memberSince = "N/A" unless isNaN(utc) is false
+
+          $scope.changeState = (state) ->
+            $state.go state
+      "sidebarOne":
+        templateUrl: "/partner/partials/client/keys/manage"
+        controller: (Restangular, $scope, $stateParams) ->
+          # $scope.keys = []
+          # $scope.keys.current = 100
+          # $scope.keys.new = 10
+          # $scope.keys.total = ($scope.keys.current + $scope.keys.new)
+          $scope.updateKeys = ->
+            if !$scope.keyDistributionForm.$valid
+              $scope.fixErrors = true
+              return
+            else
+              console.log 'This is submitting'
+          Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
+            $scope.user = user.data
+            $scope.memberSince = new Date(user.data.createdAt)
+            utc = Date.parse($scope.memberSince)
+            $scope.memberSince = "N/A" unless isNaN(utc) is false
+      "sidebarTwo": 
+        templateUrl: "/partner/partials/keys"
+
+  # Individual User Page
+  $stateProvider.state "staff",
+    url: "/staff/:id"
+    views:
+      "main":
+        templateUrl: "/partner/partials/staff/edit"
+        controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window) ->
+          $scope.saving = false
+          $scope.saved = false
+          $scope.onSubmit = ->
+            $scope.saving = true
+            $http.post('/api/v1/partner/staff/'+$scope.user._id+'/update', $scope.user)
+              .success (data, status, headers, config) ->
+                $scope.saving = false
+                $scope.saved = true
+                $timeout ->
+                  $scope.saved = false
+                , 1000
+              .error (data, status, headers, config) ->
+                # Error
+                console.log status
+          $scope.deleteClient = ->
+            $http.delete('/api/v1/partner/staff/'+$scope.user._id+'/delete')
+              .success (data, status, headers, config) ->
+                # Redirect
+                $window.location = '/partner'
+              .error (data, status, headers, config) ->
+                # Error
+                console.log status
+          Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
+            $scope.user = user.data
+            $scope.memberSince = new Date(user.data.createdAt)
+            utc = Date.parse($scope.memberSince)
+            $scope.memberSince = "N/A" unless isNaN(utc) is false
+          $scope.changeState = (state) ->
+            $state.go state
+            
+      "staff":
         templateUrl: "/partner/partials/staff"
         controller: (Restangular, $stateParams, $scope) ->
           Restangular.all("api/v1").customGET("partner/staff/" + $currentUser).then (staff) ->
@@ -52,149 +187,38 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           $scope.toggleFilter =  ->
             $scope.search.name.first = true
 
-  # Individual User Page
-  $stateProvider.state "user",
-    url: "/user/:id"
-    templateUrl: "/partner/partials/user"
-    controller: (Restangular, $stateParams, $scope, $state) ->
+  $stateProvider.state "createClient",
+    url: "/client/create"
+    views:
+      "main":
+        templateUrl: "/partner/partials/client/create"
+        controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window) ->
+          $scope.currentUser = $currentUser
+          $scope.createClient = ->
+            $scope.client.licensePartner = $currentUser
+            $http.post('/api/v1/partner/clients', $scope.client)
+              .success (data, status, headers, config) ->
+                $window.location = '/partner'
+              .error (data, status, headers, config) ->
+                # Error
+                console.log status
+          $scope.changeState = (state) ->
+            $state.go state
 
-      # Inject MATH
-      $scope.Math = window.Math
-
-      Restangular.all("api/v1").customGET("pages/list").then (pages) ->
-        $scope.pages = pages.data
-
-        Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
-          $scope.user = user.data
-          $scope.memberSince = new Date(user.data.createdAt)
-          utc = Date.parse($scope.memberSince)
-          $scope.memberSince = "N/A" unless isNaN(utc) is false
-
-        Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then (assessments) ->
-          $scope.assessments = assessments.data
-          assessments.data.forEach (assessment) ->
-            Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then (answers) ->
-              assessment.answers = answers.data
-              assessment.pages = $scope.pages
-              assessment.percentComplete = Math.round(100*assessment.answers.length/assessment.pages.length)
-              assessment.complete = true unless assessment.percentComplete != 100
-
-              x = 0
-              test = []
-              totalz = 0
-
-              while x < answers.length
-
-                test.push assessment.answers[x].page
-
-                # Get the total of the answers
-                totalz = Number(total) + Number(assessment.answers[x].answer)
-
-                x++
-
-              z = 0
-              testing = []
-              completed = []
-
-              while z < assessment.pages.length
-
-                testing.push assessment.pages[z].name
-
-                if _.contains answers, assessment.pages[z].name
-
-                  $scope.assessment.pages[z].status = 'complete'
-
-                  # Get the number of answered questions
-                  completed.push $scope.assessment.pages[z].name
-
-                z++
-
-      $scope.changeState = (state) ->
-        $state.go state
-
-  # Assessment Report
-  $stateProvider.state "assessment",
-    url: "/assessment/:id"
-    templateUrl: "partnerPanel/assessment"
-    params: { 'id', 'assessSlug' }
-    controller: (Restangular, $stateParams, $scope, $state) ->
-
-      # Scope Functions
-      $scope.submit = ->
-        form = document.getElementById('print')
-        form.submit()
-
-      window.setTimeout (->
-        el = document.getElementById('addressable-market')
-        angular.element(el).triggerHandler 'click'
-      ), 500
-
-      Restangular.all("api/v1").customGET("pages/list").then (pages) ->
-        $scope.pages = pages.data
-
-        Restangular.one("api/v1").customGET("assessment/" + $stateParams.id).then (assessment) ->
-          $scope.assessment = assessment.data[0]
-          $scope.createdOn = new Date($scope.assessment.createdAt)
-          $utc = Date.parse($scope.createdOn)
-          $scope.createdOn = "N/A" unless isNaN($utc) is false
-
-          Restangular.one("api/v1").customGET("user/" + $scope.assessment.user).then (user) ->
-            $scope.assessment.user = user.data
-
-          Restangular.all("api/v1").customGET("assessment/" + $scope.assessment._id + '/' + $scope.assessment.user).then (answers) ->
-            $scope.assessment.answers = answers.data
-            $scope.assessment.pages = $scope.pages
-            $scope.assessment.percentComplete = Math.round(100*$scope.assessment.answers.length/$scope.assessment.pages.length)
-            $scope.assessment.complete = true unless assessment.percentComplete < 100
-
-            i = 0
-            l = 0
-            j = 0
-            total = 0
-            answers = []
-            pages = []
-            complete = []
-            categoryTotal = []
-
-            while i < $scope.assessment.answers.length
-
-              answers.push $scope.assessment.answers[i].page
-
-              # Get the total of the answers
-              total = Number(total) + Number($scope.assessment.answers[i].answer)
-
-              i++
-
-            while l < $scope.assessment.pages.length
-
-              pages.push $scope.assessment.pages[l].name
-
-              if _.contains answers, $scope.assessment.pages[l].name
-
-                $scope.assessment.pages[l].status = 'complete'
-
-                # Get the number of answered questions
-                complete.push $scope.assessment.pages[l].name
-                categoryTotal.push $scope.assessment.pages[l].category
-
-              l++
-
-            $scope.assessment.score = Math.round((total / complete.length) * 20)
-
-          $stateProvider.state "assessment.child",
-            url: "/:slug"
-            templateUrl: "partials/page"
-            params: { 'id', 'name', 'pageName', 'pageId', 'slug' }
-            controller: (Restangular, $stateParams, $scope, $state) ->
-
-              Restangular.one("api/v1").customGET("answer/" + $scope.assessment._id + "/" + $stateParams.pageName).then (answer) ->
-                $scope.answer = answer.data[0]
-                $scope.answer.score = Math.round((answer.data[0].answer/5)*100)
-
-              Restangular.one("api/v1").customGET("page/" + $stateParams.pageName).then (page) ->
-                $scope.page = page.data[0]
-                answerText = 'answer' + $scope.answer.answer
-                $scope.answerText = $scope.page[answerText]
-
-      $scope.changeState = (state) ->
-        $state.go state
+  $stateProvider.state "createStaff",
+    url: "/staff/create"
+    views:
+      "main":
+        templateUrl: "/partner/partials/staff/create"
+        controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window) ->
+          $scope.currentUser = $currentUser
+          $scope.createStaff = ->
+            $scope.staff.licensePartner = $currentUser
+            $http.post('/api/v1/partner/staff', $scope.staff)
+              .success (data, status, headers, config) ->
+                $window.location = '/partner'
+              .error (data, status, headers, config) ->
+                # Error
+                console.log status
+          $scope.changeState = (state) ->
+            $state.go state
