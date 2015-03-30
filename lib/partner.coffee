@@ -73,6 +73,8 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           $scope.edit = false
       'sidebarOne': 
         templateUrl: "/partner/partials/keys"
+        controller: (Restangular, $stateParams, $scope) ->
+          $scope.requestKeys = false     
       'sidebarTwo':
         templateUrl: "/partner/partials/staff"
         controller: (Restangular, $stateParams, $scope, $state) ->
@@ -124,10 +126,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
       "sidebarOne":
         templateUrl: "/partner/partials/client/keys/manage"
         controller: (Restangular, $scope, $stateParams) ->
-          # $scope.keys = []
-          # $scope.keys.current = 100
-          # $scope.keys.new = 10
-          # $scope.keys.total = ($scope.keys.current + $scope.keys.new)
           $scope.updateKeys = ->
             if !$scope.keyDistributionForm.$valid
               $scope.fixErrors = true
@@ -141,6 +139,8 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             $scope.memberSince = "N/A" unless isNaN(utc) is false
       "sidebarTwo": 
         templateUrl: "/partner/partials/keys"
+        controller: (Restangular, $stateParams, $scope) ->
+          $scope.requestKeys = false
 
   # Individual User Page
   $stateProvider.state "staff",
@@ -178,8 +178,8 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             $scope.memberSince = "N/A" unless isNaN(utc) is false
           $scope.changeState = (state) ->
             $state.go state
-            
-      "staff":
+
+      "sidebarOne":
         templateUrl: "/partner/partials/staff"
         controller: (Restangular, $stateParams, $scope) ->
           Restangular.all("api/v1").customGET("partner/staff/" + $currentUser).then (staff) ->
@@ -204,6 +204,10 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
                 console.log status
           $scope.changeState = (state) ->
             $state.go state
+      "sidebarOne":
+        templateUrl: "/partner/partials/keys"
+        controller: (Restangular, $stateParams, $scope) ->
+          $scope.requestKeys = false
 
   $stateProvider.state "createStaff",
     url: "/staff/create"
@@ -222,3 +226,10 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
                 console.log status
           $scope.changeState = (state) ->
             $state.go state
+      "sidebarOne":
+        templateUrl: "/partner/partials/staff"
+        controller: (Restangular, $stateParams, $scope) ->
+          Restangular.all("api/v1").customGET("partner/staff/" + $currentUser).then (staff) ->
+            $scope.staff = staff.data
+          $scope.toggleFilter =  ->
+            $scope.search.name.first = true

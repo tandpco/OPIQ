@@ -302,7 +302,10 @@
           }
         },
         'sidebarOne': {
-          templateUrl: "/partner/partials/keys"
+          templateUrl: "/partner/partials/keys",
+          controller: function(Restangular, $stateParams, $scope) {
+            return $scope.requestKeys = false;
+          }
         },
         'sidebarTwo': {
           templateUrl: "/partner/partials/staff",
@@ -384,7 +387,10 @@
           }
         },
         "sidebarTwo": {
-          templateUrl: "/partner/partials/keys"
+          templateUrl: "/partner/partials/keys",
+          controller: function(Restangular, $stateParams, $scope) {
+            return $scope.requestKeys = false;
+          }
         }
       }
     });
@@ -429,7 +435,7 @@
             };
           }
         },
-        "staff": {
+        "sidebarOne": {
           templateUrl: "/partner/partials/staff",
           controller: function(Restangular, $stateParams, $scope) {
             Restangular.all("api/v1").customGET("partner/staff/" + $currentUser).then(function(staff) {
@@ -461,6 +467,12 @@
               return $state.go(state);
             };
           }
+        },
+        "sidebarOne": {
+          templateUrl: "/partner/partials/keys",
+          controller: function(Restangular, $stateParams, $scope) {
+            return $scope.requestKeys = false;
+          }
         }
       }
     });
@@ -481,6 +493,17 @@
             };
             return $scope.changeState = function(state) {
               return $state.go(state);
+            };
+          }
+        },
+        "sidebarOne": {
+          templateUrl: "/partner/partials/staff",
+          controller: function(Restangular, $stateParams, $scope) {
+            Restangular.all("api/v1").customGET("partner/staff/" + $currentUser).then(function(staff) {
+              return $scope.staff = staff.data;
+            });
+            return $scope.toggleFilter = function() {
+              return $scope.search.name.first = true;
             };
           }
         }

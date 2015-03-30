@@ -71,6 +71,9 @@ function get_message (req, res) {
 // Setup Route Bindings
 exports = module.exports = function(app) {
 
+  app.use(bodyParser.json({limit: '100mb'}))
+  app.use(bodyParser.urlencoded({limit: '100mb'}))
+
   // Session
   app.all('/:route', middleware.forceSSL);
   app.all('/', middleware.forceSSL);
@@ -101,9 +104,9 @@ exports = module.exports = function(app) {
   app.get('/forgot-page', function(req,res) {
     res.redirect('/forgot-password');
   });
-  app.all('/print/:id', bodyParser({limit: '10mb'}), routes.views.printable);
+  app.all('/print/:id', routes.views.printable);
 
-  app.all('/report/:id', bodyParser({limit: '10mb'}), routes.views.reportPreview);
+  app.all('/report/:id', routes.views.reportPreview);
 
   app.all('/help', function(req, res) {
     var nodemailer = require("nodemailer");

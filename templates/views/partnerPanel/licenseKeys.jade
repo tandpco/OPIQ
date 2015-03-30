@@ -1,21 +1,26 @@
-table(class='table table-bordered sidebar-table')
+table(class='table table-bordered sidebar-table edit')
   tr
     th(colspan=2)
-      strong License Keys ({{keys.length}})
-      .pull-right: small: a(href='#', class='modal-trigger', data-target='keys') Request More 
+      strong License Keys ({{keys.length}}), {{requestKeys}}
+      .pull-right: small: a(ng-click="requestKeys = !requestKeys") Request More 
         i.fa.fa-plus-circle
-  tr
+  tr(ng-show="requestKeys")
+    th(colspan=2) Request Keys
+  tr(ng-show="requestKeys")
+    td: input(type='number', placeholder='Amount')
+    td $3,000
+  tr(ng-show="!requestKeys")
     th Active
     td {{keys.active.length}}
-  tr
+  tr(ng-show="!requestKeys")
     th Inactive
     td {{keys.inactive.length}}
-  tr
+  tr(ng-show="!requestKeys")
     th Pending
     td {{keys.pending.length}}
-  tr
+  tr(ng-show="!requestKeys")
     th Clients
     td {{clientsList.length}}
-  tr
+  tr(ng-show="!requestKeys")
     th Next Invoice
     td March 31, 2015

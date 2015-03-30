@@ -10,8 +10,8 @@ form(ng-submit="createStaff()")
           //- span.label.label-success(ng-show="saving", ng-click="createstaff()") Saving Changes
           //- span.label.label-success(ng-show="saved", ng-click="createstaff()") Saved
           //- span.label.label-success(ng-show="!saving && !saved", ng-click="createstaff()") Save Changes
-          span.label.label-default(ng-if="!staff.name.first.length || !staff.name.last.length || !staff.email.length") Create staff
-          button(type='submit'): span.label.label-success(ng-if="staff.name.first.length > 0 && staff.name.last.length > 0 && staff.email.length > 0") Create staff 
+          span.label.label-default(ng-if="!staff.name.first.length || !staff.name.last.length || !staff.email.length") Create Staff Member
+          button(type='submit'): span.label.label-success(ng-if="staff.name.first.length > 0 && staff.name.last.length > 0 && staff.email.length > 0") Create Staff Member
     tr
       th First Name*
       th Last Name*
