@@ -10,7 +10,7 @@ html
     link(rel="stylesheet", href="/styles/font-awesome.min.css")
     link(rel="stylesheet", href="/styles/site.min.css")
     link(rel="stylesheet", href="/styles/overlay.css")
-  body(class=(user.tempPass == 'true' ? 'modal-open' : null)): #report.analysis.clearfix  
+  body(class=(user && user.tempPass == 'true' ? 'modal-open' : null)): #report.analysis.clearfix  
     .overlay: .modal.auth
       h1.logo Welcome to Opportunity
         span.iq IQ
