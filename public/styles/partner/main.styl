@@ -21,11 +21,15 @@ a.btn.btn-success
 a.success
 	color $success !important	
 
+.iq
+	color #B3D338
+
 .table
 	.status
 		font-size 11px
 		letter-spacing 0.1em
 		text-transform uppercase
+		vertical-align middle
 		&.paid
 			color $success
 		&.cancelled
@@ -38,12 +42,12 @@ a.success
 	bottom 0
 	color #FFF
 	display block
-	left 0
+	left -100%
 	opacity 0
 	position fixed
 	right 0
 	top 0
-	transition all 300ms ease
+	transition opacity 300ms ease
 	visibility hidden
 	z-index 100
 	.modal
@@ -61,12 +65,61 @@ a.success
 			height auto
 			padding 30px
 			width 100%
+			
 
 .modal-open
 	.overlay
 		opacity 1
 		visibility visible
-		
+		left 0
+		.modal.auth
+			display table
+			height auto
+			margin auto
+			top 0
+			bottom 0
+			left 0
+			right 0
+			color #FFF
+			text-align center
+			h1
+				font-size 26px
+				font-weight 400
+				margin 0 0 10px
+			p
+				font-size 12px
+				font-weight 300
+				letter-spacing 0.05em
+				text-transform uppercase
+			.input-row
+				margin 0 auto
+				width 400px
+				input
+					background none
+					border 2px solid
+					color #FFF
+					float left
+					line-height 32px
+					padding 0 15px
+					outline 0
+					width 49%
+					&:first-of-type
+						margin-right 2%
+					&:focus
+						background-color rgba(#FFF, 0.15)
+			button
+				background-color #EEE
+				border-radius 0
+				letter-spacing 0.05em
+				line-height 36px
+				margin-top 2%
+				padding 0 15px
+				text-transform uppercase
+				width 400px
+				&.submit
+					background-color darken(#B3D338, 15%)
+				&:hover
+					color #FFF
 .table.edit
 	td
 		input

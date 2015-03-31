@@ -1,11 +1,11 @@
 $(window).on "scroll", ->
   pos = $(window).scrollTop()
   if pos > 61
-    $('th.inner-table').addClass "fixed"
-    $('.ui-view-container').css "padding-top": "40px"
+    $('#float th.inner-table').addClass "fixed"
+    $('#float .ui-view-container').css "padding-top": "40px"
   else
-    $('th.inner-table').removeClass "fixed"
-    $('.ui-view-container').css "padding-top": "0"
+    $('#float th.inner-table').removeClass "fixed"
+    $('#float .ui-view-container').css "padding-top": "0"
 
 # Add Restangular as a dependency to your app
 app = angular.module("Users", [

@@ -1,0 +1,7 @@
+extends layouts/base
+
+block content
+	.text-center
+		p Hi #{user.name.first},
+		p You have been assigned #{amount} new license keys to distribute on Opportunity IQ.
+		a(href="http://opiq.opportunityiq.com" + link) Login

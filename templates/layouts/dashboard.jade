@@ -10,7 +10,7 @@ html
     link(rel="stylesheet", href="/styles/site.min.css")
     link(rel="stylesheet", href="/styles/partner/main.css")
     //- link(rel="stylesheet", href="/bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css")
-  body(ng-app="Partner Panel"): #report.dashboard.analysis.clearfix
+  body(ng-app="Partner Panel", class=(user.tempPass == 'true' ? 'modal-open' : null)): #report.dashboard.analysis.clearfix
     .head#nav
       div(role="navigation")
         .logo

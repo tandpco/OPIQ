@@ -1,17 +1,294 @@
 (function() {
+  var app;
+
+  app = angular.module("Client Center", ["restangular", "ui.router", "ui.bootstrap", "angularUtils.directives.dirPagination", "ngSanitize", "ngAnimate"]);
+
+  angular.module("Client Center").directive('ngReallyClick', [
+    function() {
+      return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+          element.bind('click', function() {
+            var message;
+            message = attrs.ngReallyMessage;
+            if (message && confirm(message)) {
+              scope.$apply(attrs.ngReallyClick);
+            }
+          });
+        }
+      };
+    }
+  ]);
+
+  app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
+    $urlRouterProvider.otherwise("/");
+    $stateProvider.state("home", {
+      url: "/",
+      views: {
+        'main': {
+          templateUrl: "/client/partials/search",
+          controller: function(Restangular, $stateParams, $scope, $state, $filter) {
+            Restangular.all("api/v1").customGET("client/" + $currentUser + "/users").then(function(users) {
+              $scope.$root.users = users.data;
+              return $scope.$root.users.length = users.data.length;
+            });
+            Restangular.all("api/v1").customGET("client/keys/" + $currentUser + "/list").then(function(keys) {
+              $scope.$root.keys = keys.data;
+              $scope.$root.keys.active = $filter('filter')(keys.data, {
+                status: 'Active'
+              }, true);
+              $scope.$root.keys.distributed = $filter('filter')(keys.data, {
+                status: 'Distributed'
+              }, true);
+              $scope.$root.keys.pending = $filter('filter')(keys.data, {
+                status: 'Pending'
+              }, true);
+              return $scope.$root.keys.inactive = $filter('filter')(keys.data, {
+                status: 'Inactive'
+              }, true);
+            });
+            $scope.toggleFilter = function() {
+              return $scope.search.name.first = true;
+            };
+            $scope.changeState = function(state) {
+              return $state.go(state);
+            };
+            return $scope.edit = false;
+          }
+        },
+        'sidebarOne': {
+          templateUrl: "/client/partials/keys"
+        }
+      }
+    });
+    $stateProvider.state("user", {
+      url: "/user/:id",
+      views: {
+        "main": {
+          templateUrl: "/client/partials/client",
+          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window, $filter) {
+            $scope.saving = false;
+            $scope.saved = false;
+            $scope.$root.userKeys = $filter('filter')($scope.$root.keys, {
+              client: $stateParams.id
+            });
+            $scope.$root.userID = $stateParams.id;
+            $scope.onSubmit = function() {
+              $scope.saving = true;
+              return $http.post('/api/v1/client/clients/' + $scope.user._id + '/update', $scope.user).success(function(data, status, headers, config) {
+                $scope.saving = false;
+                $scope.saved = true;
+                return $timeout(function() {
+                  return $scope.saved = false;
+                }, 1000);
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+            $scope.deleteClient = function() {
+              return $http["delete"]('/api/v1/client/clients/' + $scope.user._id + '/delete').success(function(data, status, headers, config) {
+                return $window.location = '/client';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+            Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
+              var utc;
+              $scope.user = user.data;
+              $scope.memberSince = new Date(user.data.createdAt);
+              utc = Date.parse($scope.memberSince);
+              if (isNaN(utc) !== false) {
+                $scope.memberSince = "N/A";
+              }
+              return Restangular.all("api/v1").customGET("client/keys/" + user.data._id + "/list").then(function(keys) {
+                return $scope.user.noOfKeys = keys.data.length;
+              });
+            });
+            return $scope.changeState = function(state) {
+              return $state.go(state);
+            };
+          }
+        },
+        "sidebarOne": {
+          templateUrl: "/client/partials/client/keys/manage",
+          controller: function(Restangular, $scope, $stateParams, $http, $window) {
+            Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
+              var utc;
+              $scope.user = user.data;
+              $scope.memberSince = new Date(user.data.createdAt);
+              utc = Date.parse($scope.memberSince);
+              if (isNaN(utc) !== false) {
+                return $scope.memberSince = "N/A";
+              }
+            });
+            return $scope.updateKeys = function() {
+              if (!$scope.keyDistributionForm.$valid) {
+                $scope.fixErrors = true;
+              } else {
+                return $http.post('client/partials/client/keys/manage', {
+                  licenseclient: $currentUser,
+                  client: $scope.$root.clientID,
+                  amount: $scope.form.newKeys
+                }).success(function(data, status, headers, config) {
+                  console.log(status);
+                  return $window.location = '/client';
+                }).error(function(data, status, headers, config) {
+                  return console.log(status);
+                });
+              }
+            };
+          }
+        },
+        "sidebarTwo": {
+          templateUrl: "/client/partials/keys",
+          controller: function(Restangular, $stateParams, $scope, $http, $window) {
+            $scope.requestKeys = false;
+            return $scope.generateKeys = function() {
+              return $http.post('/client/partials/keys', {
+                amount: $scope.newKeys
+              }).success(function(data, status, headers, config) {
+                return $window.location = '/client';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+          }
+        }
+      }
+    });
+    $stateProvider.state("staff", {
+      url: "/staff/:id",
+      views: {
+        "main": {
+          templateUrl: "/client/partials/staff/edit",
+          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window) {
+            $scope.saving = false;
+            $scope.saved = false;
+            $scope.onSubmit = function() {
+              $scope.saving = true;
+              return $http.post('/api/v1/client/staff/' + $scope.user._id + '/update', $scope.user).success(function(data, status, headers, config) {
+                $scope.saving = false;
+                $scope.saved = true;
+                return $timeout(function() {
+                  return $scope.saved = false;
+                }, 1000);
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+            $scope.deleteClient = function() {
+              return $http["delete"]('/api/v1/client/staff/' + $scope.user._id + '/delete').success(function(data, status, headers, config) {
+                return $window.location = '/client';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+            Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
+              var utc;
+              $scope.user = user.data;
+              $scope.memberSince = new Date(user.data.createdAt);
+              utc = Date.parse($scope.memberSince);
+              if (isNaN(utc) !== false) {
+                return $scope.memberSince = "N/A";
+              }
+            });
+            return $scope.changeState = function(state) {
+              return $state.go(state);
+            };
+          }
+        },
+        "sidebarOne": {
+          templateUrl: "/client/partials/staff",
+          controller: function(Restangular, $stateParams, $scope) {
+            Restangular.all("api/v1").customGET("client/staff/" + $currentUser).then(function(staff) {
+              return $scope.staff = staff.data;
+            });
+            return $scope.toggleFilter = function() {
+              return $scope.search.name.first = true;
+            };
+          }
+        }
+      }
+    });
+    $stateProvider.state("createClient", {
+      url: "/client/create",
+      views: {
+        "main": {
+          templateUrl: "/client/partials/client/create",
+          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window) {
+            $scope.currentUser = $currentUser;
+            $scope.createClient = function() {
+              $scope.client.licenseclient = $currentUser;
+              return $http.post('/api/v1/client/clients', $scope.client).success(function(data, status, headers, config) {
+                return $window.location = '/client';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+            return $scope.changeState = function(state) {
+              return $state.go(state);
+            };
+          }
+        },
+        "sidebarOne": {
+          templateUrl: "/client/partials/keys",
+          controller: function(Restangular, $stateParams, $scope) {
+            return $scope.$root.requestKeys = false;
+          }
+        }
+      }
+    });
+    return $stateProvider.state("createStaff", {
+      url: "/staff/create",
+      views: {
+        "main": {
+          templateUrl: "/client/partials/staff/create",
+          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window) {
+            $scope.currentUser = $currentUser;
+            $scope.createStaff = function() {
+              $scope.staff.licenseclient = $currentUser;
+              return $http.post('/api/v1/client/staff', $scope.staff).success(function(data, status, headers, config) {
+                return $window.location = '/client';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+            return $scope.changeState = function(state) {
+              return $state.go(state);
+            };
+          }
+        },
+        "sidebarOne": {
+          templateUrl: "/client/partials/staff",
+          controller: function(Restangular, $stateParams, $scope) {
+            Restangular.all("api/v1").customGET("client/staff/" + $currentUser).then(function(staff) {
+              return $scope.staff = staff.data;
+            });
+            return $scope.toggleFilter = function() {
+              return $scope.search.name.first = true;
+            };
+          }
+        }
+      }
+    });
+  });
+
+}).call(this);
+
+(function() {
   var app, count;
 
   $(window).on("scroll", function() {
     var pos;
     pos = $(window).scrollTop();
     if (pos > 61) {
-      $('th.inner-table').addClass("fixed");
-      return $('.ui-view-container').css({
+      $('#float th.inner-table').addClass("fixed");
+      return $('#float .ui-view-container').css({
         "padding-top": "40px"
       });
     } else {
-      $('th.inner-table').removeClass("fixed");
-      return $('.ui-view-container').css({
+      $('#float th.inner-table').removeClass("fixed");
+      return $('#float .ui-view-container').css({
         "padding-top": "0"
       });
     }
@@ -205,23 +482,7 @@
 }).call(this);
 
 (function() {
-  var app, count;
-
-  $(window).on("scroll", function() {
-    var pos;
-    pos = $(window).scrollTop();
-    if (pos > 91) {
-      $('th.inner-table').addClass("fixed");
-      return $('.ui-view-container').css({
-        "padding-top": "40px"
-      });
-    } else {
-      $('th.inner-table').removeClass("fixed");
-      return $('.ui-view-container').css({
-        "padding-top": "0"
-      });
-    }
-  });
+  var app;
 
   app = angular.module("Partner Panel", ["restangular", "ui.router", "ui.bootstrap", "angularUtils.directives.dirPagination", "ngSanitize", "ngAnimate"]);
 
@@ -242,23 +503,6 @@
     }
   ]);
 
-  app.filter("slug", function() {
-    return function(input) {
-      if (input) {
-        return input.toLowerCase().replace(/[^a-z_]/g, "-");
-      }
-    };
-  });
-
-  count = function(ary, classifier) {
-    return ary.reduce((function(counter, item) {
-      var p;
-      p = (classifier || String)(item);
-      counter[p] = (counter.hasOwnProperty(p) ? counter[p] + 1 : 1);
-      return counter;
-    }), {});
-  };
-
   app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     $urlRouterProvider.otherwise("/");
     $stateProvider.state("home", {
@@ -267,11 +511,7 @@
         'main': {
           templateUrl: "/partner/partials/search",
           controller: function(Restangular, $stateParams, $scope, $state, $filter) {
-            Restangular.all("api/v1").customGET("partner/clients/" + $currentUser).then(function(clients) {
-              $scope.users = clients.data;
-              return $scope.$root.clientsList = clients.data;
-            });
-            Restangular.one("api/v1").customGET("user/" + $currentUser).then(function(user) {
+            Restangular.all("api/v1").customGET("user/" + $currentUser).then(function(user) {
               var utc;
               $scope.$root.currentUser = user.data;
               $scope.memberSince = new Date(user.data.createdAt);
@@ -279,6 +519,18 @@
               if (isNaN(utc) !== false) {
                 return $scope.memberSince = "N/A";
               }
+            });
+            Restangular.all("api/v1").customGET("partner/clients/" + $currentUser).then(function(clients) {
+              var client, _i, _len, _ref;
+              _ref = clients.data;
+              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                client = _ref[_i];
+                Restangular.all("api/v1").customGET("client/keys/" + client._id + "/list").then(function(keys) {
+                  return client.keys = keys.data.length;
+                });
+              }
+              $scope.users = clients.data;
+              return $scope.$root.clientsList = clients.data;
             });
             Restangular.all("api/v1").customGET("partner/keys/" + $currentUser + "/list").then(function(keys) {
               $scope.$root.keys = keys.data;
@@ -302,12 +554,29 @@
           }
         },
         'sidebarOne': {
-          templateUrl: "/partner/partials/keys",
+          templateUrl: "/partner/partials/invoices",
           controller: function(Restangular, $stateParams, $scope) {
-            return $scope.requestKeys = false;
+            return Restangular.all("api/v1").customGET("partner/invoices/" + $currentUser + "/list").then(function(invoices) {
+              return $scope.$root.invoices = invoices.data;
+            });
           }
         },
         'sidebarTwo': {
+          templateUrl: "/partner/partials/keys",
+          controller: function(Restangular, $stateParams, $scope, $http, $window) {
+            $scope.newKeys = 0;
+            return $scope.generateKeys = function() {
+              return $http.post('/partner/partials/keys', {
+                amount: $scope.newKeys
+              }).success(function(data, status, headers, config) {
+                return $window.location = '/partner';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
+          }
+        },
+        'sidebarThree': {
           templateUrl: "/partner/partials/staff",
           controller: function(Restangular, $stateParams, $scope, $state) {
             $scope.edit = false;
@@ -329,9 +598,13 @@
       views: {
         "main": {
           templateUrl: "/partner/partials/client",
-          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window) {
+          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window, $filter) {
             $scope.saving = false;
             $scope.saved = false;
+            $scope.$root.clientKeys = $filter('filter')($scope.$root.keys, {
+              client: $stateParams.id
+            });
+            $scope.$root.clientID = $stateParams.id;
             $scope.onSubmit = function() {
               $scope.saving = true;
               return $http.post('/api/v1/partner/clients/' + $scope.user._id + '/update', $scope.user).success(function(data, status, headers, config) {
@@ -357,8 +630,11 @@
               $scope.memberSince = new Date(user.data.createdAt);
               utc = Date.parse($scope.memberSince);
               if (isNaN(utc) !== false) {
-                return $scope.memberSince = "N/A";
+                $scope.memberSince = "N/A";
               }
+              return Restangular.all("api/v1").customGET("client/keys/" + user.data._id + "/list").then(function(keys) {
+                return $scope.user.noOfKeys = keys.data.length;
+              });
             });
             return $scope.changeState = function(state) {
               return $state.go(state);
@@ -367,15 +643,8 @@
         },
         "sidebarOne": {
           templateUrl: "/partner/partials/client/keys/manage",
-          controller: function(Restangular, $scope, $stateParams) {
-            $scope.updateKeys = function() {
-              if (!$scope.keyDistributionForm.$valid) {
-                $scope.fixErrors = true;
-              } else {
-                return console.log('This is submitting');
-              }
-            };
-            return Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
+          controller: function(Restangular, $scope, $stateParams, $http, $window) {
+            Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
               var utc;
               $scope.user = user.data;
               $scope.memberSince = new Date(user.data.createdAt);
@@ -384,12 +653,37 @@
                 return $scope.memberSince = "N/A";
               }
             });
+            return $scope.updateKeys = function() {
+              if (!$scope.keyDistributionForm.$valid) {
+                $scope.fixErrors = true;
+              } else {
+                return $http.post('partner/partials/client/keys/manage', {
+                  licensePartner: $currentUser,
+                  client: $scope.$root.clientID,
+                  amount: $scope.form.newKeys
+                }).success(function(data, status, headers, config) {
+                  console.log(status);
+                  return $window.location = '/partner';
+                }).error(function(data, status, headers, config) {
+                  return console.log(status);
+                });
+              }
+            };
           }
         },
         "sidebarTwo": {
           templateUrl: "/partner/partials/keys",
-          controller: function(Restangular, $stateParams, $scope) {
-            return $scope.requestKeys = false;
+          controller: function(Restangular, $stateParams, $scope, $http, $window) {
+            $scope.requestKeys = false;
+            return $scope.generateKeys = function() {
+              return $http.post('/partner/partials/keys', {
+                amount: $scope.newKeys
+              }).success(function(data, status, headers, config) {
+                return $window.location = '/partner';
+              }).error(function(data, status, headers, config) {
+                return console.log(status);
+              });
+            };
           }
         }
       }
@@ -471,7 +765,7 @@
         "sidebarOne": {
           templateUrl: "/partner/partials/keys",
           controller: function(Restangular, $stateParams, $scope) {
-            return $scope.requestKeys = false;
+            return $scope.$root.requestKeys = false;
           }
         }
       }

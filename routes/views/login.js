@@ -17,8 +17,13 @@ exports = module.exports = function(req, res) {
 		}
 		
 		var onSuccess = function(user) {
-			
-			res.redirect('/');
+
+			var redirect = req.query.redirect;
+
+			if (redirect)
+				res.redirect('/' + redirect);
+			else
+				res.redirect('/');
 			
 		}
 		

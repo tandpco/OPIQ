@@ -11,8 +11,8 @@ var keystone = require('keystone');
 
 keystone.init({
 	
-	'name': 'keystone',
-	'brand': 'keystone',
+	'name': 'OpportunityIQ',
+	'brand': 'OpportunityIQ',
 	
 	'less': 'public',
 	'static': 'public',

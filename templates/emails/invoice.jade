@@ -1,0 +1,7 @@
+extends layouts/base
+
+block content
+	p Hi #{user.name.first} #{user.name.last},
+	p This email is to confirm your purchase of #{invoice.numberOfKeys} Opportunity IQ licenses for $#{total}.
+	p These licenses are now available in your account and available to distribute.
+	a(href="http://opiq.opportunityiq.com" + link) Visit Partner Center

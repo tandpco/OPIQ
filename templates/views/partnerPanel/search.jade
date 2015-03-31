@@ -31,7 +31,7 @@ table(class='table table-bordered')
 		td {{user.name.last}}
 		td: a(href='mailto:{{user.email}}') {{user.email}}
 		td {{user.createdAt | date: "HH:mma 'on' yyyy/dd/mm"}}
-		td(class='align-right') 100
+		td(class='align-right') {{user.keys}}
 	//- tr(ng-if='filteredUsers.length == 0')
 		td(colspan='100') No results.
 	tr: td(colspan="100", class="center"): div(dir-pagination-controls, template-url="/bower_components/angular-utils-pagination/dirPagination.tpl.html")

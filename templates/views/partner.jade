@@ -1,6 +1,15 @@
 extends ../layouts/dashboard
 
 block content
+  .overlay: .modal.auth
+    h1.logo Welcome to Opportunity
+      span.iq IQ
+    p In order to view your dashboard, please set a password.
+    form(action="/partner/login", method="post")
+      .input-row
+        input(type='password', placeholder='Password', name='password')
+        input(type='password', placeholder='Confirm Password')
+        button(type='submit', class='btn btn-outline submit') Create Account
   .container-fluid
     div(style="margin-top: 30px;")
     .col.col-md-8

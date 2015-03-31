@@ -1,0 +1,7 @@
+extends layouts/base
+
+block content
+	.text-center
+		p Hi #{user.name.first} #{user.name.last},
+		p An account has been generated for you on Opportunity IQ.
+		a(href="http://opiq.opportunityiq.com" + link) Confirm Account Creation

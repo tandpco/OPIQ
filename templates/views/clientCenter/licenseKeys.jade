@@ -1,0 +1,16 @@
+table(class='table table-bordered sidebar-table edit')
+  tr
+    th(colspan=2)
+      strong License Keys ({{keys.length}})
+  tr
+    th Active
+    td {{keys.active.length}}
+  tr
+    th Pending
+    td {{keys.distributed.length}}
+  tr
+    th Inactive
+    td {{keys.pending.length}}
+  tr
+    th Users
+    td {{users.length}}

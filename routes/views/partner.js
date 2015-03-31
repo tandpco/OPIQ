@@ -1,16 +1,32 @@
-var keystone = require('keystone');
+var keystone = require('keystone'),
+		session  = require('keystone/lib/session'),
+		User     = keystone.list('User');
 
 exports = module.exports = function(req, res) {
 
-	var view = new keystone.View(req, res),
-		locals = res.locals;
+	var view   = new keystone.View(req, res),
+			locals = res.locals,
+			user   = req.user;
 
-	req.session = false;
+	locals.newPassword = user.tempPass;
 
-	var id = req.user._id;
+	console.log(user.tempPass, locals.newPassword);
 
-	locals.userID = id;
-	
-	view.render('partner');
+	if (user.userLevel === 'Staff Level' || user.userLevel === 'Distributor Level') {
+		if (user.userLevel === 'Distributor Level') {
+			locals.userID = user._id;
+			view.render('partner');
+		} else if (user.userLevel === 'Staff Level') {
+			User.model.findOne({_id: user.licensePartner}).exec(function(err, userData) {
+				if (err) console.log(err);
+				console.log(userData);
+				locals.userID = userData._id;
+				view.render('partner');
+			});
+		}
+	} else {
+		req.flash('error', 'Your account type does not have access to the partner center.')
+		res.redirect('/');
+	}
 	
 }

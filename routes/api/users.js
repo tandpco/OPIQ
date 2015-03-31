@@ -72,13 +72,16 @@ exports.partnerStaff = function(req, res) {
  */
 exports.createClient = function(req, res) {
 
-	var data = req.body;
+	var data = req.body,
+			pass = keystone.utils.randomString([16,24]);
 
 	newUser = new User.model({
 		name: {
 			first: data.name['first'],
 			last: data.name['last']
 		},
+		password: pass,
+		tempPass: pass,
 		email: data.email,
 		userLevel: 'Client Level',
 		licensePartner: data.licensePartner
@@ -147,13 +150,16 @@ exports.removeClient = function(req, res) {
  */
 exports.createStaff = function(req, res) {
 
-	var data = req.body;
+	var data = req.body,
+			pass = keystone.utils.randomString([16,24]);
 
 	newUser = new User.model({
 		name: {
 			first: data.name['first'],
 			last: data.name['last']
 		},
+		password: pass,
+		tempPass: pass,
 		email: data.email,
 		userLevel: 'Staff Level',
 		licensePartner: data.licensePartner,
@@ -219,3 +225,17 @@ exports.removeStaff = function(req, res) {
 
 }
 
+/**
+ * Get Users for Client
+ */
+exports.listClientUsers = function(req, res) {
+
+	var userID = req.params.id;
+
+	User.model.find({client: userID}).exec(function(err, users) {
+		res.apiResponse({
+			data: users
+		});
+	});
+
+}

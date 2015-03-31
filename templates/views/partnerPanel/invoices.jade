@@ -1,0 +1,21 @@
+.table-responsive: table(class='table table-bordered')
+  thead: th(colspan='100', class='no-pad inner-table'): table: thead
+    th(colspan="1")
+      strong Invoice History
+  tr
+    th Created
+    th Date Due
+    th Amount Due
+    th Status
+  tr(ng-repeat="invoice in invoices")
+    td {{invoice.createdAt | date}}
+    td {{invoice.dueDate | date}}
+    td {{invoice.amountDue | currency}}
+    td(class='status {{invoice.status | lowercase}}') {{invoice.status}}
+  tr(ng-show="invoices.length <= 0")
+    td(colspan=4) No invoices found.
+  //- tr
+  //-   td: input(type='text', ng-model='client.licensePartner', value='')
+  //-   td: {{currentUser}}
+
+div(style="margin-top: 30px;")

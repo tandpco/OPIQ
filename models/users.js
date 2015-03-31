@@ -21,6 +21,7 @@ User.add({
 	oneYearPaidAccess : {type: Date},
 	resetPasswordKey : {type: String},
 	trialID: {type: String, hidden: true},
+	tempPass: {type: String, hidden: true},
 	// _id: {type: String},
 }, 'Permissions', {
 	isAdmin: { type: Boolean, label: 'Can access Keystone' },
@@ -29,7 +30,7 @@ User.add({
 	userLevel: { type: Types.Select, options: 'Distributor Level, Client Level, User Level, Staff Level', initial: true },
 	discount: {type: String, note: 'This is the percentage discount the license partner recieves when purchasing license keys. Do not include the % sign.', dependsOn: {userLevel: 'Distributor Level'}, initial: true },
 	licensePartner: {type: Types.Relationship, ref: 'User', filters: { userLevel: 'Distributor Level' }, dependsOn: {userLevel: ['Client Level', 'Staff Level']}, initial: true },
-	client: {type: Types.Relationship, ref: 'User', filters: { userLevel: 'Client Level' }, dependsOn: {userLevel: ['User Level, Staff Level'] }, initial: true },
+	client: {type: Types.Relationship, ref: 'User', filters: { userLevel: 'Client Level' }, dependsOn: {userLevel: 'User Level' }, initial: true },
 	role: {type: String, dependsOn: {userLevel: 'Staff Level' }, initial: true },
 });
 
@@ -75,20 +76,46 @@ User.schema.methods.resetPassword = function(callback) {
 	
 }
 
-// User.schema.pre('save', function(next) {
-// 	if (this.isNew) {
-// 		var user = this;
-// 		if (user.userLevel == 'Distributor Level' || user.userLevel == 'Client Level' || user.userLevel == 'User Level' || user.userLevel == 'Staff Level') {
-// 			user.password = 'temp-' + keystone.utils.randomString([16,24]);
-// 			console.log(user.password);
-// 		}
-// 	}
-// 	next();
-// })
+User.schema.pre('save', function(next) {
+
+	this.wasNew = this.isNew;
+	// this.password = 'testing';
+
+	console.log('Password: ', this.password);
+
+	next();
+
+});
+
+User.schema.post('save', function(next) {
+
+	console.log('The post save function is running.');
+
+	var user = this;
+
+	if (user.wasNew && user.userLevel) {
+		console.log('The conditionals are passing.');
+
+		new keystone.Email('welcome').send({
+			user: user,
+			link: '/partner/login?auth=' + user._id,
+			subject: 'Welcome to Opportunity IQ!',
+			to: user.email,
+			from: {
+				name: 'Opportunity IQ',
+				email: 'welcome@opportunityiq.com'
+			}
+		});
+
+	}
+
+	// next();
+
+})
 
 /**
  * Registration
  */
 
-User.defaultColumns = 'name, email, isAdmin, freeAccess';
+User.defaultColumns = 'name, email';
 User.register();

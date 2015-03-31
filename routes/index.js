@@ -105,7 +105,6 @@ exports = module.exports = function(app) {
     res.redirect('/forgot-password');
   });
   app.all('/print/:id', routes.views.printable);
-
   app.all('/report/:id', routes.views.reportPreview);
 
   app.all('/help', function(req, res) {
@@ -190,17 +189,35 @@ exports = module.exports = function(app) {
 
   // Partner Panel
   // =============
-  app.get('/partner', routes.views.partner);
+  // For Partners & Staff
+  app.all('/partner', middleware.requireUser, routes.views.partner);
+  app.all('/partner/login', routes.views.partnerAuth);
+  // For Clients
+  app.all('/client-center', middleware.requireUser, routes.views.client);
+  app.all('/client-center/login', routes.views.clientAuth);
+
   // app.get('/partner-panel/:id', routes.views['partner-panel']);
   // States
   app.get('/partner/partials/client', routes.views.partnerPanel.states.client);
   app.get('/partner/partials/client/create', routes.views.partnerPanel.states.createClient);
-  app.get('/partner/partials/client/keys/manage', routes.views.partnerPanel.states.manageClientKeys);
+  app.all('/partner/partials/client/keys/manage', routes.views.partnerPanel.states.manageClientKeys);
   app.get('/partner/partials/search', routes.views.partnerPanel.states.search);
   app.get('/partner/partials/staff', routes.views.partnerPanel.states.staff);
   app.get('/partner/partials/staff/edit', routes.views.partnerPanel.states.staffEdit);
   app.get('/partner/partials/staff/create', routes.views.partnerPanel.states.staffCreate);
-  app.get('/partner/partials/keys', routes.views.partnerPanel.states.keys);
+  app.all('/partner/partials/keys', routes.views.partnerPanel.states.keys);
+  app.all('/partner/partials/invoices', routes.views.partnerPanel.states.invoices);
+
+  app.get('/client/partials/client', routes.views.clientCenter.states.client);
+  app.get('/client/partials/client/create', routes.views.clientCenter.states.createClient);
+  app.all('/client/partials/client/keys/manage', routes.views.clientCenter.states.manageClientKeys);
+  app.get('/client/partials/search', routes.views.clientCenter.states.search);
+  app.get('/client/partials/staff', routes.views.clientCenter.states.staff);
+  app.get('/client/partials/staff/edit', routes.views.clientCenter.states.staffEdit);
+  app.get('/client/partials/staff/create', routes.views.clientCenter.states.staffCreate);
+  app.all('/client/partials/keys', routes.views.clientCenter.states.keys);
+  app.all('/client/partials/invoices', routes.views.clientCenter.states.invoices);
+
   // API
   app.all('/api/v1/partner/clients', keystone.middleware.api, routes.api.users.createClient);
   app.all('/api/v1/partner/clients/:id', keystone.middleware.api, routes.api.users.partnerClients);
@@ -210,8 +227,24 @@ exports = module.exports = function(app) {
   app.all('/api/v1/partner/staff/:id', keystone.middleware.api, routes.api.users.partnerStaff);
   app.all('/api/v1/partner/staff/:id/update', keystone.middleware.api, routes.api.users.updateStaff);
   app.all('/api/v1/partner/staff/:id/delete', keystone.middleware.api, routes.api.users.removeStaff);
-  app.all('/api/v1/partner/keys/:id/list', keystone.middleware.api, routes.api.keys.listKeysDist)
-  
+  app.all('/api/v1/partner/keys/:id/list', keystone.middleware.api, routes.api.keys.listKeysDist);
+  app.all('/api/v1/partner/invoices/:id/list', keystone.middleware.api, routes.api.keys.listInvoicesDist);
+    
+  app.all('/api/v1/client/keys/:id/list', keystone.middleware.api, routes.api.keys.listKeysClient);
+  app.all('/api/v1/client/:id/users', keystone.middleware.api, routes.api.users.listClientUsers);
+
+  app.all('/api/v1/partner/clients', keystone.middleware.api, routes.api.users.createClient);
+  app.all('/api/v1/partner/clients/:id', keystone.middleware.api, routes.api.users.partnerClients);
+  app.all('/api/v1/partner/clients/:id/update', keystone.middleware.api, routes.api.users.updateClient);
+  app.all('/api/v1/partner/clients/:id/delete', keystone.middleware.api, routes.api.users.removeClient);
+  app.all('/api/v1/partner/staff', keystone.middleware.api, routes.api.users.createStaff);
+  app.all('/api/v1/partner/staff/:id', keystone.middleware.api, routes.api.users.partnerStaff);
+  app.all('/api/v1/partner/staff/:id/update', keystone.middleware.api, routes.api.users.updateStaff);
+  app.all('/api/v1/partner/staff/:id/delete', keystone.middleware.api, routes.api.users.removeStaff);
+  app.all('/api/v1/partner/keys/:id/list', keystone.middleware.api, routes.api.keys.listKeysDist);
+  app.all('/api/v1/partner/invoices/:id/list', keystone.middleware.api, routes.api.keys.listInvoicesDist);
+
+
   // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
   // app.get('/protected', middleware.requireUser, routes.views.protected);
   

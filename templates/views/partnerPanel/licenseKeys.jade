@@ -1,26 +1,34 @@
 table(class='table table-bordered sidebar-table edit')
   tr
     th(colspan=2)
-      strong License Keys ({{keys.length}}), {{requestKeys}}
-      .pull-right: small: a(ng-click="requestKeys = !requestKeys") Request More 
-        i.fa.fa-plus-circle
-  tr(ng-show="requestKeys")
-    th(colspan=2) Request Keys
-  tr(ng-show="requestKeys")
-    td: input(type='number', placeholder='Amount')
-    td $3,000
-  tr(ng-show="!requestKeys")
+      strong License Keys ({{keys.length}})
+  tr
     th Active
     td {{keys.active.length}}
-  tr(ng-show="!requestKeys")
+  tr
     th Inactive
     td {{keys.inactive.length}}
-  tr(ng-show="!requestKeys")
+  tr
     th Pending
     td {{keys.pending.length}}
-  tr(ng-show="!requestKeys")
+  tr
     th Clients
     td {{clientsList.length}}
-  tr(ng-show="!requestKeys")
+  tr
     th Next Invoice
     td March 31, 2015
+form(name='requestKeys', ng-submit='generateKeys()')
+  table(class='table table-bordered sidebar-table edit')
+    tr
+      th(colspan=2): strong Request More
+        .pull-right: button(type='submit'): span.label.label-success Submit Request
+    tr
+      th Amount
+      th.align-right Cost
+    tr
+      td: input(type='number', placeholder='Amount', ng-model='newKeys')
+      td.align-right(ng-if="!currentUser.discount") {{newKeys ? (newKeys * 99) : '0' | currency}}
+      td.align-right(ng-if="currentUser.discount") 
+        |{{newKeys ? ((newKeys * 99) - ((99 * newKeys) * ('0.' + currentUser.discount))) : '0' | currency}}
+      //- Calculate Total After Discount
+        - price = ((99 * newKeys) - ((99 * newKeys) * ('0.' + currentUser.discount)))

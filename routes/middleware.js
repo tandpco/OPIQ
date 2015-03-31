@@ -65,7 +65,11 @@ exports.requireUser = function(req, res, next) {
 	
 	if (!req.user) {
 		req.flash('error', 'Please sign in to access this page.');
-		res.redirect('/keystone/signin');
+		if (req.originalUrl.indexOf('partner') > -1) {
+			res.redirect('/login?redirect=partner')
+		} else {
+			res.redirect('/login');
+		}
 	} else {
 		next();
 	}

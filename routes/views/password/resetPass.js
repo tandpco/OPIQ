@@ -1,10 +1,10 @@
 var keystone = require('keystone'),
-	User = keystone.list('User');
+		User = keystone.list('User');
 
 exports = module.exports = function(req, res) {
 	
 	var view = new keystone.View(req, res),
-		locals = res.locals;
+			locals = res.locals;
 
 	locals.key = req.params.key;
 	
