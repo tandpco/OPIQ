@@ -20,9 +20,9 @@ angular.module("Client Center").directive 'ngReallyClick', [ ->
   }
  ]
 
-# app.filter "slug", ->
-#   (input) ->
-#     input.toLowerCase().replace /[^a-z_]/g, "-" if input
+app.filter "slug", ->
+  (input) ->
+    input.toLowerCase().replace /[^a-z_]/g, "-" if input
 
 # Inject Restangular into your controller
 app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
@@ -73,11 +73,11 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
         controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window, $filter) ->
           $scope.saving = false
           $scope.saved = false
-          $scope.$root.userKeys = $filter('filter')($scope.$root.keys, {client: $stateParams.id})
+          $scope.$root.userKeys = $filter('filter')($scope.$root.keys, {user: $stateParams.id})
           $scope.$root.userID = $stateParams.id
           $scope.onSubmit = ->
             $scope.saving = true
-            $http.post('/api/v1/client/clients/'+$scope.user._id+'/update', $scope.user)
+            $http.post('/api/v1/user/'+$scope.user._id+'/update', $scope.user)
               .success (data, status, headers, config) ->
                 $scope.saving = false
                 $scope.saved = true
@@ -88,10 +88,10 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
                 # Error
                 console.log status
           $scope.deleteClient = ->
-            $http.delete('/api/v1/client/clients/'+$scope.user._id+'/delete')
+            $http.delete('/api/v1/user/'+$scope.user._id+'/remove')
               .success (data, status, headers, config) ->
                 # Redirect
-                $window.location = '/client'
+                $window.location = '/client-center'
               .error (data, status, headers, config) ->
                 # Error
                 console.log status
@@ -100,8 +100,61 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             $scope.memberSince = new Date(user.data.createdAt)
             utc = Date.parse($scope.memberSince)
             $scope.memberSince = "N/A" unless isNaN(utc) is false
-            Restangular.all("api/v1").customGET("client/keys/" + user.data._id + "/list").then (keys) ->
+            Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/keys").then (keys) ->
               $scope.user.noOfKeys = keys.data.length
+
+          # Inject MATH
+          $scope.Math = window.Math
+
+          Restangular.all("api/v1").customGET("pages/list").then (pages) ->
+            $scope.pages = pages.data
+            console.log "Found pages!"
+
+            Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
+              $scope.user = user.data
+              $scope.memberSince = new Date(user.data.createdAt)
+              utc = Date.parse($scope.memberSince)
+              $scope.memberSince = "N/A" unless isNaN(utc) is false
+
+            Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then (assessments) ->
+              $scope.assessments = assessments.data
+              assessments.data.forEach (assessment) ->
+                Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then (answers) ->
+                  assessment.answers = answers.data
+                  assessment.pages = $scope.pages
+                  assessment.percentComplete = Math.round(100*assessment.answers.length/assessment.pages.length)
+                  assessment.complete = true unless assessment.percentComplete != 100
+
+                  x = 0
+                  test = []
+                  totalz = 0
+
+                  while x < answers.length
+
+                    test.push assessment.answers[x].page
+
+                    # Get the total of the answers
+                    totalz = Number(total) + Number(assessment.answers[x].answer)
+
+                    x++
+
+                  z = 0
+                  testing = []
+                  completed = []
+
+                  while z < assessment.pages.length
+
+                    testing.push assessment.pages[z].name
+
+                    if _.contains answers, assessment.pages[z].name
+
+                      $scope.assessment.pages[z].status = 'complete'
+
+                      # Get the number of answered questions
+                      completed.push $scope.assessment.pages[z].name
+
+                    z++
+
           $scope.changeState = (state) ->
             $state.go state
 
@@ -118,15 +171,14 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
               $scope.fixErrors = true
               return
             else
-              $http.post('client/partials/client/keys/manage', {licenseclient: $currentUser, client: $scope.$root.clientID, amount: $scope.form.newKeys})
+              $http.post('client/partials/client/keys/manage', {client: $currentUser, user: $stateParams.id, amount: $scope.form.newKeys})
                 .success (data, status, headers, config) ->
                   # Success
                   console.log status
-                  $window.location = '/client'
+                  $window.location = '/client-center'
                 .error (data, status, headers, config) ->
                   # Error
                   console.log status
-
       "sidebarTwo": 
         templateUrl: "/client/partials/keys"
         controller: (Restangular, $stateParams, $scope, $http, $window) ->
@@ -134,67 +186,22 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
           $scope.generateKeys = ->
             $http.post('/client/partials/keys', {amount: $scope.newKeys})
               .success (data, status, headers, config) ->
-                $window.location = '/client'
+                $window.location = '/client-center'
               .error (data, status, headers, config) ->
                 console.log status
 
-  # Individual User Page
-  $stateProvider.state "staff",
-    url: "/staff/:id"
-    views:
-      "main":
-        templateUrl: "/client/partials/staff/edit"
-        controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window) ->
-          $scope.saving = false
-          $scope.saved = false
-          $scope.onSubmit = ->
-            $scope.saving = true
-            $http.post('/api/v1/client/staff/'+$scope.user._id+'/update', $scope.user)
-              .success (data, status, headers, config) ->
-                $scope.saving = false
-                $scope.saved = true
-                $timeout ->
-                  $scope.saved = false
-                , 1000
-              .error (data, status, headers, config) ->
-                # Error
-                console.log status
-          $scope.deleteClient = ->
-            $http.delete('/api/v1/client/staff/'+$scope.user._id+'/delete')
-              .success (data, status, headers, config) ->
-                # Redirect
-                $window.location = '/client'
-              .error (data, status, headers, config) ->
-                # Error
-                console.log status
-          Restangular.one("api/v1").customGET("user/" + $stateParams.id).then (user) ->
-            $scope.user = user.data
-            $scope.memberSince = new Date(user.data.createdAt)
-            utc = Date.parse($scope.memberSince)
-            $scope.memberSince = "N/A" unless isNaN(utc) is false
-          $scope.changeState = (state) ->
-            $state.go state
-
-      "sidebarOne":
-        templateUrl: "/client/partials/staff"
-        controller: (Restangular, $stateParams, $scope) ->
-          Restangular.all("api/v1").customGET("client/staff/" + $currentUser).then (staff) ->
-            $scope.staff = staff.data
-          $scope.toggleFilter =  ->
-            $scope.search.name.first = true
-
-  $stateProvider.state "createClient",
-    url: "/client/create"
+  $stateProvider.state "createUser",
+    url: "/user/create"
     views:
       "main":
         templateUrl: "/client/partials/client/create"
         controller: (Restangular, $stateParams, $scope, $state, $timeout, $http, $window) ->
           $scope.currentUser = $currentUser
-          $scope.createClient = ->
-            $scope.client.licenseclient = $currentUser
-            $http.post('/api/v1/client/clients', $scope.client)
+          $scope.createUser = ->
+            $scope.user.client = $currentUser
+            $http.post('/api/v1/users', $scope.user)
               .success (data, status, headers, config) ->
-                $window.location = '/client'
+                $window.location = '/client-center'
               .error (data, status, headers, config) ->
                 # Error
                 console.log status
@@ -202,8 +209,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             $state.go state
       "sidebarOne":
         templateUrl: "/client/partials/keys"
-        controller: (Restangular, $stateParams, $scope) ->
-          $scope.$root.requestKeys = false
 
   $stateProvider.state "createStaff",
     url: "/staff/create"

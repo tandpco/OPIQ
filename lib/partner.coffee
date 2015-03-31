@@ -43,9 +43,6 @@ app.config ($stateProvider, $urlRouterProvider, RestangularProvider) ->
             utc = Date.parse($scope.memberSince)
             $scope.memberSince = "N/A" unless isNaN(utc) is false
           Restangular.all("api/v1").customGET("partner/clients/" + $currentUser).then (clients) ->
-            for client in clients.data
-              Restangular.all("api/v1").customGET("client/keys/" + client._id + "/list").then (keys) ->
-                client.keys = keys.data.length
             $scope.users = clients.data
             $scope.$root.clientsList = clients.data
           Restangular.all("api/v1").customGET("partner/keys/" + $currentUser + "/list").then (keys) ->

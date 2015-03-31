@@ -2,7 +2,7 @@ form(name='keyDistributionForm', ng-submit='updateKeys()', novalidate='true')
   table(class='table table-bordered sidebar-table edit')
     tr
       th(colspan=3)
-        strong Manage Clients Licenses
+        strong Manage Users Licenses
         .pull-right: button(type='submit'): span.label.label-success Save Changes
     tr
       th Licenses
@@ -13,6 +13,6 @@ form(name='keyDistributionForm', ng-submit='updateKeys()', novalidate='true')
     tr(ng-if='fixErrors')
       td(colspan=3, class='danger') Please enter a valid number of keys before continuing.
     tr
-      td: {{clientKeys.length}}
-      td: input(type='number', ng-model='form.newKeys', max='{{keys.inactive.length}}', name='keys')
-      td: {{clientKeys.length -- form.newKeys}}
+      td {{userKeys.length}}
+      td: input(type='number', ng-model='form.newKeys', max='{{keys.pending.length}}', name='keys')
+      td {{userKeys.length -- form.newKeys}}

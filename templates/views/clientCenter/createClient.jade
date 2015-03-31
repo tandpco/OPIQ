@@ -1,27 +1,27 @@
-form(ng-submit="createClient()")
+form(ng-submit="createUser()")
   //- |{{currentUser}}
   table(class='table table-bordered edit')
     thead: th(colspan='100', class='no-pad inner-table'): table: thead
       th(ng-click='changeState("home")', class='back')
         i.fa.fa-angle-left
       th(colspan="1")
-        strong New Client
+        strong New User
         .pull-right
-          //- span.label.label-success(ng-show="saving", ng-click="createClient()") Saving Changes
-          //- span.label.label-success(ng-show="saved", ng-click="createClient()") Saved
-          //- span.label.label-success(ng-show="!saving && !saved", ng-click="createClient()") Save Changes
-          span.label.label-default(ng-if="!client.name.first.length || !client.name.last.length || !client.email.length") Create Client
-          button(type='submit'): span.label.label-success(ng-if="client.name.first.length > 0 && client.name.last.length > 0 && client.email.length > 0") Create Client 
+          //- span.label.label-success(ng-show="saving", ng-click="createuser()") Saving Changes
+          //- span.label.label-success(ng-show="saved", ng-click="createuser()") Saved
+          //- span.label.label-success(ng-show="!saving && !saved", ng-click="createuser()") Save Changes
+          span.label.label-default(ng-if="!user.name.first.length || !user.name.last.length || !user.email.length") Create User
+          button(type='submit'): span.label.label-success(ng-if="user.name.first.length > 0 && user.name.last.length > 0 && user.email.length > 0") Create User 
     tr
       th First Name*
       th Last Name*
       th Email Address*
     tr
-      td: input(type='text', ng-model='client.name.first')
-      td: input(type='text', ng-model='client.name.last')
-      td: input(type='text', ng-model='client.email')
+      td: input(type='text', ng-model='user.name.first')
+      td: input(type='text', ng-model='user.name.last')
+      td: input(type='text', ng-model='user.email')
     //- tr
-    //-   td: input(type='text', ng-model='client.licensePartner', value='')
+    //-   td: input(type='text', ng-model='user.licensePartner', value='')
     //-   td: {{currentUser}}
 
 div(style="margin-top: 30px;")

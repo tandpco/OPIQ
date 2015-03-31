@@ -33,6 +33,18 @@ exports.listKeysClient = function(req, res) {
 
 }
 
+exports.listKeysUser = function(req, res) {
+
+	var userID = req.params.id;
+
+	Keys.model.find({user: userID}).exec(function(err, keys) {
+		res.apiResponse({
+			data: keys
+		});
+	});
+
+}
+
 exports.listInvoicesDist = function(req, res) {
 
 	var userID = req.params.id;

@@ -20,6 +20,14 @@
     }
   ]);
 
+  app.filter("slug", function() {
+    return function(input) {
+      if (input) {
+        return input.toLowerCase().replace(/[^a-z_]/g, "-");
+      }
+    };
+  });
+
   app.config(function($stateProvider, $urlRouterProvider, RestangularProvider) {
     $urlRouterProvider.otherwise("/");
     $stateProvider.state("home", {
@@ -70,12 +78,12 @@
             $scope.saving = false;
             $scope.saved = false;
             $scope.$root.userKeys = $filter('filter')($scope.$root.keys, {
-              client: $stateParams.id
+              user: $stateParams.id
             });
             $scope.$root.userID = $stateParams.id;
             $scope.onSubmit = function() {
               $scope.saving = true;
-              return $http.post('/api/v1/client/clients/' + $scope.user._id + '/update', $scope.user).success(function(data, status, headers, config) {
+              return $http.post('/api/v1/user/' + $scope.user._id + '/update', $scope.user).success(function(data, status, headers, config) {
                 $scope.saving = false;
                 $scope.saved = true;
                 return $timeout(function() {
@@ -86,8 +94,8 @@
               });
             };
             $scope.deleteClient = function() {
-              return $http["delete"]('/api/v1/client/clients/' + $scope.user._id + '/delete').success(function(data, status, headers, config) {
-                return $window.location = '/client';
+              return $http["delete"]('/api/v1/user/' + $scope.user._id + '/remove').success(function(data, status, headers, config) {
+                return $window.location = '/client-center';
               }).error(function(data, status, headers, config) {
                 return console.log(status);
               });
@@ -100,8 +108,57 @@
               if (isNaN(utc) !== false) {
                 $scope.memberSince = "N/A";
               }
-              return Restangular.all("api/v1").customGET("client/keys/" + user.data._id + "/list").then(function(keys) {
+              return Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/keys").then(function(keys) {
                 return $scope.user.noOfKeys = keys.data.length;
+              });
+            });
+            $scope.Math = window.Math;
+            Restangular.all("api/v1").customGET("pages/list").then(function(pages) {
+              $scope.pages = pages.data;
+              console.log("Found pages!");
+              Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
+                var utc;
+                $scope.user = user.data;
+                $scope.memberSince = new Date(user.data.createdAt);
+                utc = Date.parse($scope.memberSince);
+                if (isNaN(utc) !== false) {
+                  return $scope.memberSince = "N/A";
+                }
+              });
+              return Restangular.all("api/v1").customGET("user/" + $stateParams.id + "/assessments").then(function(assessments) {
+                $scope.assessments = assessments.data;
+                return assessments.data.forEach(function(assessment) {
+                  return Restangular.all("api/v1").customGET("assessment/" + assessment._id + "/" + assessment.user).then(function(answers) {
+                    var completed, test, testing, totalz, x, z, _results;
+                    assessment.answers = answers.data;
+                    assessment.pages = $scope.pages;
+                    assessment.percentComplete = Math.round(100 * assessment.answers.length / assessment.pages.length);
+                    if (assessment.percentComplete === 100) {
+                      assessment.complete = true;
+                    }
+                    x = 0;
+                    test = [];
+                    totalz = 0;
+                    while (x < answers.length) {
+                      test.push(assessment.answers[x].page);
+                      totalz = Number(total) + Number(assessment.answers[x].answer);
+                      x++;
+                    }
+                    z = 0;
+                    testing = [];
+                    completed = [];
+                    _results = [];
+                    while (z < assessment.pages.length) {
+                      testing.push(assessment.pages[z].name);
+                      if (_.contains(answers, assessment.pages[z].name)) {
+                        $scope.assessment.pages[z].status = 'complete';
+                        completed.push($scope.assessment.pages[z].name);
+                      }
+                      _results.push(z++);
+                    }
+                    return _results;
+                  });
+                });
               });
             });
             return $scope.changeState = function(state) {
@@ -126,12 +183,12 @@
                 $scope.fixErrors = true;
               } else {
                 return $http.post('client/partials/client/keys/manage', {
-                  licenseclient: $currentUser,
-                  client: $scope.$root.clientID,
+                  client: $currentUser,
+                  user: $stateParams.id,
                   amount: $scope.form.newKeys
                 }).success(function(data, status, headers, config) {
                   console.log(status);
-                  return $window.location = '/client';
+                  return $window.location = '/client-center';
                 }).error(function(data, status, headers, config) {
                   return console.log(status);
                 });
@@ -147,7 +204,7 @@
               return $http.post('/client/partials/keys', {
                 amount: $scope.newKeys
               }).success(function(data, status, headers, config) {
-                return $window.location = '/client';
+                return $window.location = '/client-center';
               }).error(function(data, status, headers, config) {
                 return console.log(status);
               });
@@ -156,71 +213,17 @@
         }
       }
     });
-    $stateProvider.state("staff", {
-      url: "/staff/:id",
-      views: {
-        "main": {
-          templateUrl: "/client/partials/staff/edit",
-          controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window) {
-            $scope.saving = false;
-            $scope.saved = false;
-            $scope.onSubmit = function() {
-              $scope.saving = true;
-              return $http.post('/api/v1/client/staff/' + $scope.user._id + '/update', $scope.user).success(function(data, status, headers, config) {
-                $scope.saving = false;
-                $scope.saved = true;
-                return $timeout(function() {
-                  return $scope.saved = false;
-                }, 1000);
-              }).error(function(data, status, headers, config) {
-                return console.log(status);
-              });
-            };
-            $scope.deleteClient = function() {
-              return $http["delete"]('/api/v1/client/staff/' + $scope.user._id + '/delete').success(function(data, status, headers, config) {
-                return $window.location = '/client';
-              }).error(function(data, status, headers, config) {
-                return console.log(status);
-              });
-            };
-            Restangular.one("api/v1").customGET("user/" + $stateParams.id).then(function(user) {
-              var utc;
-              $scope.user = user.data;
-              $scope.memberSince = new Date(user.data.createdAt);
-              utc = Date.parse($scope.memberSince);
-              if (isNaN(utc) !== false) {
-                return $scope.memberSince = "N/A";
-              }
-            });
-            return $scope.changeState = function(state) {
-              return $state.go(state);
-            };
-          }
-        },
-        "sidebarOne": {
-          templateUrl: "/client/partials/staff",
-          controller: function(Restangular, $stateParams, $scope) {
-            Restangular.all("api/v1").customGET("client/staff/" + $currentUser).then(function(staff) {
-              return $scope.staff = staff.data;
-            });
-            return $scope.toggleFilter = function() {
-              return $scope.search.name.first = true;
-            };
-          }
-        }
-      }
-    });
-    $stateProvider.state("createClient", {
-      url: "/client/create",
+    $stateProvider.state("createUser", {
+      url: "/user/create",
       views: {
         "main": {
           templateUrl: "/client/partials/client/create",
           controller: function(Restangular, $stateParams, $scope, $state, $timeout, $http, $window) {
             $scope.currentUser = $currentUser;
-            $scope.createClient = function() {
-              $scope.client.licenseclient = $currentUser;
-              return $http.post('/api/v1/client/clients', $scope.client).success(function(data, status, headers, config) {
-                return $window.location = '/client';
+            $scope.createUser = function() {
+              $scope.user.client = $currentUser;
+              return $http.post('/api/v1/users', $scope.user).success(function(data, status, headers, config) {
+                return $window.location = '/client-center';
               }).error(function(data, status, headers, config) {
                 return console.log(status);
               });
@@ -231,10 +234,7 @@
           }
         },
         "sidebarOne": {
-          templateUrl: "/client/partials/keys",
-          controller: function(Restangular, $stateParams, $scope) {
-            return $scope.$root.requestKeys = false;
-          }
+          templateUrl: "/client/partials/keys"
         }
       }
     });
@@ -521,14 +521,6 @@
               }
             });
             Restangular.all("api/v1").customGET("partner/clients/" + $currentUser).then(function(clients) {
-              var client, _i, _len, _ref;
-              _ref = clients.data;
-              for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                client = _ref[_i];
-                Restangular.all("api/v1").customGET("client/keys/" + client._id + "/list").then(function(keys) {
-                  return client.keys = keys.data.length;
-                });
-              }
               $scope.users = clients.data;
               return $scope.$root.clientsList = clients.data;
             });

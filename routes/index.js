@@ -219,6 +219,11 @@ exports = module.exports = function(app) {
   app.all('/client/partials/invoices', routes.views.clientCenter.states.invoices);
 
   // API
+  app.all('/api/v1/users', keystone.middleware.api, routes.api.users.createUser);
+  app.all('/api/v1/user/:id/update', keystone.middleware.api, routes.api.users.updateUser);
+  app.all('/api/v1/user/:id/remove', keystone.middleware.api, routes.api.users.removeUser);
+  app.all('/api/v1/user/:id/keys', keystone.middleware.api, routes.api.keys.listKeysUser);
+
   app.all('/api/v1/partner/clients', keystone.middleware.api, routes.api.users.createClient);
   app.all('/api/v1/partner/clients/:id', keystone.middleware.api, routes.api.users.partnerClients);
   app.all('/api/v1/partner/clients/:id/update', keystone.middleware.api, routes.api.users.updateClient);
@@ -232,6 +237,9 @@ exports = module.exports = function(app) {
     
   app.all('/api/v1/client/keys/:id/list', keystone.middleware.api, routes.api.keys.listKeysClient);
   app.all('/api/v1/client/:id/users', keystone.middleware.api, routes.api.users.listClientUsers);
+  app.all('/api/v1/client/:id/user/:id', keystone.middleware.api, routes.api.users.listClientUsers);
+  app.all('/api/v1/client/:id/user/update', keystone.middleware.api, routes.api.users.listClientUsers);
+  app.all('/api/v1/client/:id/user/remove', keystone.middleware.api, routes.api.users.listClientUsers);
 
   app.all('/api/v1/partner/clients', keystone.middleware.api, routes.api.users.createClient);
   app.all('/api/v1/partner/clients/:id', keystone.middleware.api, routes.api.users.partnerClients);

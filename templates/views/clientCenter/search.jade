@@ -3,6 +3,8 @@ table(class='table table-bordered')
 		th(colspan='100', class="inner-table", id='float')
 			i.fa.fa-users &nbsp;
 			| Search Users
+			.pull-right: small: a(ng-click="changeState('createUser')") Create User 
+				i.fa.fa-plus-circle
 	tr
 		//- th
 			i.fa.fa-filter &nbsp;

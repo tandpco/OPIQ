@@ -96,9 +96,17 @@ User.schema.post('save', function(next) {
 	if (user.wasNew && user.userLevel) {
 		console.log('The conditionals are passing.');
 
-		new keystone.Email('welcome').send({
+		if (user.userLevel === 'Client Level') {
+			var link     = 'client-center',
+					template = 'welcomeClient';
+		} else if (user.userLevel === 'Distributor Level') {
+			var link     = 'partner',
+					template = 'welcomeUser';
+		}
+
+		new keystone.Email(template).send({
 			user: user,
-			link: '/partner/login?auth=' + user._id,
+			link: '/' + link + '/login?auth=' + user._id,
 			subject: 'Welcome to Opportunity IQ!',
 			to: user.email,
 			from: {

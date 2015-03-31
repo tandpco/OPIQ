@@ -25,11 +25,11 @@ form(ng-submit="onSubmit()")
       td: input(type='text', ng-model='user.name.first')
       td: input(type='text', ng-model='user.name.last')
       td: input(type='text', ng-model='user.email')
-      td(class='align-right') {{user.noOfKeys}}
+      td(class='align-right') {{userKeys.length}}
 
 div(style="margin-top: 30px;")
 
-//- table(class='table table-bordered')
+table(class='table table-bordered')
   tr
     th(colspan=100): strong Search Assessments
   tr
@@ -43,9 +43,9 @@ div(style="margin-top: 30px;")
     th(ng-click="predicate = 'percentComplete'; reverse=!reverse; changeClass()", class='filter percent') Percent Complete
     //- th.score Assessment Score
   tr(ng-repeat='assessment in filteredAssessments = (assessments | filter: {title: search}) | orderBy:predicate:reverse')
-    td(ng-show='!assessment.complete', class='status_'): span.incomplete: i.fa.fa-circle
-    td(ng-show='assessment.complete', class='status_'): span.complete: i.fa.fa-circle
-    td: a(ui-sref='assessment({id:assessment._id,assessSlug:(assessment.title | slug)})') {{assessment.title}}
+    td(ng-if='!assessment.complete', class='status_'): span.incomplete: i.fa.fa-circle
+    td(ng-if='assessment.complete', class='status_'): span.complete: i.fa.fa-circle
+    td: a(href='/questions/{{assessment._id}}', target='_blank') {{assessment.title}}
     td {{assessment.percentComplete}}%
   tr(ng-if='!search && assessments.length == 0')
     td(colspan='100') No assessments found for {{user.name.first + ' ' + user.name.last}}.

@@ -239,3 +239,79 @@ exports.listClientUsers = function(req, res) {
 	});
 
 }
+
+/**
+ * Update User for Client
+ */
+exports.updateUser = function(req, res) {
+
+	var userID = req.params.id,
+			data   = req.body;
+
+	User.model.findOne({_id: userID}).exec(function(err, user) {
+		user.set({
+			name: {
+				first: data.name['first'],
+				last: data.name['last']
+			},
+			email: data.email
+		})
+		user.save(function(err) {
+			if (err) return err;
+		});
+		res.apiResponse({
+			data: user
+		});
+	});
+
+}
+
+/**
+ * Remove User for Client
+ */
+exports.removeUser = function(req, res) {
+
+	var userID = req.params.id,
+			data   = req.body;
+
+	User.model.findOne({_id: userID}).exec(function(err, user) {
+		user.remove(function(err) {
+			if (err) return err;
+			res.apiResponse({
+				data: user
+			});
+		});
+	});
+
+}
+
+/**
+ * Create Client for License Partner
+ */
+exports.createUser = function(req, res) {
+
+	var data = req.body,
+			pass = keystone.utils.randomString([16,24]);
+
+	newUser = new User.model({
+		name: {
+			first: data.name['first'],
+			last: data.name['last']
+		},
+		password: pass,
+		tempPass: 'true',
+		email: data.email,
+		userLevel: 'User Level',
+		client: data.client
+	});
+
+	newUser.save(function(err) {
+		if (err) return err;
+		console.log('Saved.')
+	});
+
+	res.apiResponse({
+		data: newUser
+	});
+
+}

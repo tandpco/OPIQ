@@ -14,11 +14,11 @@ exports = module.exports = function(req, res) {
 		var data = req.body,
 				user = req.user;
 
-		licenses.model.find({licensePartner: data.licensePartner, status: 'Inactive'}).sort('date').limit(data.amount).exec(function(err, keys) {
+		licenses.model.find({client: data.client, status: 'Pending'}).sort('date').limit(data.amount).exec(function(err, keys) {
 			for (i = 0; i < keys.length; i++) {
 				keys[i].set({
-					client: data.client,
-					status: 'Pending'
+					user: data.user,
+					status: 'Distributed'
 				});
 				keys[i].save();
 			}
@@ -28,7 +28,7 @@ exports = module.exports = function(req, res) {
 			user: user,
 			amount: data.amount,
 			link: '/client-center',
-			subject: data.amount + ' New Licenses Keys Available on Opportunity IQ',
+			subject: 'You have been assigned a license key on Opportunity IQ!',
 			to: user.email,
 			from: {
 				name: 'Opportunity IQ',
