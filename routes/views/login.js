@@ -19,11 +19,8 @@ exports = module.exports = function(req, res) {
 		var onSuccess = function(user) {
 
 			var redirect = req.query.redirect;
-
-			if (redirect)
-				res.redirect('/' + redirect);
-			else
-				res.redirect('/');
+			
+			res.redirect('/');
 			
 		}
 		
@@ -40,7 +37,27 @@ exports = module.exports = function(req, res) {
 
 	else {
 
-		view.render('login');
+		if (req.query.auth) {
+
+			var onSuccess = function(user) {
+				req.session.newPassword = true;
+				user.tempPass = true;
+				user.save();
+				res.redirect('/');
+			}
+			
+			var onFail = function() {
+				req.flash('error', 'Sorry, that email and password combo are not valid.');
+				view.render('login');
+			}
+
+			session.signin(req.query.auth, req, res, onSuccess, onFail);			
+
+		} else {
+
+			view.render('login');
+
+		}
 
 	}
 

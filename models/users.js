@@ -91,22 +91,28 @@ User.schema.post('save', function(next) {
 
 	console.log('The post save function is running.');
 
-	var user = this;
+	var user = this,
+			welcomeLink = null,
+			template = null;
 
 	if (user.wasNew && user.userLevel) {
-		console.log('The conditionals are passing.');
 
 		if (user.userLevel === 'Client Level') {
-			var link     = 'client-center',
-					template = 'welcomeClient';
-		} else if (user.userLevel === 'Distributor Level') {
-			var link     = 'partner',
-					template = 'welcomeUser';
+			var welcomeLink = '/client-center',
+					template    = 'welcomeClient';
+		} else if (user.userLevel === 'Staff Level') {
+			var welcomeLink = '/partner',
+					template    = 'welcome';
+		} else {
+			var welcomeLink = '',
+					template    = 'welcomeUser';
 		}
+
+		console.log(welcomeLink, template);
 
 		new keystone.Email(template).send({
 			user: user,
-			link: '/' + link + '/login?auth=' + user._id,
+			link: welcomeLink + '/login?auth=' + user._id,
 			subject: 'Welcome to Opportunity IQ!',
 			to: user.email,
 			from: {

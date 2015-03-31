@@ -68,7 +68,10 @@ keystone.set('email rules', [{
 // Configure the navigation bar in Keystone's Admin UI
 
 keystone.set('nav', {
-	'pages': 'pages',
+	'Users': 'User',
+	'Assessments': ['Analysis', 'Answer'],
+	'Dashboard': ['Invoices', 'License Keys'],
+	'Pages': 'Page',
 	// 'User Levels': ['License Partner', 'License Partner Clients']
 });
 

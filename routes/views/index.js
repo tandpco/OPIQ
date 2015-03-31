@@ -1,5 +1,6 @@
 var keystone   = require('keystone'),
     _          = require('underscore'),
+    licenses   = keystone.list('License Keys'),
     stripecust = require('../lib/stripecust.js');
 
 exports = module.exports = function(req, res) {
@@ -18,6 +19,9 @@ exports = module.exports = function(req, res) {
       locals.stripeApiKey = keystone.get('stripeApiKeyClient');
 
   var anID = req.params.id;
+
+  if (req.session.newPassword)
+    locals.newPassword = true
 
   // IF REQ.METHOD == POST
   // * Create New Analysis
@@ -39,7 +43,7 @@ exports = module.exports = function(req, res) {
     // ENDIF
     // =============================
     if (!req.user) {
-      var trialID = (req.session.trialID ? req.session.trialID : null) 
+      var trialID = (req.session.trialID ? req.session.trialID : null);
       var newAn = new Analysis.model({
         title: req.body.analysis,
         trial: true,
@@ -53,6 +57,32 @@ exports = module.exports = function(req, res) {
           start(an);
           // res.location('/questions/'+an._id);
           // res.redirect('/questions/' + an._id);
+        });
+      });
+    } else if (req.user.userLevel === 'User Level') {
+      Analysis.model.find({user: req.user._id}).exec(function(e, an) {
+        licenses.model.find({user: req.user._id}).sort('date').limit(1).exec(function(e, key) {
+          if (key.length) {
+            key[0].status = 'Active';
+            key[0].save();
+            var newAn = new Analysis.model({
+              title : req.body.analysis,
+              user : req.user._id
+            });
+            newAn.save(function(){
+              Analysis.model.findOne({_id: newAn._id}).exec(function(e, an){
+                locals.analysis = an;
+                req.session.analysis = an.title;
+                req.session.analysisid = an._id
+                start(an);
+                // res.location(an._id);
+                // res.redirect('/questions/' + an._id);
+              });
+            });
+          } else {
+            req.flash('error', 'You do not have any license keys available to take an assessment.');
+            res.redirect('/');
+          }
         });
       });
     } else {

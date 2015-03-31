@@ -2,125 +2,135 @@ include ../mixins/flash-messages
 
 doctype html
 html
-	head
-		meta(charset="utf-8")
-		meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
-		title OpportunityIQ
-		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-		link(rel="stylesheet", href="/styles/font-awesome.min.css")
-		link(rel="stylesheet", href="/styles/site.min.css")
-	body: #report.analysis.clearfix
-		.head#nav
-			div(role="navigation")
-				.logo
-					a(href='/')
-						img(src="/images/iq_logo.jpg")
-						| Opportunity
-						span.gtext IQ
-					button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navcollapse")
-						span.sr-only Toggle navigation
-						span.icon-bar
-						span.icon-bar
-						span.icon-bar
-				.col-sm-9.col-lg-10#nav2
-					.collapse.navbar-collapse#navcollapse
-						.navbar.navbar-inverse
-							if user		
-								ul.nav.navbar-nav.navbar-right
-									li.dropdown
-										a.dropdown-toggle(href="#", data-toggle="dropdown")
-											//- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
-											=user.name.first
-											.arrow-down
-											ul.dropdown-menu
-												li
-													if user && user.canAccessKeystone
-														a(href='/keystone') 
-															i.fa.fa-user
-															| &nbsp; Admin
-												li: a(href='/')
-													i.fa.fa-road
-														| &nbsp; Create New	
-												li.divider
-												li
-													a(href="signout").signoutSign
-														i.fa.fa-sign-out
-														| Sign Out
-							else
-								ul.nav.navbar-nav.navbar-right.notsigned
-									li 
-										a(href="register") &nbsp; Sign Up
-									li 
-										a(href='login') Sign In
-		.col-md-12
-			#analysis
-				.header
-					+flash-messages(messages)
-					if locals.err
-						div#flash-messages
-							div.alert.alert-danger
-								p Error
-					h1 What is Your Opportunity's IQ?
-					.t To start your analysis, please enter a title for your opportunity in the field below.
-						br
-						if user
-							if !user.oneYearPaidAccess || !user.freeAnalysis === 'true'
-								| (The first three parts of the analysis are free then you will be prompted to pay for the analysis if you'd like to continue)
-						else
-							| (The first three parts of the analysis are free then you will be prompted to pay for the analysis if you'd like to continue)
-				.body
-					.error=error
-					form.create(action='questions', method='post', autocomplete="off")
-						input(name='newa', type='hidden', value='true')
-						input.form-control(name='analysis',type='text', placeholder='Opportunity Name...')
-						input.large-main-button(type='submit', value='START ANALYSIS')
-				.footer
-					div CURRENT OPPORTUNITIES
-					each a in analysis
-						a(href='/questions/'+a._id, class='analysis')
-							.icon: i.fa.fa-file-text-o
-							.t= a.title
-							|&nbsp;
-						//- form.analysis(action='questions', method='post', autocomplete="off")
-						//- 	.icon: i.fa.fa-file-text-o
-						//- 	.t= a.title
-						//- 	input(type='hidden', value=a.title, name='title')
-						//- 	input(type='hidden', value=a._id, name='_id')
-						//- 	input(type='submit')
-	div#footer-outer.clearfix
-		div#footer-widgets
-			div.container
-				//- Column One
-				div.col-md-4
-					img(src="http://opportunityiq.com/wp-content/uploads/2014/07/logo-white.png")
-					ul.row
-						div.col-md-6
-							li: a(href="http://opportunityiq.com") Home
-							li: a(href="http://opportunityiq.com/pricing-page") Pricing
-							li: a(href="http://opiq.opportunityiq.com") Get Started
-						div.col-md-6
-							li: a(href="http://opportunityiq.com/about") About
-							li: a(href="http://opportunityiq.com/contact") Contact
-							li: a(href="http://opiq.opportunityiq.com/login") Sign In
-				//- Column Two
-				div.col-md-4
-					h5 Smart Analysis.
-					h5 Smart Business.
-				//- Column Three
-				div.col-md-4
-					//- Empty.
-				div.col-md-12#copyright
-					p (C) 2014 Boldmore Growth Partners, LLC.
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width")
+    title OpportunityIQ
+    link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="/styles/font-awesome.min.css")
+    link(rel="stylesheet", href="/styles/site.min.css")
+    link(rel="stylesheet", href="/styles/overlay.css")
+  body(class=(user.tempPass == 'true' ? 'modal-open' : null)): #report.analysis.clearfix  
+    .overlay: .modal.auth
+      h1.logo Welcome to Opportunity
+        span.iq IQ
+      p In order to continue, please set a password.
+      form(action="/user/login", method="post")
+        .input-row
+          input(type='password', placeholder='Password', name='password')
+          input(type='password', placeholder='Confirm Password')
+          button(type='submit', class='btn btn-outline submit') Create Account
+    .head#nav
+      div(role="navigation")
+        .logo
+          a(href='/')
+            img(src="/images/iq_logo.jpg")
+            | Opportunity
+            span.gtext IQ
+          button.navbar-toggle(type="button", data-toggle="collapse", data-target="#navcollapse")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        .col-sm-9.col-lg-10#nav2
+          .collapse.navbar-collapse#navcollapse
+            .navbar.navbar-inverse
+              if user   
+                ul.nav.navbar-nav.navbar-right
+                  li.dropdown
+                    a.dropdown-toggle(href="#", data-toggle="dropdown")
+                      //- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
+                      =user.name.first
+                      .arrow-down
+                      ul.dropdown-menu
+                        li
+                          if user && user.canAccessKeystone
+                            a(href='/keystone') 
+                              i.fa.fa-user
+                              | &nbsp; Admin
+                        li: a(href='/')
+                          i.fa.fa-road
+                            | &nbsp; Create New 
+                        li.divider
+                        li
+                          a(href="signout").signoutSign
+                            i.fa.fa-sign-out
+                            | Sign Out
+              else
+                ul.nav.navbar-nav.navbar-right.notsigned
+                  li 
+                    a(href="register") &nbsp; Sign Up
+                  li 
+                    a(href='login') Sign In
+    .col-md-12
+      #analysis
+        .header
+          +flash-messages(messages)
+          if locals.err
+            div#flash-messages
+              div.alert.alert-danger
+                p Error
+          h1 What is Your Opportunity's IQ?
+          .t To start your analysis, please enter a title for your opportunity in the field below.
+            br
+            if user
+              if !user.oneYearPaidAccess || !user.freeAnalysis === 'true'
+                | (The first three parts of the analysis are free then you will be prompted to pay for the analysis if you'd like to continue)
+            else
+              | (The first three parts of the analysis are free then you will be prompted to pay for the analysis if you'd like to continue)
+        .body
+          .error=error
+          form.create(action='questions', method='post', autocomplete="off")
+            input(name='newa', type='hidden', value='true')
+            input.form-control(name='analysis',type='text', placeholder='Opportunity Name...')
+            input.large-main-button(type='submit', value='START ANALYSIS')
+        .footer
+          div CURRENT OPPORTUNITIES
+          each a in analysis
+            a(href='/questions/'+a._id, class='analysis')
+              .icon: i.fa.fa-file-text-o
+              .t= a.title
+              |&nbsp;
+            //- form.analysis(action='questions', method='post', autocomplete="off")
+            //-   .icon: i.fa.fa-file-text-o
+            //-   .t= a.title
+            //-   input(type='hidden', value=a.title, name='title')
+            //-   input(type='hidden', value=a._id, name='_id')
+            //-   input(type='submit')
+  div#footer-outer.clearfix
+    div#footer-widgets
+      div.container
+        //- Column One
+        div.col-md-4
+          img(src="http://opportunityiq.com/wp-content/uploads/2014/07/logo-white.png")
+          ul.row
+            div.col-md-6
+              li: a(href="http://opportunityiq.com") Home
+              li: a(href="http://opportunityiq.com/pricing-page") Pricing
+              li: a(href="http://opiq.opportunityiq.com") Get Started
+            div.col-md-6
+              li: a(href="http://opportunityiq.com/about") About
+              li: a(href="http://opportunityiq.com/contact") Contact
+              li: a(href="http://opiq.opportunityiq.com/login") Sign In
+        //- Column Two
+        div.col-md-4
+          h5 Smart Analysis.
+          h5 Smart Business.
+        //- Column Three
+        div.col-md-4
+          //- Empty.
+        div.col-md-12#copyright
+          p (C) 2014 Boldmore Growth Partners, LLC.
 script(src='/js/lib/jquery/jquery-1.10.2.js')
 script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
 script.
-	$('.footer .icon, .footer .t').on('click', function(){
-		$(this).parents('form').submit();
-	})
-	$('.create').on('submit', function(){
-		if($.trim($(this).find('.form-control').val()) === ''){
-			alert("Please enter a name for your analysis!")
-			return false;
-		}
+  $('.footer .icon, .footer .t').on('click', function(){
+    $(this).parents('form').submit();
+  })
+  $('.create').on('submit', function(){
+    if($.trim($(this).find('.form-control').val()) === ''){
+      alert("Please enter a name for your analysis!")
+      return false;
+    }
 
-	})
+  })

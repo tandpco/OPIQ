@@ -8,6 +8,8 @@ exports = module.exports = function(req, res) {
 
 	if (req.user) {
 
+	  console.log(req.user.tempPass);
+
 		Analysis.model.find({user: req.user._id}).exec(function(eerr, analysis){
 			locals.analysis = analysis;
 			view.render('analysis');

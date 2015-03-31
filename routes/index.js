@@ -195,6 +195,8 @@ exports = module.exports = function(app) {
   // For Clients
   app.all('/client-center', middleware.requireUser, routes.views.client);
   app.all('/client-center/login', routes.views.clientAuth);
+  // For User Auth
+  app.all('/user/login', routes.views.userAuth);
 
   // app.get('/partner-panel/:id', routes.views['partner-panel']);
   // States
