@@ -26,7 +26,7 @@ exports = module.exports = function(req, res) {
 
     // console.log(locals.anInfo);
 
-    Answer.model.find({analysis: id}).exec(function (e, answers) {
+    Answer.model.find({analysis: id}).sort('category').exec(function (e, answers) {
 
       locals.analysis = answers;
 

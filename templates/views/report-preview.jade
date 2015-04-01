@@ -132,21 +132,18 @@ html
 										small(style="float: right; padding-right: 1%;") (Shared)
 								.section__body(style='white-space: pre;') #{answer.work}
 						.content__section.answer
-							.section__header Answer
+							.section__header You Answered: 
 							.section__body
 								-var ans = _.findWhere(pages, {name: answer.page})
 								-var ans = ans ? Number(ans.answer) : null
 								each val in [1, 2, 3, 4, 5]
-									.opt(class='opt-#{val}')
-										if (ans === val)
+									if (ans === val)
+										.opt(class='opt-#{val}')
 											.fa-stack.fa-sm
 												i.fa.fa-square.fa-stack-2x(style="color: #FFF !important;")
 												i.fa.fa-check.fa-stack-1x
 											//- i.fa.fa-check-square.fa-fw
-										else
-											.fa-stack.fa-sm
-												i.fa.fa-square.fa-stack-2x(style="color: #FFF !important;")
-										!=page['answer'+val]
+											!=page['answer'+val]
 						.content__section.green.chart
 							.section__header
 								span: i.fa.fa-tasks
