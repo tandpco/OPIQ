@@ -21,7 +21,8 @@ $gray       = #383D40
     font-family sans-serif !important
     .content__page
       font-family sans-serif !important
-      height 100% !important
+      // height 11in !important
+      // width 8.5in !important
       margin-bottom 0 !important
       padding-bottom 0 !important
       .page__content .content__section
@@ -80,8 +81,8 @@ $gray       = #383D40
       span
         background-color $fadedGreen !important
         display block !important
-  table, tbody, thead, th, td, tr
-    page-break-after avoid !important
+  // table, tbody, thead, th, td, tr
+  //   page-break-after never !important
   .cover .cover__title
     color #FFF !important
     span
@@ -155,7 +156,7 @@ $gray       = #383D40
         text-transform uppercase
         &:before
           background-color #FFF
-          content ''
+          content ""
           height 1px
           left 50%
           margin-left -15px
@@ -179,7 +180,7 @@ $gray       = #383D40
       left 0
       right 0
       text-align center
-      font-family 'Museo', sans-serif
+      font-family Museo, sans-serif
       font-size 24px
       font-weight 100
       color #999
@@ -255,11 +256,11 @@ $gray       = #383D40
     .content__page
       background-color #FFF
       box-shadow 0 0 5px black
-      height 1056px
+      height 100%
       margin-bottom 30px
       padding-bottom 50px
       padding-top 50px
-      page-break-after always
+      // page-break-before always
       &.cover
         padding-top 200px
         position relative
@@ -339,7 +340,7 @@ $gray       = #383D40
                   text-transform uppercase
                   width 94%
             .section__body
-              font-size 13px
+              font-size 12px !important
               padding-left 7%
               white-space pre-line !important
               p
