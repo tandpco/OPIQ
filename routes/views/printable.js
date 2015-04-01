@@ -35,6 +35,8 @@ exports = module.exports = function(req, res) {
 
 	Analysis.model.findOne({_id: anID}).exec(function (err, an) {
 
+		console.log(req.headers);
+
 		req.session.analysis   = an.title;
 		req.session.analysisid = an._id;
 

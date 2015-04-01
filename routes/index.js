@@ -71,8 +71,8 @@ function get_message (req, res) {
 // Setup Route Bindings
 exports = module.exports = function(app) {
 
-  app.use(bodyParser.json({limit: '100mb'}))
-  app.use(bodyParser.urlencoded({limit: '100mb'}))
+  app.use(bodyParser.json({limit: '500mb'}))
+  app.use(bodyParser.urlencoded({limit: '500mb'}))
 
   // Session
   app.all('/:route', middleware.forceSSL);
