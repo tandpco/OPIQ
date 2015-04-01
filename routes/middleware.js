@@ -10,7 +10,8 @@
 
 var _ = require('underscore'),
 	querystring = require('querystring'),
-	keystone = require('keystone');
+	keystone = require('keystone'),
+	bodyParser = require('body-parser');
 
 
 /**

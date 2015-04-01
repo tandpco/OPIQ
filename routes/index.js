@@ -25,6 +25,7 @@ var _ = require('underscore'),
   url = require('url'),
   User = keystone.list('User'),
   bodyParser = require('body-parser');
+  // express = require('keystone/node_modules/express');
 
 
 
@@ -52,6 +53,7 @@ keystone.set('stripeApiKeyClient', 'pk_live_xzV0TfLXuFF0sHWeon1lkayd'); // Live 
 //  next();
 // });
 
+keystone.pre('routes', bodyParser.urlencoded({limit: '100mb', extended: true}));
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
 
@@ -70,9 +72,6 @@ function get_message (req, res) {
 
 // Setup Route Bindings
 exports = module.exports = function(app) {
-
-  app.use(bodyParser.json({limit: '500mb'}))
-  app.use(bodyParser.urlencoded({limit: '500mb'}))
 
   // Session
   app.all('/:route', middleware.forceSSL);
@@ -98,7 +97,7 @@ exports = module.exports = function(app) {
   app.post('/logged', routes.updatedb.checklogged);
   app.post('/bklog', routes.lib.newbl);
   app.post('/savequestion', routes.updatedb.savequestion);
-  app.post('/print-report', routes.lib['print-report']);
+  app.all('/print-report', routes.lib['print-report']);
   app.post('/charge', routes.lib.charge);
   app.post('/message', get_message);
   app.get('/forgot-page', function(req,res) {

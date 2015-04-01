@@ -1,6 +1,9 @@
 var phantom = require('phantom');
 
 exports = module.exports = function(req, res) {
+
+  console.log(req.headers['content-length']);
+
   var body = req.body;
   var analysis = req.session.analysis;
   var text = body.html;
