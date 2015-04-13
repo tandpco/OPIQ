@@ -167,21 +167,21 @@ html
 										tr
 											td Opportunity
 											td
-												.progress-bar.gray: span(style="width: "+main_total+"%")
+												.progress-bar.gray: span(style="width: "+main_total+"% !important;")
 											td
-												.progress-bar.gray: span(style="width: "+main_total+"%") #{main_total.toFixed(0)}%
+												.progress-bar.gray: span(style="width: "+main_total+"% !important;") #{main_total.toFixed(0)}%
 										tr
 											td #{page.category}
 											td
-												.progress-bar.gray: span(style="width: "+cat_totals[page.category]+"%")
+												.progress-bar.gray: span(style="width: "+cat_totals[page.category]+"% !important;")
 											td
-												.progress-bar.gray: span(style="width: "+cat_totals[page.category]+"%") #{cat_totals[page.category].toFixed(0)}%
+												.progress-bar.gray: span(style="width: "+cat_totals[page.category]+"% !important;") #{cat_totals[page.category].toFixed(0)}%
 										tr
 											td #{page.name}
 											td
-												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"%")
+												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"% !important;")
 											td
-												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"%") #{(answer.answer * 20).toFixed(0)}%
+												.progress-bar.gray: span(style="width: "+(answer.answer * 20).toFixed(0)+"% !important;") #{(answer.answer * 20).toFixed(0)}%
 			.content__page.back-cover: .align-middle
 				.logo
 					img(src="http://opiq-stage.herokuapp.com/images/logo-white.png", height="70")

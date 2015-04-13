@@ -3,381 +3,386 @@ include ../mixins/flash-messages
 doctype html
 html
 
-	//- HTML HEADER
-	head
-		meta(charset="utf-8")
-		meta(name="viewport", content="width=device-width, initial-scale=1.0")
-		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+  //- HTML HEADER
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
 
-		title OpportunityIQ
-		link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
-		link(rel="stylesheet", href="/styles/font-awesome.min.css")
+    title OpportunityIQ
+    link(rel="shortcut icon", href="/favicon.ico", type="image/x-icon")
+    link(rel="stylesheet", href="/styles/font-awesome.min.css")
 
 
-		//- Customise the stylesheet for your site by editing /public/styles/site.less
-		//- All .less files will be automatically compiled and minified in production.
+    //- Customise the stylesheet for your site by editing /public/styles/site.less
+    //- All .less files will be automatically compiled and minified in production.
 
-		link(href="/styles/site.min.css", rel="stylesheet")
-		script. 
-			var Pages =!{JSON.stringify(pages)}
-			var Analysis =!{JSON.stringify(analysis)}
-			var User = undefined, Answers = undefined;
+    link(href="/styles/site.min.css", rel="stylesheet")
+    script. 
+      var Pages =!{JSON.stringify(pages)}
+      var Analysis =!{JSON.stringify(analysis)}
+      var User = undefined, Answers = undefined;
 
-		if answers && answers.length > 0
-			script.
-				var Answers =!{JSON.stringify(answers)}
-		if user
-			script.
-				var User =!{JSON.stringify(user)}
+    if answers && answers.length > 0
+      script.
+        var Answers =!{JSON.stringify(answers)}
+    if user
+      script.
+        var User =!{JSON.stringify(user)}
 
-		//- This file provides the default styling for the KeystoneJS Content Editor
-		if user && user.canAccessKeystone
-			link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
+    //- This file provides the default styling for the KeystoneJS Content Editor
+    if user && user.canAccessKeystone
+      link(href="/keystone/styles/content/editor.min.css", rel="stylesheet")
 
-		//- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
-		//- Safely remove this block if you are not targeting IE8
-		//-[if lt IE 9]
-			script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
-			script(src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js")
-		//-[endif]
+    //- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    //- Safely remove this block if you are not targeting IE8
+    //-[if lt IE 9]
+      script(src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js")
+      script(src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js")
+    //-[endif]
 
-		//- Include template-specific stylesheets by extending the css block
-		block css
+    //- Include template-specific stylesheets by extending the css block
+    block css
 
-		//- Add any other template-specific HEAD tags by extending the head block
-		block head
+    //- Add any other template-specific HEAD tags by extending the head block
+    block head
 
-	//- HTML BODY
-	body
-		+flash-messages(messages)
-		.overlay
-		if typeof analysis === 'object'
-			#analysis-field.none(analysis=analysis._id, paid=analysis.paid)= analysis.title
-		else
-			#analysis-field.none=analysis
-		.splash.answered.none
-			.check-mark
-				img(src="/images/answersaved.jpg")
-		.splash.none.not-logged
-			.inner#lock
-				.lock: img(src="/images/unlock.png")
-				.body
-					.head Unlock Your Venture's Opportunity
-					.body
-						p Unlock The Potential of Your Opportunity 
+  //- HTML BODY
+  body
+    +flash-messages(messages)
+    if typeof analysis === 'object'
+      .welcome-video#overlay: .content
+        video(width='100%', height=400, controls)
+          source(src='/images/intro.mp4', type='video/mp4')
+          p This video is not supported by your browser.
+    .overlay
+    if typeof analysis === 'object'
+      #analysis-field.none(analysis=analysis._id, paid=analysis.paid)= analysis.title
+    else
+      #analysis-field.none=analysis
+    .splash.answered.none
+      .check-mark
+        img(src="/images/answersaved.jpg")
+    .splash.none.not-logged
+      .inner#lock
+        .lock: img(src="/images/unlock.png")
+        .body
+          .head Unlock Your Venture's Opportunity
+          .body
+            p Unlock The Potential of Your Opportunity 
  
-						p Congratulations! You’ve completed the analysis of the first three of more than 50 proven principles that make or break an opportunity. 
+            p Congratulations! You’ve completed the analysis of the first three of more than 50 proven principles that make or break an opportunity. 
  
-						p Sign up now to save your results and complete the OpportunityIQ to dramatically improve the outcome of your venture.
-					.login: a(href="/register?an="+analysis._id) SIGN UP NOW!
-		.splash.none.rightwrong-box
-			.inner
-				.header: img(src="")
-				.body
-		.container
-			.col-sm-3.col-lg-2#nav
-				div(role="navigation").navbar.navbar-inverse
-					.navbar-header
-						button.navbar-toggle(type="button", data-toggle="collapse", data-target="#nav-items")
-							span.sr-only Toggle navigation
-							span.icon-bar
-							span.icon-bar
-							span.icon-bar
-						button.navbar-toggle#cog-col(type="button", data-toggle="collapse", data-target="#navcollapse")
-							span.sr-only Toggle navigation
-							i.fa.fa-cog
-						a.navbar-brand(href='/')
-							img(src="/images/iq_logo.jpg")
-							| Opportunity
-							span.gtext IQ
-				//- Navbar - left side
-				#nav-items.collapse.navbar-collapse
-					.out-score
-						span.outline.selected Outline
-						span.score Score
-					ul.nav.nav-pills.nav-stacked#outline
+            p Sign up now to save your results and complete the OpportunityIQ to dramatically improve the outcome of your venture.
+          .login: a(href="/register?an="+analysis._id) SIGN UP NOW!
+    .splash.none.rightwrong-box
+      .inner
+        .header: img(src="")
+        .body
+    .container
+      .col-sm-3.col-lg-2#nav
+        div(role="navigation").navbar.navbar-inverse
+          .navbar-header
+            button.navbar-toggle(type="button", data-toggle="collapse", data-target="#nav-items")
+              span.sr-only Toggle navigation
+              span.icon-bar
+              span.icon-bar
+              span.icon-bar
+            button.navbar-toggle#cog-col(type="button", data-toggle="collapse", data-target="#navcollapse")
+              span.sr-only Toggle navigation
+              i.fa.fa-cog
+            a.navbar-brand(href='/')
+              img(src="/images/iq_logo.jpg")
+              | Opportunity
+              span.gtext IQ
+        //- Navbar - left side
+        #nav-items.collapse.navbar-collapse
+          .out-score
+            span.outline.selected Outline
+            span.score Score
+          ul.nav.nav-pills.nav-stacked#outline
 
-						each cat in categories.cats
-							- var section_complete = _.where(answers, {'category': cat}).length === _.where(pages, {'category' : cat}).length ? true : false
-							li.main-nav(id=cat.split(' ').join('').replace('/','-'), class= (section_complete ? ' complete' : ''))
-								span.circle
-									i.fa.fa-check.none
-								a
-									span
-									=cat.toUpperCase()
-									i.fa-stack.fa-sm(style="position: absolute; right: 0; top: 0;")
-										i.fa.fa-circle-o.fa-stack-2x
-										i.fa.fa-question.fa-stack-1x
-										-var join = cat.split(' ').join('').replace('/','-')
-										section#lightbox(data-target=join)
-											aside.close x
-											aside.content
-												if (join === 'industry-market')
-													h4 How Does the Industry / Market Context and External Forces Impact the Opportunity?
-													p The industry and market context has a dramatic impact on the potential for success of any opportunity. In fact, one research study of startups over a 20-year period by Scott Shane of Case Western Reserve University, found that the industry itself had more influence on a company's outcome than the skills and experience of the entrepreneur or management team.
-													p Shane categorized startups by industry and analyzed which ones made the Inc. 500 list, a list of fast-growth, highly-successful startups. While this, of course, is not the only measure that can be used, it is a fair proxy for startups that went on to achieve business success. For sake of comparison, while about 1 in 25 of all the startups in the computer and office equipment industry made the Inc. 500, only around 1 in 20,000 in the hotel and motel industries achieve the same level of success. Eating and drinking establishments fared little better with only 1 in 14,300 making the list. In short, the probability of success over the study’s time horizon was approximately 800 times higher if an entrepreneur started a computer company instead of a lodging company.
-													p It shouldn't surprise us that the market has such a critical impact on an opportunity's success – it is a key component in the overall context. The dynamics of an industry are the external market forces that shape the market and the demand for goods and services. The industry you choose is much like the ground or foundation that you select to build your house upon: the characteristics can be relatively fixed with some shifting over time, affecting the stability of what you build and your ability to expand. In a similar way, an entrepreneur should carefully consider their target market because it is foundational to the potential success of any opportunity.
-													p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its industry and market context and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
-												else if (join === 'financial')
-													h4 How Do the Financial Characteristics of the Business Model Affect the Opportunity?
-													p The financial aspects of various opportunities can vary dramatically depending upon the business model dynamics, including the investment required, profitability, timing of cash flows and other such criteria. It is critical to carefully and deliberately analyze all financial aspects of a potential business venture to insure that the business model will actually work.
-													p The lack of adequate planning, the lack of understanding the financial impact of how the business model was put together, and the lack of sufficient capital resources are among the three top reasons any opportunity fails.
-													p Unfortunately, while this aspect of analysis is absolutely critical, it is also one of the least-understood and least-embraced parts of any business or opportunity planning process.
-													p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its financial characteristics and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
-													p (Note: Most of the questions in this section will require a detailed understanding of the financial model for the opportunity. We highly recommend the Startup Financial Model (www.StartupFinancialModel.com) to help with this critical planning.)
-												else if (join === 'operational')
-													h4 How Do the Operational Characteristics of the Business Model Affect the Opportunity?
-													p The operational aspects of various opportunities can vary dramatically depending upon how the business model works. For example, an opportunity that delivers a customized offering to each customer will be far harder to scale and will have very few learning curve and experience curve advantages compared to an opportunity with a standardized offering. There are several operational characteristics that can make or break any business venture, but if thought through carefully in the planning stage, the operational model can be fine-tuned to dramatically increase the overall potential success of the opportunity.
-													p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its operational characteristics and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
-												else if (join === 'offering')
-													h4 How Do the Characteristics of the Offering Affect the Opportunity?
-													p The aspects of the actual product sold or service delivered will also have an important impact on an opportunity. While these characteristics may vary from product to product or service to service within a company, a company will typically have a portfolio of products or services with similar characteristics.
-													p A significant failure point of an opportunity is often a poorly-conceived offering that does not offer sufficient enough value proposition to the targeted customer: the offering did not solve a real problem, the offering was directed at the wrong problem, the offering didn’t deliver enough value compared to its price, or the offering was not at all distinctive in a sea of similar offerings.
-													p While most entrepreneurs have significant passion and a deep sense of ownership over the product or service they deliver, they need to fully understand the problem they are trying to solve from the customer’s perspective as dispassionately as possible in order to fairly assess whether or not the offering is on target.
-													p Over time, a typical portfolio of products and services will change along with market feedback, but sufficient time needs to be spent analyzing whether or not the offering at the launch of the opportunity is properly aligned with the customer and market demand.
-													p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its offering and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
-												else if (join === 'customer')
-													h4 How Do the Characteristics of the Customer Relationship Affect the Opportunity?
-													p The aspects of how you acquire and interact with customers will have an enormous impact on an opportunity – far more than most entrepreneurs appreciate.  
-													p The Entrepreneurship department of St. Thomas University undertook a study of 500 failed companies to understand why they failed. The number one reason was a “lack of sufficient sales.” The study determined that it wasn’t necessarily a failure in strategy or insufficient financial resources since the root cause was the inability of the companies to ramp up an adequate level of sales in a timely manner in order to get fully launched. The opportunities basically floundered on the runway and never got liftoff because of the lack of customer traction.
-													p In many cases, a few early customers are easy to land, but once underway, it can become apparent that it is far harder to acquire customers on an ongoing, predictable basis. Often the length and cost of the sales cycle are dramatically higher than anticipated because of a lack of analysis of the dynamics of the actual sales process.
-													p There are many customer relationship characteristics that all have significant implications for an opportunity in terms of the required level of investment, the ability to grow, the profitability, the ability to reach breakeven before running out of cash, and more. This section covers everything from how to find potential customers to how sensitive they are to pricing to how long it takes to work them through the sales process from prospect to customer. 
-													p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon how it relates to customers and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
-								div: ul
-									each page in pages
-										if page.category === cat
-											-var cl = _.findWhere(answers, {'page' : page.name})
-											li(id=page._id, class= cl ? 'page-complete sub_menu' : 'sub_menu')
-												span.dot
-												a=page.name
-					
-					.how-you-answered#score.none
-							.final-report: a.show-report(href="#report"): img(src='/images/final.png')
-							.body
-								.top
-									span 
-										span Needs Improvement
-										span Excellent
-									span: span Percent
-								.body
-									//- -var total = [];
-									//- -var obj = {};
-									//- each cat in categories
-									//- 	each c in cat
-									//- 		if typeof c.answer !== 'undefined' 
-									//- 			- total.push(c.answer)
-									//- 			- obj[ c.name ] = c.answer
-									
-									.overall
-										.bars OPPORTUNITY SCORE
-											//- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
-											.bar(percent=main_total): .bar-complete
-										.percentages: .num: span 50%
-									each category in categories.cats
-										.category-score(id=categories[category]._id)
-											.bars
-												.t=category.toUpperCase() +  ' ANALYSIS SCORE'
-												//- .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete
-												.bar(percent=(cat_totals[category])): .bar-complete
-											.percentages: .num: span 50%
-										each page in categories[category]
-											.page-score(id=page._id)
-												.bars
-													.t=page.name.toUpperCase() 
-													.bar(percent=page.answer): .bar-complete
-												.percentages: .num
-													span= page.answer * 20 + '%' || 0  + '%'							
-			.col-sm-9.col-lg-10#nav2
-				.collapse.navbar-collapse#navcollapse
-					.navbar.navbar-inverse
-						.percent-complete
-							.num
-								span 0%
-							.bar
-								.bar-complete
-						if user		
-							ul.nav.navbar-nav.navbar-right
-								li.dropdown
-									a.dropdown-toggle(href="#", data-toggle="dropdown")
-										//- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
-										=user.name.first
-										.arrow-down
-										ul.dropdown-menu
-											li
-												if user && user.canAccessKeystone
-													a(href='/keystone') 
-														i.fa.fa-user
-														| &nbsp; Admin
-											li: a(href='/'): i.fa.fa-road &nbsp;Create New	
-											li.divider
-											li
-												a(href="signout").signoutSign
-													i.fa.fa-sign-out
-													| &nbsp; Sign Out
-						else
-							ul.nav.navbar-nav.navbar-right.notsigned
-								li 
-									a(href="register") &nbsp; Sign Up
-								li 
-									a(href='login') Sign In
-			.row-fluid
-				.col-sm-9.col-med-10.col-lg-10#main-content
-					#main-inner
-						each page in pages
-							block content
-					#tos.none
-						p Opportunity IQ Terms of Service and User Agreement
+            each cat in categories.cats
+              - var section_complete = _.where(answers, {'category': cat}).length === _.where(pages, {'category' : cat}).length ? true : false
+              li.main-nav(id=cat.split(' ').join('').replace('/','-'), class= (section_complete ? ' complete' : ''))
+                span.circle
+                  i.fa.fa-check.none
+                a
+                  span
+                  =cat.toUpperCase()
+                  i.fa-stack.fa-sm(style="position: absolute; right: 0; top: 0;")
+                    i.fa.fa-circle-o.fa-stack-2x
+                    i.fa.fa-question.fa-stack-1x
+                    -var join = cat.split(' ').join('').replace('/','-')
+                    section#lightbox(data-target=join)
+                      aside.close x
+                      aside.content
+                        if (join === 'industry-market')
+                          h4 How Does the Industry / Market Context and External Forces Impact the Opportunity?
+                          p The industry and market context has a dramatic impact on the potential for success of any opportunity. In fact, one research study of startups over a 20-year period by Scott Shane of Case Western Reserve University, found that the industry itself had more influence on a company's outcome than the skills and experience of the entrepreneur or management team.
+                          p Shane categorized startups by industry and analyzed which ones made the Inc. 500 list, a list of fast-growth, highly-successful startups. While this, of course, is not the only measure that can be used, it is a fair proxy for startups that went on to achieve business success. For sake of comparison, while about 1 in 25 of all the startups in the computer and office equipment industry made the Inc. 500, only around 1 in 20,000 in the hotel and motel industries achieve the same level of success. Eating and drinking establishments fared little better with only 1 in 14,300 making the list. In short, the probability of success over the study’s time horizon was approximately 800 times higher if an entrepreneur started a computer company instead of a lodging company.
+                          p It shouldn't surprise us that the market has such a critical impact on an opportunity's success – it is a key component in the overall context. The dynamics of an industry are the external market forces that shape the market and the demand for goods and services. The industry you choose is much like the ground or foundation that you select to build your house upon: the characteristics can be relatively fixed with some shifting over time, affecting the stability of what you build and your ability to expand. In a similar way, an entrepreneur should carefully consider their target market because it is foundational to the potential success of any opportunity.
+                          p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its industry and market context and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
+                        else if (join === 'financial')
+                          h4 How Do the Financial Characteristics of the Business Model Affect the Opportunity?
+                          p The financial aspects of various opportunities can vary dramatically depending upon the business model dynamics, including the investment required, profitability, timing of cash flows and other such criteria. It is critical to carefully and deliberately analyze all financial aspects of a potential business venture to insure that the business model will actually work.
+                          p The lack of adequate planning, the lack of understanding the financial impact of how the business model was put together, and the lack of sufficient capital resources are among the three top reasons any opportunity fails.
+                          p Unfortunately, while this aspect of analysis is absolutely critical, it is also one of the least-understood and least-embraced parts of any business or opportunity planning process.
+                          p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its financial characteristics and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
+                          p (Note: Most of the questions in this section will require a detailed understanding of the financial model for the opportunity. We highly recommend the Startup Financial Model (www.StartupFinancialModel.com) to help with this critical planning.)
+                        else if (join === 'operational')
+                          h4 How Do the Operational Characteristics of the Business Model Affect the Opportunity?
+                          p The operational aspects of various opportunities can vary dramatically depending upon how the business model works. For example, an opportunity that delivers a customized offering to each customer will be far harder to scale and will have very few learning curve and experience curve advantages compared to an opportunity with a standardized offering. There are several operational characteristics that can make or break any business venture, but if thought through carefully in the planning stage, the operational model can be fine-tuned to dramatically increase the overall potential success of the opportunity.
+                          p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its operational characteristics and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
+                        else if (join === 'offering')
+                          h4 How Do the Characteristics of the Offering Affect the Opportunity?
+                          p The aspects of the actual product sold or service delivered will also have an important impact on an opportunity. While these characteristics may vary from product to product or service to service within a company, a company will typically have a portfolio of products or services with similar characteristics.
+                          p A significant failure point of an opportunity is often a poorly-conceived offering that does not offer sufficient enough value proposition to the targeted customer: the offering did not solve a real problem, the offering was directed at the wrong problem, the offering didn’t deliver enough value compared to its price, or the offering was not at all distinctive in a sea of similar offerings.
+                          p While most entrepreneurs have significant passion and a deep sense of ownership over the product or service they deliver, they need to fully understand the problem they are trying to solve from the customer’s perspective as dispassionately as possible in order to fairly assess whether or not the offering is on target.
+                          p Over time, a typical portfolio of products and services will change along with market feedback, but sufficient time needs to be spent analyzing whether or not the offering at the launch of the opportunity is properly aligned with the customer and market demand.
+                          p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon its offering and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
+                        else if (join === 'customer')
+                          h4 How Do the Characteristics of the Customer Relationship Affect the Opportunity?
+                          p The aspects of how you acquire and interact with customers will have an enormous impact on an opportunity – far more than most entrepreneurs appreciate.  
+                          p The Entrepreneurship department of St. Thomas University undertook a study of 500 failed companies to understand why they failed. The number one reason was a “lack of sufficient sales.” The study determined that it wasn’t necessarily a failure in strategy or insufficient financial resources since the root cause was the inability of the companies to ramp up an adequate level of sales in a timely manner in order to get fully launched. The opportunities basically floundered on the runway and never got liftoff because of the lack of customer traction.
+                          p In many cases, a few early customers are easy to land, but once underway, it can become apparent that it is far harder to acquire customers on an ongoing, predictable basis. Often the length and cost of the sales cycle are dramatically higher than anticipated because of a lack of analysis of the dynamics of the actual sales process.
+                          p There are many customer relationship characteristics that all have significant implications for an opportunity in terms of the required level of investment, the ability to grow, the profitability, the ability to reach breakeven before running out of cash, and more. This section covers everything from how to find potential customers to how sensitive they are to pricing to how long it takes to work them through the sales process from prospect to customer. 
+                          p This section clarifies the issues that need to be analyzed in order to fully assess the value and viability of an opportunity based upon how it relates to customers and the weaknesses to focus on in order to dramatically improve the potential outcome of your opportunity.
+                div: ul
+                  each page in pages
+                    if page.category === cat
+                      -var cl = _.findWhere(answers, {'page' : page.name})
+                      li(id=page._id, class= cl ? 'page-complete sub_menu' : 'sub_menu')
+                        span.dot
+                        a=page.name
+          
+          .how-you-answered#score.none
+              .final-report: a.show-report(href="#report"): img(src='/images/final.png')
+              .body
+                .top
+                  span 
+                    span Needs Improvement
+                    span Excellent
+                  span: span Percent
+                .body
+                  //- -var total = [];
+                  //- -var obj = {};
+                  //- each cat in categories
+                  //-   each c in cat
+                  //-     if typeof c.answer !== 'undefined' 
+                  //-       - total.push(c.answer)
+                  //-       - obj[ c.name ] = c.answer
+                  
+                  .overall
+                    .bars OPPORTUNITY SCORE
+                      //- .bar(percent=total, base=JSON.stringify(obj)): .bar-complete
+                      .bar(percent=main_total): .bar-complete
+                    .percentages: .num: span 50%
+                  each category in categories.cats
+                    .category-score(id=categories[category]._id)
+                      .bars
+                        .t=category.toUpperCase() +  ' ANALYSIS SCORE'
+                        //- .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete
+                        .bar(percent=(cat_totals[category])): .bar-complete
+                      .percentages: .num: span 50%
+                    each page in categories[category]
+                      .page-score(id=page._id)
+                        .bars
+                          .t=page.name.toUpperCase() 
+                          .bar(percent=page.answer): .bar-complete
+                        .percentages: .num
+                          span= page.answer * 20 + '%' || 0  + '%'              
+      .col-sm-9.col-lg-10#nav2
+        .collapse.navbar-collapse#navcollapse
+          .navbar.navbar-inverse
+            .percent-complete
+              .num
+                span 0%
+              .bar
+                .bar-complete
+            if user   
+              ul.nav.navbar-nav.navbar-right
+                li.dropdown
+                  a.dropdown-toggle(href="#", data-toggle="dropdown")
+                    //- img(src=user.image && user.image.secure_url ? user.image.secure_url : "user-images/person.jpg")
+                    =user.name.first
+                    .arrow-down
+                    ul.dropdown-menu
+                      li
+                        if user && user.canAccessKeystone
+                          a(href='/keystone') 
+                            i.fa.fa-user
+                            | &nbsp; Admin
+                      li: a(href='/'): i.fa.fa-road &nbsp;Create New  
+                      li.divider
+                      li
+                        a(href="signout").signoutSign
+                          i.fa.fa-sign-out
+                          | &nbsp; Sign Out
+            else
+              ul.nav.navbar-nav.navbar-right.notsigned
+                li 
+                  a(href="register") &nbsp; Sign Up
+                li 
+                  a(href='login') Sign In
+      .row-fluid
+        .col-sm-9.col-med-10.col-lg-10#main-content
+          #main-inner
+            each page in pages
+              block content
+          #tos.none
+            p Opportunity IQ Terms of Service and User Agreement
 
-						p Not Legal, Tax, Accounting, or Investment Advice
+            p Not Legal, Tax, Accounting, or Investment Advice
 
-						p Opportunity IQ provides information designed to educate and inform entrepreneurs, business owners, executives, and investors. No information contained herein or obtained from Opportunity IQ should be considered as legal, financial, investment, accounting or tax advice, nor should it be considered a substitute for such advice.
+            p Opportunity IQ provides information designed to educate and inform entrepreneurs, business owners, executives, and investors. No information contained herein or obtained from Opportunity IQ should be considered as legal, financial, investment, accounting or tax advice, nor should it be considered a substitute for such advice.
 
-						p Copyright Policy for Site Content
+            p Copyright Policy for Site Content
 
-						p The content on this site is protected by U.S. and international copyright laws and is the property of Boldmore Growth Partners, LLC (BGP). By "content" we mean any information, mode of expression, or other materials and services found on the Opportunity IQ website at www.opportunityiq.com (the “Site”) and its related reports and analyses. This includes any and all information, algorithms, explanations, graphics, and other features found on the Site or produced by the Site.
+            p The content on this site is protected by U.S. and international copyright laws and is the property of Boldmore Growth Partners, LLC (BGP). By "content" we mean any information, mode of expression, or other materials and services found on the Opportunity IQ website at www.opportunityiq.com (the “Site”) and its related reports and analyses. This includes any and all information, algorithms, explanations, graphics, and other features found on the Site or produced by the Site.
 
-						p The compilation of all content on the Site is the property of BGP. Any use or redistribution is strictly prohibited unless with the express written permission of BGP. To seek such permission, you may e-mail us through the website on our Contact Us web form.
+            p The compilation of all content on the Site is the property of BGP. Any use or redistribution is strictly prohibited unless with the express written permission of BGP. To seek such permission, you may e-mail us through the website on our Contact Us web form.
 
-						p We reserve the right to change these terms or withdraw any permission at any time and for any reason.
+            p We reserve the right to change these terms or withdraw any permission at any time and for any reason.
 
-						p License and Site Access
+            p License and Site Access
 
-						p BGP grants users a limited license to access and make personal use of the reports produced by the Site. This license does not include any resale or commercial use of the Site or any of its contents. This Site or any portion of this Site may not be reproduced, duplicated, copied, sold, resold, visited, or otherwise exploited for any commercial purpose without express written consent of BGP. No one may frame or utilize framing techniques to enclose any trademark, logo, or other proprietary information (including images, text, page layout, or forms) of BGP without express written consent. You may not use any meta tags or any other "hidden text" utilizing BGP’s name or trademarks without the express written consent of BGP. Any unauthorized use terminates the permission or license granted by BGP and may give rise to liability for copyright or trademark infringement and other remedies allowed by law. Registered users are granted a limited, revocable, and nonexclusive right to download and the report generated to analyze their opportunities as long as the report does not include any modifications that are false, misleading, derogatory, or otherwise offensive matter. You may not use any BGP or Opportunity IQ logo or other proprietary graphic or trademark without express written permission.
+            p BGP grants users a limited license to access and make personal use of the reports produced by the Site. This license does not include any resale or commercial use of the Site or any of its contents. This Site or any portion of this Site may not be reproduced, duplicated, copied, sold, resold, visited, or otherwise exploited for any commercial purpose without express written consent of BGP. No one may frame or utilize framing techniques to enclose any trademark, logo, or other proprietary information (including images, text, page layout, or forms) of BGP without express written consent. You may not use any meta tags or any other "hidden text" utilizing BGP’s name or trademarks without the express written consent of BGP. Any unauthorized use terminates the permission or license granted by BGP and may give rise to liability for copyright or trademark infringement and other remedies allowed by law. Registered users are granted a limited, revocable, and nonexclusive right to download and the report generated to analyze their opportunities as long as the report does not include any modifications that are false, misleading, derogatory, or otherwise offensive matter. You may not use any BGP or Opportunity IQ logo or other proprietary graphic or trademark without express written permission.
 
-						p Copyright Policy for Downloaded Reports and Analyses
-						p All downloads, reports, and analyses are the property of BGP. BGP grants users that purchase an analysis a limited license to use the download for the personal and business purposes of the purchaser. This license does not allow resale or commercial use of these downloads. These downloads may not be reproduced, duplicated, copied, sold, resold, or otherwise exploited for any commercial purpose without express written consent of BGP.
+            p Copyright Policy for Downloaded Reports and Analyses
+            p All downloads, reports, and analyses are the property of BGP. BGP grants users that purchase an analysis a limited license to use the download for the personal and business purposes of the purchaser. This license does not allow resale or commercial use of these downloads. These downloads may not be reproduced, duplicated, copied, sold, resold, or otherwise exploited for any commercial purpose without express written consent of BGP.
 
 
-					#print.none
-					#report.none
-						.header
-							.content-header: .t: span.venture
-								.bob=analysis.title
-							h1 Congratulations! Your Analysis Is Complete.
-							small Below is the summary of your results.
-							input(type="hidden" name="percentComplete" id="percentComplete" value="0")
-						.innerbody
-							.stripe
-								.text Summary - Overall Opportunity Score
-								.box-score=main_total + '%'
-							.charts#overall-table
-								-var total = [];
-								each cat in categories
-									each c in cat
-										if typeof c.answer !== 'undefined' 
-											- total.push(c.answer)
-										
-								table.table
-									thead
-										tr
-											th: div Analysis Score
-											th: div
-												span Needs Improvement
-												span.right Excellent
-											th: div: span Percent
-								table.table
-									tr.overall-wrap
-										td: div
-											span.circle
-											span.t Overall Opportunity
-										td: div: .bar(percent=main_total): .bar-complete 50
-										td: div: .percent: .num: span 100%
-							each category in categories.cats
-								.charts(id=category.split(' ').join('').replace(/\//, '-'))
-									table.table
-										tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
-											td.category: div
-												span.circle
-												span.t=category
-											//- td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
-											td: div: .bar(percent=cat_totals[category]): .bar-complete 50
-											td: div: .percent: .num: span 50%
-										each page in categories[category]
-											tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'), id=page._id)
-												td.page: div
-													.connected
-													span.circle
-													span.t=page.name
-												td: div: .bar(percent=page.answer): .bar-complete 50
-												td: div: .percent: .num: span 50%
-							//- .download-pdf
-							//- 	a(href='print').large-main-button#get-pdf
-							//- 		img(src="images/pdf.png")
-							//- 		| Print Report
-							//- .download-pdf: form(action="print", method="post", target='_blank')
-							//- 	if typeof analysis === 'object'
-							//- 		input(type='hidden' name='analysis' value=analysis._id)
-							//- 	else
-							//- 		input(type='hidden' name='analysis' value=analysis)
-							//- 	input(type="hidden" value=JSON.stringify(categories) name='categories')
-							//- 	input(type="hidden" value=main_total name='total')
-							//- 	a(target='_blank').large-main-button#get-pdf
-							//- 		img(src="/images/pdf.png")
-							//- 		| Print Report
-							.download-pdf: a(target='_blank', href='/report/'+analysis._id).large-main-button#get-pdf
-								img(src="/images/pdf.png")
-								| Print Report
-		block footer
-			div#footer-outer
-				div#footer-widgets
-					div.container
-						//- Column One
-						div.col-md-4
-							img(src="http://opportunityiq.com/wp-content/uploads/2014/07/logo-white.png")
-							ul.row
-								div.col-md-6
-									li: a(href="http://opportunityiq.com") Home
-									li: a(href="http://opportunityiq.com/pricing-page") Pricing
-									li: a(href="http://opiq.opportunityiq.com") Get Started
-								div.col-md-6
-									li: a(href="http://opportunityiq.com/about") About
-									li: a(href="http://opportunityiq.com/contact") Contact
-									li: a(href="http://opiq.opportunityiq.com/login") Sign In
-						//- Column Two
-						div.col-md-4
-							h5 Smart Analysis.
-							h5 Smart Business.
-						//- Column Three
-						div.col-md-4
-							//- Empty.
-						div.col-md-12#copyright
-							p (C) 2014 Boldmore Growth Partners, LLC.
-		
-		//- JAVASCRIPT
+          #print.none
+          #report.none
+            .header
+              .content-header: .t: span.venture
+                .bob=analysis.title
+              h1 Congratulations! Your Analysis Is Complete.
+              small Below is the summary of your results.
+              input(type="hidden" name="percentComplete" id="percentComplete" value="0")
+            .innerbody
+              .stripe
+                .text Summary - Overall Opportunity Score
+                .box-score=main_total + '%'
+              .charts#overall-table
+                -var total = [];
+                each cat in categories
+                  each c in cat
+                    if typeof c.answer !== 'undefined' 
+                      - total.push(c.answer)
+                    
+                table.table
+                  thead
+                    tr
+                      th: div Analysis Score
+                      th: div
+                        span Needs Improvement
+                        span.right Excellent
+                      th: div: span Percent
+                table.table
+                  tr.overall-wrap
+                    td: div
+                      span.circle
+                      span.t Overall Opportunity
+                    td: div: .bar(percent=main_total): .bar-complete 50
+                    td: div: .percent: .num: span 100%
+              each category in categories.cats
+                .charts(id=category.split(' ').join('').replace(/\//, '-'))
+                  table.table
+                    tr.category-wrap(stat=category.split(' ').join('').replace(/\//, '-'))
+                      td.category: div
+                        span.circle
+                        span.t=category
+                      //- td: div: .bar(percent=_.pluck(categories[category], 'answer')): .bar-complete 50
+                      td: div: .bar(percent=cat_totals[category]): .bar-complete 50
+                      td: div: .percent: .num: span 50%
+                    each page in categories[category]
+                      tr.page-wrap(stat=category.split(' ').join('').replace(/\//, '-'), id=page._id)
+                        td.page: div
+                          .connected
+                          span.circle
+                          span.t=page.name
+                        td: div: .bar(percent=page.answer): .bar-complete 50
+                        td: div: .percent: .num: span 50%
+              //- .download-pdf
+              //-   a(href='print').large-main-button#get-pdf
+              //-     img(src="images/pdf.png")
+              //-     | Print Report
+              //- .download-pdf: form(action="print", method="post", target='_blank')
+              //-   if typeof analysis === 'object'
+              //-     input(type='hidden' name='analysis' value=analysis._id)
+              //-   else
+              //-     input(type='hidden' name='analysis' value=analysis)
+              //-   input(type="hidden" value=JSON.stringify(categories) name='categories')
+              //-   input(type="hidden" value=main_total name='total')
+              //-   a(target='_blank').large-main-button#get-pdf
+              //-     img(src="/images/pdf.png")
+              //-     | Print Report
+              .download-pdf: a(target='_blank', href='/report/'+analysis._id).large-main-button#get-pdf
+                img(src="/images/pdf.png")
+                | Print Report
+    block footer
+      div#footer-outer
+        div#footer-widgets
+          div.container
+            //- Column One
+            div.col-md-4
+              img(src="http://opportunityiq.com/wp-content/uploads/2014/07/logo-white.png")
+              ul.row
+                div.col-md-6
+                  li: a(href="http://opportunityiq.com") Home
+                  li: a(href="http://opportunityiq.com/pricing-page") Pricing
+                  li: a(href="http://opiq.opportunityiq.com") Get Started
+                div.col-md-6
+                  li: a(href="http://opportunityiq.com/about") About
+                  li: a(href="http://opportunityiq.com/contact") Contact
+                  li: a(href="http://opiq.opportunityiq.com/login") Sign In
+            //- Column Two
+            div.col-md-4
+              h5 Smart Analysis.
+              h5 Smart Business.
+            //- Column Three
+            div.col-md-4
+              //- Empty.
+            div.col-md-12#copyright
+              p (C) 2014 Boldmore Growth Partners, LLC.
+    
+    //- JAVASCRIPT
 
-		//- jQuery 1.11.0 is included by default, and required by both Bootstrap
-		//- and the KeystoneJS Content Editor. If you are not targeting IE8,
-		//- you can upgrade to 2.1.0 (also bundled) for better performance.
-		script(src='/js/lib/jquery/jquery-1.10.2.js')
+    //- jQuery 1.11.0 is included by default, and required by both Bootstrap
+    //- and the KeystoneJS Content Editor. If you are not targeting IE8,
+    //- you can upgrade to 2.1.0 (also bundled) for better performance.
+    script(src='/js/lib/jquery/jquery-1.10.2.js')
 
-		//- Customise which Bootstrap javascript files are served by including
-		//- them specifically here, instead of bootstrap-3.1.0.min.js
-		script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
+    //- Customise which Bootstrap javascript files are served by including
+    //- them specifically here, instead of bootstrap-3.1.0.min.js
+    script(src='/js/lib/bootstrap/bootstrap-3.1.0.min.js')
 
-		//- The KeystoneJS Content Editor provides support for ks-editable data attributes,
-		//- which generate links to edit content for users who can access Keystone
-		if user && user.canAccessKeystone
-			script(src='/keystone/js/content/editor.js')
+    //- The KeystoneJS Content Editor provides support for ks-editable data attributes,
+    //- which generate links to edit content for users who can access Keystone
+    if user && user.canAccessKeystone
+      script(src='/keystone/js/content/editor.js')
 
-		//- Add scripts that are globally required by your site here.
-		script(src="/js/scrollspy.js")
-		script(src="/js/main.js")
-		script.
-			$('#get-pdf').on('click', function(){$(this).parents('form').submit()});
-			$('#footer-outer').on('scrollSpy:enter', function() {
-				$('.download-pdf').css({
-					'position': 'absolute',
-					'width': '100%'	
-				})
-			});
+    //- Add scripts that are globally required by your site here.
+    script(src="/js/scrollspy.js")
+    script(src="/js/main.js")
+    script.
+      $('#get-pdf').on('click', function(){$(this).parents('form').submit()});
+      $('#footer-outer').on('scrollSpy:enter', function() {
+        $('.download-pdf').css({
+          'position': 'absolute',
+          'width': '100%' 
+        })
+      });
 
-			$('#footer-outer').on('scrollSpy:exit', function() {
-				$('.download-pdf').css({
-					'position': 'fixed',
-					'width': '85%'	
-				})
-			});
+      $('#footer-outer').on('scrollSpy:exit', function() {
+        $('.download-pdf').css({
+          'position': 'fixed',
+          'width': '85%'  
+        })
+      });
 
-			$('#footer-outer').scrollSpy();
-		//- Include template-specific javascript files by extending the js block
-		block js
+      $('#footer-outer').scrollSpy();
+    //- Include template-specific javascript files by extending the js block
+    block js
