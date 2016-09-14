@@ -7,8 +7,7 @@ exports = module.exports = function(req, res) {
 
 	// Set your secret key: remember to change this to your live secret key in production
 	// See your keys here https://manage.stripe.com/account
-	// stripe.setApiKey("sk_test_BQokikJOvBiI2HlWgH4olfQ2");
-	stripe.setApiKey("sk_live_cSlbqodvJ9gkpQ9030kwv46v");
+	// stripe.setApiKey("");
 
 	// (Assuming you're using express - expressjs.com)
 	// Get the credit card details submitted by the form
